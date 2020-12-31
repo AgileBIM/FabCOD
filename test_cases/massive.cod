@@ -1,0 +1,970 @@
+REM ******************************************************************************
+REM * Copyright (c) 2018-2020 by Darren J. Young. All Rights Reserved.           *
+REM *                                                                            *
+REM * This code is copyright material. Please read below for usage restrictions. *
+REM *                                                                            *
+REM * Use by all is granted free of charge. Redistribution of this code          *
+REM * outside your company is prohibited. You are encouraged to share this code  *
+REM * with others by providing others a link to where it may be downloaded...    *
+REM *                                                                            *
+REM *  - http://darenjyoung.com                                                  *
+REM *  - http://xtracad.com                                                      *
+REM *                                                                            *
+REM * Modifications to this code must include this complete notice.              *
+REM *----------------------------------------------------------------------------*
+REM *  Written By: Darren Young                                                  *
+REM *       Email: dyoung@mcwi.com                                               *
+REM *        Blog: http://darrenjyoung.com                                       *
+REM *    LinkedIn: http://linkedin.com/in/darren-young-83b24811                  *
+REM *----------------------------------------------------------------------------*
+REM *       SCOPE: Database Library ITMs                                         *
+REM * DESCRIPTION: Export ALL (Execpt PatNo) data from MAP database library      *
+REM *  PROPERTIES: item.patno                                                    *
+REM *              {library path root//relative path/file name.itm}              *
+REM ******************************************************************************
+
+REM #################################################
+REM ### Edit Path & Wildcard Restrictions - Below ###
+REM #################################################
+
+dim PathRoot = mappath_items
+dim PathWild = "*"
+dim FileWild = "*"
+dim DataFileName01 = mappath_items + "/" + "WriteLibAirTurns.Txt"
+dim DataFileName02 = mappath_items + "/" + "WriteLibAlias.Txt"
+dim DataFileName03 = mappath_items + "/" + "WriteLibAlternates.Txt"
+dim DataFileName04 = mappath_items + "/" + "WriteLibBMPs.Txt"
+dim DataFileName05 = mappath_items + "/" + "WriteLibBoughtOut.Txt"
+
+dim DataFileName06 = mappath_items + "/" + "WriteLibBoughtOut&CutType.Txt"
+dim DataFileName07 = mappath_items + "/" + "WriteLibBox.Txt"
+dim DataFileName08 = mappath_items + "/" + "WriteLibButtonCode&Alias.Txt"
+dim DataFileName09 = mappath_items + "/" + "WriteLibCADBlocks.Txt"
+dim DataFileName10 = mappath_items + "/" + "WriteLibCatalogue.Txt"
+
+dim DataFileName11 = mappath_items + "/" + "WriteLibCIDs.Txt"
+dim DataFileName12 = mappath_items + "/" + "WriteLibComments.Txt"
+dim DataFileName13 = mappath_items + "/" + "WriteLibConnectors.Txt"
+dim DataFileName14 = mappath_items + "/" + "WriteLibCosts.Txt"
+dim DataFileName15 = mappath_items + "/" + "WriteLibCustomData.Txt"
+
+dim DataFileName16 = mappath_items + "/" + "WriteLibCutTypes.Txt"
+dim DataFileName17 = mappath_items + "/" + "WriteLibDampers.Txt"
+dim DataFileName18 = mappath_items + "/" + "WriteLibDatabaseIDs.Txt"
+dim DataFileName19 = mappath_items + "/" + "WriteLibDecoiler.Txt"
+dim DataFileName20 = mappath_items + "/" + "WriteLibDescriptions.Txt"
+
+dim DataFileName21 = mappath_items + "/" + "WriteLibDims.Txt"
+dim DataFileName22 = mappath_items + "/" + "WriteLibDoubleWall.Txt"
+dim DataFileName23 = mappath_items + "/" + "WriteLibDrawings.Txt"
+dim DataFileName24 = mappath_items + "/" + "WriteLibETag.Txt"
+dim DataFileName25 = mappath_items + "/" + "WriteLibFacings.Txt"
+
+dim DataFileName26 = mappath_items + "/" + "WriteLibFilePath&Names.Txt"
+dim DataFileName27 = mappath_items + "/" + "WriteLibFixRelaties.Txt"
+dim DataFileName28 = mappath_items + "/" + "WriteLibGuid.Txt"
+dim DataFileName29 = mappath_items + "/" + "WriteLibHandle.Txt"
+dim DataFileName30 = mappath_items + "/" + "WriteLibHasProducts.Txt"
+
+dim DataFileName31 = mappath_items + "/" + "WriteLibHyperlinks.Txt"
+dim DataFileName32 = mappath_items + "/" + "WriteLibInsulations.Txt"
+dim DataFileName33 = mappath_items + "/" + "WriteLibLibraries.Txt"
+dim DataFileName34 = mappath_items + "/" + "WriteLibLifespan.Txt"
+dim DataFileName35 = mappath_items + "/" + "WriteLibMaterials.Txt"
+
+dim DataFileName36 = mappath_items + "/" + "WriteLibNestPriorities.Txt"
+dim DataFileName37 = mappath_items + "/" + "WriteLibNotes.Txt"
+dim DataFileName38 = mappath_items + "/" + "WriteLibNumbers.Txt"
+dim DataFileName39 = mappath_items + "/" + "WriteLibOperatingcost.Txt"
+dim DataFileName40 = mappath_items + "/" + "WriteLibOptions.Txt"
+
+dim DataFileName41 = mappath_items + "/" + "WriteLibOrders.Txt"
+dim DataFileName42 = mappath_items + "/" + "WriteLibOwnership.Txt"
+dim DataFileName43 = mappath_items + "/" + "WriteLibPallets.Txt"
+dim DataFileName44 = mappath_items + "/" + "WriteLibPartsCut.Txt"
+dim DataFileName45 = mappath_items + "/" + "WriteLibPatNo.Txt"
+
+dim DataFileName46 = mappath_items + "/" + "WriteLibProductInfo.Txt"
+dim DataFileName47 = mappath_items + "/" + "WriteLibProductLists.Txt"
+dim DataFileName48 = mappath_items + "/" + "WriteLibQuantities.Txt"
+dim DataFileName49 = mappath_items + "/" + "WriteLibScales.Txt"
+dim DataFileName50 = mappath_items + "/" + "WriteLibSealant.Txt"
+
+dim DataFileName51 = mappath_items + "/" + "WriteLibSeams.Txt"
+dim DataFileName52 = mappath_items + "/" + "WriteLibSections.Txt"
+dim DataFileName53 = mappath_items + "/" + "WriteLibServices.Txt"
+dim DataFileName54 = mappath_items + "/" + "WriteLibServiceTypes.Txt"
+dim DataFileName55 = mappath_items + "/" + "WriteLibSkinConnectors.Txt"
+
+dim DataFileName56 = mappath_items + "/" + "WriteLibSkinDecoiler.Txt"
+dim DataFileName57 = mappath_items + "/" + "WriteLibSkinMaterial.Txt"
+dim DataFileName58 = mappath_items + "/" + "WriteLibSkinSeams.Txt"
+dim DataFileName59 = mappath_items + "/" + "WriteLibSpecifications.Txt"
+dim DataFileName60 = mappath_items + "/" + "WriteLibSplitters.Txt"
+
+dim DataFileName61 = mappath_items + "/" + "WriteLibSpools.Txt"
+dim DataFileName62 = mappath_items + "/" + "WriteLibStatus.Txt"
+dim DataFileName63 = mappath_items + "/" + "WriteLibStiffeners.Txt"
+dim DataFileName64 = mappath_items + "/" + "WriteLibSubItems.Txt"
+dim DataFileName65 = mappath_items + "/" + "WriteLibSupports.Txt"
+
+dim DataFileName66 = mappath_items + "/" + "WriteLibTypes.Txt"
+dim DataFileName67 = mappath_items + "/" + "WriteLibWeight.Txt"
+dim DataFileName68 = mappath_items + "/" + "WriteLibZones.Txt"
+
+REM #################################################
+REM ### Edit Path & Wildcard Restrictions - Above ###
+REM #################################################
+REM ###        Edit Export Header - Below         ###
+REM #################################################
+
+function WriteHeader (fobj)
+  REM ** AirTurns **
+  fobj[1].writeline("PATTERN #,ITEM NAME,NUM (of),QTY,AIRTURN NAME,LOCKED")
+  REM ** Alias **
+  fobj[2].writeline("PATTERN #,ITEM NAME,ALIAS")
+  REM ** Alternate **
+  fobj[3].writeline("PATTERN #,ITEM NAME,ALTERNATE")
+  REM ** BMP **
+  fobj[4].writeline("PATTERN #,ITEM NAME,BITMAP")
+  REM **BoughtOut **
+  fobj[5].writeline("PATTERN #,ITEM NAME,BOUGHTOUT")
+
+  REM ** BoughtOut&CutType **
+  fobj[6].writeline("PATTERN #,ITEM NAME,BOUGHTOUT,CUT TYPE")
+  REM ** Box **
+  fobj[7].writeline("PATTERN #,ITEM NAME,BOX")
+  REM ** ButtonCode&Alias **
+  fobj[8].writeline("PATTERN #,ITEM NAME,BUTTON CODE,BUTTON ALIAS")
+  REM ** CADBlocks **
+  fobj[9].writeline("PATTERN #,ITEM NAME,CAD BLOCK")
+  REM ** Catalogue **
+  fobj[10].writeline("PATTERN #,ITEM NAME,CATALOGUE")
+
+  REM ** CID **
+  fobj[11].writeline("PATTERN #,ITEM NAME,CID")
+  REM ** Comments **
+  fobj[12].writeline("PATTERN #,ITEM NAME,COMMENT")
+  REM ** Connectors **
+  fobj[13].writeline("PATTERN #,ITEM NAME,NUM (of),QTY,GROUP,CONNECTOR,TYPE,LOCKED,ALT,MATERIAL")
+  REM ** Costs **
+  fobj[14].writeline("PATTERN #,ITEM NAME,COST TYPE,COST BY LENGTH,M-TABLE,M-TABLE LOCK,E-TABLE,E-TABLE LOCK,EXTRA E-TIME, EXTRA E-TIME RATE, EXTRA E-TIME UNITS, F-TABLE, F-TABLE LOCK, EXTRA F-TABLE TIME, EXTRA F-TABLE RATE, EXTRA F-TABLE UNITS")
+  REM ** CustomData **
+  fobj[15].writeline("PATTERN #,ITEM NAME,VALUE,ID")
+
+  REM ** CutTypes **
+  fobj[16].writeline("PATTERN #,ITEM NAME,CUT TYPE")
+  REM ** Dampers **
+  fobj[17].writeline("PATTERN #,ITEM NAME,NUM (of),QTY,DAMPER,LOCKED")
+  REM ** DatabaseID **
+  fobj[18].writeline("PATTERN #,ITEM NAME,NUM (of), QTY,PRODUCT NAME,PRODUCT ORDER,PRODUCT DATABASE ID")
+  REM ** Decoiler **
+  fobj[19].writeline("PATTERN #,ITEM NAME,COILWIDTH,STDQTY,STDLENGTH,SMALLLENGTH,BEADING")
+  REM ** Descriptions **
+  fobj[20].writeline("PATTERN #,ITEM NAME,DESCRIPTION")
+
+  REM ** Dims **
+  fobj[21].writeline("PATTERN #,ITEM NAME,NUM (of),QTY,NAME,VALUE,NUMERIC VALUE,STATUS,ANNOTATION,DOUBLEWALL,DIM SIDE,LOCKED")
+  REM ** DoubleWall **
+  fobj[22].writeline("PATTERN #,ITEM NAME,DOUBLE WALL,DW LOCK,DIMSIDE,DIMSIDELOCK")
+  REM ** Drawings **
+  fobj[23].writeline("PATTERN #,ITEM NAME,DRAWING")
+  REM ** E-Tag **
+  fobj[24].writeline("PATTERN #,ITEM NAME,E-TAG")
+  REM ** Facings **
+  fobj[25].writeline("PATTERN #,ITEM NAME,FACING,FACINGLOCK")
+
+  REM ** FilePath&Names **
+  fobj[26].writeline("PATTERN #,ITEM NAME,FILE PATH,FILE NAME")
+  REM ** FixRelaties **
+  fobj[27].writeline("PATTERN #,ITEM NAME,FIX RELATIVE")
+  REM ** Guid **
+  fobj[28].writeline("PATTERN #,ITEM NAME,GUID,GUID64")
+  REM ** Handle **
+  fobj[29].writeline("PATTERN #,ITEM NAME,HANDLE")
+  REM ** HasProducts **
+  fobj[30].writeline("PATTERN #,ITEM NAME,HAS PRODUCTS")
+
+  REM ** Hyperlinks **
+  fobj[31].writeline("PATTERN #,ITEM NAME,NUM (of), QTY, HYPERLINK,DESCRIPTION,PARAMETER")
+  REM ** Insulation **
+  fobj[32].writeline("PATTERN #,ITEM NAME,INSULATION MATERIAL,MATERIAL LOCK, INSULATION GAUGE,INSULATION STATUS,FACING,INSUALTION SPEC,INSUALTION SPECLOCK")
+  REM ** Library **
+  fobj[33].writeline("PATTERN #,ITEM NAME,LIBRARY")
+  REM ** Lifespan **
+  fobj[34].writeline("PATTERN #,ITEM NAME,LIFESPAN")
+  REM ** Material **
+  fobj[35].writeline("PATTERN #,ITEM NAME,MATERIAL,MATABRV,BY LENGTH,WEIGHT,WEIGHT LOCK,WIRE GAUGE,SIZE,LOCKED")
+
+  REM ** NestPriority **
+  fobj[36].writeline("PATTERN #,ITEM NAME,NEST PRIORITY")
+  REM ** Notes **
+  fobj[37].writeline("PATTERN #,ITEM NAME,NOTES")
+  REM ** Number **
+  fobj[38].writeline("PATTERN #,ITEM NAME,NUMBER")
+  REM ** Operatingcost **
+  fobj[39].writeline("PATTERN #,ITEM NAME,OPERATINGCOST")
+  REM ** Options **
+  fobj[40].writeline("PATTERN #,ITEM NAME,NUM (of),QTY,NAME,VALUE,STATUS,LOCKED")
+
+  REM ** Order **
+  fobj[41].writeline("PATTERN #,ITEM NAME,ORDER")
+  REM ** Ownership **
+  fobj[42].writeline("PATTERN #,ITEM NAME,OWNER, VERSION,CHANGED,HISTORY")
+  REM ** Pallet **
+  fobj[43].writeline("PATTERN #,ITEM NAME,PALLET")
+  REM ** PartsCut **
+  fobj[44].writeline("PATTERN #,ITEM NAME,NUM (of),QTY,PARTCUT")
+  REM ** PatNo **
+  fobj[45].writeline("PATTERN #,ITEM NAME")
+  REM ** ProductInfo **
+
+  fobj[46].writeline("PATTERN #,ITEM NAME,PRODUCT ENTRIES,HAS DIMS,HAS OPTIONS,HAS ORDER,HAS WEIGHT,HAS DATABASEID,HAS CADBLOCK,HAS BOUGHTOUT,HAS ALIAS,HAS AREA,HASCUSTOMDATAS,PRODUCT LIST REVISION")
+  REM ** ProductList **
+  fobj[47].writeline("PATTERN #,ITEM NAME,NUM (of), QTY,PRODUCT NAME,PRODUCT ORDER,PRODUCT DATABASE ID")
+  REM ** Quantity **
+  fobj[48].writeline("PATTERN #,ITEM NAME,QUANTITY")
+  REM ** Scale **
+  fobj[49].writeline("PATTERN #,ITEM NAME,SCALE")
+  REM ** Sealant **
+  fobj[50].writeline("PATTERN #,ITEM NAME,TYPE,VALUE,LOCKED")
+
+  REM ** Seams **
+  fobj[51].writeline("PATTERN #,ITEM NAME,NUM (of),QTY,SEAM,LOCKED,ALT")
+  REM ** Section **
+  fobj[52].writeline("PATTERN #,ITEM NAME,SECTION")
+  REM ** Service **
+  fobj[53].writeline("PATTERN #,ITEM NAME,SERVICE")
+  REM ** ServiceType **
+  fobj[54].writeline("PATTERN #,ITEM NAME,SERVICE TYPE")
+  REM ** SkinConnector **
+  fobj[55].writeline("PATTERN #,ITEM NAME,INDEX,CONNECTOR,TYPE,GROUP,LOCKED,ALT")
+
+  REM ** SkinDecoiler **
+  fobj[56].writeline("PATTERN #,ITEM NAME,COILWIDTH,STDQTY,STDLENGTH,SMALLLENGTH,BEADING")
+  REM ** SkinMaterial **
+  fobj[57].writeline("PATTERN #,ITEM NAME,SKIN MATERIAL,SKIN GAUGE,SKIN SIDE,SKIN MATERIAL LOCK")
+  REM ** SkinSeams **
+  fobj[58].writeline("PATTERN #,ITEM NAME,INDEX,SEAM,LOCKED,ALT")
+  REM ** Specification **
+  fobj[59].writeline("PATTERN #,ITEM NAME,SPECIFICATION,LOCKED")
+  REM ** Splitters **
+  fobj[60].writeline("PATTERN #,ITEM NAME,NUM (of),QTY,SPLITTER,LOCKED")
+
+  REM ** Spool **
+  fobj[61].writeline("PATTERN #,ITEM NAME,SPOOL,COLOR")
+  REM ** Status **
+  fobj[62].writeline("PATTERN #,ITEM NAME,CURRENT STATUS,MANY OLD STATUS,OLDSTATUS ID,OLDSTATUS VALUE,OLDSTATUS USERID,OLDSTATUS DATETIME")
+  REM ** Stiffeners **
+  fobj[63].writeline("PATTERN #,ITEM NAME,NUM (of),QTY,STIFFENER,SPACING,QTY REQUIRED,LOCKED")
+  REM ** SubItems **
+  fobj[64].writeline("PATTERN #,ITEM NAME,# (of), QTY,SUBITEM PATH,SUBITEM NAME")
+  REM ** Supports **
+  fobj[65].writeline("PATTERN #,ITEM NAME,SUPPORT,SPACING,QTY REQUIRED,LOCKED")
+
+  REM ** Type **
+  fobj[66].writeline("PATTERN #,ITEM NAME,TYPE")
+  REM ** Weight **
+  fobj[67].writeline("PATTERN #,ITEM NAME,WEIGHT")
+  REM ** Zone **
+  fobj[68].writeline("PATTERN #,ITEM NAME,ZONE")
+
+end function
+
+REM #################################################
+REM ###       Edit Export Header - Above          ###
+REM #################################################
+REM ###        Edit Export Data - Below           ###
+REM #################################################
+
+function WriteData (fobj, fname, propstr)
+  dim Item as itemstruct
+  dim Loop
+  dim iLockO
+  dim iLockV
+  dim iLockH
+  dim iLockC
+  dim iLockI
+  dim bFlag
+  dim SealVal
+  dim SealLok
+  dim ExitFlag
+
+  if Item.load(fname) then
+
+    REM ** AirTurns **
+    if Item.airturns>0 then
+      for Loop=1 to Item.airturns
+        fobj[1].writeline(Item.patno + "," + fname + "," + Loop + "," + Item.airturns + "," + Item.airturn[Loop].Value + "," + Item.airturn[Loop].locked)
+      next Loop
+    else
+        fobj[1].writeline(Item.patno + "," + fname + ",0,0,N/A,N/A")
+    endif
+
+    REM ** Alias **
+    fobj[2].writeline(Item.patno + "," + fname + "," + Item.alias)
+
+    REM ** Alternate **
+    fobj[3].writeline(Item.patno + "," + fname + "," + Item.alternate)
+
+    REM ** BMP **
+    fobj[4].writeline(Item.patno + "," + fname + "," + Item.bitmap)
+
+    REM ** BoughtOut **
+    fobj[5].writeline(Item.patno + "," + fname + "," + Item.boughtout)
+
+    REM ** BoughtOut&CutType **
+    fobj[6].writeline(Item.patno + "," + fname + "," + Item.boughtout + "," + Item.cuttype)
+
+    REM ** Box **
+    fobj[7].writeline(Item.patno + "," + fname + "," + Item.box)
+
+    REM ** ButtonCode&Alias **
+    fobj[8].writeline(Item.patno + "," + fname + "," + Item.buttoncode + "," + Item.buttonalias)
+
+    REM ** CADBlocks **
+    fobj[9].writeline(Item.patno + "," + fname + "," + Item.cadblock)
+
+    REM ** Catalogue **
+    fobj[10].writeline(Item.patno + "," + fname + "," + Item.catalogue)
+
+    REM ** CID **
+    fobj[11].writeline(Item.patno + "," + fname + "," + Item.cid)
+
+    REM ** Comments **
+    fobj[12].writeline(Item.patno + "," + fname + "," + Item.comment)
+
+    REM ** Connectors **
+    if Item.connectors>0 then
+      for Loop=1 to Item.Connectors
+        if Item.patno = 522 or Item.patno=1522 or Item.patno=2522 then
+          if Item.connector[Loop].material="Error" then
+            fobj[13].writeline(Item.patno + "," + fname + "," + Loop + "," + Item.connectors + "," + Item.connector[Loop].group + "," + Item.connector[Loop].value + "," + Item.connector[Loop].type + "," + Item.connector[Loop].locked + "," + Item.connector[Loop].alt + "," + "None")
+          else
+            fobj[13].writeline(Item.patno + "," + fname + "," + Loop + "," + Item.connectors + "," + Item.connector[Loop].group + "," + Item.connector[Loop].value + "," + Item.connector[Loop].type + "," + Item.connector[Loop].locked + "," + Item.connector[Loop].alt + "," + Item.connector[Loop].material)
+          endif
+        else
+          fobj[13].writeline(Item.patno + "," + fname + "," + Loop + "," + Item.connectors + "," + Item.connector[Loop].group + "," + Item.connector[Loop].value + "," + Item.connector[Loop].type + "," + Item.connector[Loop].locked + "," + Item.connector[Loop].alt + "," + "N/A")
+        endif
+      next Loop
+    else
+      fobj[13].writeline(Item.patno + "," + fname + ",0,0,N/A,N/A,N/A,N/A,N/A,N/A")
+    endif
+
+    REM ** Costs **
+    fobj[14].writeline(Item.patno + "," + fname + "," + Item.costtype + "," + Item.costbylength + "," + Item.pricelist + "," + Item.pricetablelock + "," + Item.installtable + "," + Item.installtablelock + "," + Item.extraetime + "," + Item.extraetimerate + "," + Item.extraetimeunits + "," + Item.fabtable + "," + Item.fabtablelock + "," + Item.extraftime + "," + Item.extraftimerate + "," + Item.extraftimeunits)
+
+    REM ** CustomData **
+    for Loop=1 to 1000
+      if Item.customdata[Loop] then
+        fobj[15].writeline(Item.patno + "," + fname + "," + Item.customdata[Loop].value + "," + Item.customdata[Loop].id)
+      endif
+    next Loop
+
+    REM ** CutTypes **
+    fobj[16].writeline(Item.patno + "," + fname + "," + Item.cuttype)
+
+    REM ** Dampers **
+    if Item.dampers>0 then
+      for Loop=1 to Item.dampers
+        fobj[17].writeline(Item.patno + "," + fname + "," + Loop + "," + Item.dampers + "," + Item.damper[Loop].value + "," + Item.damper[Loop].locked)
+      next Loop
+    else
+        fobj[17].writeline(Item.patno + "," + fname + ",0,0,N/A,N/A")
+    endif
+
+    REM ** DatabaseID **
+    if Item.hasproduct=1 then
+      for Loop = 1 to Item.product.entries
+        fobj[18].writeline(Item.patno + "," + fname + "," + Loop + "," + Item.product.entries + "," + Item.product.entry[Loop].name + "," + Item.product.entry[Loop].order + "," + Item.product.entry[Loop].databaseid)
+      next Loop
+    else
+      fobj[18].writeline(Item.patno + "," + fname + "," + "1" + "," + "1" + "," + Item.description + "," + Item.order + "," + Item.databaseid)
+    endif
+
+    REM ** Decoiler **
+    if Item.decoiler then
+      fobj[19].writeline(Item.patno + "," + fname + "," + Item.decoiler.coilwidth + "," + Item.decoiler.stdqty + "," + Item.decoiler.stdlength + "," + Item.decoiler.smalllength + "," + Item.decoiler.beading)
+    endif
+
+    REM ** Descriptions **
+    fobj[20].writeline(Item.patno + "," + fname + "," + Item.description)
+
+    REM ** Dims **
+    for Loop=1 to Item.dims
+      fobj[21].writeline(Item.patno + "," + fname + "," + Loop + "," + Item.dims + "," + Item.dim[Loop].name + "," + Item.dim[Loop].value + "," + Item.dim[Loop].numvalue + "," + Item.dim[Loop].status + "," + Item.dim[Loop].annotation + "," + Item.doublewall + "," + Item.dimside + "," + Item.dim[Loop].locked)
+    next Loop
+
+    REM ** DoubleWall **
+    fobj[22].writeline(Item.patno + "," + fname + "," + Item.doublewall + "," + Item.dwlock + "," + Item.dimside + "," + Item.dimsidelock)
+
+    REM ** Drawings **
+    fobj[23].writeline(Item.patno + "," + fname + "," + Item.drawing)
+
+    REM ** E-Tag **
+    fobj[24].writeline(Item.patno + "," + fname + "," + Item.etag)
+
+    REM ** Facings **
+    fobj[25].writeline(Item.patno + "," + fname + "," + Item.facing + "," + Item.facinglock)
+
+    REM ** FilePath&Names **
+    fobj[26].writeline(Item.patno + "," + fname + "," + Item.path + "," + Item.filename)
+
+    REM ** FixRelaties **
+    fobj[27].writeline(Item.patno + "," + fname + "," + Item.fixrelative)
+
+    REM ** Guid **
+    fobj[28].writeline(Item.patno + "," + fname + "," + Item.guid + "," + Item.guid64)
+
+    REM ** Handle **
+    fobj[29].writeline(Item.patno + "," + fname + "," + Item.handle)
+
+    REM ** HasProducts **
+    fobj[30].writeline(Item.patno + "," + fname + "," + Item.hasproduct)
+
+    REM ** Hyperlinks **
+    if Item.links>0 then
+      for Loop=1 to Item.links
+        fobj[31].writeline(Item.patno + "," + fname + "," + Loop + "," + Item.links + "," + Item.link[Loop].target + "," + Item.link[Loop].name + "," + Item.link[Loop].params)
+      next Loop
+    else
+      fobj[31].writeline(Item.patno + "," + fname + ",0,0,N/A,N/A,N/A")
+    endif
+
+    REM ** Insulation **
+    fobj[32].writeline(Item.patno + "," + fname + "," + Item.insulation.material + "," + Item.insulation.materiallock + "," + Item.insulation.gauge + "," + Item.insulation.status + "," + Item.insulation.facing + "," + Item.insspec + "," + Item.ispeclock)
+
+    REM ** Library **
+    select Item.patno
+    case 0
+      fobj[33].writeline(Item.patno + "," + fname + ",Library Property Error on PATTERN 0. 'Library' or 'Profiled' is assumed.")
+    case 998
+      fobj[33].writeline(Item.patno + "," + fname + ",Library Property Error on PATTERN 998. 'Profiled' is assumed.")
+    case 999
+      fobj[33].writeline(Item.patno + "," + fname + ",Library Property Error on PATTERN 999. 'Free Entry' is assumed.")
+    case 1107
+      fobj[33].writeline(Item.patno + "," + fname + ",Library Property Error on PATTERN 1107. 'Structure' is assumed.")
+    case 1135
+      fobj[33].writeline(Item.patno + "," + fname + ",Library Property Error on PATTERN 1135. 'Structure' is assumed.")
+    case 1152
+      fobj[33].writeline(Item.patno + "," + fname + ",Library Property Error on PATTERN 1152. 'Structure' is assumed.")
+    case 1156
+      fobj[33].writeline(Item.patno + "," + fname + ",Library Property Error on PATTERN 1156. 'Structure' is assumed.")
+    case 1157
+      fobj[33].writeline(Item.patno + "," + fname + ",Library Property Error on PATTERN 1157. 'Structure' is assumed.")
+    case 1158
+      fobj[33].writeline(Item.patno + "," + fname + ",Library Property Error on PATTERN 1158. 'Structure' is assumed.")
+    case 1160
+      fobj[33].writeline(Item.patno + "," + fname + ",Library Property Error on PATTERN 1160. 'Structure' is assumed.")
+    case 1161
+      fobj[33].writeline(Item.patno + "," + fname + ",Library Property Error on PATTERN 1161. 'Structure' is assumed.")
+    case 1162
+      fobj[33].writeline(Item.patno + "," + fname + ",Library Property Error on PATTERN 1162. 'Structure' is assumed.")
+    case 1164
+      fobj[33].writeline(Item.patno + "," + fname + ",Library Property Error on PATTERN 1164. 'Structure' is assumed.")
+    case 1165
+      fobj[33].writeline(Item.patno + "," + fname + ",Library Property Error on PATTERN 1165. 'Furniture' is assumed.")
+    case 1169
+      fobj[33].writeline(Item.patno + "," + fname + ",Library Property Error on PATTERN 1169. 'Structure' is assumed.")
+    case 1170
+      fobj[33].writeline(Item.patno + "," + fname + ",Library Property Error on PATTERN 1170. 'Structure' is assumed.")
+    case 1174
+      fobj[33].writeline(Item.patno + "," + fname + ",Library Property Error on PATTERN 1174. 'Structure' is assumed.")
+    case 1176
+      fobj[33].writeline(Item.patno + "," + fname + ",Library Property Error on PATTERN 1176. 'Structure' is assumed.")
+    case 1185
+      fobj[33].writeline(Item.patno + "," + fname + ",Library Property Error on PATTERN 1185. 'Structure' is assumed.")
+    case 1186
+      fobj[33].writeline(Item.patno + "," + fname + ",Library Property Error on PATTERN 1186. 'Structure' is assumed.")
+    case 1187
+      fobj[33].writeline(Item.patno + "," + fname + ",Library Property Error on PATTERN 1187. 'Structure' is assumed.")
+    case 1188
+      fobj[33].writeline(Item.patno + "," + fname + ",Library Property Error on PATTERN 1188. 'Structure' is assumed.")
+    case 2199
+      fobj[33].writeline(Item.patno + "," + fname + ",Library Property Error on PATTERN 2199. 'Unknown'.")
+    case else
+      fobj[33].writeline(Item.patno + "," + fname + "," + Item.library)
+    end select
+
+    REM ** Lifespan **
+    fobj[34].writeline(Item.patno + "," + fname + "," + Item.lifespan)
+
+    REM ** Material **
+    fobj[35].writeline(Item.patno + "," + fname + "," + Item.material + "," + Item.matabrv + "," + Item.costbylength + "," + Item.weight + "," + Item.weightlock + "," + Item.wiregauge + "," + Item.gauge + "," + Item.gaugelock)
+
+    REM ** NestPriority **
+    fobj[36].writeline(Item.patno + "," + fname + "," + Item.nestpriority)
+
+    REM ** Notes **
+    fobj[37].writeline(Item.patno + "," + fname + "," + Item.notes)
+
+    REM ** Number **
+    fobj[38].writeline(Item.patno + "," + fname + "," + Item.number)
+
+    REM ** Operatingcost **
+    fobj[39].writeline(Item.patno + "," + fname + "," + Item.operatingcost)
+
+    REM ** Options **
+    for Loop=1 to Item.options
+      fobj[40].writeline(Item.patno + "," + fname + "," + Loop + "," + Item.options + "," + Item.option[Loop].name + "," + Item.option[Loop].value + "," + Item.option[Loop].status + "," + Item.option[Loop].locked)
+    next Loop
+
+    REM ** Order**
+    fobj[41].writeline(Item.patno + "," + fname + "," + Item.order)
+
+    REM ** Ownership **
+    iLockO = NULL
+    iLockV = NULL
+    iLockH = NULL
+    iLockC = NULL
+    iLockI = NULL
+    bflag = NULL
+
+    if Item.dblock.version>0 then
+      bflag = True
+      iLockO = Item.dblock.owner
+      iLockV = Item.dblock.version
+      iLockH = Item.dblock.history
+      iLockC = Item.dblock.history.changed
+      iLockI = Item.dblock.history.info
+    else
+      bflag = False
+      iLockO = Item.dblock.owner
+      iLockV = Item.dblock.version
+      iLockH = "N/A"
+      iLockC = "N/A"
+      iLockI = "N/A"
+    endif
+
+    fobj[42].writeline(Item.patno + "," + fname + "," + iLockO + "," + iLockV + "," + iLockC + "," + iLockI)
+
+    do
+      if bflag = True then
+ 
+        iLockO = iLockH.owner
+        iLockV = iLockH.version
+        iLockH = iLockH.history
+        if iLockv = 0 then
+          iLockC = "N/A"
+          iLockI = "N/A"
+        else
+          iLockC = iLockH.changed
+          iLockI = iLockH.info
+        endif
+
+        fobj[42].writeline(Item.patno + "," + fname + "," + iLockO + "," + iLockV + "," + iLockC + "," + iLockI)
+
+      endif
+    loop while iLockv > 0
+
+    REM ** Pallet **
+    fobj[43].writeline(Item.patno + "," + fname + "," + Item.pallet)
+
+    REM ** PartsCut **
+    if Item.partscut>0 then
+      for Loop=1 to Item.partscut
+        fobj[44].writeline(Item.patno + "," + fname + "," + Loop + "," + Item.partscut + "," + Item.partcut[Loop])
+      next Loop
+    else
+      fobj[44].writeline(Item.patno + "," + fname + ",0,0,N/A")
+    endif
+
+    REM ** PatNo **
+    fobj[45].writeline(Item.patno + "," + fname)
+
+    REM ** ProductInfo **
+    if Item.hasproduct = 1 then
+      fobj[46].writeline(Item.patno + "," + fname + "," + Item.product.entries + "," + Item.product.hasdims + "," + Item.product.hasoptions + "," + Item.product.hasorder + "," + Item.product.hasweight + "," + Item.product.hasdatabaseid + "," + Item.product.hascadblock + "," + Item.product.hasboughtout + "," + Item.product.hasalias + "," + Item.product.hasarea + "," + Item.product.hascustomdatas + "," + Item.product.revision)
+    endif
+
+    REM ** ProductList **
+    if Item.hasproduct = 1 then
+      for Loop = 1 to Item.product.entries
+        fobj[47].writeline(Item.patno + "," + fname + "," + Loop + "," + Item.product.entries + "," + Item.product.entry[Loop].name + "," + Item.product.entry[Loop].order + "," + Item.product.entry[Loop].databaseid)
+      next Loop
+    endif
+
+    REM ** Quantity **
+    fobj[48].writeline(Item.patno + "," + fname + "," + Item.qty)
+
+    REM ** Scale **
+    fobj[49].writeline(Item.patno + "," + fname + "," + Item.scale)
+
+    REM ** Sealant **
+    ExitFlag=0
+
+    REM ** If Sealant Property, Read Values **
+    while item.sealant and ExitFlag=0
+      SealVal = item.sealant.value
+      SealLok = item.sealant.locked
+      ExitFlag=1
+    endwhile
+
+    REM ** If No Sealant Property, List N/A **
+    if ExitFlag=0 then
+      SealVal = "N/A"
+      SealLok = "N/A"
+    end if
+    fobj[50].writeline(Item.patno + "," + fname + "," + Item.type + "," + sealval + "," + seallok)
+
+    REM ** Seams **
+    for Loop=1 to Item.Seams
+      fobj[51].writeline(Item.patno + "," + fname + "," + Loop + "," + Item.seams + "," + Item.seam[Loop].Value + "," + Item.seam[Loop].locked + "," + Item.seam[Loop].alt)
+    next Loop
+
+    REM ** Section **
+    fobj[52].writeline(Item.patno + "," + fname + "," + Item.section)
+
+    REM ** Service **
+    fobj[53].writeline(Item.patno + "," + fname + "," + Item.service)
+
+    REM ** ServiceType **
+    fobj[54].writeline(Item.patno + "," + fname + "," + Item.servicetype)
+
+    REM ** SkinConnector **
+    Loop = 1
+    while Item.skinconnector[Loop]
+      fobj[55].writeline(Item.patno + "," + fname + "," + Loop + "," + Item.skinconnector[Loop].value + "," + Item.skinconnector[Loop].type + "," + Item.skinconnector[Loop].group + "," + Item.skinconnector[Loop].locked + "," + Item.skinconnector[Loop].alt)
+      Loop = Loop + 1
+    endwhile
+
+    REM ** SkinDecoiler **
+    if Item.skindecoiler then
+      fobj[56].writeline(Item.patno + "," + fname + "," + Item.skindecoiler.coilwidth + "," + Item.skindecoiler.stdqty + "," + Item.skindecoiler.stdlength + "," + Item.skindecoiler.smalllength + "," + Item.skindecoiler.beading)
+    endif
+
+    REM ** SkinMaterial **
+    if Item.skinmaterial <> "error" then
+      fobj[57].writeline(Item.patno + "," + fname + "," + Item.skinmaterial + "," + Item.skingauge + "," + Item.skinside + "," + Item.skinmaterial)
+    endif
+
+    REM ** SkinSeams **
+    Loop = 1
+    while Item.skinseam[Loop]
+      fobj[58].writeline(Item.patno + "," + fname + "," + Loop + "," + Item.skinseam[Loop].value + "," + Item.skinseam[Loop].locked + "," + Item.skinseam[Loop].alt)
+      Loop = Loop + 1
+    endwhile
+
+    REM ** Specification **
+    fobj[59].writeline(Item.patno + "," + fname + "," + Item.specification + "," + Item.speclock)
+
+    REM ** Splitters **
+    for Loop=1 to Item.Splitters
+      fobj[60].writeline(Item.patno + "," + fname + "," + Loop + "," + Item.Splitters + "," + Item.splitter[Loop].value + "," + Item.splitter[Loop].locked)
+    next Loop
+
+    REM ** Spool **
+    fobj[61].writeline(Item.patno + "," + fname + "," + Item.spool + "," + Item.spoolcolour)
+
+    REM ** Status **
+    for Loop=1 to Item.manyoldstatus
+      fobj[62].writeline(Item.patno + "," + fname + "," + Item.status + "," + Item.manyoldstatus + "," + Item.oldstatus[Loop].id + "," + Item.oldstatus[Loop].value + "," + Item.oldstatus[Loop].userid + "," + Item.oldstatus[Loop].datetime)
+    next Loop
+
+    REM ** Stiffeners **
+    for Loop=1 to Item.stiffeners
+      fobj[63].writeline(Item.patno + "," + fname + "," + Loop + "," + Item.stiffeners + "," + Item.stiffener[Loop].value + "," + Item.stiffener[Loop].spacing + "," + Item.stiffener[Loop].qty + "," + Item.stiffener[Loop].locked)
+    next Loop
+
+    REM ** SubItems **
+    for Loop=1 to Item.subitems
+      fobj[64].writeline(Item.patno + "," + fname + "," + Loop + "," + Item.subitems + "," + Item.subitem[Loop].path + "," + Item.subitem[Loop].filename + ".ITM")
+    next Loop
+
+    REM ** Supports **
+    if Item.support then
+      fobj[65].writeline(Item.patno + "," + fname + "," + Item.support.value + "," + Item.support.spacing + "," + Item.support.qty + "," + Item.support.locked)
+    endif
+
+    REM ** Type **
+    fobj[66].writeline(Item.patno + "," + fname + "," + Item.type)
+
+    REM ** Weight **
+    fobj[67].writeline(Item.patno + "," + fname + "," + Item.weight)
+
+    REM ** Zone **
+    fobj[68].writeline(Item.patno + "," + fname + "," + Item.zone)
+
+  endif
+end function
+
+REM #################################################
+REM ###        Edit Export Data - Above           ###
+REM #################################################
+
+REM !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+REM !!! >>---> Don't Edit Below This Line <---<< !!!
+REM !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+REM *************************************************
+REM ***      Build List of ITM's to Process       ***
+REM *************************************************
+
+function BuildITMs (path)
+  dim ScanFile as filelocator
+  dim ScanFold as filelocator
+  dim LoopFile
+  dim LoopFold
+
+  REM *** Build Folder Objects ***
+  ScanFile.scan(Path, "*.itm", true, false)
+  ScanFold.scan(Path, "", false, true)
+
+  REM *** Process Files ***
+  for LoopFile = 1 to ScanFile.filecount
+    if wildcard(getfilename(ScanFile.file[LoopFile]), FileWild) and wildcard(getfilepath(ScanFile.file[LoopFile]), PathWild) then
+       ItmArray.Add(ScanFile.file[LoopFile])
+       ProgFile = ProgFile + 1
+       task.message = "Scanning: " + ProgFile + " (files) / " + ProgFold + " (folders)" + cr + getfilename(ScanFile.file[LoopFile])
+    endif
+    if task.aborted then LoopFile = ScanFile.filecount
+  next LoopFile
+
+  REM *** Process Folders ***
+  for LoopFold = 1 to ScanFold.foldercount
+    ProgFold = ProgFold + 1
+    BuildITMs(ScanFold.folder[LoopFold])
+    if task.aborted then LoopFold = ScanFold.foldercount
+  next LoopFold
+end function
+
+REM *************************************************
+REM ***           Process List of ITMs            ***
+REM *************************************************
+
+function ProcessITMs(fobj, itms)
+  dim LoopItms
+  for LoopItms = 1 to itms.count
+    task.message = "Processing: " + LoopItms + " of " + itms.count + " files." + cr + getfilename(itms[LoopItms])
+    task.progress = task.progress + 1
+    WriteData(fobj, itms[LoopItms])
+    if task.aborted then LoopItms = itms.count
+  next LoopItms
+end function
+
+
+REM *************************************************
+REM ***     Define Global Variables/Constants     ***
+REM *************************************************
+
+dim cr = ascii(10)
+dim dq = ascii(34)
+dim st = ascii(9)
+dim dt = ascii(9) + ascii(9)
+dim tt = ascii(9) + ascii(9) + ascii(9)
+dim ProgFile = 0
+dim ProgFold = 1
+dim ItmArray as array
+dim FileObjArray as array
+
+REM *************************************************
+REM ***            Build Prompt String            ***
+REM *************************************************
+
+dim StrPrompt = "Processing files from path:" + cr
+StrPrompt = StrPrompt + dq + upper(PathRoot) + dq + cr + cr
+StrPrompt = StrPrompt + "Matching wildcard filters:" + cr
+StrPrompt = StrPrompt + "FOLDER:" + st + dq + PathWild + dq + cr
+StrPrompt = StrPrompt + "FILE:" + st + dq + FileWild + dq + cr + cr
+StrPrompt = StrPrompt + "Continue?"
+
+REM *************************************************
+REM ***        Run or Cancel Per User Input       ***
+REM *************************************************
+
+if query(StrPrompt)=1 then
+  requires task
+  task.beginprogress()
+    BuildITMs(PathRoot)
+  task.endprogress()
+
+  if not task.aborted then
+    task.beginprogress(ItmArray.count)
+      object FileObj01 = new file(DataFileName01, foroutput+istext)
+      object FileObj02 = new file(DataFileName02, foroutput+istext)
+      object FileObj03 = new file(DataFileName03, foroutput+istext)
+      object FileObj04 = new file(DataFileName04, foroutput+istext)
+      object FileObj05 = new file(DataFileName05, foroutput+istext)
+      FileObjArray.add(FileObj01, FileObj02, FileObj03, FileObj04, FileObj05)
+
+      object FileObj06 = new file(DataFileName06, foroutput+istext)
+      object FileObj07 = new file(DataFileName07, foroutput+istext)
+      object FileObj08 = new file(DataFileName08, foroutput+istext)
+      object FileObj09 = new file(DataFileName09, foroutput+istext)
+      object FileObj10 = new file(DataFileName10, foroutput+istext)
+      FileObjArray.add(FileObj06, FileObj07, FileObj08, FileObj09, FileObj10)
+
+      object FileObj11 = new file(DataFileName11, foroutput+istext)
+      object FileObj12 = new file(DataFileName12, foroutput+istext)
+      object FileObj13 = new file(DataFileName13, foroutput+istext)
+      object FileObj14 = new file(DataFileName14, foroutput+istext)
+      object FileObj15 = new file(DataFileName15, foroutput+istext)
+      FileObjArray.add(FileObj11, FileObj12, FileObj13, FileObj14, FileObj15)
+
+      object FileObj16 = new file(DataFileName16, foroutput+istext)
+      object FileObj17 = new file(DataFileName17, foroutput+istext)
+      object FileObj18 = new file(DataFileName18, foroutput+istext)
+      object FileObj19 = new file(DataFileName19, foroutput+istext)
+      object FileObj20 = new file(DataFileName20, foroutput+istext)
+      FileObjArray.add(FileObj16, FileObj17, FileObj18, FileObj19, FileObj20)
+
+      object FileObj21 = new file(DataFileName21, foroutput+istext)
+      object FileObj22 = new file(DataFileName22, foroutput+istext)
+      object FileObj23 = new file(DataFileName23, foroutput+istext)
+      object FileObj24 = new file(DataFileName24, foroutput+istext)
+      object FileObj25 = new file(DataFileName25, foroutput+istext)
+      FileObjArray.add(FileObj21, FileObj22, FileObj23, FileObj24, FileObj25)
+
+      object FileObj26 = new file(DataFileName26, foroutput+istext)
+      object FileObj27 = new file(DataFileName27, foroutput+istext)
+      object FileObj28 = new file(DataFileName28, foroutput+istext)
+      object FileObj29 = new file(DataFileName29, foroutput+istext)
+      object FileObj30 = new file(DataFileName30, foroutput+istext)
+      FileObjArray.add(FileObj26, FileObj27, FileObj28, FileObj29, FileObj30)
+
+      object FileObj31 = new file(DataFileName31, foroutput+istext)
+      object FileObj32 = new file(DataFileName32, foroutput+istext)
+      object FileObj33 = new file(DataFileName33, foroutput+istext)
+      object FileObj34 = new file(DataFileName34, foroutput+istext)
+      object FileObj35 = new file(DataFileName35, foroutput+istext)
+      FileObjArray.add(FileObj31, FileObj32, FileObj33, FileObj34, FileObj35)
+
+      object FileObj36 = new file(DataFileName36, foroutput+istext)
+      object FileObj37 = new file(DataFileName37, foroutput+istext)
+      object FileObj38 = new file(DataFileName38, foroutput+istext)
+      object FileObj39 = new file(DataFileName39, foroutput+istext)
+      object FileObj40 = new file(DataFileName40, foroutput+istext)
+      FileObjArray.add(FileObj36, FileObj37, FileObj38, FileObj39, FileObj40)
+
+      object FileObj41 = new file(DataFileName41, foroutput+istext)
+      object FileObj42 = new file(DataFileName42, foroutput+istext)
+      object FileObj43 = new file(DataFileName43, foroutput+istext)
+      object FileObj44 = new file(DataFileName44, foroutput+istext)
+      object FileObj45 = new file(DataFileName45, foroutput+istext)
+      FileObjArray.add(FileObj41, FileObj42, FileObj43, FileObj44, FileObj45)
+
+      object FileObj46 = new file(DataFileName46, foroutput+istext)
+      object FileObj47 = new file(DataFileName47, foroutput+istext)
+      object FileObj48 = new file(DataFileName48, foroutput+istext)
+      object FileObj49 = new file(DataFileName49, foroutput+istext)
+      object FileObj50 = new file(DataFileName50, foroutput+istext)
+      FileObjArray.add(FileObj46, FileObj47, FileObj48, FileObj49, FileObj50)
+
+      object FileObj51 = new file(DataFileName51, foroutput+istext)
+      object FileObj52 = new file(DataFileName52, foroutput+istext)
+      object FileObj53 = new file(DataFileName53, foroutput+istext)
+      object FileObj54 = new file(DataFileName54, foroutput+istext)
+      object FileObj55 = new file(DataFileName55, foroutput+istext)
+      FileObjArray.add(FileObj51, FileObj52, FileObj53, FileObj54, FileObj55)
+
+      object FileObj56 = new file(DataFileName56, foroutput+istext)
+      object FileObj57 = new file(DataFileName57, foroutput+istext)
+      object FileObj58 = new file(DataFileName58, foroutput+istext)
+      object FileObj59 = new file(DataFileName59, foroutput+istext)
+      object FileObj60 = new file(DataFileName60, foroutput+istext)
+      FileObjArray.add(FileObj56, FileObj57, FileObj58, FileObj59, FileObj60)
+
+      object FileObj61 = new file(DataFileName61, foroutput+istext)
+      object FileObj62 = new file(DataFileName62, foroutput+istext)
+      object FileObj63 = new file(DataFileName63, foroutput+istext)
+      object FileObj64 = new file(DataFileName64, foroutput+istext)
+      object FileObj65 = new file(DataFileName65, foroutput+istext)
+      FileObjArray.add(FileObj61, FileObj62, FileObj63, FileObj64, FileObj65)
+
+      object FileObj66 = new file(DataFileName66, foroutput+istext)
+      object FileObj67 = new file(DataFileName67, foroutput+istext)
+      object FileObj68 = new file(DataFileName68, foroutput+istext)
+      FileObjArray.add(FileObj66, FileObj67, FileObj68)
+
+      WriteHeader(FileObjArray)
+
+      ProcessITMs(FileObjArray, ItmArray)
+
+      FileObj01.close()
+      FileObj02.close()
+      FileObj03.close()
+      FileObj04.close()
+      FileObj05.close()
+
+      FileObj06.close()
+      FileObj07.close()
+      FileObj08.close()
+      FileObj09.close()
+      FileObj10.close()
+
+      FileObj11.close()
+      FileObj12.close()
+      FileObj13.close()
+      FileObj14.close()
+      FileObj15.close()
+
+      FileObj16.close()
+      FileObj17.close()
+      FileObj18.close()
+      FileObj19.close()
+      FileObj20.close()
+
+      FileObj21.close()
+      FileObj22.close()
+      FileObj23.close()
+      FileObj24.close()
+      FileObj25.close()
+
+      FileObj26.close()
+      FileObj27.close()
+      FileObj28.close()
+      FileObj29.close()
+      FileObj30.close()
+
+      FileObj31.close()
+      FileObj32.close()
+      FileObj33.close()
+      FileObj34.close()
+      FileObj35.close()
+
+      FileObj36.close()
+      FileObj37.close()
+      FileObj38.close()
+      FileObj39.close()
+      FileObj40.close()
+
+      FileObj41.close()
+      FileObj42.close()
+      FileObj43.close()
+      FileObj44.close()
+      FileObj45.close()
+
+      FileObj46.close()
+      FileObj47.close()
+      FileObj48.close()
+      FileObj49.close()
+      FileObj50.close()
+
+      FileObj51.close()
+      FileObj52.close()
+      FileObj53.close()
+      FileObj54.close()
+      FileObj55.close()
+
+      FileObj56.close()
+      FileObj57.close()
+      FileObj58.close()
+      FileObj59.close()
+      FileObj60.close()
+
+      FileObj61.close()
+      FileObj62.close()
+      FileObj63.close()
+      FileObj64.close()
+      FileObj65.close()
+
+      FileObj66.close()
+      FileObj67.close()
+      FileObj68.close()
+
+    task.endprogress()
+    debug("Done!")
+  else
+    debug("Operation Canceled by User.")
+  endif
+endif

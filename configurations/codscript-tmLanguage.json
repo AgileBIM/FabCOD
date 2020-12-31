@@ -1,0 +1,80 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "codscript",
+	"scopeName":"source.codscript",
+	"fileTypes":["codscript"],
+	
+	"patterns": [
+		{
+			"comment": "DONE:Comments",
+			"name": "markup.bold comment",
+			"match": "(?i:REM\\s+.*)"
+		},
+		{
+			"comment": "DONE:Strings",
+			"name": "comment markup.italic",
+			"begin": "\"",
+			"end": "\""
+		},
+		{
+			"comment": "DONE:Numbers",
+			"name": "markup.bold constant.numeric",
+			"match": "(?<=\\W)(\\-\\d+\\.\\d+|\\d+\\.\\d+|\\-\\.\\d+|\\.\\d+|\\-\\d+|\\d+)(?=\\W)"
+		},
+		{
+			"comment": "DONE:Operators",
+			"name": "markup.bold constant.regexp",
+			"match": "\\+|\\-|\\*|/|\\>|\\<|=|,|\\.|\\[|\\]|\\(|\\)"
+		},
+		{
+			"comment": "DONE:Named Constants",
+			"name": "invalid",
+			"match": "\\b((?i)File_End|File_Start|ForInput|ForOutput|IsText|MapPath_Home|MapPath_Items)\\b"
+		},
+		{
+			"comment": "DONE:Value Constants",
+			"name": "support.type.property-name",
+			"match": "\\b((?i)Pi|True|False|Nothing|Null|Void)\\b"
+		},
+		{
+			"comment": "DONE:Control Keywords",
+			"name": "markup.bold support.type.property-name",
+			"match": "\\b((?i)If|Then|Else|ElseIf|Else If|EndIf|End If|While|EndWhile|End While|For|To|Case|Select|EndSelect|End Select|Return|Do|Until|Loop|LoopUntil|Next|Function|EndFunction|End Function|Step)\\b"
+		},
+		{
+			"comment": "DONE:Special Keywords",
+			"name": "keyword.control",
+			"match": "(?<=^|\\s+)((?i)Mod|And|Not|Or|as|is|New|Dim|Requires)(?=\\s+)"
+		},
+		{
+			"comment": "DONE:Numeric Functions",
+			"name": "markup.bold",
+			"match": "\\b((?i)Abs|ACos|ASin|ATan|Cos|Exp|Log|Pow|Round|RoundDown|RoundUp|Sign|Sin|Sqr|SqRt|Tan)(?=\\()"
+		},
+		{
+			"comment": "DONE:String Functions",
+			"name": "markup.bold",
+			"match": "\\b((?i)Asc|Ascii|Chr|GetFileExt|GetFileName|GetFilePath|InStr|Left|Len|Lower|LTrim|Mid|Right|RTrim|SubString|Trim|Upper|WildCard)(?=\\()"
+		},
+		{
+			"comment": "DONE:Objects",
+			"name": "markup.bold string.regexp",
+			"match": "\\b((?i)Array|File|FileLocator|Item|ItemStruct|Job|Object|Task)\\b"
+		},
+		{
+			"comment": "DONE:Object Collections",
+			"name": "support.class markup.italic",
+			"match": "(?<=\\.)((?i)AirTurn|Connector|Connector|CustomData|Damper|Entry|Folder|Link|Option|PartCut|Product|Seam|Selection|SkinConnector|Splitter|Stiffener|SubItem)(?=\\[)"
+		},
+		{
+			"comment": "Object Functions",
+			"name": "markup.bold support.class",
+			"match": "(?<=\\.)((?i)Add|AddCustomData|BeginProgress|BitmapFile|CanDoubleWall|CanRotary|Close|EndLocation|EndProgress|Level|Load|Number|ReadLine|RefreshCost|RemoveHoles|Save|Scan|SetFlow|SetStatus|UnCatalogue|Update|WriteDXF|WriteLine)(?=\\()"
+		},
+		{
+			"comment": "DONE: Object Properties",
+			"name": "support.class",
+			"match": "(?<=\\.)((?i)Aborted|Active|AirTurns|Alias|Alt|Alternate|Annotation|Area|Beading|Bitmap|BoughtOut|ButtonAlias|ButtonCode|CadBlock|Catalogue|Changed|CID|CoilWidth|Colour|Comment|Connectors|CostByLength|CostType|Count|CutType|Dampers|DatabaseID|Date|DateTime|DBLock|Decoiler|Description|Dims|DimSide|DimSideLock|DoubleWall|Drawing|DWLock|Entries|EOF|ExtraETime|ExtraETimeRate|ExtraEtimeUnits|ExtraFTime|ExtraFTimeRate|ExtraFTimeUnits|FabTable|FabTableLock|Facing|FacingLock|Field1|Field2|FileCount|FileName|FixRelative|FlowMax|FlowMin|FolderCount|Gauge|GaugeLock|Group|Guid|Guid64|Handle|HasAlias|HasArea|HasBoughtOut|HasCadBlock|HasCustomData|HasCustomDatas|HasDatabaseID|HasDims|HasFlow|HasOptions|HasOrder|HasProduct|HasRevision|HasSKey|HasWeight|History|ID|Info|InsSpec|Installtable|InstalltableLock|Insulation|IsOpen|ISpecLock|Items|LastActivated|Library|LifeSpan|Links|Locked|ManyOldStatus|MatAbrv|Material|MaterialLock|Message|Model|Name|NestPriority|NextPriority|Notes|Number|Numbers|NumValue|OperatingCost|Options|Order|Owner|Pallet|Param|Params|PartsCut|Path|PatNo|PriceList|PriceTableLock|Product|Progress|Project|Qty|Quantity|Reference|Revision|Scale|Sealant|Seams|Section|Selection|Service|ServiceType|SKey|SkinDecoiler|SkinGauge|SkinMaterial|SkinMaterialLock|SkinMaterials|SkinSeam|SkinSide|SmallLength|Spacing|Specification|SpecLock|Splitters|Spool|SpoolColour|Status|Statuses|StatusLock|StdLength|StdQty|Stiffeners|StructureType|SubItems|Support|Target|Type|UserID|Value|Version|Weight|WeightLock|WireGauge|Zone)\\b"
+		}
+	]
+}
