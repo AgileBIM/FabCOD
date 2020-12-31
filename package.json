@@ -27,7 +27,7 @@
 		"Formatters",
 		"Snippets"
 	],
-	"icon": "docs/images/ifabcod.png",
+	"icon": "docs/images/fabcodlogo.png",
 	"main": "./out/extension.js",
 	"files": [
 		"fabcod.vsix"
