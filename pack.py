@@ -6,22 +6,6 @@ import errno
 import shlex
 import platform
 import sys
-# init
-
-
-def init():
-    print("===============================================")
-    print("             try to install gulp-cli globally")
-    os.system("npm install --global gulp-cli") # nosec
-
-    os.system("yarn install --unsafe-perm") # nosec
-
-    print("===============================================")
-    print("             complete yarn install")
-    print("===============================================")
-    print("\n\n")
-    copyExecuteInAcad()
-    return 0
 
 def copyFile(src, dst, description):
     try:
@@ -35,12 +19,16 @@ def copyFile(src, dst, description):
     return 0
 
 def copyExecuteInAcad():
-    src = os.path.join(os.path.curdir, 'util', 'ExecuteInAcad', 'bin', 'Debug', 'ExecuteInAcad.exe')
+    src = os.path.join(os.path.curdir, 'util', 'Builds', 'ExecuteInAcad.exe')
     dst = os.path.join(os.path.curdir, 'out', 'support', 'ExecuteInAcad.exe')
     copyFile(src, dst, 'copied ExecuteInAcad.exe')
 
 def makepackage_vsix():
     print("===============================================")
+    if (os.path.exists('fabcod.vsix')):
+        os.remove('fabcod.vsix')
+        print("Deleted stale fabcod.vsix")
+
     print("start to make vsix package")
     vsce = os.path.join(os.path.curdir, 'node_modules', '.bin', 'vsce')
     output_opt = " -o " + os.path.join(os.path.curdir, 'fabcod.vsix')
@@ -56,11 +44,9 @@ def makepackage_vsix():
     return ret
 
 if __name__ == "__main__":
-    ret = 1
-    if (init() == 0):
-        print("===============================================")
-        print("      generate vsix package start")
-        print("===============================================")
-        print("\n\n")
-        ret= makepackage_vsix()
-    sys.exit(ret)        
+    copyExecuteInAcad()
+    print("===============================================")
+    print("      generate vsix package start")
+    print("===============================================")
+    print("\n\n")
+    sys.exit(makepackage_vsix())
