@@ -1,0 +1,47 @@
+{
+	"#region": {
+        "prefix": "#region",
+        "body": [
+			"REM #region ${1:description}",
+			"${TM_SELECTED_TEXT}",
+			"REM #endregion"
+        ],
+        "description": "Folding Region"
+    },
+	"forto":
+	{
+		"prefix": "for",
+		"body":[
+			"Dim ${1:Counter}",
+			"For ${1:Counter} = 1 to ${2:ArrayLength} step 1",
+			"\tDim ${3:CurrentObject} = ${4:ArrayName}[${1:Counter}]",
+			"\t",
+			"Next"
+		],
+		"description": "Defines a step counter and uses in a For i to TestExp step # loop"
+	},
+	"ifel":
+	{
+		"prefix": "ifel",
+		"body":[
+			"If (${1:expression}) Then",
+			"\t",
+			"Else",
+			"\t",
+			"End If"			
+		],
+		"description": "Inserts and If-Else structure"
+	}
+}
+	
+ 
+
+
+
+
+
+
+
+	
+	
+

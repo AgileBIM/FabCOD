@@ -1,0 +1,124 @@
+{
+	"name": "fabcod",
+	"displayName": "FabCOD",
+	"description": "Fabrication COD Scripting Language Support",
+	"version": "0.0.1",
+	"license": "MIT",
+	"publisher": "agilebim",
+	"bugs": {
+		"url": "https://github.com/agilebim/fabcod/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/agilebim/fabcod"
+	},
+	"homepage": "https://github.com/agilebim/fabcod",
+	"engines": {
+		"vscode": "^1.52.0"
+	},
+	"keywords": [
+		"COD",
+		"cadmep",
+		"fabrication",
+		"autocad"
+	],
+	"categories": [
+		"Programming Languages",
+		"Formatters",
+		"Snippets"
+	],
+	"icon": "docs/image/fabcodlogo.png",
+	"main": "./out/extension.js",
+	"files": [
+		"fabcod.vsix"
+	],
+	"activationEvents": [
+		"onLanguage:codscript"
+	],
+	"contributes": {
+		"languages": [
+			{
+				"id": "codscript",
+				"aliases": [
+					"Fabrication Scripting"
+				],
+				"extensions": [
+					".cod"
+				],
+				"configuration": "./configurations/codscript-smartBrackets.json"
+			}
+		],
+		"grammars": [
+			{
+				"language": "codscript",
+				"scopeName": "source.codscript",
+				"path": "./configurations/codscript-tmLanguage.json"
+			}
+		],
+		"snippets": [
+			{
+				"language": "codscript",
+				"path": "./configurations/codscript-snippets.json"
+			}
+		],
+		"configurationDefaults": {
+			"[codscript]": {
+				"files.autoGuessEncoding": true,
+				"editor.tabSize": 2,
+				"editor.wordBasedSuggestions": true,
+				"editor.detectIndentation": true,
+				"editor.quickSuggestions": {
+					"other": true,
+					"comments": false,
+					"strings": false
+				},
+				"editor.autoIndent": "full",
+				"editor.formatOnType": true,
+				"files.encoding": "utf8",
+				"editor.suggest.localityBonus": false,
+				"editor.wordSeparators": "<=>&()[]|\".+*/",
+				"editor.suggestSelection": "recentlyUsed"
+			}
+		},
+		"commands": [],
+		"menus": {
+			"view/title": [],
+			"view/item/context": [],
+			"editor/context": [],
+			"explorer/context": []
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile && npm run lint",
+		"lint": "eslint src --ext ts",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/fs-extra": "^8.1.0",
+		"@types/vscode": "^1.52.0",
+		"@types/glob": "^7.1.3",
+		"@types/mocha": "^8.0.4",
+		"@types/chai": "^4.2.14",
+		"@types/node": "^12.11.7",
+		"chai": "^4.2.0",
+		"glob": "^7.1.6",
+		"mocha": "^8.1.3",
+		"typescript": "^4.1.2",
+		"vscode-test": "^1.4.1",
+		"tslint": "6.1.3",
+		"del": "^4.1.1",
+		"event-stream": "^4.0.1",
+		"run-sequence": "^2.2.1",
+		"source-map-resolve": "0.6.0"
+	},
+	"dependencies": {
+		"execa": "5.0.0",
+		"fs-extra": "9.0.0",
+		"os-locale": "5.0.0",
+		"vsce": "1.83.0",
+		"vscode-languageclient": "7.0.0"
+	}
+}

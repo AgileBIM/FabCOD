@@ -1,0 +1,144 @@
+Dim RPath = MAPPATH_ITEMS
+Dim FPath = "ITEMS"
+Dim CR = ASCII(10)
+Dim CQ = ASCII(34)
+Dim TZ = ASCII(9)
+
+REQUIRES task
+
+FUNCTION GetRevlative(GRPath, RelativeFrom)
+  Dim rLen = LEN(RelativeFrom)
+  Dim rel  = INSTR(1, GRPath, "\" + RelativeFrom + "\")
+  Dim rv
+  IF NOT rel THEN
+    rel = INSTR(1, GRPath, "/" + RelativeFrom + "/")
+  ENDIF
+  IF rel THEN
+    rv = SUBSTRING(GRPath, rel + rLen + 2, 0)
+  ELSE
+    rv = GRPath
+  ENDIF
+  RETURN rv
+ENDFUNCTION
+
+FUNCTION UpdateItem(Path)
+  Dim FScanner as FILELOCATOR
+  FScanner.scan(Path, "*.ITM", TRUE, FALSE)
+  Dim DScanner as FILELOCATOR
+  DScanner.scan(Path, "*.*",   FALSE, TRUE)
+ 
+  Dim lp, lp2, x
+  Dim DBool = (DScanner.foldercount = 0)
+  IF DBool THEN
+    Task.BeginProgress(FScanner.filecount)
+  ENDIF
+  FOR lp = 1 to FScanner.filecount
+    Dim ITM as ITEMSTRUCT
+    Dim File = FScanner.file[lp]
+    Dim ITMName = GetFileName(File)
+    Dim sf = GetRevlative(Path, FPath)
+    Dim fv = ""
+    Dim Inlet = 0
+    Dim Outlet = 0
+    sf = SUBSTRING(sf, 1, -1)
+    sf = GetFileName(sf)
+    task.message = sf + cr + ITMName
+ 
+    IF ITM.load(File) THEN
+      REM Bulletproof the Connector Flow to never be equal.
+      If ITM.option["Inlet"] AND ITM.option["Outlet"] Then
+        If ITM.option["Inlet"].Value = ITM.option["Outlet"].Value Then
+          If ITM.option["Inlet"].Value = 1 Then
+            If ITM.Connectors > 1 Then
+              ITM.option["Outlet"].Value = 2
+            EndIf
+          ElseIf ITM.option["Inlet"].Value = 2 Then
+            If ITM.Connectors > 2 Then
+              ITM.option["Outlet"].Value = 3
+            Else
+              ITM.option["Outlet"].Value = 1
+            EndIf
+          ElseIf ITM.option["Inlet"].Value = 3 Then
+            ITM.option["Outlet"].Value = 2
+          ElseIf ITM.option["Inlet"].Value = 4 Then
+            ITM.option["Outlet"].Value = 3
+          EndIf
+        EndIf
+ 
+ 
+        REM Populate the Flow CustomData Field
+        Inlet = Number(ITM.option["Inlet"].Value)
+        Outlet = Number(ITM.option["Outlet"].Value)
+        If ITM.Connectors = 0 Then
+          fv = "0"
+        Elseif ITM.Connectors = 1 Then
+          fv= "1"
+        Else
+          fv = Inlet + "-" + Outlet
+        EndIf
+ 
+        If ITM.Connectors > 2 Then
+          Dim cc = 0
+          Dim ov = 0
+          For cc=1 to ITM.Connectors
+            If cc <> Inlet AND cc <> Outlet Then
+              If Upper(ITM.Connector[cc].Value) <> "NONE" Then
+                fv = fv + "-" + cc
+              EndIf
+            EndIf
+          Next
+        EndIf
+        ITM.CustomData[12].value = fv
+      Else
+        fv = "1"
+        If ITM.Connectors > 1 Then
+          Dim cc = 0
+          Dim ov = 0
+          For cc=2 to ITM.Connectors
+            If Upper(ITM.Connector[cc].Value) <> "NONE" Then
+              fv = fv + "-" + cc
+            EndIf
+          Next
+        EndIf
+        ITM.CustomData[12].value = fv
+      EndIf
+      ITM.Save(File)
+    ENDIF
+ 
+    IF Task.Aborted THEN
+      lp = FScanner.filecount
+    ENDIF
+    IF DBool THEN
+      Task.Progress = Task.Progress + 1
+    ENDIF
+  NEXT lp
+ 
+  IF DBool THEN
+    Task.EndProgress()
+  ELSE
+    Task.BeginProgress(DScanner.foldercount)
+  ENDIF
+
+  FOR lp = 1 to DScanner.foldercount
+    Dim NPath = DScanner.Folder[lp]
+    Task.Message = "Scanning " + cr + NPath
+    UpdateItem(NPath)
+    IF Task.Aborted THEN
+      lp = DScanner.foldercount
+    ENDIF
+    IF NOT DBool THEN
+      Task.Progress = Task.Progress + 1
+    ENDIF
+  NEXT lp
+
+  IF NOT DBool THEN
+    Task.Endprogress()
+  ENDIF
+ENDFUNCTION
+
+Task.BeginProgress(1)
+Task.Progress = 0
+
+UpdateItem(RPath)
+
+Task.EndProgress()

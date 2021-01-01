@@ -1,0 +1,31 @@
+{
+	"comments": {
+		"lineComment": "REM\\s"
+	},
+    "brackets": [
+		["(", ")"],
+		["[", "]"]
+    ],
+    "autoClosingPairs": [
+		{"open": "(", "close": ")"},
+		{"open": "[", "close": "]"},
+		{"open": "\"","close": "\"", "notIn": ["string"]}
+    ],
+    "surroundingPairs": [
+		["\"", "\""],
+		["(", ")"],
+		["[","]"]
+	],
+	"autoCloseBefore": ";:.,=}])<>` \n\t",
+	"folding": {
+		"markers": {
+			"start": "^\\s*(REM #region|if|If|IF)\\b.*$",
+			"end": "^\\s*(REM #endregion|end|End|END).*$"
+		}	
+	},
+	"indentationRules": {
+		"increaseIndentPattern": "^\\s*(if|If|IF|else|Else|ELSE|elseif|elseIf|Elseif|ElseIf|ELSEIF|while|While|WHILE|for|For|FOR|select|Select|SELECT|function|Function|FUNCTION)\\b.*$",
+		"decreaseIndentPattern": "^\\s*(end|End|END|else|Else|ELSE|elseif|elseIf|Elseif|ElseIf|ELSEIF|next|Next|NEXT|endif|endIf|Endif|EndIf|ENDIF|endwhile|endWhile|EndWhile|EndWhile|ENDWHILE|endselect|endSelect|Endselect|EndSelect|ENDSELECT|endfunction|endFunction|Endfunction|EndFunction|ENDFUNCTION)\\b.*$"
+	  }
+	
+}
