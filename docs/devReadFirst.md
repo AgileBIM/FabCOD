@@ -20,9 +20,16 @@ into a Powershell console to find our your currently installed version; if any..
 
 #### Required Software
 
-- Install the latest [NodeJS](https://nodejs.org/en/download/) LTS 64-bit version for your respective OS
-- Install the latest version of [Python3](https://www.python.org/downloads/) for your respective OS
 - Install the latest version of [Visual Studio Code](https://code.visualstudio.com/Download) for your respective OS
+- Install the latest [Git Source Control](https://git-scm.com/downloads) version for your respective OS
+  - There are tons of options in this setup, please use all the defaults values.
+- Install the latest [NodeJS](https://nodejs.org/en/download/) LTS 64-bit version for your respective OS
+  - This install includes the Node Package Manager we need.
+  - If you will be compiling VSIX files, then you will need to check this box during the install:
+    ![](image/nodenative.png)
+  - This option shown above triggers a fairly long additional installation process in a terminal window. The first window warns you to close all other applications; make sure you do this and follow its prompts. The final powershell window does the lengthy install, just let it do its thing, it will tell you when it has completed.
+
+
 
 #### Recommended Software
 
@@ -58,7 +65,7 @@ From GHD, goto `File` -> `Clone Repository` or use the `Ctrl+Shift+O` shortcut. 
 
 
 
-## Step 4: VSCode Extensions
+## Step 4: VSCode Extensions :heavy_check_mark:
 
 If you are going to contribute to the project, then you should install the following extensions:
 
@@ -67,6 +74,7 @@ If you are going to contribute to the project, then you should install the follo
 | npm                           | Egamma        |  Required   |
 | TSLint                        | Egamma        |  Required   |
 | Error Lens                    | Alexander     |  Required   |
+| Python                        | Microsoft     |  Required   |
 | GitHub Pull Requests & Issues | GitHub        |  Required   |
 | Git History                   | Don Jayamanne | Recommended |
 | Git Lens                      | Eric Amodio   | Recommended |
@@ -81,13 +89,20 @@ If you are going to contribute to the project, then you should install the follo
 After installing all prerequisites and if not already open, you can find the VSCode terminal by using the ``Ctrl+` ``  shortcut.  There are various types of terminals that can be activated, we recommend using Powershell version. If the combo box does not show Powershell, then you can use the `Select Default Shell` option within to specify Powershell. Once done, you can execute the following commands in that Powershell terminal
 
 * `npm install` to download and install all the package.json dependencies
-* `npm install -g vsce`  The first command installs vsce, but Microsoft recommends installing this one globally.
+* `npm install -g vsce`  install this globally for certain scripts
+* `npm install vsce` also needs to be installed locally for certain scripts.
+* `npm install -g typescript` needs global context for certain scripts
+* `npm install -g yarn` we don't use yarn, but vsce does.
+
+**Note:** it is very realistic to have a conflict of some kind across these installations. Please close/re-open VSCode and try the command again.
 
 
 
 ## Step 6: Launch or Test Extension :heavy_check_mark:
 
 At this point your ready to *"do something"* with the extension. If you are tinkering and just want to run the extension, press `F5` and select the `Run Extension` options from the Command Palette. Anyone wanting to contribute should understand the 2 different launch types and how to compile a VSIX that could be installed as an extension. The following launch types can be accessed from the `Run` palette and can also be brought up using `Ctrl+Shift+D`
+
+**Note:** at some point you may be prompted by a windows security alert to allow network access; click "allow Access" with the Private networks option checked.
 
 - **Run Extension**, this is how you will debug the application in the same way an end user would interact with the installed version.  If you place breakpoints in the code (and that code actually gets executed) then it will stop and let you step through that area. Do note that TypeScript is a superscript of JavaScript and that makes them both often very asynchronous. Which basically means, when you see something get called, that doesn't mean it immediately does stuff or has the proper context to inspect end-result variables. You'll have to figure out where breakpoints make the most sense to obtain your expected context.
 - **Extension Tests**, this literally executes only the scripts defined in `./src/test/suite/` folder and then closes the application. It is the goal of this project to have a "decent" amount of test coverage for all shared or critical project features. There is a good chance an RP comment will be to create a test case for some or all of your RP. Testing is a good practice and it benefits everyone (even you) so please make at least rudimentary tests for things your submitting. If they aren't meaningful tests that we would want to persist, then they don't need to be staged/committed to the PR, but you can at least talk about them in the PR submission notes. 
