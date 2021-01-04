@@ -3,6 +3,7 @@ import * as Resources from "./resources";
 import { FabExt } from './extension';
 //import * as fs from	'fs-extra';
 import { FabDocument } from "./support/document";
+import { COD } from './support/parser';
 
 export interface DocumentSources {
 
@@ -10,7 +11,7 @@ export interface DocumentSources {
 
 
 export class FabDocumentManager{	
-	private _cached: Map<string, DocumentSources> = new Map();
+	private _cached: Map<string, COD> = new Map();
 	private _watchers: vscode.FileSystemWatcher[] = [];
 	
 	get WorkspaceDocuments(): FabDocument[] { 

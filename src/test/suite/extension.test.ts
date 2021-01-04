@@ -11,9 +11,10 @@ const massivePath = path.join(__dirname + '\\..\\..\\..\\test_cases\\massive.cod
 
 suite('Extension Test Suite', () => {
 	vscode.window.showInformationMessage('Start all tests.');
-	let massives, complexs: Array<entities.Entity>;
-	let clst: Array<entities.Entity|entities.EntityCollection>;
-	let massive, complex: string;
+	let massives: Array<entities.Entity>; 
+	let complexs: Array<entities.Entity>;
+	let massive: string; 
+	let complex: string;
 	
 	test('Read COD Test Files', () => {
 		try {
@@ -44,11 +45,27 @@ suite('Extension Test Suite', () => {
 		}
 	});
 	test('Attempt Formulation', () => {
+		const cids: parser.NameTracker = {
+            creator: complexPath.toUpperCase(),
+            variables: new Map<string, Array<entities.Entity>>(),
+            functions: new Map<string, Array<entities.Entity>>(),
+            importedFunctions: new Map<string, Array<entities.Entity>>(),
+            includes: []
+			};
+
+		const mids: parser.NameTracker = {
+			creator: massivePath.toUpperCase(),
+			variables: new Map<string, Array<entities.Entity>>(),
+			functions: new Map<string, Array<entities.Entity>>(),
+			importedFunctions: new Map<string, Array<entities.Entity>>(),
+			includes: []
+			};
+
 		try {
-			const complexf = parser.CODParser.formulation(complexs);
-			const massivef = parser.CODParser.formulation(massives);
-			assert.isAbove(complexf.length, 1);
-			assert.isAbove(massivef.length, 1);	
+			const complexf = parser.CODParser.formulation(cids, complexs);
+			const massivef = parser.CODParser.formulation(mids, massives);
+			assert.isAbove(complexf[1].length, 1);
+			assert.isAbove(massivef[1].length, 1);	
 		} catch (error) {
 			assert.fail('Formulation Failed');
 		}
