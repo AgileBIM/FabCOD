@@ -1,6 +1,6 @@
 # Developer Setup
 
-Follow all of these steps to be capable of cloning the repo, compile and/or debug this VSCode extension. Please note that this is a full life cycle introduction to contributing to the project. If you are simply playing with the code in a non-contributor context, then only follow the steps with a :heavy_check_mark: suffix.
+Follow all of these steps to be capable of cloning the repo, compile and/or debug this VSCode extension. Please note that this is a full life cycle introduction for contributing to the project. If you are simply playing with the code in a non-contributor context, then only follow the steps with a :heavy_check_mark: suffix.
 
 
 
@@ -24,10 +24,10 @@ into a Powershell console to find our your currently installed version; if any..
 - Install the latest [Git Source Control](https://git-scm.com/downloads) version for your respective OS
   - There are tons of options in this setup, please use all the defaults values.
 - Install the latest [NodeJS](https://nodejs.org/en/download/) LTS 64-bit version for your respective OS
-  - This install includes the Node Package Manager we need.
+  - This install includes the Node Package Manager that we need.
   - If you will be compiling VSIX files, then you will need to check this box during the install:
     ![](image/nodenative.png)
-  - This option shown above triggers a fairly long additional installation process in a terminal window. The first window warns you to close all other applications; make sure you do this and follow its prompts. The final powershell window does the lengthy install, just let it do its thing, it will tell you when it has completed.
+  - The option shown above triggers a fairly long additional installation process in a terminal window. The first window warns you to close all other applications; make sure you do this and follow its prompts. The final powershell window does the lengthy install, just let it do its thing, it will tell you when it has completed.
 
 
 
@@ -86,15 +86,15 @@ If you are going to contribute to the project, then you should install the follo
 
 ## Step 5: VSCode Terminal Commands :heavy_check_mark:
 
-After installing all prerequisites and if not already open, you can find the VSCode terminal by using the ``Ctrl+` ``  shortcut.  There are various types of terminals that can be activated, we recommend using Powershell version. If the combo box does not show Powershell, then you can use the `Select Default Shell` option within to specify Powershell. Once done, you can execute the following commands in that Powershell terminal
+Once all the prior steps are completed, you should open the cloned project folder from VSCode. If the terminal is not already open, you can find it by using the ``Ctrl+` ``  shortcut.  There are various types of terminals that can be activated, we recommend using Powershell version. If the drop down box does not show Powershell, then you can use the `Select Default Shell` option within the drop down to specify Powershell. Once done, you can execute the following commands in that Powershell terminal.
 
 * `npm install` to download and install all the package.json dependencies
 * `npm install -g vsce`  install this globally for certain scripts
 * `npm install vsce` also needs to be installed locally for certain scripts.
 * `npm install -g typescript` needs global context for certain scripts
-* `npm install -g yarn` we don't use yarn, but vsce does.
+* `npm install -g yarn` FabCOD does not use yarn, but vsce does.
 
-**Note:** it is very realistic to have a conflict of some kind across these installations. Please close/re-open VSCode and try the command again.
+**Note:** it is very realistic to have an access of some kind happen during one of these installations; especially the first one. Please close/re-open VSCode and try the command again.
 
 
 
@@ -136,5 +136,5 @@ There are multiple ways to accomplish building a VSIX file, but easiest way is t
 
 ## :gift: Contributing :gift:
 
-If you plan to contribute to the project, then please continue reading in the [CONTRIBUTORS.md](CONTRIBUTORS.md)
+If you plan to contribute to the project, then please continue reading in the [devCONTRIBUTE.md](devCONTRIBUTE.md)
 
