@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30413.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ItemDefinitionParser", "ItemDefinitionParser.csproj", "{77DD85FF-863E-44EA-B88C-6582A9467501}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{77DD85FF-863E-44EA-B88C-6582A9467501}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77DD85FF-863E-44EA-B88C-6582A9467501}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77DD85FF-863E-44EA-B88C-6582A9467501}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77DD85FF-863E-44EA-B88C-6582A9467501}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AF0E04E4-8109-42FA-8D2B-23F401886E53}
+	EndGlobalSection
+EndGlobal

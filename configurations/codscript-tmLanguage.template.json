@@ -1,0 +1,76 @@
+{
+	"warning": "This file is overwritten by the ItemDefinitionParser utility using the codscript-tmLanguage.template.json file as its baseline",
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "codscript",
+	"scopeName":"source.codscript",
+	"fileTypes":["codscript"],
+	
+	"patterns": [
+		{
+			"comment": "Comments",
+			"name": "markup.bold comment",
+			"match": "(?i:REM\\s+.*)"
+		},
+		{
+			"comment": "Strings",
+			"name": "comment markup.italic",
+			"begin": "\"",
+			"end": "\""
+		},
+		{
+			"comment": "Numbers",
+			"name": "markup.bold constant.numeric",
+			"match": "(?<=\\W)(\\-\\d+\\.\\d+|\\d+\\.\\d+|\\-\\.\\d+|\\.\\d+|\\-\\d+|\\d+)(?=\\W)"
+		},
+		{
+			"comment": "Operators",
+			"name": "markup.bold constant.regexp",
+			"match": "\\+|\\-|\\*|/|\\>|\\<|=|,|\\.|\\[|\\]|\\(|\\)"
+		},
+		{
+			"comment": "Named Constants",
+			"name": "invalid",
+			"match": "\\b((?i)%%%CONSTANTS%%%)\\b"
+		},		
+		{
+			"comment": "Value Constants",
+			"name": "support.type.property-name",
+			"match": "\\b((?i)%%%VALUETYPES%%%)\\b"
+		},
+		{
+			"comment": "Control Keywords",
+			"name": "markup.bold support.type.property-name",
+			"match": "\\b((?i)%%%FLOWCONTROL%%%)\\b"
+		},
+		{
+			"comment": "Special Keywords",
+			"name": "keyword.control",
+			"match": "(?<=^|\\s+)((?i)%%%SPECIALTYPES%%%)(?=\\s+)"
+		},
+		{
+			"comment": "Global Functions",
+			"name": "markup.bold",
+			"match": "\\b((?i)%%%FUNCTIONS%%%)(?=\\()"
+		},
+		{
+			"comment": "Objects",
+			"name": "markup.bold string.regexp",
+			"match": "\\b((?i)%%%OBJECTS%%%)\\b"
+		},
+		{
+			"comment": "Object Collections",
+			"name": "support.class markup.italic",
+			"match": "(?<=\\.)((?i)%%%OBJCOLLECTIONS%%%)(?=\\[)"
+		},
+		{
+			"comment": "Object Methods",
+			"name": "markup.bold support.class",
+			"match": "(?<=\\.)((?i)%%%OBJMETHODS%%%)(?=\\()"
+		},
+		{
+			"comment": "Object Properties",
+			"name": "support.class",
+			"match": "(?<=\\.)((?i)%%%OBJPROPERTIES%%%)\\b"
+		}
+	]
+}
