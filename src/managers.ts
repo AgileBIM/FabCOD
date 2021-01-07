@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import * as Resources from "./resources";
+import { library } from "./resources";
 import { FabExt } from './extension';
 //import * as fs from	'fs-extra';
 import { FabDocument } from "./support/document";
@@ -221,7 +221,7 @@ export class FabContextManager {
 		return this._ctx ? this._ctx.extensionPath : ""; 
 	}
 	get Data() { 
-		return Resources; 
+		return library; 
 	}
 
 	

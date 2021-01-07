@@ -1,4 +1,5 @@
 {
+	"warning": "This file is overwritten by the ItemDefinitionParser utility using the codscript-tmLanguage.template.json file as its baseline",
 	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
 	"name": "codscript",
 	"scopeName":"source.codscript",
@@ -6,75 +7,70 @@
 	
 	"patterns": [
 		{
-			"comment": "DONE:Comments",
+			"comment": "Comments",
 			"name": "markup.bold comment",
 			"match": "(?i:REM\\s+.*)"
 		},
 		{
-			"comment": "DONE:Strings",
+			"comment": "Strings",
 			"name": "comment markup.italic",
 			"begin": "\"",
 			"end": "\""
 		},
 		{
-			"comment": "DONE:Numbers",
+			"comment": "Numbers",
 			"name": "markup.bold constant.numeric",
 			"match": "(?<=\\W)(\\-\\d+\\.\\d+|\\d+\\.\\d+|\\-\\.\\d+|\\.\\d+|\\-\\d+|\\d+)(?=\\W)"
 		},
 		{
-			"comment": "DONE:Operators",
+			"comment": "Operators",
 			"name": "markup.bold constant.regexp",
 			"match": "\\+|\\-|\\*|/|\\>|\\<|=|,|\\.|\\[|\\]|\\(|\\)"
 		},
 		{
-			"comment": "DONE:Named Constants",
+			"comment": "Named Constants",
 			"name": "invalid",
-			"match": "\\b((?i)File_End|File_Start|ForInput|ForOutput|IsText|MapPath_Home|MapPath_Items)\\b"
+			"match": "\\b((?i)MAPPATH_BACKUP|MAPPATH_BLOCKS|MAPPATH_CNC|MAPPATH_DATABASE|MAPPATH_DXF|MAPPATH_FILTER|MAPPATH_HOME|MAPPATH_IMAGES|MAPPATH_INSTALL|MAPPATH_ITEMS|MAPPATH_PARTS|MAPPATH_PROJECT|MAPPATH_REMNANTS|MAPPATH_REPORTS|MAPPATH_SCRIPTS|PI|EO_NEVER)\\b"
 		},
 		{
-			"comment": "DONE:Value Constants",
+			"comment": "Value Constants",
 			"name": "support.type.property-name",
-			"match": "\\b((?i)Pi|True|False|Nothing|Null|Void)\\b"
+			"match": "\\b((?i)TRUE|FALSE|NULL|VOID|LOCK_USER|LOCK_OWNER|EXEC_DEFAULT|EXEC_WAIT|EXEC_SHOW_NORMAL|EXEC_SHOW_MAX|EXEC_SHOW_MIN|FORINPUT|FOROUTPUT|ISTEXT|UNICODETEXT|FILE_END|FILE_START|TIME_SECS|TIME_MINS|TIME_HOURS)\\b"
 		},
 		{
-			"comment": "DONE:Control Keywords",
+			"comment": "Control Keywords",
 			"name": "markup.bold support.type.property-name",
-			"match": "\\b((?i)If|Then|Else|ElseIf|Else If|EndIf|End If|While|EndWhile|End While|For|To|Case|Select|EndSelect|End Select|Return|Do|Until|Loop|LoopUntil|Next|Function|EndFunction|End Function|Step)\\b"
+			"match": "\\b((?i)IF|THEN|ELSE|ELSE IF|ELSEIF|END IF|ENDIF|WHILE|END WHILE|ENDWHILE|FOR|TO|STEP|NEXT|DO|UNTIL|LOOP|LOOPUNTIL|SELECT|CASE|END SELECT|ENDSELECT|FUNCTION|RETURN|END FUNCTION|ENDFUNCTION)\\b"
 		},
 		{
-			"comment": "DONE:Special Keywords",
+			"comment": "Special Keywords",
 			"name": "keyword.control",
-			"match": "(?<=^|\\s+)((?i)Mod|And|Not|Or|as|is|New|Dim|Requires)(?=\\s+)"
+			"match": "(?<=^|\\s+)((?i)AND|OR|NOT|AS|IS|NEW|DIM|OBJECT|REQUIRES)(?=\\s+)"
 		},
 		{
-			"comment": "DONE:Numeric Functions",
+			"comment": "Global Functions",
 			"name": "markup.bold",
-			"match": "\\b((?i)Abs|ACos|ASin|ATan|Cos|Exp|Log|Pow|Round|RoundDown|RoundUp|Sign|Sin|Sqr|SqRt|Tan)(?=\\()"
+			"match": "\\b((?i)ACOS|ASIN|ATAN|COS|SIN|TAN|EXP|LOG|NUMBER|POW|SIGN|SQRT|SQR|ROUND|ROUNDDOWN|ROUNDUP|ASC|ASCII|CHR|GETFILEEXT|GETFILENAME|INSTR|LEFT|LEN|LOWER|LTRIM|MID|RIGHT|RTRIM|SUBSTRING|TRIM|UPPER|WILDCARD|DEBUG|EXEC|INPUTBOX|QUERY|ERROR)(?=\\()"
 		},
 		{
-			"comment": "DONE:String Functions",
-			"name": "markup.bold",
-			"match": "\\b((?i)Asc|Ascii|Chr|GetFileExt|GetFileName|GetFilePath|InStr|Left|Len|Lower|LTrim|Mid|Right|RTrim|SubString|Trim|Upper|WildCard)(?=\\()"
-		},
-		{
-			"comment": "DONE:Objects",
+			"comment": "Objects",
 			"name": "markup.bold string.regexp",
-			"match": "\\b((?i)Array|File|FileLocator|Item|ItemStruct|Job|Object|Task)\\b"
+			"match": "\\b((?i)ARRAY|FILE|ITEMSTRUCT|ITEM|FILELOCATOR|TASK)\\b"
 		},
 		{
-			"comment": "DONE:Object Collections",
+			"comment": "Object Collections",
 			"name": "support.class markup.italic",
-			"match": "(?<=\\.)((?i)AirTurn|Connector|Connector|CustomData|Damper|Entry|Folder|Link|Option|PartCut|Product|Seam|Selection|SkinConnector|Splitter|Stiffener|SubItem)(?=\\[)"
+			"match": "(?<=\\.)((?i)AIRTURN|CONNECTOR|CUSTOMDATA|DAMPER|DIM|ENTRY|FILE|FOLDER|ITEM|LINK|OLDSTATUS|OPTION|PARTCUT|SEAM|SELECTION|SKINCONNECTOR|SKINSEAM|SPLITTER|STATUS|STIFFENER|SUBITEM)(?=\\[)"
 		},
 		{
-			"comment": "Object Functions",
+			"comment": "Object Methods",
 			"name": "markup.bold support.class",
-			"match": "(?<=\\.)((?i)Add|AddCustomData|BeginProgress|BitmapFile|CanDoubleWall|CanRotary|Close|EndLocation|EndProgress|Level|Load|Number|ReadLine|RefreshCost|RemoveHoles|Save|Scan|SetFlow|SetStatus|UnCatalogue|Update|WriteDXF|WriteLine)(?=\\()"
+			"match": "(?<=\\.)((?i)ADD|ADDCUSTOMDATA|BEGINPROGRESS|BITMAPFILE|CAN|CANDOUBLEWALL|CANROTARY|CLOSE|DELETE|ENDLOCATION|ENDPROGRESS|FILELOCATOR|INSERT|LEVEL|LOAD|OPEN|READBYTE|READCHAR|READINT|READLINE|READREAL|READSTRING|READWORD|REFRESHCOSTS|REMOVEHOLES|RENAME|SAVE|SCAN|SETFLOW|SETOWNER|SETSTATUS|SETVERSION|UPDATE|WRITEBYTE|WRITECHAR|WRITEDXF|WRITEINT|WRITELINE|WRITEREAL|WRITESTRING|WRITEWORD)(?=\\()"
 		},
 		{
-			"comment": "DONE: Object Properties",
+			"comment": "Object Properties",
 			"name": "support.class",
-			"match": "(?<=\\.)((?i)Aborted|Active|AirTurns|Alias|Alt|Alternate|Annotation|Area|Beading|Bitmap|BoughtOut|ButtonAlias|ButtonCode|CadBlock|Catalogue|Changed|CID|CoilWidth|Colour|Comment|Connectors|CostByLength|CostType|Count|CutType|Dampers|DatabaseID|Date|DateTime|DBLock|Decoiler|Description|Dims|DimSide|DimSideLock|DoubleWall|Drawing|DWLock|Entries|EOF|ExtraETime|ExtraETimeRate|ExtraEtimeUnits|ExtraFTime|ExtraFTimeRate|ExtraFTimeUnits|FabTable|FabTableLock|Facing|FacingLock|Field1|Field2|FileCount|FileName|FixRelative|FlowMax|FlowMin|FolderCount|Gauge|GaugeLock|Group|Guid|Guid64|Handle|HasAlias|HasArea|HasBoughtOut|HasCadBlock|HasCustomData|HasCustomDatas|HasDatabaseID|HasDims|HasFlow|HasOptions|HasOrder|HasProduct|HasRevision|HasSKey|HasWeight|History|ID|Info|InsSpec|Installtable|InstalltableLock|Insulation|IsOpen|ISpecLock|Items|LastActivated|Library|LifeSpan|Links|Locked|ManyOldStatus|MatAbrv|Material|MaterialLock|Message|Model|Name|NestPriority|NextPriority|Notes|Number|Numbers|NumValue|OperatingCost|Options|Order|Owner|Pallet|Param|Params|PartsCut|Path|PatNo|PriceList|PriceTableLock|Product|Progress|Project|Qty|Quantity|Reference|Revision|Scale|Sealant|Seams|Section|Selection|Service|ServiceType|SKey|SkinDecoiler|SkinGauge|SkinMaterial|SkinMaterialLock|SkinMaterials|SkinSeam|SkinSide|SmallLength|Spacing|Specification|SpecLock|Splitters|Spool|SpoolColour|Status|Statuses|StatusLock|StdLength|StdQty|Stiffeners|StructureType|SubItems|Support|Target|Type|UserID|Value|Version|Weight|WeightLock|WireGauge|Zone)\\b"
+			"match": "(?<=\\.)((?i)ABORTED|ACTIVE|AIRTURNS|ALIAS|ALT|ALTERNATE|ANNOTATION|AREA|BEADING|BITMAP|BOUGHTOUT|BOX|BUTTONALIAS|BUTTONCODE|CADBLOCK|CATALOGUE|CHANGED|CID|COILWIDTH|COLOUR|COMMENT|CONNECTORS|COSTBYLENGTH|COSTTYPE|COUNT|CUTTYPE|DAMPERS|DATABASEID|DATE|DATETIME|DBLOCK|DECOILER|DESCRIPTION|DIMS|DIMSIDE|DIMSIDELOCK|DOUBLEWALL|DRAWING|DWLOCK|ENTRIES|EOF|ETAG|EXISTS|EXTRAETIME|EXTRAETIMERATE|EXTRAETIMEUNITS|EXTRAFTIME|EXTRAFTIMERATE|EXTRAFTIMEUNITS|FABTABLE|FABTABLELOCK|FACING|FACINGLOCK|FIELD1|FIELD2|FILECOUNT|FILENAME|FIXRELATIVE|FLOWMAX|FLOWMIN|FOLDERCOUNT|GAUGE|GAUGELOCK|GROUP|GUID|GUID64|HANDLE|HASALIAS|HASAREA|HASBOUGHTOUT|HASCADBLOCK|HASCUSTOMDATA|HASCUSTOMDATAS|HASDATABASEID|HASDIMS|HASFLOW|HASOPTIONS|HASORDER|HASPRODUCT|HASSKEY|HASWEIGHT|HISTORY|ID|INFO|INSSPEC|INSTALLTABLE|INSTALLTABLELOCK|INSULATION|ISOPEN|ISPECLOCK|ISUNICODE|ITEMS|LASTACTIVATED|LENGTH|LIBRARY|LIFESPAN|LINKS|LOCKED|MANYOLDSTATUS|MATABRV|MATERIAL|MATERIALLOCK|MESSAGE|MODE|MODEL|NAME|NESTPRIORITY|NOTES|NUMBER|NUMVALUE|OPERATINGCOST|OPTIONS|ORDER|OWNER|PALLET|PARAM|PARTSCUT|PATH|PATNO|POSITION|PRICELIST|PRICETABLELOCK|PRODUCT|PROGRESS|PROJECT|QTY|REFERENCE|REVISION|SCALE|SEALANT|SEAMS|SECTION|SERVICE|SERVICETYPE|SKEY|SKINDECOILER|SKINGAUGE|SKINMATERIAL|SKINMATERIALLOCK|SKINSIDE|SMALLLENGTH|SPACING|SPECIFICATION|SPECLOCK|SPLITTERS|SPOOL|SPOOLCOLOUR|STATUS|STATUSES|STATUSLOCK|STDLENGTH|STIFFENERS|STQQTY|STRUCTURETYPE|SUBITEMS|SUPPORT|TARGET|TYPE|USERID|VALUE|VERSION|WEIGHT|WEIGHTLOCK|WIREGAUGE|ZONE)\\b"
 		}
 	]
 }

@@ -4,3 +4,8 @@ node_modules
 .vscode-test
 src/temp
 *.zip
+/util/ItemDefinitionParser/.vs
+/util/ItemDefinitionParser/obj
+/util/ItemDefinitionParser/packages
+/util/Builds/Newtonsoft.Json.xml
+/util/Builds/ItemDefinitionParser.pdb
