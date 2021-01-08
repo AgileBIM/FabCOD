@@ -25,7 +25,8 @@ NUMBER
 ### Property: Value
 Get/Set the Splitter Name value of the SPLITTER Object.
 
-No additional remarks available
+Stiffener Name only is given. Stiffener Group is not given as part of the value.
+Stiffener can be set using the 'Name' only.
 ##### Returns
 STRING
 ## Methods

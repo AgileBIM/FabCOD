@@ -7,13 +7,13 @@ The following items are accessed from the base object by a dot notation
 ### Property: Colour
 Get/Set the Job Color value of the JOB Object.
 
-No additional remarks available
+Value is given as an integer representing AutoCAD's Color index (0 - 255).
 ##### Returns
 NUMBER
 ### Property: CustomData
 If applicable, this gets an array of CUSTOM DATA Objects for the JOB Object.
 
-No additional remarks available
+There is no way to itterate over this array, you need to be aware of the custom data indices or names that exist in your database.
 ##### Returns
 [CUSTOMDEF](https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/CUSTOMDEF-SubObject.md)[]
 ### Property: Date
@@ -25,13 +25,13 @@ STRING
 ### Property: Field1
 Get/Set generic utility field #1 of JOB Object.
 
-No additional remarks available
+Field can be used for any user defined purpose.
 ##### Returns
 STRING
 ### Property: Field2
 Get/Set generic utility field #2 of JOB Object.
 
-No additional remarks available
+Field can be used for any user defined purpose.
 ##### Returns
 STRING
 ### Property: Items
@@ -43,7 +43,7 @@ NUMBER
 ### Property: Item
 If applicable, this gets an array of ITEM Objects for the JOB Object.
 
-No additional remarks available
+Always check to see if the 'Items' property returns a value >= 1 before using Job.Item[index#]
 ##### Returns
 ITEM[]
 ### Property: Name
@@ -87,7 +87,7 @@ The following items are invoked from the base object by a dot notation
 ### Function: SetStatus
 This alters the Active Flag of a Job Status
 
-No additional remarks available
+Returns False if there was ann error during Status Activation, True otherwise.
 ##### Signature
 SetStatus(NameOrIndex: NUMBER|STRING, Active: BOOLEAN)
 ##### Arguments

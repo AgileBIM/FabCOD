@@ -507,7 +507,8 @@
         "args": {
           "FirstChar": "Can be any length string,- but only the first character is evaluated."
         },
-        "returns": "A number representing the ASCII code of the first character in the provided string."
+        "returns": "A number representing the ASCII code of the first character in the provided string.",
+        "remarks": "This does not work with unicode characters. If you want an ASCII code from an index other than the first character\nthen you will have to use the MID() function to carve it out."
       }
     },
     "Ascii": {
@@ -530,7 +531,8 @@
         "args": {
           "CharacterCode": "A number representing an ASCII character."
         },
-        "returns": "A single character String, code or non-enterable text represented by an ASCII character code."
+        "returns": "A single character String, code or non-enterable text represented by an ASCII character code.",
+        "remarks": "This does not work with unicode characters, but is ideal generating tabs, line-feeds and other things\nthat aren't easily represented in double quoted strings."
       }
     },
     "Chr": {
@@ -562,7 +564,8 @@
           "TextString": "The base string to be searched.",
           "CharacterPosition": "The numeric index of the character to return."
         },
-        "returns": "A single character String."
+        "returns": "A single character String.",
+        "remarks": "The CharacterPosition argument is a 1-Based index: 1 = first character, 2 = second character, etc."
       }
     },
     "GetFileExt": {
@@ -585,7 +588,8 @@
         "args": {
           "FileName": "A String representing a file name with or without the full path."
         },
-        "returns": "A String of the file extension (including '.') of the specified filename/path."
+        "returns": "A String of the file extension (including '.') of the specified filename/path.",
+        "remarks": "File extension is returned including the dot [.] If no extension is specified, will return an empty string [\"\"].\nOptional path may use either backslash [\\] or forwardslash [/] seperators between directories."
       }
     },
     "GetFileName": {
@@ -608,7 +612,8 @@
         "args": {
           "FilePathAndName": "A String representing a file full path and name."
         },
-        "returns": "A String of the file name including extension."
+        "returns": "A String of the file name including extension.",
+        "remarks": "File name is returned including the extension.\nPath may use either backslash [\\] or forwardslash [/] seperators between directories."
       }
     },
     "InStr": {
@@ -658,7 +663,8 @@
           "SearchFor": "The value string to be located",
           "IsCaseSensitive": "Optional and defaults to FALSE. If provided as TRUE, then \"CaSe SeNsItIvE\" would not match \"Case Sensitive\""
         },
-        "returns": "A Number representing the first occurrence the SearchFor value was found in the SearchIn string or 0 if not found."
+        "returns": "A Number representing the first occurrence the SearchFor value was found in the SearchIn string or 0 if not found.",
+        "remarks": "The StartingFrom argument and the subsequent return values are a 1-Based index: 1 = first character, 2 = second character, etc."
       }
     },
     "Left": {
@@ -800,7 +806,8 @@
           "StartingFrom": "A Number (1-based index) for the starting character position to get the substring from.",
           "Length": "A number representing the length of the SubString desired."
         },
-        "returns": "A String the specified length starting from the specified character position."
+        "returns": "A String the specified length starting from the specified character position.",
+        "remarks": "The StartingFrom argumentis a 1-Based index: 1 = first character, 2 = second character, etc.\nSimilar to SubString() except you specify a starting position and length."
       }
     },
     "Right": {
@@ -896,7 +903,8 @@
           "StartingFrom": "A Number (1-based index) for the starting character position to get the substring from.",
           "EndingAt": "A number (1-based index) for the ending character position to get the substrinbg from."
         },
-        "returns": "A String the specified length starting from the specified character position."
+        "returns": "A String the specified length starting from the specified character position.",
+        "remarks": "The StartingFrom and EndingAt arguments are a 1-Based index: 1 = first character, 2 = second character, etc.\nSimilar to Mid() except you specify a starting position and length.\n0 or even negative values can be used for the index which is interpreted as 'from the end of the string (inclusive)'"
       }
     },
     "Trim": {
@@ -1087,7 +1095,8 @@
           "PromptText": "A String message instructing the user what to enter.",
           "DefaultText": "A String to use as default Text in the Editbox."
         },
-        "returns": "Text String as entered by the user."
+        "returns": "Text String as entered by the user.",
+        "remarks": "Message box provides an OK and CANCEL button for the user to accept or dismiss the dialog and\nuser entered data. Clicking CANCEL will return an empty string."
       }
     },
     "Query": {
@@ -1538,7 +1547,8 @@
             "DBLOCKHISTORY"
           ],
           "info": {
-            "desc": "Get the History Object of the DBLOCKHISTORY Object."
+            "desc": "Get the History Object of the DBLOCKHISTORY Object.",
+            "remarks": "History object is recursive. Each History Object contains another History object. This continues until the\nHistroy object returns a NULL value. Do NOT interate through the nested History objects using the Version\nproperty as that property can be rolled back/forward and many not indicate the number of history entries accurately."
           }
         },
         {
@@ -1628,7 +1638,8 @@
               "NewOwner": "String representing new owner.",
               "Reason": "String description of the reason for the change."
             },
-            "returns": "Boolean Flag is successful or not."
+            "returns": "Boolean Flag is successful or not.",
+            "remarks": "Only returns TRUE if allowed to change and change is different than current owner."
           }
         },
         {
@@ -1659,7 +1670,8 @@
             "args": {
               "NewVersion": "Number representing new version.",
               "Reason": "String description of the reason for the change."
-            }
+            },
+            "remarks": "Only returns TRUE if allowed to change an change is different than current version."
           }
         }
       ],
@@ -1670,7 +1682,8 @@
             "DBLOCKHISTORY"
           ],
           "info": {
-            "desc": "Get the History Object of the ITEM Object."
+            "desc": "Get the History Object of the ITEM Object.",
+            "remarks": "History object is recursive. Each History Object contains another History object. This continues until the\nHistroy object returns a NULL value. Do NOT interate through the nested History objects using the Version\nproperty as that property can be rolled back/forward and many not indicate the number of history entries accurately."
           }
         },
         {
@@ -1921,7 +1934,8 @@
               "NameOrIndex": "Number or String of Status to be altered.",
               "Active": "Boolean Flag indicating if Status should be made Active."
             },
-            "returns": "Boolean Flag indicating is status activation was successful."
+            "returns": "Boolean Flag indicating is status activation was successful.",
+            "remarks": "Returns False if there was ann error during Status Activation, True otherwise."
           }
         }
       ],
@@ -1932,7 +1946,8 @@
             "NUMBER"
           ],
           "info": {
-            "desc": "Get/Set the Job Color value of the JOB Object."
+            "desc": "Get/Set the Job Color value of the JOB Object.",
+            "remarks": "Value is given as an integer representing AutoCAD's Color index (0 - 255)."
           }
         },
         {
@@ -1941,7 +1956,8 @@
             "CUSTOMDEF[]"
           ],
           "info": {
-            "desc": "If applicable, this gets an array of CUSTOM DATA Objects for the JOB Object."
+            "desc": "If applicable, this gets an array of CUSTOM DATA Objects for the JOB Object.",
+            "remarks": "There is no way to itterate over this array, you need to be aware of the custom data indices or names that exist in your database."
           }
         },
         {
@@ -1960,7 +1976,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set generic utility field #1 of JOB Object."
+            "desc": "Get/Set generic utility field #1 of JOB Object.",
+            "remarks": "Field can be used for any user defined purpose."
           }
         },
         {
@@ -1969,7 +1986,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set generic utility field #2 of JOB Object."
+            "desc": "Get/Set generic utility field #2 of JOB Object.",
+            "remarks": "Field can be used for any user defined purpose."
           }
         },
         {
@@ -1988,7 +2006,8 @@
             "ITEM[]"
           ],
           "info": {
-            "desc": "If applicable, this gets an array of ITEM Objects for the JOB Object."
+            "desc": "If applicable, this gets an array of ITEM Objects for the JOB Object.",
+            "remarks": "Always check to see if the 'Items' property returns a value >= 1 before using Job.Item[index#]"
           }
         },
         {
@@ -2566,7 +2585,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the Splitter Name of the ITEM Object."
+            "desc": "Get/Set the Splitter Name of the ITEM Object.",
+            "remarks": "Splitter Name only is given. Splitter Group is not given as part of the value.\nSplitter can be set using the 'Name' or 'Index'."
           }
         },
         {
@@ -2668,7 +2688,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the Splitter Name value of the SPLITTER Object."
+            "desc": "Get/Set the Splitter Name value of the SPLITTER Object.",
+            "remarks": "Stiffener Name only is given. Stiffener Group is not given as part of the value.\nStiffener can be set using the 'Name' only."
           }
         }
       ],
@@ -2702,7 +2723,8 @@
             "NUMBER"
           ],
           "info": {
-            "desc": "Get/Set the Spacing between Supports of the SUPPORT Object."
+            "desc": "Get/Set the Spacing between Supports of the SUPPORT Object.",
+            "remarks": "If set, this will change the value of the 'Qty'."
           }
         },
         {
@@ -2711,7 +2733,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the Support Name of the SUPPORT Object."
+            "desc": "Get/Set the Support Name of the SUPPORT Object.",
+            "remarks": "Support Name only is given. Support Group is not given as part of the value.\nSupport can be set using the 'Name' or Index."
           }
         }
       ],
@@ -2757,7 +2780,8 @@
           "args": {
             "NumberOfItems": "Optional Number of items to initialize Array Object to hold."
           },
-          "returns": "Nothing."
+          "returns": "Nothing.",
+          "remarks": "Constructs an Array object with the number of inital elements as specified. Each element's\nvalue will be NULL/False.\nIf optional NumberOfItems is not specifcied, a default value of 0 (zero) is used."
         }
       },
       "methods": [
@@ -2804,7 +2828,8 @@
             "args": {
               "ArrayIndex": "Optional Number specifying the index number of the element to remove from the array."
             },
-            "returns": "Boolean Flag indicating if element removal was successful."
+            "returns": "Boolean Flag indicating if element removal was successful.",
+            "remarks": "Index is a '1-based' meaning the first item in the Array is index # 1.\nDefault when ArrayIndex is missing is the last item in the Array.\nArray is dynamically resized, removing an item from the beginning or middle of the array\nresults in the array being smaller and the other elements moving up in position."
           }
         },
         {
@@ -2835,7 +2860,8 @@
             "args": {
               "ArrayData": "Any type of data to insert into an array.",
               "ArrayIndex?": "Optional Index position to insert data into."
-            }
+            },
+            "remarks": "When inserting data into an Array at a sepecific index, the previous data and all other\ndownstream data are shifed down in the index chain.\nDefault when ArrayIndex is missing is to insert at the end of the array."
           }
         }
       ],
@@ -2846,7 +2872,8 @@
             "NUMBER"
           ],
           "info": {
-            "desc": "Get/Set the Number of elements in the array of the ARRAY Object."
+            "desc": "Get/Set the Number of elements in the array of the ARRAY Object.",
+            "remarks": "If changed, new elements are set to NULL/False"
           }
         }
       ],
@@ -2883,7 +2910,8 @@
             "FileName": "Optional String Name of file to open.",
             "AccessMode": "Optional Mode(s) for file open."
           },
-          "returns": "Nothing"
+          "returns": "Nothing",
+          "remarks": "If optional parameters are not specified when constructing the FILE Object,\nuse the FILE.Open method to specify them."
         }
       },
       "methods": [
@@ -2895,7 +2923,8 @@
           "args": [],
           "info": {
             "desc": "Closes an open File.",
-            "returns": "Boolean Flag indicating if file closure was sucessful or not."
+            "returns": "Boolean Flag indicating if file closure was sucessful or not.",
+            "remarks": "Any open file needs to be closed before any other application can access it in Read/Write mode."
           }
         },
         {
@@ -2950,7 +2979,8 @@
               "FileName": "String Name of file to open.",
               "AccessMode": "Mode(s) for file open."
             },
-            "returns": "Boolean Flag indicating if file was successfully opened for the specified access mode/type."
+            "returns": "Boolean Flag indicating if file was successfully opened for the specified access mode/type.",
+            "remarks": "This function is not needed if the FILE Object Constructor was called with parameters specifying the\nfile name and access mode/type."
           }
         },
         {
@@ -2972,7 +3002,8 @@
           ],
           "args": [],
           "info": {
-            "desc": "Reads a character from a binary file."
+            "desc": "Reads a character from a binary file.",
+            "remarks": "File must be opened as non-text.\nWill read a BYTE for ANSI files and a WORD for Unicode Files."
           }
         },
         {
@@ -2983,7 +3014,8 @@
           "args": [],
           "info": {
             "desc": "Read a 32-bit signed integer from a binary file.",
-            "returns": "Number read fronm file."
+            "returns": "Number read fronm file.",
+            "remarks": "File must be opened as non-text."
           }
         },
         {
@@ -2994,7 +3026,8 @@
           "args": [],
           "info": {
             "desc": "Read a line of text (minsus CR/LF) from a text file.",
-            "returns": "String read from file."
+            "returns": "String read from file.",
+            "remarks": "File must be opened as text (Unicode or ANSI)\nEach call reads up into the next CR (Carriage Return), LF (Line Feed) or EOF (End of File) marker.\nReturned String does not contain CR/LR or EOF characters."
           }
         },
         {
@@ -3005,7 +3038,8 @@
           "args": [],
           "info": {
             "desc": "Read a C-Style double precision floating point number from a binary file.",
-            "returns": "Number read from file."
+            "returns": "Number read from file.",
+            "remarks": "File must be opened as non-text."
           }
         },
         {
@@ -3016,7 +3050,8 @@
           "args": [],
           "info": {
             "desc": "Read a String from a binary file.",
-            "returns": "String read from file."
+            "returns": "String read from file.",
+            "remarks": "File must be opened as non-text.\nWill read BTYEs for ANSI files and WORDs for Unicode files."
           }
         },
         {
@@ -3027,7 +3062,8 @@
           "args": [],
           "info": {
             "desc": "Read a 16-bit WORD (0-65535) from a binary file.",
-            "returns": "Number read from file."
+            "returns": "Number read from file.",
+            "remarks": "File must be opened as non-text."
           }
         },
         {
@@ -3050,7 +3086,8 @@
             "args": {
               "FileName": "String representing the name of the file to rename to."
             },
-            "returns": "Boolean Flag indicating is file rename was successful or not."
+            "returns": "Boolean Flag indicating is file rename was successful or not.",
+            "remarks": "Current File Name must be assigned but file must not be opened for access."
           }
         },
         {
@@ -3073,7 +3110,8 @@
             "args": {
               "ByteToWrite": "BYTE to write to file."
             },
-            "returns": "Boolean Flag indicating if write was successful or not."
+            "returns": "Boolean Flag indicating if write was successful or not.",
+            "remarks": "File must be opened as non-text."
           }
         },
         {
@@ -3095,7 +3133,8 @@
             "desc": "Wtite a Character to a binary file.",
             "args": {
               "CharacterToWrite": "String character to write to file."
-            }
+            },
+            "remarks": "File must be opened as non-text.\nWill write a BYTE for ANSI files or WORK for Unicodes files."
           }
         },
         {
@@ -3118,7 +3157,8 @@
             "args": {
               "IntegerToWrite": "Number to write to file."
             },
-            "returns": "Boolean Flag indicating if write was successful or not."
+            "returns": "Boolean Flag indicating if write was successful or not.",
+            "remarks": "File must be opened as non-text."
           }
         },
         {
@@ -3150,7 +3190,8 @@
               "StringToWrite": "String to write to file.",
               "AppendCR": "Optional Boolean Flag to automatically append a CR+LF to and of line."
             },
-            "returns": "Boolead Flag indicating if write was successful or not."
+            "returns": "Boolead Flag indicating if write was successful or not.",
+            "remarks": "Of optional AppendCR paramater missing, True is default and will automatically append\na Carrage Return (CR) and Line Feed (LR) character to the end of the specified string."
           }
         },
         {
@@ -3173,7 +3214,8 @@
             "args": {
               "RealToWrite": "Number to write to file."
             },
-            "returns": "Boolean Flag indicating if write was successful or not."
+            "returns": "Boolean Flag indicating if write was successful or not.",
+            "remarks": "File must be opened as non-text."
           }
         },
         {
@@ -3196,7 +3238,8 @@
             "args": {
               "StringToWrite": "String to write to file."
             },
-            "returns": "Boolean Flag indicating if write was successful or not."
+            "returns": "Boolean Flag indicating if write was successful or not.",
+            "remarks": "File must be opened as non-text.\nWill write BYTEs for ANSI files and WORDs for Unicode files."
           }
         },
         {
@@ -3219,7 +3262,8 @@
             "args": {
               "WordToWrite": "Number to write to file."
             },
-            "returns": "Boolean Flag indicating if write was successful or not."
+            "returns": "Boolean Flag indicating if write was successful or not.",
+            "remarks": "File must be opened as non-text."
           }
         }
       ],
@@ -3270,7 +3314,8 @@
           ],
           "info": {
             "desc": "Get the Flag indicating if the file Unicode for the FILE Object.",
-            "readonly": true
+            "readonly": true,
+            "remarks": "File is ANSI encoded if not Unicode."
           }
         },
         {
@@ -3314,7 +3359,8 @@
         "args": [],
         "info": {
           "desc": "Constructs an ItemStruct Object",
-          "returns": "ITEMSTRUCT"
+          "returns": "ITEMSTRUCT",
+          "remarks": "Represents a dynamically loaded ITM file and acts nearly identical to a native ITEM reference"
         }
       },
       "methods": [
@@ -3339,7 +3385,8 @@
             "args": {
               "NameOrIndex": ""
             },
-            "returns": "Nothing"
+            "returns": "Nothing",
+            "remarks": "This function merely added the specified 'User' Custom Data 'Field' to the Item. Once the\nfield is added, you can set a value using the Custom Data property Item.CustomData[name/index#].Value"
           }
         },
         {
@@ -3416,7 +3463,8 @@
               "ConnectorIndex": "This index number is associated with the connector number shown in the edit item dialog",
               "XYZ": "Optional string representing an X, Y or Z portion of the connector centerline coordinate."
             },
-            "returns": "String representing the X, Y, Z or all 3 if XYZ was not provided."
+            "returns": "String representing the X, Y, Z or all 3 if XYZ was not provided.",
+            "remarks": "Supported values are...'XYZ', 'X', 'Y', 'Z', 'TOP' and 'BTM'.\nThe string 'XYZ', missing parameters, empty strings or any other non supported value returns\na string representing the X, Y & Z coordinates seperated by spaces (e.g. '1.25 4.54 0.00').\nIf the string 'X', 'Y' or 'Z' is speified, a string representing just tha compoentent of the\nendpoint is returned.\nIf the string 'TOP' or 'BTM' is specified, a string representing the Z coordinate of the connector's\nTop or Bottom is returned."
           }
         },
         {
@@ -3473,7 +3521,8 @@
           "args": [],
           "info": {
             "desc": "Refreshes all costs to Item",
-            "returns": "Nothing"
+            "returns": "Nothing",
+            "remarks": "Call after making any change to the Item that may affect cost."
           }
         },
         {
@@ -3550,7 +3599,8 @@
           "args": [],
           "info": {
             "desc": "Refreshes Item's developments.",
-            "returns": "Nothing"
+            "returns": "Nothing",
+            "remarks": "Call after making any change to the Item that may developments, specifiction or model"
           }
         },
         {
@@ -3581,7 +3631,8 @@
             "args": {
               "DXFFile": "String of full path and file name to export",
               "IncludeLeads": "Optional Boolead Flag indicating if Lead Ins/Outs should be written to DXF."
-            }
+            },
+            "remarks": "File to save should exclude the '.DXF' file extension.\nFlag for writing Lead Ins/Outs defaults to TRUE if ommited.\nEach development is appended with a '-1', '-2', '-3', etc. suffix to the specified file name."
           }
         }
       ],
@@ -3602,7 +3653,8 @@
             "AIRTURN[]"
           ],
           "info": {
-            "desc": "If applicable, this gets an array of AIRTURN Objects of the ITEM Object."
+            "desc": "If applicable, this gets an array of AIRTURN Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Airturns' property returns a value >= 1 before using Item.Airturn[index#/name]"
           }
         },
         {
@@ -3629,7 +3681,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the Bitmap (Image File Name) of the ITEM Object."
+            "desc": "Get/Set the Bitmap (Image File Name) of the ITEM Object.",
+            "remarks": "May be full, relative Path, just Filename or blank for default. May be a BMP or PNG image type.\nPNG image type recommended for reduced file size and performance."
           }
         },
         {
@@ -3693,7 +3746,8 @@
             "NUMBER"
           ],
           "info": {
-            "desc": "Get/Set the CID number of the ITEM Object."
+            "desc": "Get/Set the CID number of the ITEM Object.",
+            "remarks": "CID is not guarenteed to be the same as the Pattern Number. Best practice is to not\nchange the CID value which defaults to the Pattern Number without very specific reasons and\nknowledge of it's impact."
           }
         },
         {
@@ -3702,7 +3756,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the Comment text of the ITEM Object."
+            "desc": "Get/Set the Comment text of the ITEM Object.",
+            "remarks": "Supports multi-line text and may contain Carriage Returns."
           }
         },
         {
@@ -3721,7 +3776,8 @@
             "CONNECTOR[]"
           ],
           "info": {
-            "desc": "If applicable, this gets an array of CONNECTOR Objects of the ITEM Object."
+            "desc": "If applicable, this gets an array of CONNECTOR Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Connectors' property returns a value >= 1 before using Item.Connector[index#/name]"
           }
         },
         {
@@ -3730,7 +3786,8 @@
             "BOOLEAN"
           ],
           "info": {
-            "desc": "Get/Set the CostByLength (Cost Units) Flag of the ITEM Object."
+            "desc": "Get/Set the CostByLength (Cost Units) Flag of the ITEM Object.",
+            "remarks": "Cost Units are set by the CostByLength flag. 0 = Cost by Qty, 1 Cost by Ft."
           }
         },
         {
@@ -3739,7 +3796,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the CostType property of the ITEM Object."
+            "desc": "Get/Set the CostType property of the ITEM Object.",
+            "remarks": "Valid CostType values are...'Demolition', 'Free Issue', 'Normal', 'Relocation' and 'Supply Only'."
           }
         },
         {
@@ -3748,7 +3806,8 @@
             "CUSTOMDEF[]"
           ],
           "info": {
-            "desc": "If applicable, this gets an array of CUSTOM DATA Objects for the ITEM Object."
+            "desc": "If applicable, this gets an array of CUSTOM DATA Objects for the ITEM Object.",
+            "remarks": "There is no way to itterate over this array, you need to be aware of the custom data indices or names that exist in your database."
           }
         },
         {
@@ -3757,7 +3816,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the CutType property of the ITEM Object."
+            "desc": "Get/Set the CutType property of the ITEM Object.",
+            "remarks": "Alowwed values of CutType vary depending on the ITM's Pattern Number."
           }
         },
         {
@@ -3776,7 +3836,8 @@
             "DAMPER[]"
           ],
           "info": {
-            "desc": "If applicable, this gets an array of DAMPER Objects of the ITEM Object."
+            "desc": "If applicable, this gets an array of DAMPER Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Dampers' property returns a value >= 1 before using Item.Dampers[index#/name]"
           }
         },
         {
@@ -3831,7 +3892,8 @@
             "DIM[]"
           ],
           "info": {
-            "desc": "If applicable, this gets an array of DIM Objects of the ITEM Object."
+            "desc": "If applicable, this gets an array of DIM Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Dims' property returns a value >= 1 before using Item.Dim[index#/name]"
           }
         },
         {
@@ -3840,7 +3902,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the Dimension Side Flag of the ITEM Object."
+            "desc": "Get/Set the Dimension Side Flag of the ITEM Object.",
+            "remarks": "Possible values are 'Inside', 'Outside' and 'None'.\nIf DoubleWall, this flag controls whether dimensions are inside or outside sizes.\nIf not DoubleWall and Insulation is inside, this also controls whether dimensions\nare inside or outside sizes. This setting is remembered seperately for DoubleWall\nor not DoubleWall. Ensure DoubleWall is set correctly before changing."
           }
         },
         {
@@ -3894,7 +3957,8 @@
             "NUMBER"
           ],
           "info": {
-            "desc": "Get/Set the Extra Install Time of the ITEM Object."
+            "desc": "Get/Set the Extra Install Time of the ITEM Object.",
+            "remarks": "The 'E' in ETime stands for 'Erection' or Installation Time.\nExtra ETime is expressed in terms of units specified by the ExtraETimeUnits property."
           }
         },
         {
@@ -3903,7 +3967,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the Extra Install Time Rate of the ITEM Object."
+            "desc": "Get/Set the Extra Install Time Rate of the ITEM Object.",
+            "remarks": "The 'E' in ETime stands for 'Erection' or Installation Time.\nExtraETimeRate can be specified by Rate 'Name' or Index."
           }
         },
         {
@@ -3912,7 +3977,8 @@
             "TIMEUNITS"
           ],
           "info": {
-            "desc": "Get/Set the Extra Install Time Units of the ITEM Object."
+            "desc": "Get/Set the Extra Install Time Units of the ITEM Object.",
+            "remarks": "The 'E' in ETime stands for 'Erection' or Installation Time."
           }
         },
         {
@@ -3921,7 +3987,8 @@
             "NUMBER"
           ],
           "info": {
-            "desc": "Get/Set the Extra Fabrication Time of the ITEM Object."
+            "desc": "Get/Set the Extra Fabrication Time of the ITEM Object.",
+            "remarks": "The 'F' in FTime stands for 'Fabrication'.\nExtra FTime is expressed in terms of units specified by the ExtraFTimeUnits property."
           }
         },
         {
@@ -3930,7 +3997,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the Extra Fabrication Time Rate of the ITEM Object."
+            "desc": "Get/Set the Extra Fabrication Time Rate of the ITEM Object.",
+            "remarks": "The 'F' in FTime stands for 'Fabrication'.\nExtraFTimeRate can be specified by Rate 'Name' or Index."
           }
         },
         {
@@ -3939,7 +4007,8 @@
             "TIMEUNITS"
           ],
           "info": {
-            "desc": "Get/Set the Extra Fabrication Time Units of the ITEM Object."
+            "desc": "Get/Set the Extra Fabrication Time Units of the ITEM Object.",
+            "remarks": "The 'F' in FTime stands for 'Fabrication'."
           }
         },
         {
@@ -3948,7 +4017,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the Fabrication Table Name property of the ITEM Object."
+            "desc": "Get/Set the Fabrication Table Name property of the ITEM Object.",
+            "remarks": "Only the Table Name is given, not the Group. Autodesk documentation INCORRECTLY\nindicates the Table Name includes the Group (e.g. 'Group: Name'). Value is subject to\nchange if this Autodesk defect is corrected in future releases."
           }
         },
         {
@@ -3966,7 +4036,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the Facing Name of the ITEM Object."
+            "desc": "Get/Set the Facing Name of the ITEM Object.",
+            "remarks": "Facing Name only is given. Facing Group is not given as part of the value."
           }
         },
         {
@@ -3984,7 +4055,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the ITM Filename of the ITEM Object."
+            "desc": "Get/Set the ITM Filename of the ITEM Object.",
+            "remarks": "Filename is given without the ITM file extension."
           }
         },
         {
@@ -4002,7 +4074,8 @@
             "NUMBER"
           ],
           "info": {
-            "desc": "Get/Set the Material Gauge of the ITEM Object."
+            "desc": "Get/Set the Material Gauge of the ITEM Object.",
+            "remarks": "For Material Types 'Linear Ductwork' and 'For Machines', Gauge gives the Material Thickness.\nFor Material Types 'Pipework', 'Electrical Containment' and 'Undefined' Gauge gives the\nMaterial Index Number as entered in the material (e.g. May be a decimal)."
           }
         },
         {
@@ -4051,7 +4124,8 @@
           ],
           "info": {
             "desc": "Get the HasProduct Flag of the ITEM Object.",
-            "readonly": true
+            "readonly": true,
+            "remarks": "A value of True or 0 indicates the ITEM is product listed."
           }
         },
         {
@@ -4060,7 +4134,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the Insualtion Specification Group & Name (e.g. 'Group: Name') of the ITEM Object."
+            "desc": "Get/Set the Insualtion Specification Group & Name (e.g. 'Group: Name') of the ITEM Object.",
+            "remarks": "Property may also be set to 'Not Set' or 'Off' preset values."
           }
         },
         {
@@ -4069,7 +4144,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the Installation Table Name property of the ITEM Object."
+            "desc": "Get/Set the Installation Table Name property of the ITEM Object.",
+            "remarks": "Only the Table Name is given, not the Group. Autodesk documentation INCORRECTLY\nindicates the Table Name includes the Group (e.g. 'Group: Name'). Value is subject to\nchange if Autodesk defect is corrected in future releases."
           }
         },
         {
@@ -4107,7 +4183,8 @@
           ],
           "info": {
             "desc": "Get the Library property of the ITEM OBject.",
-            "readonly": true
+            "readonly": true,
+            "remarks": "The dominant library for the ITM. Possible values are 'Ductboard', 'Electrical', 'Equipment',\n'Fabrication', 'Flat Oval', Free Entry', 'Furniture', 'Pipework', 'Profiled', 'Rectangular',\n'Round', 'Standard', 'Structure', 'Sub Assembly' or 'Unknown'."
           }
         },
         {
@@ -4135,7 +4212,8 @@
             "LINK[]"
           ],
           "info": {
-            "desc": "If applicable, this gets an array of LINK Objects of the ITEM Object."
+            "desc": "If applicable, this gets an array of LINK Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Links' property returns a value >= 1 before using Item.Link[index#/name]"
           }
         },
         {
@@ -4173,7 +4251,8 @@
             "NUMBER"
           ],
           "info": {
-            "desc": "Get/Set the Nest Priority of the ITEM Object."
+            "desc": "Get/Set the Nest Priority of the ITEM Object.",
+            "remarks": "Items with a higher number nest first giving preference to those itesm in the nesting process."
           }
         },
         {
@@ -4228,7 +4307,8 @@
             "OPTION[]"
           ],
           "info": {
-            "desc": "If applicable, this gets an array of OPTION Objects of the ITEM Object."
+            "desc": "If applicable, this gets an array of OPTION Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Options' property returns a value >= 1 before using Item.Option[index#/name]"
           }
         },
         {
@@ -4275,7 +4355,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the Path property of the ITEM Object."
+            "desc": "Get/Set the Path property of the ITEM Object.",
+            "remarks": "Path includes the terminating slash (/). Note that folder seperators are\nforward slashes (/) as opposed to backslashes (/) which are more commonly seen."
           }
         },
         {
@@ -4285,7 +4366,8 @@
           ],
           "info": {
             "desc": "Get the Pattern Number of rthe ITEM Object.",
-            "readonly": true
+            "readonly": true,
+            "remarks": "Unlike CID, Pattern Number is the true Pattern for the ITM and can not be changed.\nThis property is only available in Fabrication 2019.1 versions and later."
           }
         },
         {
@@ -4358,7 +4440,8 @@
             "SEAM[]"
           ],
           "info": {
-            "desc": "If applicable, this gets an array of SEAM Objects of the ITEM Object."
+            "desc": "If applicable, this gets an array of SEAM Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Seams' property returns a value >= 1 before using Item.Seam[index#]"
           }
         },
         {
@@ -4367,7 +4450,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the Section Name & Group (e.g. 'Group: Name') of the ITEM Object."
+            "desc": "Get/Set the Section Name & Group (e.g. 'Group: Name') of the ITEM Object.",
+            "remarks": "Can be set by specifying 'Name' or 'Group:Name'. Can be reset by setting\nto 'None' or empty string ''."
           }
         },
         {
@@ -4385,7 +4469,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the ServiceType property of the ITEM Object."
+            "desc": "Get/Set the ServiceType property of the ITEM Object.",
+            "remarks": "ServiceType can be set using the 'Name' or 'Index' of the desired ServieType."
           }
         },
         {
@@ -4394,7 +4479,8 @@
             "CONNECTOR[]"
           ],
           "info": {
-            "desc": "If applicable, this gets an array of Skin CONNECTOR Objects of the ITEM Object."
+            "desc": "If applicable, this gets an array of Skin CONNECTOR Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Connectors' property returns a value >= 1 before using Item.SkinConnector[index#]"
           }
         },
         {
@@ -4412,7 +4498,8 @@
             "NUMBER"
           ],
           "info": {
-            "desc": "Get/Set the Skin Gauge (thinckness) for the Skin Material of the ITEM Object."
+            "desc": "Get/Set the Skin Gauge (thinckness) for the Skin Material of the ITEM Object.",
+            "remarks": "Only valid if DoubleWall flag is set."
           }
         },
         {
@@ -4421,7 +4508,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the Skin Material Name & Group (e.g. 'Group: Name') of the ITEM Object."
+            "desc": "Get/Set the Skin Material Name & Group (e.g. 'Group: Name') of the ITEM Object.",
+            "remarks": "Only valid if DoubleWall flag is set."
           }
         },
         {
@@ -4439,7 +4527,8 @@
             "SEAM[]"
           ],
           "info": {
-            "desc": "If applicable this gets an array of Skin SEAM Objects of the ITEM Object."
+            "desc": "If applicable this gets an array of Skin SEAM Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Seams' property returns a value >= 1 before using Item.SkinSeam[index#]"
           }
         },
         {
@@ -4448,7 +4537,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the Skin Side property of the ITEM OBject."
+            "desc": "Get/Set the Skin Side property of the ITEM OBject.",
+            "remarks": "Only valid if DoubleWall flag is set. Possible values are 'Inside' or 'Outside'."
           }
         },
         {
@@ -4457,7 +4547,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the Specification Name & Group (e.g. 'Group: Name') of the ITEM Object."
+            "desc": "Get/Set the Specification Name & Group (e.g. 'Group: Name') of the ITEM Object.",
+            "remarks": "Can be set by specifying 'Name' or 'Group:Name'. Can be reset by setting\nto 'None' or empty string ''."
           }
         },
         {
@@ -4485,7 +4576,8 @@
             "SPLITTER[]"
           ],
           "info": {
-            "desc": "If applicable this gets an array of SPLITTER Objects of the ITEM Object."
+            "desc": "If applicable this gets an array of SPLITTER Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Splitters' property returns a value >= 1 before using Item.Splitter[index#]"
           }
         },
         {
@@ -4512,7 +4604,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the Status property of the ITEM Object."
+            "desc": "Get/Set the Status property of the ITEM Object.",
+            "remarks": "Status can be set using the 'Name' or 'Index' of the desired Status."
           }
         },
         {
@@ -4531,7 +4624,8 @@
             "STIFFENER[]"
           ],
           "info": {
-            "desc": "If applicable this gets an array of STIFFENER Objects of the ITEM Object."
+            "desc": "If applicable this gets an array of STIFFENER Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Stiffeners' property returns a value >= 1 before using Item.Stiffener[index#]"
           }
         },
         {
@@ -4540,7 +4634,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Set Structure Type of ITEM Object."
+            "desc": "Set Structure Type of ITEM Object.",
+            "remarks": "StructureType can be set using the 'Name' or 'Index' however this property is not able to be\nread. It can only be set."
           }
         },
         {
@@ -4559,7 +4654,8 @@
             "ITEM[]"
           ],
           "info": {
-            "desc": "If applicable this gets an array of ITEM Objects of the ITEM Object."
+            "desc": "If applicable this gets an array of ITEM Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'SubItems' property returns a value >= 1 before using Item.SubItem[index#]"
           }
         },
         {
@@ -4578,7 +4674,8 @@
           ],
           "info": {
             "desc": "Get the Type property of the ITEM Object.",
-            "readonly": true
+            "readonly": true,
+            "remarks": "Property can list one or more library types combined and seperated by a slash. Possible values\nare 'Ductboard','Electrical', 'Equipment', 'Fabrication', 'Flat Oval', Free Entry', 'Furniture',\n'Pipework', 'Profiled', 'Rectangular', 'Round', 'Standard', 'Structure', 'Sub Assembly' or 'Unknown'."
           }
         },
         {
@@ -4587,7 +4684,8 @@
             "NUMBER"
           ],
           "info": {
-            "desc": "Get/Set the Weight (in base units) of the ITEM Object."
+            "desc": "Get/Set the Weight (in base units) of the ITEM Object.",
+            "remarks": "If Costed by Length, Weight will be returned as per Meter/Foot otherwise by Quantity."
           }
         },
         {
@@ -4645,7 +4743,8 @@
             "args": {
               "NameOrIndex": ""
             },
-            "returns": "Nothing"
+            "returns": "Nothing",
+            "remarks": "This function merely added the specified 'User' Custom Data 'Field' to the Item. Once the\nfield is added, you can set a value using the Custom Data property Item.CustomData[name/index#].Value"
           }
         },
         {
@@ -4722,7 +4821,8 @@
               "ConnectorIndex": "This index number is associated with the connector number shown in the edit item dialog",
               "XYZ": "Optional string representing an X, Y or Z portion of the connector centerline coordinate."
             },
-            "returns": "String representing the X, Y, Z or all 3 if XYZ was not provided."
+            "returns": "String representing the X, Y, Z or all 3 if XYZ was not provided.",
+            "remarks": "Supported values are...'XYZ', 'X', 'Y', 'Z', 'TOP' and 'BTM'.\nThe string 'XYZ', missing parameters, empty strings or any other non supported value returns\na string representing the X, Y & Z coordinates seperated by spaces (e.g. '1.25 4.54 0.00').\nIf the string 'X', 'Y' or 'Z' is speified, a string representing just tha compoentent of the\nendpoint is returned.\nIf the string 'TOP' or 'BTM' is specified, a string representing the Z coordinate of the connector's\nTop or Bottom is returned."
           }
         },
         {
@@ -4779,7 +4879,8 @@
           "args": [],
           "info": {
             "desc": "Refreshes all costs to Item",
-            "returns": "Nothing"
+            "returns": "Nothing",
+            "remarks": "Call after making any change to the Item that may affect cost."
           }
         },
         {
@@ -4856,7 +4957,8 @@
           "args": [],
           "info": {
             "desc": "Refreshes Item's developments.",
-            "returns": "Nothing"
+            "returns": "Nothing",
+            "remarks": "Call after making any change to the Item that may developments, specifiction or model"
           }
         },
         {
@@ -4887,7 +4989,8 @@
             "args": {
               "DXFFile": "String of full path and file name to export",
               "IncludeLeads": "Optional Boolead Flag indicating if Lead Ins/Outs should be written to DXF."
-            }
+            },
+            "remarks": "File to save should exclude the '.DXF' file extension.\nFlag for writing Lead Ins/Outs defaults to TRUE if ommited.\nEach development is appended with a '-1', '-2', '-3', etc. suffix to the specified file name."
           }
         }
       ],
@@ -4908,7 +5011,8 @@
             "AIRTURN[]"
           ],
           "info": {
-            "desc": "If applicable, this gets an array of AIRTURN Objects of the ITEM Object."
+            "desc": "If applicable, this gets an array of AIRTURN Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Airturns' property returns a value >= 1 before using Item.Airturn[index#/name]"
           }
         },
         {
@@ -4935,7 +5039,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the Bitmap (Image File Name) of the ITEM Object."
+            "desc": "Get/Set the Bitmap (Image File Name) of the ITEM Object.",
+            "remarks": "May be full, relative Path, just Filename or blank for default. May be a BMP or PNG image type.\nPNG image type recommended for reduced file size and performance."
           }
         },
         {
@@ -4999,7 +5104,8 @@
             "NUMBER"
           ],
           "info": {
-            "desc": "Get/Set the CID number of the ITEM Object."
+            "desc": "Get/Set the CID number of the ITEM Object.",
+            "remarks": "CID is not guarenteed to be the same as the Pattern Number. Best practice is to not\nchange the CID value which defaults to the Pattern Number without very specific reasons and\nknowledge of it's impact."
           }
         },
         {
@@ -5008,7 +5114,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the Comment text of the ITEM Object."
+            "desc": "Get/Set the Comment text of the ITEM Object.",
+            "remarks": "Supports multi-line text and may contain Carriage Returns."
           }
         },
         {
@@ -5027,7 +5134,8 @@
             "CONNECTOR[]"
           ],
           "info": {
-            "desc": "If applicable, this gets an array of CONNECTOR Objects of the ITEM Object."
+            "desc": "If applicable, this gets an array of CONNECTOR Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Connectors' property returns a value >= 1 before using Item.Connector[index#/name]"
           }
         },
         {
@@ -5036,7 +5144,8 @@
             "BOOLEAN"
           ],
           "info": {
-            "desc": "Get/Set the CostByLength (Cost Units) Flag of the ITEM Object."
+            "desc": "Get/Set the CostByLength (Cost Units) Flag of the ITEM Object.",
+            "remarks": "Cost Units are set by the CostByLength flag. 0 = Cost by Qty, 1 Cost by Ft."
           }
         },
         {
@@ -5045,7 +5154,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the CostType property of the ITEM Object."
+            "desc": "Get/Set the CostType property of the ITEM Object.",
+            "remarks": "Valid CostType values are...'Demolition', 'Free Issue', 'Normal', 'Relocation' and 'Supply Only'."
           }
         },
         {
@@ -5054,7 +5164,8 @@
             "CUSTOMDEF[]"
           ],
           "info": {
-            "desc": "If applicable, this gets an array of CUSTOM DATA Objects for the ITEM Object."
+            "desc": "If applicable, this gets an array of CUSTOM DATA Objects for the ITEM Object.",
+            "remarks": "There is no way to itterate over this array, you need to be aware of the custom data indices or names that exist in your database."
           }
         },
         {
@@ -5063,7 +5174,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the CutType property of the ITEM Object."
+            "desc": "Get/Set the CutType property of the ITEM Object.",
+            "remarks": "Alowwed values of CutType vary depending on the ITM's Pattern Number."
           }
         },
         {
@@ -5082,7 +5194,8 @@
             "DAMPER[]"
           ],
           "info": {
-            "desc": "If applicable, this gets an array of DAMPER Objects of the ITEM Object."
+            "desc": "If applicable, this gets an array of DAMPER Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Dampers' property returns a value >= 1 before using Item.Dampers[index#/name]"
           }
         },
         {
@@ -5137,7 +5250,8 @@
             "DIM[]"
           ],
           "info": {
-            "desc": "If applicable, this gets an array of DIM Objects of the ITEM Object."
+            "desc": "If applicable, this gets an array of DIM Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Dims' property returns a value >= 1 before using Item.Dim[index#/name]"
           }
         },
         {
@@ -5146,7 +5260,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the Dimension Side Flag of the ITEM Object."
+            "desc": "Get/Set the Dimension Side Flag of the ITEM Object.",
+            "remarks": "Possible values are 'Inside', 'Outside' and 'None'.\nIf DoubleWall, this flag controls whether dimensions are inside or outside sizes.\nIf not DoubleWall and Insulation is inside, this also controls whether dimensions\nare inside or outside sizes. This setting is remembered seperately for DoubleWall\nor not DoubleWall. Ensure DoubleWall is set correctly before changing."
           }
         },
         {
@@ -5200,7 +5315,8 @@
             "NUMBER"
           ],
           "info": {
-            "desc": "Get/Set the Extra Install Time of the ITEM Object."
+            "desc": "Get/Set the Extra Install Time of the ITEM Object.",
+            "remarks": "The 'E' in ETime stands for 'Erection' or Installation Time.\nExtra ETime is expressed in terms of units specified by the ExtraETimeUnits property."
           }
         },
         {
@@ -5209,7 +5325,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the Extra Install Time Rate of the ITEM Object."
+            "desc": "Get/Set the Extra Install Time Rate of the ITEM Object.",
+            "remarks": "The 'E' in ETime stands for 'Erection' or Installation Time.\nExtraETimeRate can be specified by Rate 'Name' or Index."
           }
         },
         {
@@ -5218,7 +5335,8 @@
             "TIMEUNITS"
           ],
           "info": {
-            "desc": "Get/Set the Extra Install Time Units of the ITEM Object."
+            "desc": "Get/Set the Extra Install Time Units of the ITEM Object.",
+            "remarks": "The 'E' in ETime stands for 'Erection' or Installation Time."
           }
         },
         {
@@ -5227,7 +5345,8 @@
             "NUMBER"
           ],
           "info": {
-            "desc": "Get/Set the Extra Fabrication Time of the ITEM Object."
+            "desc": "Get/Set the Extra Fabrication Time of the ITEM Object.",
+            "remarks": "The 'F' in FTime stands for 'Fabrication'.\nExtra FTime is expressed in terms of units specified by the ExtraFTimeUnits property."
           }
         },
         {
@@ -5236,7 +5355,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the Extra Fabrication Time Rate of the ITEM Object."
+            "desc": "Get/Set the Extra Fabrication Time Rate of the ITEM Object.",
+            "remarks": "The 'F' in FTime stands for 'Fabrication'.\nExtraFTimeRate can be specified by Rate 'Name' or Index."
           }
         },
         {
@@ -5245,7 +5365,8 @@
             "TIMEUNITS"
           ],
           "info": {
-            "desc": "Get/Set the Extra Fabrication Time Units of the ITEM Object."
+            "desc": "Get/Set the Extra Fabrication Time Units of the ITEM Object.",
+            "remarks": "The 'F' in FTime stands for 'Fabrication'."
           }
         },
         {
@@ -5254,7 +5375,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the Fabrication Table Name property of the ITEM Object."
+            "desc": "Get/Set the Fabrication Table Name property of the ITEM Object.",
+            "remarks": "Only the Table Name is given, not the Group. Autodesk documentation INCORRECTLY\nindicates the Table Name includes the Group (e.g. 'Group: Name'). Value is subject to\nchange if this Autodesk defect is corrected in future releases."
           }
         },
         {
@@ -5272,7 +5394,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the Facing Name of the ITEM Object."
+            "desc": "Get/Set the Facing Name of the ITEM Object.",
+            "remarks": "Facing Name only is given. Facing Group is not given as part of the value."
           }
         },
         {
@@ -5290,7 +5413,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the ITM Filename of the ITEM Object."
+            "desc": "Get/Set the ITM Filename of the ITEM Object.",
+            "remarks": "Filename is given without the ITM file extension."
           }
         },
         {
@@ -5308,7 +5432,8 @@
             "NUMBER"
           ],
           "info": {
-            "desc": "Get/Set the Material Gauge of the ITEM Object."
+            "desc": "Get/Set the Material Gauge of the ITEM Object.",
+            "remarks": "For Material Types 'Linear Ductwork' and 'For Machines', Gauge gives the Material Thickness.\nFor Material Types 'Pipework', 'Electrical Containment' and 'Undefined' Gauge gives the\nMaterial Index Number as entered in the material (e.g. May be a decimal)."
           }
         },
         {
@@ -5357,7 +5482,8 @@
           ],
           "info": {
             "desc": "Get the HasProduct Flag of the ITEM Object.",
-            "readonly": true
+            "readonly": true,
+            "remarks": "A value of True or 0 indicates the ITEM is product listed."
           }
         },
         {
@@ -5366,7 +5492,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the Insualtion Specification Group & Name (e.g. 'Group: Name') of the ITEM Object."
+            "desc": "Get/Set the Insualtion Specification Group & Name (e.g. 'Group: Name') of the ITEM Object.",
+            "remarks": "Property may also be set to 'Not Set' or 'Off' preset values."
           }
         },
         {
@@ -5375,7 +5502,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the Installation Table Name property of the ITEM Object."
+            "desc": "Get/Set the Installation Table Name property of the ITEM Object.",
+            "remarks": "Only the Table Name is given, not the Group. Autodesk documentation INCORRECTLY\nindicates the Table Name includes the Group (e.g. 'Group: Name'). Value is subject to\nchange if Autodesk defect is corrected in future releases."
           }
         },
         {
@@ -5413,7 +5541,8 @@
           ],
           "info": {
             "desc": "Get the Library property of the ITEM OBject.",
-            "readonly": true
+            "readonly": true,
+            "remarks": "The dominant library for the ITM. Possible values are 'Ductboard', 'Electrical', 'Equipment',\n'Fabrication', 'Flat Oval', Free Entry', 'Furniture', 'Pipework', 'Profiled', 'Rectangular',\n'Round', 'Standard', 'Structure', 'Sub Assembly' or 'Unknown'."
           }
         },
         {
@@ -5441,7 +5570,8 @@
             "LINK[]"
           ],
           "info": {
-            "desc": "If applicable, this gets an array of LINK Objects of the ITEM Object."
+            "desc": "If applicable, this gets an array of LINK Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Links' property returns a value >= 1 before using Item.Link[index#/name]"
           }
         },
         {
@@ -5479,7 +5609,8 @@
             "NUMBER"
           ],
           "info": {
-            "desc": "Get/Set the Nest Priority of the ITEM Object."
+            "desc": "Get/Set the Nest Priority of the ITEM Object.",
+            "remarks": "Items with a higher number nest first giving preference to those itesm in the nesting process."
           }
         },
         {
@@ -5534,7 +5665,8 @@
             "OPTION[]"
           ],
           "info": {
-            "desc": "If applicable, this gets an array of OPTION Objects of the ITEM Object."
+            "desc": "If applicable, this gets an array of OPTION Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Options' property returns a value >= 1 before using Item.Option[index#/name]"
           }
         },
         {
@@ -5581,7 +5713,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the Path property of the ITEM Object."
+            "desc": "Get/Set the Path property of the ITEM Object.",
+            "remarks": "Path includes the terminating slash (/). Note that folder seperators are\nforward slashes (/) as opposed to backslashes (/) which are more commonly seen."
           }
         },
         {
@@ -5591,7 +5724,8 @@
           ],
           "info": {
             "desc": "Get the Pattern Number of rthe ITEM Object.",
-            "readonly": true
+            "readonly": true,
+            "remarks": "Unlike CID, Pattern Number is the true Pattern for the ITM and can not be changed.\nThis property is only available in Fabrication 2019.1 versions and later."
           }
         },
         {
@@ -5664,7 +5798,8 @@
             "SEAM[]"
           ],
           "info": {
-            "desc": "If applicable, this gets an array of SEAM Objects of the ITEM Object."
+            "desc": "If applicable, this gets an array of SEAM Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Seams' property returns a value >= 1 before using Item.Seam[index#]"
           }
         },
         {
@@ -5673,7 +5808,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the Section Name & Group (e.g. 'Group: Name') of the ITEM Object."
+            "desc": "Get/Set the Section Name & Group (e.g. 'Group: Name') of the ITEM Object.",
+            "remarks": "Can be set by specifying 'Name' or 'Group:Name'. Can be reset by setting\nto 'None' or empty string ''."
           }
         },
         {
@@ -5691,7 +5827,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the ServiceType property of the ITEM Object."
+            "desc": "Get/Set the ServiceType property of the ITEM Object.",
+            "remarks": "ServiceType can be set using the 'Name' or 'Index' of the desired ServieType."
           }
         },
         {
@@ -5700,7 +5837,8 @@
             "CONNECTOR[]"
           ],
           "info": {
-            "desc": "If applicable, this gets an array of Skin CONNECTOR Objects of the ITEM Object."
+            "desc": "If applicable, this gets an array of Skin CONNECTOR Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Connectors' property returns a value >= 1 before using Item.SkinConnector[index#]"
           }
         },
         {
@@ -5718,7 +5856,8 @@
             "NUMBER"
           ],
           "info": {
-            "desc": "Get/Set the Skin Gauge (thinckness) for the Skin Material of the ITEM Object."
+            "desc": "Get/Set the Skin Gauge (thinckness) for the Skin Material of the ITEM Object.",
+            "remarks": "Only valid if DoubleWall flag is set."
           }
         },
         {
@@ -5727,7 +5866,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the Skin Material Name & Group (e.g. 'Group: Name') of the ITEM Object."
+            "desc": "Get/Set the Skin Material Name & Group (e.g. 'Group: Name') of the ITEM Object.",
+            "remarks": "Only valid if DoubleWall flag is set."
           }
         },
         {
@@ -5745,7 +5885,8 @@
             "SEAM[]"
           ],
           "info": {
-            "desc": "If applicable this gets an array of Skin SEAM Objects of the ITEM Object."
+            "desc": "If applicable this gets an array of Skin SEAM Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Seams' property returns a value >= 1 before using Item.SkinSeam[index#]"
           }
         },
         {
@@ -5754,7 +5895,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the Skin Side property of the ITEM OBject."
+            "desc": "Get/Set the Skin Side property of the ITEM OBject.",
+            "remarks": "Only valid if DoubleWall flag is set. Possible values are 'Inside' or 'Outside'."
           }
         },
         {
@@ -5763,7 +5905,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the Specification Name & Group (e.g. 'Group: Name') of the ITEM Object."
+            "desc": "Get/Set the Specification Name & Group (e.g. 'Group: Name') of the ITEM Object.",
+            "remarks": "Can be set by specifying 'Name' or 'Group:Name'. Can be reset by setting\nto 'None' or empty string ''."
           }
         },
         {
@@ -5791,7 +5934,8 @@
             "SPLITTER[]"
           ],
           "info": {
-            "desc": "If applicable this gets an array of SPLITTER Objects of the ITEM Object."
+            "desc": "If applicable this gets an array of SPLITTER Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Splitters' property returns a value >= 1 before using Item.Splitter[index#]"
           }
         },
         {
@@ -5818,7 +5962,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the Status property of the ITEM Object."
+            "desc": "Get/Set the Status property of the ITEM Object.",
+            "remarks": "Status can be set using the 'Name' or 'Index' of the desired Status."
           }
         },
         {
@@ -5837,7 +5982,8 @@
             "STIFFENER[]"
           ],
           "info": {
-            "desc": "If applicable this gets an array of STIFFENER Objects of the ITEM Object."
+            "desc": "If applicable this gets an array of STIFFENER Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Stiffeners' property returns a value >= 1 before using Item.Stiffener[index#]"
           }
         },
         {
@@ -5846,7 +5992,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Set Structure Type of ITEM Object."
+            "desc": "Set Structure Type of ITEM Object.",
+            "remarks": "StructureType can be set using the 'Name' or 'Index' however this property is not able to be\nread. It can only be set."
           }
         },
         {
@@ -5865,7 +6012,8 @@
             "ITEM[]"
           ],
           "info": {
-            "desc": "If applicable this gets an array of ITEM Objects of the ITEM Object."
+            "desc": "If applicable this gets an array of ITEM Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'SubItems' property returns a value >= 1 before using Item.SubItem[index#]"
           }
         },
         {
@@ -5884,7 +6032,8 @@
           ],
           "info": {
             "desc": "Get the Type property of the ITEM Object.",
-            "readonly": true
+            "readonly": true,
+            "remarks": "Property can list one or more library types combined and seperated by a slash. Possible values\nare 'Ductboard','Electrical', 'Equipment', 'Fabrication', 'Flat Oval', Free Entry', 'Furniture',\n'Pipework', 'Profiled', 'Rectangular', 'Round', 'Standard', 'Structure', 'Sub Assembly' or 'Unknown'."
           }
         },
         {
@@ -5893,7 +6042,8 @@
             "NUMBER"
           ],
           "info": {
-            "desc": "Get/Set the Weight (in base units) of the ITEM Object."
+            "desc": "Get/Set the Weight (in base units) of the ITEM Object.",
+            "remarks": "If Costed by Length, Weight will be returned as per Meter/Foot otherwise by Quantity."
           }
         },
         {
@@ -5977,7 +6127,8 @@
               "SearchFiles": "Optional Boolean Flag to search against Files.",
               "SearchFolders": "Optional Boolean Flag to search against Folders."
             },
-            "returns": "Nothing."
+            "returns": "Nothing.",
+            "remarks": "If optional parameters are not specified when constructing the FILELOCATOR object,\nuse the FILELOCATOR.Scan method to specify them."
           }
         },
         {
@@ -6027,7 +6178,8 @@
               "SearchFiles": "Optional Boolean Flag to search against Files.",
               "SearchFolders": "Optional Boolean Flag to search against Folders."
             },
-            "returns": "Number indicating how many files and/or folders matched the search."
+            "returns": "Number indicating how many files and/or folders matched the search.",
+            "remarks": "This function is not needed if the FILELOCATOR Object Constructor was called with parameters specifying the\npath, search wildcard, file and folder search flags."
           }
         }
       ],
@@ -6106,7 +6258,8 @@
             "args": {
               "NumberOfTasks": "Number indicating the number of tasks to perform."
             },
-            "returns": "Nothing"
+            "returns": "Nothing",
+            "remarks": "NumberofTasks should ideally specify the number of iterations you go through to that the progress bars\ndialog shows a progress relative to the tasks you're performing. You must use the Task.Progress\nproperty to move the progress bars as your tasks process."
           }
         },
         {
@@ -6117,7 +6270,8 @@
           "args": [],
           "info": {
             "desc": "Terminate the display of the progress bars dialog",
-            "returns": "Nothing"
+            "returns": "Nothing",
+            "remarks": "Call to end the display of the progress bars dialog when tasks are finished processing.\nYou mat use the Task.Aborted proeprty to determine if the user canceled the process. When the\nuser cancels the progress bars, this does not stop your tasks from processing, merely sets the\nAborted property. You must monitor the Aborted flag and exit your task processing in your code\nto propertly terminate a task by a user."
           }
         }
       ],
@@ -6156,7 +6310,8 @@
             "TASKSELECTION[]"
           ],
           "info": {
-            "desc": "Gets an array of TASKSELECTION Objects of the TASK Object."
+            "desc": "Gets an array of TASKSELECTION Objects of the TASK Object.",
+            "remarks": "Always check to see if the 'Task.Selection.Count' property returns a value >= 1 before\nusing Task.Selection[index#]"
           }
         }
       ],

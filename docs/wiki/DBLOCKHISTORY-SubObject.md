@@ -13,7 +13,9 @@ STRING
 ### Property: History
 Get the History Object of the DBLOCKHISTORY Object.
 
-No additional remarks available
+History object is recursive. Each History Object contains another History object. This continues until the
+Histroy object returns a NULL value. Do NOT interate through the nested History objects using the Version
+property as that property can be rolled back/forward and many not indicate the number of history entries accurately.
 ##### Returns
 [DBLOCKHISTORY](https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/DBLOCKHISTORY-SubObject.md)
 ### Property: Info

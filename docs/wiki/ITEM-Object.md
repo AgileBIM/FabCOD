@@ -13,7 +13,7 @@ NUMBER
 ### Property: Airturn
 If applicable, this gets an array of AIRTURN Objects of the ITEM Object.
 
-No additional remarks available
+Always check to see if the 'Airturns' property returns a value >= 1 before using Item.Airturn[index#/name]
 ##### Returns
 [AIRTURN](https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/AIRTURN-SubObject.md)[]
 ### Property: Alias
@@ -31,7 +31,8 @@ STRING
 ### Property: Bitmap
 Get/Set the Bitmap (Image File Name) of the ITEM Object.
 
-No additional remarks available
+May be full, relative Path, just Filename or blank for default. May be a BMP or PNG image type.
+PNG image type recommended for reduced file size and performance.
 ##### Returns
 STRING
 ### Property: BoughtOut
@@ -73,13 +74,15 @@ BOOLEAN
 ### Property: CID
 Get/Set the CID number of the ITEM Object.
 
-No additional remarks available
+CID is not guarenteed to be the same as the Pattern Number. Best practice is to not
+change the CID value which defaults to the Pattern Number without very specific reasons and
+knowledge of it's impact.
 ##### Returns
 NUMBER
 ### Property: Comment
 Get/Set the Comment text of the ITEM Object.
 
-No additional remarks available
+Supports multi-line text and may contain Carriage Returns.
 ##### Returns
 STRING
 ### Property: Connectors
@@ -91,31 +94,31 @@ NUMBER
 ### Property: Connector
 If applicable, this gets an array of CONNECTOR Objects of the ITEM Object.
 
-No additional remarks available
+Always check to see if the 'Connectors' property returns a value >= 1 before using Item.Connector[index#/name]
 ##### Returns
 [CONNECTOR](https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/CONNECTOR-SubObject.md)[]
 ### Property: CostByLength
 Get/Set the CostByLength (Cost Units) Flag of the ITEM Object.
 
-No additional remarks available
+Cost Units are set by the CostByLength flag. 0 = Cost by Qty, 1 Cost by Ft.
 ##### Returns
 BOOLEAN
 ### Property: CostType
 Get/Set the CostType property of the ITEM Object.
 
-No additional remarks available
+Valid CostType values are...'Demolition', 'Free Issue', 'Normal', 'Relocation' and 'Supply Only'.
 ##### Returns
 STRING
 ### Property: CustomData
 If applicable, this gets an array of CUSTOM DATA Objects for the ITEM Object.
 
-No additional remarks available
+There is no way to itterate over this array, you need to be aware of the custom data indices or names that exist in your database.
 ##### Returns
 [CUSTOMDEF](https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/CUSTOMDEF-SubObject.md)[]
 ### Property: CutType
 Get/Set the CutType property of the ITEM Object.
 
-No additional remarks available
+Alowwed values of CutType vary depending on the ITM's Pattern Number.
 ##### Returns
 STRING
 ### Property: Dampers
@@ -127,7 +130,7 @@ NUMBER
 ### Property: Damper
 If applicable, this gets an array of DAMPER Objects of the ITEM Object.
 
-No additional remarks available
+Always check to see if the 'Dampers' property returns a value >= 1 before using Item.Dampers[index#/name]
 ##### Returns
 [DAMPER](https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/DAMPER-SubObject.md)[]
 ### Property: DatabaseID
@@ -163,13 +166,17 @@ NUMBER
 ### Property: Dim
 If applicable, this gets an array of DIM Objects of the ITEM Object.
 
-No additional remarks available
+Always check to see if the 'Dims' property returns a value >= 1 before using Item.Dim[index#/name]
 ##### Returns
 [DIM](https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/DIM-SubObject.md)[]
 ### Property: DimSide
 Get/Set the Dimension Side Flag of the ITEM Object.
 
-No additional remarks available
+Possible values are 'Inside', 'Outside' and 'None'.
+If DoubleWall, this flag controls whether dimensions are inside or outside sizes.
+If not DoubleWall and Insulation is inside, this also controls whether dimensions
+are inside or outside sizes. This setting is remembered seperately for DoubleWall
+or not DoubleWall. Ensure DoubleWall is set correctly before changing.
 ##### Returns
 STRING
 ### Property: DimSideLock
@@ -205,43 +212,49 @@ STRING
 ### Property: ExtraETime
 Get/Set the Extra Install Time of the ITEM Object.
 
-No additional remarks available
+The 'E' in ETime stands for 'Erection' or Installation Time.
+Extra ETime is expressed in terms of units specified by the ExtraETimeUnits property.
 ##### Returns
 NUMBER
 ### Property: ExtraETimeRate
 Get/Set the Extra Install Time Rate of the ITEM Object.
 
-No additional remarks available
+The 'E' in ETime stands for 'Erection' or Installation Time.
+ExtraETimeRate can be specified by Rate 'Name' or Index.
 ##### Returns
 STRING
 ### Property: ExtraETimeUnits
 Get/Set the Extra Install Time Units of the ITEM Object.
 
-No additional remarks available
+The 'E' in ETime stands for 'Erection' or Installation Time.
 ##### Returns
 TIMEUNITS
 ### Property: ExtraFTime
 Get/Set the Extra Fabrication Time of the ITEM Object.
 
-No additional remarks available
+The 'F' in FTime stands for 'Fabrication'.
+Extra FTime is expressed in terms of units specified by the ExtraFTimeUnits property.
 ##### Returns
 NUMBER
 ### Property: ExtraFTimeRate
 Get/Set the Extra Fabrication Time Rate of the ITEM Object.
 
-No additional remarks available
+The 'F' in FTime stands for 'Fabrication'.
+ExtraFTimeRate can be specified by Rate 'Name' or Index.
 ##### Returns
 STRING
 ### Property: ExtraFTimeUnits
 Get/Set the Extra Fabrication Time Units of the ITEM Object.
 
-No additional remarks available
+The 'F' in FTime stands for 'Fabrication'.
 ##### Returns
 TIMEUNITS
 ### Property: FabTable
 Get/Set the Fabrication Table Name property of the ITEM Object.
 
-No additional remarks available
+Only the Table Name is given, not the Group. Autodesk documentation INCORRECTLY
+indicates the Table Name includes the Group (e.g. 'Group: Name'). Value is subject to
+change if this Autodesk defect is corrected in future releases.
 ##### Returns
 STRING
 ### Property: FabTableLock
@@ -253,7 +266,7 @@ BOOLEAN
 ### Property: Facing
 Get/Set the Facing Name of the ITEM Object.
 
-No additional remarks available
+Facing Name only is given. Facing Group is not given as part of the value.
 ##### Returns
 STRING
 ### Property: FacingLock
@@ -265,7 +278,7 @@ BOOLEAN
 ### Property: Filename
 Get/Set the ITM Filename of the ITEM Object.
 
-No additional remarks available
+Filename is given without the ITM file extension.
 ##### Returns
 STRING
 ### Property: FixRelative
@@ -277,7 +290,9 @@ BOOLEAN
 ### Property: Gauge
 Get/Set the Material Gauge of the ITEM Object.
 
-No additional remarks available
+For Material Types 'Linear Ductwork' and 'For Machines', Gauge gives the Material Thickness.
+For Material Types 'Pipework', 'Electrical Containment' and 'Undefined' Gauge gives the
+Material Index Number as entered in the material (e.g. May be a decimal).
 ##### Returns
 NUMBER
 ### Property: GaugeLock
@@ -307,19 +322,21 @@ NUMBER
 ### Property: HasProduct
 Get the HasProduct Flag of the ITEM Object.
 
-No additional remarks available
+A value of True or 0 indicates the ITEM is product listed.
 ##### Returns
 BOOLEAN
 ### Property: InsSpec
 Get/Set the Insualtion Specification Group & Name (e.g. 'Group: Name') of the ITEM Object.
 
-No additional remarks available
+Property may also be set to 'Not Set' or 'Off' preset values.
 ##### Returns
 STRING
 ### Property: InstallTable
 Get/Set the Installation Table Name property of the ITEM Object.
 
-No additional remarks available
+Only the Table Name is given, not the Group. Autodesk documentation INCORRECTLY
+indicates the Table Name includes the Group (e.g. 'Group: Name'). Value is subject to
+change if Autodesk defect is corrected in future releases.
 ##### Returns
 STRING
 ### Property: InstallTableLock
@@ -343,7 +360,9 @@ BOOLEAN
 ### Property: Library
 Get the Library property of the ITEM OBject.
 
-No additional remarks available
+The dominant library for the ITM. Possible values are 'Ductboard', 'Electrical', 'Equipment',
+'Fabrication', 'Flat Oval', Free Entry', 'Furniture', 'Pipework', 'Profiled', 'Rectangular',
+'Round', 'Standard', 'Structure', 'Sub Assembly' or 'Unknown'.
 ##### Returns
 STRING
 ### Property: Lifespan
@@ -361,7 +380,7 @@ NUMBER
 ### Property: Link
 If applicable, this gets an array of LINK Objects of the ITEM Object.
 
-No additional remarks available
+Always check to see if the 'Links' property returns a value >= 1 before using Item.Link[index#/name]
 ##### Returns
 [LINK](https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/LINK-SubObject.md)[]
 ### Property: ManyOldStatus
@@ -385,7 +404,7 @@ STRING
 ### Property: NestPriority
 Get/Set the Nest Priority of the ITEM Object.
 
-No additional remarks available
+Items with a higher number nest first giving preference to those itesm in the nesting process.
 ##### Returns
 NUMBER
 ### Property: Notes
@@ -421,7 +440,7 @@ NUMBER
 ### Property: Option
 If applicable, this gets an array of OPTION Objects of the ITEM Object.
 
-No additional remarks available
+Always check to see if the 'Options' property returns a value >= 1 before using Item.Option[index#/name]
 ##### Returns
 [OPTION](https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/OPTION-SubObject.md)[]
 ### Property: Order
@@ -451,13 +470,15 @@ BOOLEAN[]
 ### Property: Path
 Get/Set the Path property of the ITEM Object.
 
-No additional remarks available
+Path includes the terminating slash (/). Note that folder seperators are
+forward slashes (/) as opposed to backslashes (/) which are more commonly seen.
 ##### Returns
 STRING
 ### Property: PatNo
 Get the Pattern Number of rthe ITEM Object.
 
-No additional remarks available
+Unlike CID, Pattern Number is the true Pattern for the ITM and can not be changed.
+This property is only available in Fabrication 2019.1 versions and later.
 ##### Returns
 NUMBER
 ### Property: PriceList
@@ -505,13 +526,14 @@ NUMBER
 ### Property: Seam
 If applicable, this gets an array of SEAM Objects of the ITEM Object.
 
-No additional remarks available
+Always check to see if the 'Seams' property returns a value >= 1 before using Item.Seam[index#]
 ##### Returns
 [SEAM](https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/SEAM-SubObject.md)[]
 ### Property: Section
 Get/Set the Section Name & Group (e.g. 'Group: Name') of the ITEM Object.
 
-No additional remarks available
+Can be set by specifying 'Name' or 'Group:Name'. Can be reset by setting
+to 'None' or empty string ''.
 ##### Returns
 STRING
 ### Property: Service
@@ -523,13 +545,13 @@ STRING
 ### Property: ServiceType
 Get/Set the ServiceType property of the ITEM Object.
 
-No additional remarks available
+ServiceType can be set using the 'Name' or 'Index' of the desired ServieType.
 ##### Returns
 STRING
 ### Property: SkinConnector
 If applicable, this gets an array of Skin CONNECTOR Objects of the ITEM Object.
 
-No additional remarks available
+Always check to see if the 'Connectors' property returns a value >= 1 before using Item.SkinConnector[index#]
 ##### Returns
 [CONNECTOR](https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/CONNECTOR-SubObject.md)[]
 ### Property: SkinDecoiler
@@ -541,13 +563,13 @@ No additional remarks available
 ### Property: SkinGauge
 Get/Set the Skin Gauge (thinckness) for the Skin Material of the ITEM Object.
 
-No additional remarks available
+Only valid if DoubleWall flag is set.
 ##### Returns
 NUMBER
 ### Property: SkinMaterial
 Get/Set the Skin Material Name & Group (e.g. 'Group: Name') of the ITEM Object.
 
-No additional remarks available
+Only valid if DoubleWall flag is set.
 ##### Returns
 STRING
 ### Property: SkinMaterialLock
@@ -559,19 +581,20 @@ BOOLEAN
 ### Property: SkinSeam
 If applicable this gets an array of Skin SEAM Objects of the ITEM Object.
 
-No additional remarks available
+Always check to see if the 'Seams' property returns a value >= 1 before using Item.SkinSeam[index#]
 ##### Returns
 [SEAM](https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/SEAM-SubObject.md)[]
 ### Property: SkinSide
 Get/Set the Skin Side property of the ITEM OBject.
 
-No additional remarks available
+Only valid if DoubleWall flag is set. Possible values are 'Inside' or 'Outside'.
 ##### Returns
 STRING
 ### Property: Specification
 Get/Set the Specification Name & Group (e.g. 'Group: Name') of the ITEM Object.
 
-No additional remarks available
+Can be set by specifying 'Name' or 'Group:Name'. Can be reset by setting
+to 'None' or empty string ''.
 ##### Returns
 STRING
 ### Property: SpecLock
@@ -589,7 +612,7 @@ NUMBER
 ### Property: Splitter
 If applicable this gets an array of SPLITTER Objects of the ITEM Object.
 
-No additional remarks available
+Always check to see if the 'Splitters' property returns a value >= 1 before using Item.Splitter[index#]
 ##### Returns
 [SPLITTER](https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/SPLITTER-SubObject.md)[]
 ### Property: Spool
@@ -607,7 +630,7 @@ NUMBER
 ### Property: Status
 Get/Set the Status property of the ITEM Object.
 
-No additional remarks available
+Status can be set using the 'Name' or 'Index' of the desired Status.
 ##### Returns
 STRING
 ### Property: Stiffeners
@@ -619,13 +642,14 @@ NUMBER
 ### Property: Stiffener
 If applicable this gets an array of STIFFENER Objects of the ITEM Object.
 
-No additional remarks available
+Always check to see if the 'Stiffeners' property returns a value >= 1 before using Item.Stiffener[index#]
 ##### Returns
 [STIFFENER](https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/STIFFENER-SubObject.md)[]
 ### Property: StructureType
 Set Structure Type of ITEM Object.
 
-No additional remarks available
+StructureType can be set using the 'Name' or 'Index' however this property is not able to be
+read. It can only be set.
 ##### Returns
 STRING
 ### Property: SubItems
@@ -637,7 +661,7 @@ NUMBER
 ### Property: SubItem
 If applicable this gets an array of ITEM Objects of the ITEM Object.
 
-No additional remarks available
+Always check to see if the 'SubItems' property returns a value >= 1 before using Item.SubItem[index#]
 ##### Returns
 ITEM[]
 ### Property: Support
@@ -649,13 +673,15 @@ No additional remarks available
 ### Property: Type
 Get the Type property of the ITEM Object.
 
-No additional remarks available
+Property can list one or more library types combined and seperated by a slash. Possible values
+are 'Ductboard','Electrical', 'Equipment', 'Fabrication', 'Flat Oval', Free Entry', 'Furniture',
+'Pipework', 'Profiled', 'Rectangular', 'Round', 'Standard', 'Structure', 'Sub Assembly' or 'Unknown'.
 ##### Returns
 STRING
 ### Property: Weight
 Get/Set the Weight (in base units) of the ITEM Object.
 
-No additional remarks available
+If Costed by Length, Weight will be returned as per Meter/Foot otherwise by Quantity.
 ##### Returns
 NUMBER
 ### Property: WeightLock
@@ -681,7 +707,8 @@ The following items are invoked from the base object by a dot notation
 ### Function: AddCustomData
 Dynamically adds Custom Data to the item (for 'User' custom data types)
 
-No additional remarks available
+This function merely added the specified 'User' Custom Data 'Field' to the Item. Once the
+field is added, you can set a value using the Custom Data property Item.CustomData[name/index#].Value
 ##### Signature
 AddCustomData(NameOrIndex: STRING|NUMBER)
 ##### Arguments
@@ -719,7 +746,13 @@ BOOLEAN
 ### Function: EndLocation
 Gets a string representing the location of a connectors X, Y and/or Z value.
 
-No additional remarks available
+Supported values are...'XYZ', 'X', 'Y', 'Z', 'TOP' and 'BTM'.
+The string 'XYZ', missing parameters, empty strings or any other non supported value returns
+a string representing the X, Y & Z coordinates seperated by spaces (e.g. '1.25 4.54 0.00').
+If the string 'X', 'Y' or 'Z' is speified, a string representing just tha compoentent of the
+endpoint is returned.
+If the string 'TOP' or 'BTM' is specified, a string representing the Z coordinate of the connector's
+Top or Bottom is returned.
 ##### Signature
 EndLocation(ConnectorIndex: NUMBER, [XYZ: STRING])
 ##### Arguments
@@ -754,7 +787,7 @@ BOOLEAN
 ### Function: RefreshCosts
 Refreshes all costs to Item
 
-No additional remarks available
+Call after making any change to the Item that may affect cost.
 ##### Signature
 RefreshCosts()
 ##### Arguments
@@ -795,7 +828,7 @@ BOOLEAN
 ### Function: Update
 Refreshes Item's developments.
 
-No additional remarks available
+Call after making any change to the Item that may developments, specifiction or model
 ##### Signature
 Update()
 ##### Arguments
@@ -804,7 +837,9 @@ VOID
 ### Function: WriteDXF
 Save Item's Developments as DXF File(s).
 
-No additional remarks available
+File to save should exclude the '.DXF' file extension.
+Flag for writing Lead Ins/Outs defaults to TRUE if ommited.
+Each development is appended with a '-1', '-2', '-3', etc. suffix to the specified file name.
 ##### Signature
 WriteDXF(DXFFile: STRING, [IncludeLeads: BOOLEAN])
 ##### Arguments

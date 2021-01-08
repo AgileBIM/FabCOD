@@ -173,14 +173,15 @@ namespace ItemDefinitionParser
                     else if (upper.StartsWith("@READONLY"))
                         rw = false;
                     else if (upper.StartsWith("@REMARKS"))
-                        remarks = current.Substring(8).Trim();
+                        remarks = current;
                     else if (upper.StartsWith("@RETURNS"))
                         returns = current.Substring(8).Trim();
                 }
                 else if (Lines[i].Trim(tchars).Length >= 4)
                     desc = Lines[i].Trim(tchars);
             }
-            remarks = remarks.Trim();
+            if (remarks != "")
+                remarks = remarks.Substring(8).Trim();
         }
 
         public Dictionary<string, object> toDictionary()

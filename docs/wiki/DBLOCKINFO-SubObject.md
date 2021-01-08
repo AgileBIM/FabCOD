@@ -7,7 +7,9 @@ The following items are accessed from the base object by a dot notation
 ### Property: History
 Get the History Object of the ITEM Object.
 
-No additional remarks available
+History object is recursive. Each History Object contains another History object. This continues until the
+Histroy object returns a NULL value. Do NOT interate through the nested History objects using the Version
+property as that property can be rolled back/forward and many not indicate the number of history entries accurately.
 ##### Returns
 [DBLOCKHISTORY](https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/DBLOCKHISTORY-SubObject.md)
 ### Property: Owner
@@ -40,7 +42,7 @@ BOOLEAN
 ### Function: SetOwner
 Changes the current owner.
 
-No additional remarks available
+Only returns TRUE if allowed to change and change is different than current owner.
 ##### Signature
 SetOwner(NewOwner: STRING, Reason: STRING)
 ##### Arguments
@@ -53,7 +55,7 @@ BOOLEAN
 ### Function: SetVersion
 Changes the current version.
 
-No additional remarks available
+Only returns TRUE if allowed to change an change is different than current version.
 ##### Signature
 SetVersion(NewVersion: NUMBER, Reason: STRING)
 ##### Arguments

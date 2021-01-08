@@ -7,7 +7,8 @@ The following items are accessed from the base object by a dot notation
 ### Property: Value
 Get/Set the Splitter Name of the ITEM Object.
 
-No additional remarks available
+Splitter Name only is given. Splitter Group is not given as part of the value.
+Splitter can be set using the 'Name' or 'Index'.
 ##### Returns
 STRING
 ### Property: Locked

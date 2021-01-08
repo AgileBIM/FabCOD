@@ -14,7 +14,8 @@ NUMBER
 ## Function: Asc
 Gets the ASCII numeric code from a string.
 
-No additional remarks available
+This does not work with unicode characters. If you want an ASCII code from an index other than the first character
+then you will have to use the MID() function to carve it out.
 #### Signature
 Asc(FirstChar: STRING)
 #### Arguments
@@ -25,7 +26,8 @@ NUMBER
 ## Function: Ascii
 Create a string with a non-enterable character code.
 
-No additional remarks available
+This does not work with unicode characters, but is ideal generating tabs, line-feeds and other things
+that aren't easily represented in double quoted strings.
 #### Signature
 Ascii(CharacterCode: NUMBER)
 #### Arguments
@@ -58,7 +60,7 @@ NUMBER
 ## Function: Chr
 Returns string containing the character at the specified 1-based index of String txt.
 
-No additional remarks available
+The CharacterPosition argument is a 1-Based index: 1 = first character, 2 = second character, etc.
 #### Signature
 Chr(TextString: STRING, CharacterPosition: NUMBER)
 #### Arguments
@@ -134,7 +136,8 @@ NUMBER
 ## Function: GetFileExt
 Extract file extension (including .) from filename / full path + filename.
 
-No additional remarks available
+File extension is returned including the dot [.] If no extension is specified, will return an empty string [""].
+Optional path may use either backslash [\] or forwardslash [/] seperators between directories.
 #### Signature
 GetFileExt(FileName: STRING)
 #### Arguments
@@ -145,7 +148,8 @@ STRING
 ## Function: GetFileName
 Extract filename path (including extension) full path + filename.
 
-No additional remarks available
+File name is returned including the extension.
+Path may use either backslash [\] or forwardslash [/] seperators between directories.
 #### Signature
 GetFileName(FilePathAndName: STRING)
 #### Arguments
@@ -156,7 +160,8 @@ STRING
 ## Function: InputBox
 Display a Dialog with an Editbox for the user to enter data.
 
-No additional remarks available
+Message box provides an OK and CANCEL button for the user to accept or dismiss the dialog and
+user entered data. Clicking CANCEL will return an empty string.
 #### Signature
 InputBox(TitleText: STRING, PromptText: STRING, DefaultText: STRING)
 #### Arguments
@@ -171,7 +176,7 @@ STRING
 ## Function: InStr
 Extracts the first index location of a string if completely found within another string.
 
-No additional remarks available
+The StartingFrom argument and the subsequent return values are a 1-Based index: 1 = first character, 2 = second character, etc.
 #### Signature
 InStr(StartingFrom: NUMBER, SearchIn: STRING, SearchFor: STRING, [IsCaseSensitive: BOOLEAN])
 #### Arguments
@@ -244,7 +249,8 @@ STRING
 ## Function: Mid
 Get Sub String from the middle of another string by specifying the start position and length.
 
-No additional remarks available
+The StartingFrom argumentis a 1-Based index: 1 = first character, 2 = second character, etc.
+Similar to SubString() except you specify a starting position and length.
 #### Signature
 Mid(SearchString: STRING, StartingIndex: NUMBER, Length: NUMBER)
 #### Arguments
@@ -390,7 +396,9 @@ NUMBER
 ## Function: SubString
 Get a Sub String, starting and ending at specified indexes.
 
-No additional remarks available
+The StartingFrom and EndingAt arguments are a 1-Based index: 1 = first character, 2 = second character, etc.
+Similar to Mid() except you specify a starting position and length.
+0 or even negative values can be used for the index which is interpreted as 'from the end of the string (inclusive)'
 #### Signature
 SubString(TextString: STRING, StartingFrom: NUMBER, EndingAt: NUMBER)
 #### Arguments

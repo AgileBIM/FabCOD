@@ -19,13 +19,14 @@ NUMBER
 ### Property: Spacing
 Get/Set the Spacing between Supports of the SUPPORT Object.
 
-No additional remarks available
+If set, this will change the value of the 'Qty'.
 ##### Returns
 NUMBER
 ### Property: Value
 Get/Set the Support Name of the SUPPORT Object.
 
-No additional remarks available
+Support Name only is given. Support Group is not given as part of the value.
+Support can be set using the 'Name' or Index.
 ##### Returns
 STRING
 ## Methods

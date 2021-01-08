@@ -25,7 +25,8 @@ NUMBER
 ### Property: Selection
 Gets an array of TASKSELECTION Objects of the TASK Object.
 
-No additional remarks available
+Always check to see if the 'Task.Selection.Count' property returns a value >= 1 before
+using Task.Selection[index#]
 ##### Returns
 [TASKSELECTION](https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/TASKSELECTION-SubObject.md)[]
 ## Methods
@@ -33,7 +34,9 @@ The following items are invoked from the base object by a dot notation
 ### Function: BeginProgress
 Initialize and display progress bars setting maximum task length
 
-No additional remarks available
+NumberofTasks should ideally specify the number of iterations you go through to that the progress bars
+dialog shows a progress relative to the tasks you're performing. You must use the Task.Progress
+property to move the progress bars as your tasks process.
 ##### Signature
 BeginProgress(NumberOfTasks: NUMBER)
 ##### Arguments
@@ -44,7 +47,11 @@ VOID
 ### Function: EndProgress
 Terminate the display of the progress bars dialog
 
-No additional remarks available
+Call to end the display of the progress bars dialog when tasks are finished processing.
+You mat use the Task.Aborted proeprty to determine if the user canceled the process. When the
+user cancels the progress bars, this does not stop your tasks from processing, merely sets the
+Aborted property. You must monitor the Aborted flag and exit your task processing in your code
+to propertly terminate a task by a user.
 ##### Signature
 EndProgress()
 ##### Arguments

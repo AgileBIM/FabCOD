@@ -39,7 +39,8 @@ The following items are invoked from the base object by a dot notation
 ### Function: FileLocator
 Constructs a FileLocator Object.
 
-No additional remarks available
+If optional parameters are not specified when constructing the FILELOCATOR object,
+use the FILELOCATOR.Scan method to specify them.
 ##### Signature
 FileLocator([RootPath: STRING], [SearchWildcard: STRING], [SearchFiles: BOOLEAN], [SearchFolders: BOOLEAN])
 ##### Arguments
@@ -56,7 +57,8 @@ VOID
 ### Function: Scan
 Scan a root path for Files and/or Folders matching a Wildcard string.
 
-No additional remarks available
+This function is not needed if the FILELOCATOR Object Constructor was called with parameters specifying the
+path, search wildcard, file and folder search flags.
 ##### Signature
 Scan(RootPath: STRING, SearchWildcard: STRING, SearchFiles: BOOLEAN, SearchFolders: BOOLEAN)
 ##### Arguments
