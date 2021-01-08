@@ -21,6 +21,7 @@ import {
     stdSymbols,
     blockStarters
  } from "./entities";
+import { FabExt } from '../extension';
 
  export interface COD {
     contents: string;
@@ -484,11 +485,11 @@ export namespace CODParser {
                     curr.valueType = ValueType.KEYWORD;
                     curr.entityType = EntityType.ENTITY;
                 } else {
-                    debugger;
+                    //debugger;
                 }
             } else if (curr.valueType === ValueType.STRING && pUpper === 'INCLUDE') {
                 // read other file and import function references
-                // need 
+                
             } else if (pUpper === 'DIM' || pUpper === 'OBJECT') {
                 curr.valueType = ValueType.ERROR;
             }
@@ -714,13 +715,11 @@ export namespace CODParser {
     } // End tokenize()
 
 
-    function enhancePrimitives(ent: Entity) {
-        switch (ent.value.toUpperCase()) {
+    function enhancePrimitives(ent: Entity) {        
+        const val = ent.value.toUpperCase();
+        switch (val) {
             case 'NULL':
                 ent.valueType = ValueType.NULL;
-                break;
-            case 'NOTHING':
-                ent.valueType = ValueType.NOTHING;
                 break;
             case 'TRUE':
                 ent.valueType = ValueType.BOOL;
@@ -732,7 +731,11 @@ export namespace CODParser {
                 ent.valueType = ValueType.VOID;
                 break;
             default:
-                // TODO: expand this to detect all known keywords & constants once that resource is compiled.
+                if (FabExt.Data.flowTypes.includes(val) || FabExt.Data.specialTypes.includes(val)) {
+                    ent.valueType = ValueType.KEYWORD;
+                } else if (FabExt.Data.enumTypes.includes(val) || FabExt.Data.constants[val]) {
+                    ent.valueType = ValueType.CONSTANT;
+                }
                 break;
         }
         return ent;

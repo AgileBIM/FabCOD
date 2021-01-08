@@ -17,7 +17,7 @@ No additional remarks available
 NUMBER
 ## Methods
 The following items are invoked from the base object by a dot notation
-### Add
+### Function: Add
 Adds/appends the specified data items to an array.
 No additional remarks available
 ##### Signature
@@ -26,7 +26,7 @@ Add(ArrayData: ANY[])
 - **ArrayData** as: ANY[]
 ##### Returns
 NUMBER
-### Delete
+### Function: Delete
 Removes the specified item from an array.
 No additional remarks available
 ##### Signature
@@ -36,7 +36,7 @@ Delete([ArrayIndex: NUMBER])
   - Remarks: Optional Number specifying the index number of the element to remove from the array.
 ##### Returns
 BOOLEAN
-### Insert
+### Function: Insert
 Inserts a piece of data into an Array at specified index.
 No additional remarks available
 ##### Signature

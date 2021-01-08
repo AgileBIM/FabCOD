@@ -73,7 +73,7 @@ namespace ItemDefinitionParser
 
         public string toMarkdown(codLibrary lib)
         {
-            string result = "## " + id + Environment.NewLine;
+            string result = "## Function: " + id + Environment.NewLine;
             result += (info.ContainsKey("desc") ? info["desc"] : "No description available") + Environment.NewLine;
             result += (info.ContainsKey("remarks") ? info["remarks"] : "No additional remarks available") + Environment.NewLine;
             result += "#### Signature" + Environment.NewLine;
@@ -118,7 +118,7 @@ namespace ItemDefinitionParser
 
         public string toMarkdown(codLibrary lib)
         {
-            string result = "### " + id + Environment.NewLine;
+            string result = "### Function: " + id + Environment.NewLine;
             result += (info.ContainsKey("desc") ? info["desc"] : "No description available") + Environment.NewLine;
             result += (info.ContainsKey("remarks") ? info["remarks"] : "No additional remarks available") + Environment.NewLine;
             result += "##### Signature" + Environment.NewLine;

@@ -570,7 +570,7 @@ No additional remarks available
 STRING
 ## Methods
 The following items are invoked from the base object by a dot notation
-### AddCustomData
+### Function: AddCustomData
 Dynamically adds Custom Data to the item (for 'User' custom data types)
 No additional remarks available
 ##### Signature
@@ -579,7 +579,7 @@ AddCustomData(NameOrIndex: STRING|NUMBER)
 - **NameOrIndex** as: STRING or NUMBER
 ##### Returns
 VOID
-### BitmapFile
+### Function: BitmapFile
 Gets the file name of the Image used for a ITM.
 No additional remarks available
 ##### Signature
@@ -588,7 +588,7 @@ BitmapFile(ItmFilePath: STRING)
 - **ItmFilePath** as: STRING
 ##### Returns
 STRING
-### CanDoubleWall
+### Function: CanDoubleWall
 Indicates if Item supports DoubleWall entry or not.
 No additional remarks available
 ##### Signature
@@ -596,7 +596,7 @@ CanDoubleWall()
 ##### Arguments
 ##### Returns
 BOOLEAN
-### CanRotary
+### Function: CanRotary
 Indicates if Item supports Rotary Nesting or not.
 No additional remarks available
 ##### Signature
@@ -604,7 +604,7 @@ CanRotary()
 ##### Arguments
 ##### Returns
 BOOLEAN
-### EndLocation
+### Function: EndLocation
 Gets a string representing the location of a connectors X, Y and/or Z value.
 No additional remarks available
 ##### Signature
@@ -616,7 +616,7 @@ EndLocation(ConnectorIndex: NUMBER, [XYZ: STRING])
   - Remarks: Optional string representing an X, Y or Z portion of the connector centerline coordinate.
 ##### Returns
 STRING
-### Level
+### Function: Level
 Get the Level value of the specified Item based on it's section.
 No additional remarks available
 ##### Signature
@@ -626,7 +626,7 @@ Level(LevelName: STRING)
   - Remarks: Allowed values are "Soffit" and "Floor"
 ##### Returns
 NUMBER
-### Load
+### Function: Load
 Loads an ITM file from disk
 No additional remarks available
 ##### Signature
@@ -636,7 +636,7 @@ Load(ItemFile: STRING)
   - Remarks: String of full path and file name including '.ITM' extension.
 ##### Returns
 BOOLEAN
-### RefreshCosts
+### Function: RefreshCosts
 Refreshes all costs to Item
 No additional remarks available
 ##### Signature
@@ -644,7 +644,7 @@ RefreshCosts()
 ##### Arguments
 ##### Returns
 VOID
-### RemoveHoles
+### Function: RemoveHoles
 Remove all holes added to Item.
 No additional remarks available
 ##### Signature
@@ -652,7 +652,7 @@ RemoveHoles()
 ##### Arguments
 ##### Returns
 BOOLEAN
-### Save
+### Function: Save
 Save an ITM file to disk
 No additional remarks available
 ##### Signature
@@ -661,7 +661,7 @@ Save(ItemFile: STRING)
 - **ItemFile** as: STRING
 ##### Returns
 BOOLEAN
-### SetFlow
+### Function: SetFlow
 Set Flow Type and Value on an Item.
 No additional remarks available
 ##### Signature
@@ -673,7 +673,7 @@ SetFlow(FlowType: NUMBER, FlowValue: NUMBER)
   - Remarks: Number representing flow value in standard flow units.
 ##### Returns
 BOOLEAN
-### Update
+### Function: Update
 Refreshes Item's developments.
 No additional remarks available
 ##### Signature
@@ -681,7 +681,7 @@ Update()
 ##### Arguments
 ##### Returns
 VOID
-### WriteDXF
+### Function: WriteDXF
 Save Item's Developments as DXF File(s).
 No additional remarks available
 ##### Signature

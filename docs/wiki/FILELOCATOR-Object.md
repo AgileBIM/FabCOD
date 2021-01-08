@@ -31,7 +31,7 @@ No additional remarks available
 STRING
 ## Methods
 The following items are invoked from the base object by a dot notation
-### FileLocator
+### Function: FileLocator
 Constructs a FileLocator Object.
 No additional remarks available
 ##### Signature
@@ -47,7 +47,7 @@ FileLocator([RootPath: STRING], [SearchWildcard: STRING], [SearchFiles: BOOLEAN]
   - Remarks: Optional Boolean Flag to search against Folders.
 ##### Returns
 VOID
-### Scan
+### Function: Scan
 Scan a root path for Files and/or Folders matching a Wildcard string.
 No additional remarks available
 ##### Signature

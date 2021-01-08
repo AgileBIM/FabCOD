@@ -26,7 +26,7 @@ No additional remarks available
 [TASKSELECTION](https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/TASKSELECTION-SubObject.md)[]
 ## Methods
 The following items are invoked from the base object by a dot notation
-### BeginProgress
+### Function: BeginProgress
 Initialize and display progress bars setting maximum task length
 No additional remarks available
 ##### Signature
@@ -36,7 +36,7 @@ BeginProgress(NumberOfTasks: NUMBER)
   - Remarks: Number indicating the number of tasks to perform.
 ##### Returns
 VOID
-### EndProgress
+### Function: EndProgress
 Terminate the display of the progress bars dialog
 No additional remarks available
 ##### Signature

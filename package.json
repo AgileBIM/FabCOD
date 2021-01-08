@@ -94,7 +94,8 @@
 		"watch": "tsc -watch -p ./",
 		"pretest": "npm run compile && npm run lint",
 		"lint": "eslint src --ext ts",
-		"test": "node ./out/test/runTest.js"
+		"test": "node ./out/test/runTest.js",
+		"IncludeJson": "cp src/support/FabricationDefinition.json out/support/FabricationDefinition.json"
 	},
 	"devDependencies": {
 		"@types/fs-extra": "^8.1.0",

@@ -21,7 +21,7 @@ No additional remarks available
 NUMBER
 ## Methods
 The following items are invoked from the base object by a dot notation
-### Can
+### Function: Can
 Indicates if the Items's current Owner allows access to History/Versioning.
 No additional remarks available
 ##### Signature
@@ -33,7 +33,7 @@ Can(LockType: DBLOCKCAN)
   - Remarks: Enum/Number for access type to check.
 ##### Returns
 BOOLEAN
-### SetOwner
+### Function: SetOwner
 Changes the current owner.
 No additional remarks available
 ##### Signature
@@ -45,7 +45,7 @@ SetOwner(NewOwner: STRING, Reason: STRING)
   - Remarks: String description of the reason for the change.
 ##### Returns
 BOOLEAN
-### SetVersion
+### Function: SetVersion
 Changes the current version.
 No additional remarks available
 ##### Signature

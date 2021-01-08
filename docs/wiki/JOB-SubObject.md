@@ -71,7 +71,7 @@ No additional remarks available
 [JOBSTATUS](https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/JOBSTATUS-SubObject.md)[]
 ## Methods
 The following items are invoked from the base object by a dot notation
-### SetStatus
+### Function: SetStatus
 This alters the Active Flag of a Job Status
 No additional remarks available
 ##### Signature

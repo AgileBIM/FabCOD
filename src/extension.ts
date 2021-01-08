@@ -3,10 +3,12 @@ import { CODParser } from "./support/parser";
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import { loadAllResources } from './resources';
 //import { LanguageClient } from "vscode-languageclient";
 
 //let client: LanguageClient;
 export const FabExt: FabContextManager = new FabContextManager();
+loadAllResources();
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
