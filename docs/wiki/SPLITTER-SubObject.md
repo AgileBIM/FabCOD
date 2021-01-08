@@ -6,11 +6,13 @@ This second-class object cannot be directly created. These types of sub-objects 
 The following items are accessed from the base object by a dot notation
 ### Property: Value
 Get/Set the Splitter Name of the ITEM Object.
+
 No additional remarks available
 ##### Returns
 STRING
 ### Property: Locked
 Get/Set the Lock Status flag for the Splitter property of the SPLITTER Object.
+
 No additional remarks available
 ##### Returns
 BOOLEAN

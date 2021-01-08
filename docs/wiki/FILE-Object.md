@@ -18,41 +18,49 @@ New FILE([FileName: STRING], [AccessMode: FILEMODE])
 The following items are accessed from the base object by a dot notation
 ### Property: EOF
 Get the End of File flag for the FILE Object.
+
 No additional remarks available
 ##### Returns
 BOOLEAN
 ### Property: Exists
 Get the Flag indicating if the file exist or not for the FILE Object.
+
 No additional remarks available
 ##### Returns
 BOOLEAN
 ### Property: FileName
 Get/Set the File Name of file to open for the FILE Object.
+
 No additional remarks available
 ##### Returns
 STRING
 ### Property: IsOpen
 Get the Flag indicating if the file is open for the FILE Object.
+
 No additional remarks available
 ##### Returns
 BOOLEAN
 ### Property: IsUnicode
 Get the Flag indicating if the file Unicode for the FILE Object.
+
 No additional remarks available
 ##### Returns
 BOOLEAN
 ### Property: Length
 Get the Length of file (in Bytes) for the FILE Object.
+
 No additional remarks available
 ##### Returns
 NUMBER
 ### Property: Mode
 Get/Set the File Open Mode (flags) for the FILE Object.
+
 No additional remarks available
 ##### Returns
 FILEMODE
 ### Property: Position
 Get/Set the current File Position (in Bytes) for the FILE Object.
+
 No additional remarks available
 ##### Returns
 NUMBER
@@ -60,6 +68,7 @@ NUMBER
 The following items are invoked from the base object by a dot notation
 ### Function: Close
 Closes an open File.
+
 No additional remarks available
 ##### Signature
 Close()
@@ -68,6 +77,7 @@ Close()
 BOOLEAN
 ### Function: Delete
 Deletes a file.
+
 No additional remarks available
 ##### Signature
 Delete([UseRecycleBin: BOOLEAN])
@@ -78,6 +88,7 @@ Delete([UseRecycleBin: BOOLEAN])
 BOOLEAN
 ### Function: Open
 Opens a file for access based on file mode.
+
 No additional remarks available
 ##### Signature
 Open(Filename: STRING, AccessMode: FILEMODE)
@@ -94,6 +105,7 @@ Open(Filename: STRING, AccessMode: FILEMODE)
 BOOLEAN
 ### Function: ReadByte
 Read an 8-but Byte (0-255) from a binary file.
+
 File must be opened as non-text.
 ##### Signature
 ReadByte()
@@ -102,6 +114,7 @@ ReadByte()
 NUMBER
 ### Function: ReadChar
 Reads a character from a binary file.
+
 No additional remarks available
 ##### Signature
 ReadChar()
@@ -110,6 +123,7 @@ ReadChar()
 STRING
 ### Function: ReadInt
 Read a 32-bit signed integer from a binary file.
+
 No additional remarks available
 ##### Signature
 ReadInt()
@@ -118,6 +132,7 @@ ReadInt()
 NUMBER
 ### Function: ReadLine
 Read a line of text (minsus CR/LF) from a text file.
+
 No additional remarks available
 ##### Signature
 ReadLine()
@@ -126,6 +141,7 @@ ReadLine()
 STRING
 ### Function: ReadReal
 Read a C-Style double precision floating point number from a binary file.
+
 No additional remarks available
 ##### Signature
 ReadReal()
@@ -134,6 +150,7 @@ ReadReal()
 NUMBER
 ### Function: ReadString
 Read a String from a binary file.
+
 No additional remarks available
 ##### Signature
 ReadString()
@@ -142,6 +159,7 @@ ReadString()
 STRING
 ### Function: ReadWord
 Read a 16-bit WORD (0-65535) from a binary file.
+
 No additional remarks available
 ##### Signature
 ReadWord()
@@ -150,6 +168,7 @@ ReadWord()
 NUMBER
 ### Function: Rename
 Renames the current file held by the FILE object.
+
 No additional remarks available
 ##### Signature
 Rename(FileName: STRING)
@@ -160,6 +179,7 @@ Rename(FileName: STRING)
 BOOLEAN
 ### Function: WriteByte
 Write an 8-bit BYTE (0-255) to a binary file.
+
 No additional remarks available
 ##### Signature
 WriteByte(ByteToWrite: NUMBER)
@@ -170,6 +190,7 @@ WriteByte(ByteToWrite: NUMBER)
 BOOLEAN
 ### Function: WriteChar
 Wtite a Character to a binary file.
+
 No additional remarks available
 ##### Signature
 WriteChar(CharacterToWrite: STRING)
@@ -180,6 +201,7 @@ WriteChar(CharacterToWrite: STRING)
 BOOLEAN
 ### Function: WriteInt
 Write a 32-bit signed integer to a binary file.
+
 No additional remarks available
 ##### Signature
 WriteInt(IntegerToWrite: NUMBER)
@@ -190,6 +212,7 @@ WriteInt(IntegerToWrite: NUMBER)
 BOOLEAN
 ### Function: WriteLine
 Write a line of text to a text file.
+
 No additional remarks available
 ##### Signature
 WriteLine(StringToWrite: STRING, [AppendCR: BOOLEAN])
@@ -202,6 +225,7 @@ WriteLine(StringToWrite: STRING, [AppendCR: BOOLEAN])
 BOOLEAN
 ### Function: WriteReal
 Write a C-Style double precision floating point number to a binary file.
+
 No additional remarks available
 ##### Signature
 WriteReal(RealToWrite: NUMBER)
@@ -212,6 +236,7 @@ WriteReal(RealToWrite: NUMBER)
 BOOLEAN
 ### Function: WriteString
 Write a string to a text file.
+
 No additional remarks available
 ##### Signature
 WriteString(StringToWrite: STRING)
@@ -222,6 +247,7 @@ WriteString(StringToWrite: STRING)
 BOOLEAN
 ### Function: WriteWord
 Write a 16-bit WORD (0-65535) to a binary file.
+
 No additional remarks available
 ##### Signature
 WriteWord(WordToWrite: NUMBER)

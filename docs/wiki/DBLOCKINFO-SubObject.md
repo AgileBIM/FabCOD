@@ -6,16 +6,19 @@ This second-class object cannot be directly created. These types of sub-objects 
 The following items are accessed from the base object by a dot notation
 ### Property: History
 Get the History Object of the ITEM Object.
+
 No additional remarks available
 ##### Returns
 [DBLOCKHISTORY](https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/DBLOCKHISTORY-SubObject.md)
 ### Property: Owner
 Get the Previous Owner of DBLOCKINFO Object.
+
 No additional remarks available
 ##### Returns
 STRING
 ### Property: Version
 Get the Previous Version of the DBLOCKINFO Object
+
 No additional remarks available
 ##### Returns
 NUMBER
@@ -23,6 +26,7 @@ NUMBER
 The following items are invoked from the base object by a dot notation
 ### Function: Can
 Indicates if the Items's current Owner allows access to History/Versioning.
+
 No additional remarks available
 ##### Signature
 Can(LockType: DBLOCKCAN)
@@ -35,6 +39,7 @@ Can(LockType: DBLOCKCAN)
 BOOLEAN
 ### Function: SetOwner
 Changes the current owner.
+
 No additional remarks available
 ##### Signature
 SetOwner(NewOwner: STRING, Reason: STRING)
@@ -47,6 +52,7 @@ SetOwner(NewOwner: STRING, Reason: STRING)
 BOOLEAN
 ### Function: SetVersion
 Changes the current version.
+
 No additional remarks available
 ##### Signature
 SetVersion(NewVersion: NUMBER, Reason: STRING)

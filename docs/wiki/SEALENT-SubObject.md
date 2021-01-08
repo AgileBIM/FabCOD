@@ -6,11 +6,13 @@ This second-class object cannot be directly created. These types of sub-objects 
 The following items are accessed from the base object by a dot notation
 ### Property: Locked
 Get/Set the Lock Status of the Sealent Value of the SEALENT Object.
+
 No additional remarks available
 ##### Returns
 BOOLEAN
 ### Property: Value
 Get/Set the Sealent Name of the SEALENT Object.
+
 No additional remarks available
 ##### Returns
 STRING

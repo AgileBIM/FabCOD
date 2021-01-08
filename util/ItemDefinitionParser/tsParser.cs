@@ -74,7 +74,7 @@ namespace ItemDefinitionParser
         public string toMarkdown(codLibrary lib)
         {
             string result = "## Function: " + id + Environment.NewLine;
-            result += (info.ContainsKey("desc") ? info["desc"] : "No description available") + Environment.NewLine;
+            result += (info.ContainsKey("desc") ? info["desc"] : "No description available") + Environment.NewLine + Environment.NewLine;
             result += (info.ContainsKey("remarks") ? info["remarks"] : "No additional remarks available") + Environment.NewLine;
             result += "#### Signature" + Environment.NewLine;
             result += id + "(" + string.Join(", ", args) + ")" + Environment.NewLine;
@@ -119,7 +119,7 @@ namespace ItemDefinitionParser
         public string toMarkdown(codLibrary lib)
         {
             string result = "### Function: " + id + Environment.NewLine;
-            result += (info.ContainsKey("desc") ? info["desc"] : "No description available") + Environment.NewLine;
+            result += (info.ContainsKey("desc") ? info["desc"] : "No description available") + Environment.NewLine + Environment.NewLine;
             result += (info.ContainsKey("remarks") ? info["remarks"] : "No additional remarks available") + Environment.NewLine;
             result += "##### Signature" + Environment.NewLine;
             result += id + "(" + string.Join(", ", args) + ")" + Environment.NewLine;
@@ -260,7 +260,7 @@ namespace ItemDefinitionParser
         public string toMarkdown(codLibrary lib, bool isChild)
         {
             string result = (isChild ? "### Property: " : "## Property: ") + id + Environment.NewLine;            
-            result += (info.ContainsKey("desc") ? info["desc"] : "No description available") + Environment.NewLine;
+            result += (info.ContainsKey("desc") ? info["desc"] : "No description available") + Environment.NewLine + Environment.NewLine;
             result += (info.ContainsKey("remarks") ? info["remarks"] : "No additional remarks available") + Environment.NewLine;            
             result += (isChild ? "##### Returns" : "#### Returns") + Environment.NewLine;
             result += lib.JOIN(" or ", returns) + Environment.NewLine;

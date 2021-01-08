@@ -6,21 +6,25 @@ This second-class object cannot be directly created. These types of sub-objects 
 The following items are accessed from the base object by a dot notation
 ### Property: Locked
 Get/Set the Lock Status flag for the Stiffener property of the STIFFENER Object.
+
 No additional remarks available
 ##### Returns
 BOOLEAN
 ### Property: Qty
 Get/Set the Number of Stiffeners required (excluding End Stiffeners) of the STIFFENER Object.
+
 No additional remarks available
 ##### Returns
 NUMBER
 ### Property: Spacing
 Get the Spacing between Stiffeners of the STIFFENER Object.
+
 No additional remarks available
 ##### Returns
 NUMBER
 ### Property: Value
 Get/Set the Splitter Name value of the SPLITTER Object.
+
 No additional remarks available
 ##### Returns
 STRING

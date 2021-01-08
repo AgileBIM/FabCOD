@@ -6,16 +6,19 @@ This second-class object cannot be directly created. These types of sub-objects 
 The following items are accessed from the base object by a dot notation
 ### Property: Active
 Get Status Active flag of the JOBSTATUS Object.
+
 No additional remarks available
 ##### Returns
 BOOLEAN
 ### Property: LastActivated
 Get Date status was last activated in short-date string format of the JOBSTATUS Object.
+
 No additional remarks available
 ##### Returns
 STRING
 ### Property: Name
 Get the Status Name of the JOBSTATUS Object.
+
 No additional remarks available
 ##### Returns
 STRING

@@ -6,6 +6,7 @@ This second-class object cannot be directly created. These types of sub-objects 
 The following items are accessed from the base object by a dot notation
 ### Property: Count
 Get/Set a Count (Number of Items) in the Selection for the TASKSELECTION Object.
+
 No additional remarks available
 ##### Returns
 NUMBER
