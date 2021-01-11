@@ -6,8 +6,7 @@ import {
     ValueType, 
     CaseEntity, 
     ContentsEntity, 
-    DoUntilEntity, 
-    DoWhileEntity, 
+    DoEntity, 
     ElseEntity, 
     ElseIfEntity, 
     EntityType, 
@@ -24,16 +23,24 @@ import {
 import { FabExt } from '../extension';
 
  export interface COD {
-    contents: string;
-    entities: Array<Entity|EntityCollection>;
-    refs: NameTracker;
+    text: string;
+    contents: Array<Entity|EntityCollection>;
+    entities: Array<Entity>;
+    keywords: NameTracker;
+    source: vscode.TextDocument;
 }
-export interface  NameTracker {
-    creator: string;
-    variables: Map<string, Array<Entity>>;
-    functions: Map<string, Array<Entity>>;
-    importedFunctions: Map<string, Array<Entity>>;
-    includes: Array<string>;
+
+export class NameTracker {
+    creator: string = '';
+    variables: Map<string, Array<Entity>> = new Map();
+    skipped: Array<Entity> = [];
+    functions: Map<string, Array<Entity>> = new Map();
+    importedFunctions: Map<string, Array<Entity>> = new Map();
+    includes: Array<string> = [];
+
+    constructor(fspath: string) {
+        this.creator = fspath;
+    }
 }
 
 export namespace CODParser {
@@ -43,23 +50,32 @@ export namespace CODParser {
     }
 
     // When this document is completely done, this will be the only exported function
-    export function getEntities(doc: string|vscode.TextDocument, parent?: NameTracker) : COD {
+    export function createCOD(doc: string|vscode.TextDocument) : COD {
         // requester needs to be used to ensure that 2 COD's don't create an infinate loop by including each other as references.
         const text = doc instanceof Object ? doc.getText() : doc;
-        const ids: NameTracker = parent ? parent : {
-            creator: doc instanceof Object ? doc.fileName.toUpperCase() : '',
-            variables: new Map<string, Array<Entity>>(),
-            functions: new Map<string, Array<Entity>>(),
-            importedFunctions: new Map<string, Array<Entity>>(),
-            includes: []
-            };
+        const ids: NameTracker = new NameTracker(doc instanceof Object ? doc.fileName.toUpperCase() : '');
+        const ents: Array<Entity> = segmentation(text);
+        const retn = formulation(ids, ents);
         
-        const retn = formulation(ids, segmentation(text));
         return {
-            contents: text,
-            refs: retn[0],
-            entities: retn[1]
+            text: text,
+            keywords: retn[0],
+            contents: retn[1],
+            entities: ents,            
+            source: doc instanceof Object ? doc : null
         };
+    }
+
+    export function updateCOD(doc: string|vscode.TextDocument, source: COD) {
+        const text = doc instanceof Object ? doc.getText() : doc;
+        const ids: NameTracker = new NameTracker(doc instanceof Object ? doc.fileName.toUpperCase() : '');
+        const ents = segmentation(text);
+        const retn = formulation(ids, ents);
+        source.text = text;
+        source.keywords = retn[0];
+        source.contents = retn[1];
+        source.entities = ents;
+        source.source = doc instanceof Object ? doc : null;
     }
 
 
@@ -69,15 +85,17 @@ export namespace CODParser {
 
 //#region Block Formulation EntityCollection Handlers
     function processFUNCDEF(ents: Array<Entity>, tracker: IndexTracker): FunctionDefinitionEntity {
-        const FUNC = ents[tracker.idx];
-        const NAME = ents[tracker.idx+1];
-        const header = ents.filter(p => p.line === FUNC.line);
-        const args = processEntityRun(header.slice(2), tracker.ids);
-        tracker.idx += header.length;
-        const ending: Array<Entity> = [];
-        const body: Array<Entity|EntityCollection> = [];
+        let curr = ents[tracker.idx];        
+        let entrun = ents.filter(p => p.line === curr.line);
+        if (entrun[1]?.valueType === ValueType.UNKNOWN) {
+            entrun[1].valueType = ValueType.KEYWORD;
+        }
+        let header = processEntityRun(entrun, tracker.ids, true);
+        tracker.idx += entrun.length;        
+        let body: Array<Entity|EntityCollection> = [];
+        let ender: Array<Entity> = [];
         for (; tracker.idx < ents.length;) {
-            const curr = ents[tracker.idx];
+            curr = ents[tracker.idx];
             const upper = curr.value.toUpperCase();
             if (blockStarters.includes(upper)) {
                 body.push(createBlockType(ents, tracker));
@@ -86,12 +104,12 @@ export namespace CODParser {
                 tracker.idx++;
             } else {
                 if (upper === 'ENDFUNCTION') {
-                    ending.push(curr);
+                    ender.push(curr);
                     tracker.idx++;
                     break;
                 } else if (upper === 'END' && ents[tracker.idx+1].value.toUpperCase() === 'FUNCTION') {
-                    ending.push(curr);
-                    ending.push(ents[tracker.idx+1]);
+                    ender.push(curr);
+                    ender.push(ents[tracker.idx+1]);
                     tracker.idx += 2;
                     break;
                 } else {
@@ -99,26 +117,21 @@ export namespace CODParser {
                 }
             }            
         }
-        if (ending.length > 1) {
-            const closer = new SequenceEntity(EntityType.SEQUENCE, ending);
-            return new FunctionDefinitionEntity(FUNC, NAME, args, new ContentsEntity(body), closer);
-        } else {
-            return new FunctionDefinitionEntity(FUNC, NAME, args, new ContentsEntity(body), ending[0]);
-        }
+        const closer = new SequenceEntity(EntityType.SEQUENCE, ender);
+        return new FunctionDefinitionEntity(header, new ContentsEntity(body), closer);
     }
 
     function processIF(ents: Array<Entity>, tracker: IndexTracker): IfEntity|InlineIfEntity {
-        const start = ents[tracker.idx];
-        const header = ents.filter(p => p.line === start.line);
-        const thenidx = header.findIndex(p => p.value.toUpperCase() === 'THEN');
-        const then = header[thenidx];
-        const test = processEntityRun(header.slice(1, thenidx), tracker.ids);
-        const ending: Array<Entity> = [];
-        tracker.idx += header.length;
-        if (thenidx === -1 || thenidx === header.length - 1) { // full IF
-            const body: Array<Entity|EntityCollection> = [];
+        let curr = ents[tracker.idx];        
+        let entrun = ents.filter(p => p.line === curr.line);
+        const thenidx = entrun.findIndex(p => p.value.toUpperCase() === 'THEN');
+        let header = processEntityRun(entrun, tracker.ids, true);
+        tracker.idx += entrun.length;        
+        let body: Array<Entity|EntityCollection> = [];
+        let ender: Array<Entity> = [];
+        if (thenidx === -1 || thenidx === entrun.length - 1) { // full IF
             for (; tracker.idx < ents.length;) {
-                const curr = ents[tracker.idx];
+                curr = ents[tracker.idx];
                 const upper = curr.value.toUpperCase();
                 if (blockStarters.includes(upper)) {
                     body.push(createBlockType(ents, tracker));
@@ -127,12 +140,12 @@ export namespace CODParser {
                     tracker.idx++;
                 } else {
                     if (upper === 'END' && ents[tracker.idx+1].value.toUpperCase() === 'IF') {
-                        ending.push(curr);
-                        ending.push(ents[tracker.idx+1]);
+                        ender.push(curr);
+                        ender.push(ents[tracker.idx+1]);
                         tracker.idx += 2;
                         break;
                     } else if (upper === 'ENDIF') {
-                        ending.push(curr);
+                        ender.push(curr);
                         tracker.idx++;
                         break;
                     } else {
@@ -140,33 +153,23 @@ export namespace CODParser {
                     }
                 }
             }
-            const contents = new ContentsEntity(body);
-            if (ending.length > 1) {                
-                const ender = new SequenceEntity(EntityType.SEQUENCE, [ending[0], ending[1]]);
-                return new IfEntity(start, test, then, contents, ender);
-            } else {
-                return new IfEntity(start, test, then, contents, ending[0]);
-            }
+            return new IfEntity(header, new ContentsEntity(body), new SequenceEntity(EntityType.SEQUENCE, ender));
         } else { // 1-liner IF (tracker.idx updated above)
-            const body = new ContentsEntity(header.slice(thenidx + 1));
-            return new InlineIfEntity(start, test, then, body);
+            return new InlineIfEntity(header.children);
         }
     }
 
     function processELSEIF(ents: Array<Entity>, tracker: IndexTracker): ElseIfEntity|InlineIfEntity {
-        let ELSE = [ents[tracker.idx]];
-        if (ents[tracker.idx].value.toUpperCase() === 'IF') {
-            ELSE.push(ents[tracker.idx++]);
-        }        
-        const header = ents.filter(p => p.line === ELSE[0].line);        
-        const thenidx = header.findIndex(p => p.value.toUpperCase() === 'THEN');
-        const then = header[thenidx];
-        const test = processEntityRun(header.slice(1, thenidx), tracker.ids);
-        tracker.idx += header.length;
-        if (thenidx === -1 || thenidx === header.length - 1) { // full ELSEIF
-            const body: Array<Entity|EntityCollection> = [];
+        let curr = ents[tracker.idx];        
+        let entrun = ents.filter(p => p.line === curr.line);
+        const thenidx = entrun.findIndex(p => p.value.toUpperCase() === 'THEN');
+        let header = processEntityRun(entrun, tracker.ids, true);
+        tracker.idx += entrun.length;        
+        let body: Array<Entity|EntityCollection> = [];
+        let ender: Array<Entity> = [];
+        if (thenidx === -1 || thenidx === entrun.length - 1) { // full ELSEIF
             for (; tracker.idx < ents.length;) {
-                const curr = ents[tracker.idx];
+                curr = ents[tracker.idx];
                 const upper = curr.value.toUpperCase();
                 if (blockStarters.includes(upper)) {
                     body.push(createBlockType(ents, tracker));
@@ -180,30 +183,21 @@ export namespace CODParser {
                         body.push(createSequenceType(ents, tracker)); // this will make line collections if it isn't a block starter
                     }
                 }
-            }            
-            if (ELSE.length > 1) {
-                const starter = new SequenceEntity(EntityType.SEQUENCE, ELSE);
-                return new ElseIfEntity(starter, test, then, new ContentsEntity(body));
-            } else {
-                return new ElseIfEntity(ELSE[0], test, then, new ContentsEntity(body));
-            } 
-        } else { // 1-liner ELSEIF
-            const body = new ContentsEntity(header.slice(thenidx + 1));
-            if (ELSE.length > 1) {
-                const starter = new SequenceEntity(EntityType.SEQUENCE, ELSE);
-                return new InlineIfEntity(starter, test, then, body);
-            } else {
-                return new InlineIfEntity(ELSE[0], test, then, body);
             }
+            return new ElseIfEntity(header, new ContentsEntity(body));
+        } else { // 1-liner ELSEIF
+            return new InlineIfEntity(header.children);
         }
     }
 
     function processELSE(ents: Array<Entity>, tracker: IndexTracker): ElseEntity {
-        const ELSE = ents[tracker.idx];                
-        tracker.idx++;        
-        const body: Array<Entity|EntityCollection> = [];
+        let curr = ents[tracker.idx];        
+        let entrun = ents.filter(p => p.line === curr.line);
+        let header = processEntityRun(entrun, tracker.ids, true);
+        tracker.idx += entrun.length;        
+        let body: Array<Entity|EntityCollection> = [];
         for (; tracker.idx < ents.length;) {
-            const curr = ents[tracker.idx];
+            curr = ents[tracker.idx];
             const upper = curr.value.toUpperCase();
             if (blockStarters.includes(upper)) {
                 body.push(createBlockType(ents, tracker));
@@ -212,25 +206,25 @@ export namespace CODParser {
                 tracker.idx++;
             } else {
                 if (upper === 'ENDIF' || (upper === 'END' && ents[tracker.idx+1].value.toUpperCase() === 'IF')) {                        
-                    return new ElseEntity(ELSE, new ContentsEntity(body));
+                    return new ElseEntity(header, new ContentsEntity(body));
                 } else {
                     body.push(createSequenceType(ents, tracker)); // this will make line collections if it isn't a block starter
                 }
             } 
         }
         // should return before this, but this will likely cover incorrect EOF edge cases
-        return new ElseEntity(ELSE, new ContentsEntity(body));
+        return new ElseEntity(header, new ContentsEntity(body));
     }
 
     function processSELECT(ents: Array<Entity>, tracker: IndexTracker): SelectEntity {
-        const SELECT = ents[tracker.idx];
-        const header = ents.filter(p => p.line === SELECT.line);
-        const test = processEntityRun(header.slice(1), tracker.ids);
-        tracker.idx += header.length;
-        const ending: Array<Entity> = [];
-        const body: Array<Entity|EntityCollection> = [];
+        let curr = ents[tracker.idx];        
+        let entrun = ents.filter(p => p.line === curr.line);
+        let header = processEntityRun(entrun, tracker.ids, true);
+        tracker.idx += entrun.length;        
+        let body: Array<Entity|EntityCollection> = [];
+        let ender: Array<Entity> = [];
         for (; tracker.idx < ents.length;) {
-            const curr = ents[tracker.idx];
+            curr = ents[tracker.idx];
             const upper = curr.value.toUpperCase();
             if (blockStarters.includes(upper)) {
                 body.push(createBlockType(ents, tracker));
@@ -239,12 +233,12 @@ export namespace CODParser {
                 tracker.idx++;
             } else {
                 if (upper === 'ENDSELECT') {
-                    ending.push(curr);
+                    ender.push(curr);
                     tracker.idx++;
                     break;
                 } else if (upper === 'END' && ents[tracker.idx+1]?.value.toUpperCase() === 'SELECT') {
-                    ending.push(curr);
-                    ending.push(ents[tracker.idx+1]);
+                    ender.push(curr);
+                    ender.push(ents[tracker.idx+1]);
                     tracker.idx += 2;
                     break;                    
                 } else {
@@ -252,22 +246,18 @@ export namespace CODParser {
                 }
             }
         }
-        if (ending.length > 1) {
-            const closer = new SequenceEntity(EntityType.SEQUENCE, ending);
-            return new SelectEntity(SELECT, test, new ContentsEntity(body), closer);
-        } else {
-            return new SelectEntity(SELECT, test, new ContentsEntity(body), ending[0]);
-        }
+        const closer = new SequenceEntity(EntityType.SEQUENCE, ender);
+        return new SelectEntity(header, new ContentsEntity(body), closer);
     }
 
     function processCASE(ents: Array<Entity>, tracker: IndexTracker): CaseEntity {
-        const CASE = ents[tracker.idx];
-        const header = ents.filter(p => p.line === CASE.line);
-        const test = processEntityRun(header.slice(1), tracker.ids);
-        tracker.idx += header.length;
-        const body: Array<Entity|EntityCollection> = [];
+        let curr = ents[tracker.idx];        
+        let entrun = ents.filter(p => p.line === curr.line);
+        let header = processEntityRun(entrun, tracker.ids, true);
+        tracker.idx += entrun.length;        
+        let body: Array<Entity|EntityCollection> = [];
         for (; tracker.idx < ents.length;) {
-            const curr = ents[tracker.idx];
+            curr = ents[tracker.idx];
             const upper = curr.value.toUpperCase();
             if (blockStarters.includes(upper)) {
                 body.push(createBlockType(ents, tracker));
@@ -282,18 +272,18 @@ export namespace CODParser {
                 }
             }            
         }
-        return new CaseEntity(CASE, test, new ContentsEntity(body));
+        return new CaseEntity(header, new ContentsEntity(body));
     }
 
     function processFOR(ents: Array<Entity>, tracker: IndexTracker): ForNextEntity {
-        const FOR = ents[tracker.idx];        
-        const header = ents.filter(p => p.line === FOR.line);
-        const directive = processEntityRun(header.slice(1), tracker.ids);
-        tracker.idx += header.length;
-        const ending: Array<Entity> = [];
-        const body: Array<Entity|EntityCollection> = [];
+        let curr = ents[tracker.idx];        
+        let entrun = ents.filter(p => p.line === curr.line);
+        let header = processEntityRun(entrun, tracker.ids, true);
+        tracker.idx += entrun.length;        
+        let body: Array<Entity|EntityCollection> = [];
+        let ender: Array<Entity> = [];
         for (; tracker.idx < ents.length;) {
-            const curr = ents[tracker.idx];
+            curr = ents[tracker.idx];
             const upper = curr.value.toUpperCase();
             if (blockStarters.includes(upper)) {
                 body.push(createBlockType(ents, tracker));
@@ -302,26 +292,26 @@ export namespace CODParser {
                 tracker.idx++;
             } else {
                 if (upper === 'NEXT') {                    
-                    ending.push(...ents.filter(p => p.line === curr.line));
-                    tracker.idx += ending.length;
+                    ender.push(...ents.filter(p => p.line === curr.line));
+                    tracker.idx += ender.length;
                     break;
                 } else {
                     body.push(createSequenceType(ents, tracker)); // this will make line collections if it isn't a block starter
                 }
             }            
         }
-        return new ForNextEntity(FOR, directive, new ContentsEntity(body), processEntityRun(ending, tracker.ids));
+        return new ForNextEntity(header, new ContentsEntity(body), processEntityRun(ender, tracker.ids));
     }
 
     function processWHILE(ents: Array<Entity>, tracker: IndexTracker): WhileEntity {
-        const WHILE = ents[tracker.idx];        
-        const header = ents.filter(p => p.line === WHILE.line);
-        const test = processEntityRun(header.slice(1), tracker.ids);
-        tracker.idx += header.length;
-        const ending: Array<Entity> = [];
-        const body: Array<Entity|EntityCollection> = [];
+        let curr = ents[tracker.idx];        
+        let entrun = ents.filter(p => p.line === curr.line);
+        let header = processEntityRun(entrun, tracker.ids, true);
+        tracker.idx += entrun.length;        
+        let body: Array<Entity|EntityCollection> = [];
+        let ender: Array<Entity> = [];
         for (; tracker.idx < ents.length;) {
-            const curr = ents[tracker.idx];
+            curr = ents[tracker.idx];
             const upper = curr.value.toUpperCase();
             if (blockStarters.includes(upper)) {
                 body.push(createBlockType(ents, tracker));
@@ -330,12 +320,12 @@ export namespace CODParser {
                 tracker.idx++;
             } else {
                 if (upper === 'ENDWHILE') {
-                    ending.push(curr);
+                    ender.push(curr);
                     tracker.idx++;
                     break;
                 } else if (upper === 'END' && ents[tracker.idx+1].value.toUpperCase() === 'WHILE') {
-                    ending.push(curr);
-                    ending.push(ents[tracker.idx+1]);
+                    ender.push(curr);
+                    ender.push(ents[tracker.idx+1]);
                     tracker.idx += 2;
                     break;
                 } else {
@@ -343,22 +333,21 @@ export namespace CODParser {
                 }
             }            
         }
-        if (ending.length > 1) {
-            const closer = new SequenceEntity(EntityType.SEQUENCE, ending);
-            return new WhileEntity(WHILE, test, new ContentsEntity(body), closer);
-        } else {
-            return new WhileEntity(WHILE, test, new ContentsEntity(body), ending[0]);
-        }
+        const closer = new SequenceEntity(EntityType.SEQUENCE, ender);
+        return new WhileEntity(header, new ContentsEntity(body), closer);
     }
 
-    function processDOWHILE(ents: Array<Entity>, tracker: IndexTracker): DoWhileEntity {
-        const DO = ents[tracker.idx];
-        const header = ents.filter(p => p.line === DO.line);
-        const DOWHILE = new SequenceEntity(EntityType.SEQUENCE, header.slice(0, 2));
-        const test = processEntityRun(header.slice(2), tracker.ids);
-        tracker.idx += header.length;            
+    function processDO(ents: Array<Entity>, tracker: IndexTracker): DoEntity {
+        let curr: Entity = ents[tracker.idx];        
+        let entrun = ents.filter(p => p.line === curr.line);
+        const header = processEntityRun(entrun, tracker.ids);
+        tracker.idx += entrun.length;
         const body: Array<Entity|EntityCollection> = [];
-        let curr: Entity;
+        let footer: EntityCollection;
+        if (curr.value.toUpperCase() === 'WHILE') {
+            body.push(curr);
+            tracker.idx++;
+        }
         for (; tracker.idx < ents.length;) {
             curr = ents[tracker.idx];
             const upper = curr.value.toUpperCase();
@@ -369,48 +358,16 @@ export namespace CODParser {
                 tracker.idx++;
             } else {
                 if (upper === 'LOOP') {
-                    tracker.idx++;
+                    entrun = ents.filter(p => p.line === curr.line);
+                    footer = processEntityRun(entrun, tracker.ids);
+                    tracker.idx += entrun.length;
                     break;
                 } else {
                     body.push(createSequenceType(ents, tracker)); // this will make line collections if it isn't a block starter
                 }
             }            
         }
-        return new DoWhileEntity(DOWHILE, test, new ContentsEntity(body), curr);
-    }
-
-    function processDOUNTIL(ents: Array<Entity>, tracker: IndexTracker): DoUntilEntity {
-        const DO = ents[tracker.idx];
-        tracker.idx++;
-        let ending: Array<Entity> = [];
-        let expression: EntityCollection;
-        const body: Array<Entity|EntityCollection> = [];
-        for (; tracker.idx < ents.length;) {
-            const curr = ents[tracker.idx];
-            const upper = curr.value.toUpperCase();
-            if (blockStarters.includes(upper)) {
-                body.push(createBlockType(ents, tracker));
-            } else if (curr.isComment) {
-                body.push(curr);
-                tracker.idx++;
-            } else {
-                if (upper === 'LOOP') {
-                    ending = ents.filter(p => p.line === curr.line);
-                    tracker.idx += ending.length;
-                    if (ending[1].value.toUpperCase() === 'UNTIL') {
-                        expression = processEntityRun(ending.slice(2), tracker.ids);
-                        ending = ending.slice(0,2);
-                    } else {
-                        expression = processEntityRun(ending.slice(1), tracker.ids);
-                        ending = ending.slice(0,1);
-                    }
-                    break;
-                } else {
-                    body.push(createSequenceType(ents, tracker)); // this will make line collections if it isn't a block starter
-                }
-            }            
-        }
-        return new DoUntilEntity(DO, new ContentsEntity(body), new SequenceEntity(EntityType.SEQUENCE, ending), expression);
+        return new DoEntity(header, new ContentsEntity(body), footer);
     }
 //#endregion Block Formulation EntityCollection Handlers
 
@@ -423,7 +380,7 @@ export namespace CODParser {
     
     // the tracker idx increments are handled by the callers of this function. This is supposed to enhance a finite non-blocking scope that would appear on a single line.
     // This ents this function recieves could be an entire line, but it could also be the expression portion of an IF, the body portion of an InlineIf or various other "parts" of other things.
-    function processEntityRun(ents: Array<Entity>, ids: NameTracker) : EntityCollection { 
+    function processEntityRun(ents: Array<Entity>, ids: NameTracker, assumeVariables?: boolean) : EntityCollection { 
         const result: Array<Entity|EntityCollection> = [];
         for (let i = 0; i < ents.length; i++) {
             const prev = ents[i-1];
@@ -431,7 +388,7 @@ export namespace CODParser {
             const next = ents[i+1];
             const pUpper = prev ? prev.value.toUpperCase() : '';
             const upper = curr.value.toUpperCase();
-            if (curr.valueType === ValueType.UNKNOWN)
+            if (curr.valueType === ValueType.UNKNOWN || upper === 'DIM')
             {
                 if (pUpper === '.') {
                     // dotted
@@ -440,7 +397,7 @@ export namespace CODParser {
                         curr.entityType = EntityType.INDEXED;
                     } else if (next?.value === '(') {
                         curr.valueType = ValueType.KEYWORD;
-                        curr.entityType = EntityType.FUNCTION;                        
+                        curr.entityType = EntityType.METHOD;                        
                     } else {
                         curr.valueType = ValueType.KEYWORD;
                         curr.entityType = EntityType.PROPERTY;
@@ -466,17 +423,21 @@ export namespace CODParser {
                 } else if (next?.value === '(') {
                     curr.valueType = ValueType.KEYWORD;
                     curr.entityType = EntityType.FUNCTION;
-                    if (ids.functions.has(upper)) {
-                        ids.functions.get(upper).push(curr);
-                    } else {
-                        ids.functions.set(upper, [curr]);
+                    if (!FabExt.Data.functions[upper]) {
+                        if (ids.functions.has(upper)) {
+                            ids.functions.get(upper).push(curr);
+                        } else {
+                            ids.functions.set(upper, [curr]);
+                        }
                     }
-                } else if (pUpper === 'DIM') {
+                } else if (pUpper === 'DIM' || pUpper === 'OBJECT' || (assumeVariables && pUpper !== "FUNCTION")) {
                     curr.valueType = ValueType.VARIABLE;
                     curr.entityType = EntityType.ENTITY;
-                } else if (pUpper === 'OBJECT') {
-                    curr.valueType = ValueType.VARIABLE;
-                    curr.entityType = EntityType.ENTITY;
+                    if (ids.variables.has(upper)) {
+                        ids.variables.get(upper).push(curr);
+                    } else {
+                        ids.variables.set(upper, [curr]);
+                    }
                 } else if (ids.variables.has(upper)) {
                     ids.variables.get(upper).push(curr);
                     curr.valueType = ValueType.VARIABLE;
@@ -484,21 +445,21 @@ export namespace CODParser {
                 } else if (upper === 'DIM' || upper === 'OBJECT' && next?.value !== '[') {
                     curr.valueType = ValueType.KEYWORD;
                     curr.entityType = EntityType.ENTITY;
+                } else if (pUpper === ',' && ents[i-2]?.valueType === ValueType.VARIABLE) {
+                    curr.valueType = ValueType.VARIABLE;
+                    curr.entityType = EntityType.ENTITY;    
+                    if (ids.variables.has(upper)) {
+                        ids.variables.get(upper).push(curr);
+                    } else {
+                        ids.variables.set(upper, [curr]);
+                    }
                 } else {
-                    //debugger;
+                    ids.skipped.push(curr);
                 }
             } else if (curr.valueType === ValueType.STRING && pUpper === 'INCLUDE') {
-                // read other file and import function references
-                
-            } else if (pUpper === 'DIM' || pUpper === 'OBJECT') {
-                curr.valueType = ValueType.ERROR;
+                ids.includes.push(upper.replace('"', ''));
             }
-            
-
-
-
-
-            // enhance this to do special work with dotted pairs, functions, varaibles, etcetera
+            // This COULD be enhanced to make EntityCollections of dotted pairs, functions with variables, varaible declarations and assignments, etcetera
             result.push(curr);
         }
         return new SequenceEntity(EntityType.SEQUENCE, ents);
@@ -514,7 +475,7 @@ export namespace CODParser {
         case 'ELSEIF':
             return processELSEIF(ents, tracker);
         case 'ELSE':
-            if (ents[tracker.idx + 1].value.toUpperCase() === 'IF') {
+            if (ents[tracker.idx + 1].value.toUpperCase() === 'IF' && ents[tracker.idx].line === ents[tracker.idx + 1].line) {
                 return processELSEIF(ents, tracker);
             } else {
                 return processELSE(ents, tracker);
@@ -524,11 +485,7 @@ export namespace CODParser {
         case 'WHILE':
             return processWHILE(ents, tracker);
         case 'DO':
-            if (ents[tracker.idx + 1].value.toUpperCase() === 'WHILE') {
-                return processDOWHILE(ents, tracker);
-            } else {
-                return processDOUNTIL(ents, tracker);
-            }
+            return processDO(ents, tracker);
         case 'SELECT':
             return processSELECT(ents, tracker);
         case 'CASE':
@@ -550,10 +507,10 @@ export namespace CODParser {
     }
 
 
-    export function formulation(idObj: NameTracker, ents: Array<Entity>, returnAtNextBlock: boolean = false): [NameTracker, Array<Entity|EntityCollection>] {
+    export function formulation(idObj: NameTracker, ents: Array<Entity>): [NameTracker, Array<Entity|EntityCollection>] {
         const result: Array<Entity|EntityCollection> = [];
-        const np = path.resolve(path.relative("C:\\Users\\howar\\Music\\OtherApps\\ITMedit.Validation.Approvals\\whatever.cod", "..\\..\\Builds"));
-        const tracker = { 
+        //const np = path.resolve(path.relative("C:\\Users\\howar\\Music\\OtherApps\\ITMedit.Validation.Approvals\\whatever.cod", "..\\..\\Builds"));
+        const tracker: IndexTracker = { 
             idx: 0,
             ids: idObj
          };
@@ -564,14 +521,23 @@ export namespace CODParser {
                 result.push(curr);
                 tracker.idx++;
             } else if (blockStarters.includes(upper)) { // Process Block Types
-                if (returnAtNextBlock) {
-                    break;
-                } else {
-                    result.push(createBlockType(ents, tracker));
-                }
+                result.push(createBlockType(ents, tracker));
             } else { // Process and store an insignificant Line as a single Collection
                 result.push(createSequenceType(ents, tracker));
             }
+        }
+        const removes: number[] = [];
+        tracker.ids.skipped.forEach((ent, i) => {
+            if (tracker.ids.variables.has(ent.value.toUpperCase())) {
+                tracker.ids.variables.get(ent.value.toUpperCase()).push(ent);
+                removes.push(i);
+            } else if (tracker.ids.functions.has(ent.value.toUpperCase())) {
+                tracker.ids.functions.get(ent.value.toUpperCase()).push(ent);
+                removes.push(i);
+            }
+        });
+        if (removes.length >= 1) {
+            tracker.ids.skipped = tracker.ids.skipped.filter((obj, i) => !removes.includes(i));
         }
         return [tracker.ids, result];
     }
@@ -638,37 +604,41 @@ export namespace CODParser {
                         const next1 = text[i + 1]; // could be . or #
                         const next2 = text[i + 2]; // could be #
                         if (next1 && /\d/.test(next1)) {
-                            temp = new Entity(EntityType.ENTITY, ValueType.NUMBER, curr, lnum, col);
+                            temp = new Entity(EntityType.ENTITY, ValueType.NUMBER, curr, lnum, col, result.length);
                             state = ValueType.NUMBER;
                         } else if (next1 && next1 === '.' && next2 && /\d/.test(next2)) {
-                            temp = new Entity(EntityType.ENTITY, ValueType.NUMBER, curr, lnum, col);
+                            temp = new Entity(EntityType.ENTITY, ValueType.NUMBER, curr, lnum, col, result.length);
                             state = ValueType.NUMBER;
                         } else {
-                            result.push(new Entity(EntityType.ENTITY, ValueType.SYMBOL, curr, lnum, col));
-                        }
-                    } else if (temp === null && curr === '.') {
-                        const next1 = text[i + 1]; // If this is a # start NUMBER else log this symbol as its own DOTTED entity and stay UNKNOWN
-                        if (next1 && /\d/.test(next1)) {
-                            temp = new Entity(EntityType.ENTITY, ValueType.NUMBER, curr, lnum, col);
-                            state = ValueType.NUMBER;
-                        } else {
-                            result.push(new Entity(EntityType.ENTITY, ValueType.SYMBOL, curr, lnum, col));
+                            result.push(new Entity(EntityType.ENTITY, ValueType.SYMBOL, curr, lnum, col, result.length));
                         }
                     } else if (temp === null && /\d/.test(curr)) {
-                        temp = new Entity(EntityType.ENTITY, ValueType.NUMBER, curr, lnum, col);
+                        temp = new Entity(EntityType.ENTITY, ValueType.NUMBER, curr, lnum, col, result.length);
                         state = ValueType.NUMBER;
+                    } else if (curr === '.') {
+                        const next1 = text[i + 1]; // If this is a # start NUMBER else log this symbol as its own DOTTED entity and stay UNKNOWN
+                        if (next1 && /\d/.test(next1)) {
+                            temp = new Entity(EntityType.ENTITY, ValueType.NUMBER, curr, lnum, col, result.length);
+                            state = ValueType.NUMBER;
+                        } else {
+                            if (temp) {
+                                result.push(enhancePrimitives(temp));
+                                temp = null;
+                            }
+                            result.push(new Entity(EntityType.ENTITY, ValueType.SYMBOL, curr, lnum, col, result.length));
+                        }
                     } else if (stdSymbols.includes(curr)) {
                         if (temp) {
                             result.push(enhancePrimitives(temp));
                             temp = null;
                         }
-                        result.push(new Entity(EntityType.ENTITY, ValueType.SYMBOL, curr, lnum, col));
+                        result.push(new Entity(EntityType.ENTITY, ValueType.SYMBOL, curr, lnum, col, result.length));
                     } else if (curr === '"') {
                         if (temp) {
                             result.push(enhancePrimitives(temp));
                             temp = null;
                         }
-                        temp = new Entity(EntityType.ENTITY, ValueType.STRING, curr, lnum, col);
+                        temp = new Entity(EntityType.ENTITY, ValueType.STRING, curr, lnum, col, result.length);
                         state = ValueType.STRING;
                     } else {
                         let handled = false;
@@ -676,12 +646,13 @@ export namespace CODParser {
                             const next1 = text[i + 1];
                             const next2 = text[i + 2];
                             const next3 = text[i + 3];
-                            if (next1 && next2 && next3 && (curr + next1 + next2 + next3).toUpperCase() === 'REM ') {
+                            const combo = (next1 && next2) ? (curr + next1 + next2) : '';
+                            if (combo === 'REM' && (next3 === ' ' || next3 === '\t')) {
                                 if (temp) {
                                     result.push(enhancePrimitives(temp));
                                     temp = null;
                                 }
-                                temp = new Entity(EntityType.ENTITY, ValueType.COMMENT, curr, lnum, col);
+                                temp = new Entity(EntityType.ENTITY, ValueType.COMMENT, curr, lnum, col, result.length);
                                 state = ValueType.COMMENT;
                                 handled = true;
                             }
@@ -695,7 +666,7 @@ export namespace CODParser {
                             } else if (temp) {
                                 temp.value += curr;
                             } else {
-                                temp = new Entity(EntityType.ENTITY, ValueType.UNKNOWN, curr, lnum, col);
+                                temp = new Entity(EntityType.ENTITY, ValueType.UNKNOWN, curr, lnum, col, result.length);
                             }
                         }
                     }
@@ -735,6 +706,8 @@ export namespace CODParser {
                     ent.valueType = ValueType.KEYWORD;
                 } else if (FabExt.Data.enumTypes.includes(val) || FabExt.Data.constants[val]) {
                     ent.valueType = ValueType.CONSTANT;
+                } else if (FabExt.Data.objects[val]) {
+                    ent.valueType = ValueType.OBJECT;
                 }
                 break;
         }

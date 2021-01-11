@@ -2,7 +2,7 @@
   "KEYWORDS": {
     "FLOWCONTROL": {
       "id": "FLOWCONTROL",
-      "items": [
+      "values": [
         "IF",
         "THEN",
         "ELSE",
@@ -33,7 +33,7 @@
     },
     "VALUETYPES": {
       "id": "VALUETYPES",
-      "items": [
+      "values": [
         "TRUE",
         "FALSE",
         "NULL",
@@ -42,7 +42,7 @@
     },
     "SPECIALTYPES": {
       "id": "SPECIALTYPES",
-      "items": [
+      "values": [
         "AND",
         "OR",
         "NOT",
@@ -51,7 +51,8 @@
         "NEW",
         "DIM",
         "OBJECT",
-        "REQUIRES"
+        "REQUIRES",
+        "INCLUDE"
       ]
     }
   },
@@ -6078,59 +6079,58 @@
     },
     "FILELOCATOR": {
       "id": "FILELOCATOR",
-      "constructor": null,
-      "methods": [
-        {
-          "id": "FileLocator",
-          "returns": [
-            "VOID"
-          ],
-          "args": [
-            {
-              "id": "RootPath",
-              "types": [
-                "STRING"
-              ],
-              "optional": true,
-              "notes": "Optional String of Root Path to Search."
-            },
-            {
-              "id": "SearchWildcard",
-              "types": [
-                "STRING"
-              ],
-              "optional": true,
-              "notes": "Optional String Wildcard to match against."
-            },
-            {
-              "id": "SearchFiles",
-              "types": [
-                "BOOLEAN"
-              ],
-              "optional": true,
-              "notes": "Optional Boolean Flag to search against Files."
-            },
-            {
-              "id": "SearchFolders",
-              "types": [
-                "BOOLEAN"
-              ],
-              "optional": true,
-              "notes": "Optional Boolean Flag to search against Folders."
-            }
-          ],
-          "info": {
-            "desc": "Constructs a FileLocator Object.",
-            "args": {
-              "RootPath": "Optional String of Root Path to Search.",
-              "SearchWildcard": "Optional String Wildcard to match against.",
-              "SearchFiles": "Optional Boolean Flag to search against Files.",
-              "SearchFolders": "Optional Boolean Flag to search against Folders."
-            },
-            "returns": "Nothing.",
-            "remarks": "If optional parameters are not specified when constructing the FILELOCATOR object,\nuse the FILELOCATOR.Scan method to specify them."
+      "constructor": {
+        "id": "constructor",
+        "returns": [
+          ""
+        ],
+        "args": [
+          {
+            "id": "RootPath",
+            "types": [
+              "STRING"
+            ],
+            "optional": true,
+            "notes": "Optional String of Root Path to Search."
+          },
+          {
+            "id": "SearchWildcard",
+            "types": [
+              "STRING"
+            ],
+            "optional": true,
+            "notes": "Optional String Wildcard to match against."
+          },
+          {
+            "id": "SearchFiles",
+            "types": [
+              "BOOLEAN"
+            ],
+            "optional": true,
+            "notes": "Optional Boolean Flag to search against Files."
+          },
+          {
+            "id": "SearchFolders",
+            "types": [
+              "BOOLEAN"
+            ],
+            "optional": true,
+            "notes": "Optional Boolean Flag to search against Folders."
           }
-        },
+        ],
+        "info": {
+          "desc": "Constructs a FileLocator Object.",
+          "args": {
+            "RootPath": "Optional String of Root Path to Search.",
+            "SearchWildcard": "Optional String Wildcard to match against.",
+            "SearchFiles": "Optional Boolean Flag to search against Files.",
+            "SearchFolders": "Optional Boolean Flag to search against Folders."
+          },
+          "returns": "Nothing.",
+          "remarks": "If optional parameters are not specified when constructing the FILELOCATOR object,\nuse the FILELOCATOR.Scan method to specify them."
+        }
+      },
+      "methods": [
         {
           "id": "Scan",
           "returns": [

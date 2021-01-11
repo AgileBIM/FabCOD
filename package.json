@@ -80,7 +80,7 @@
 				"editor.suggestSelection": "recentlyUsed"
 			}
 		},
-		"commands": [],
+		"commands": [ { "title": "HelloWorld", "command": "cadmepext.helloWorld" } ],
 		"menus": {
 			"view/title": [],
 			"view/item/context": [],

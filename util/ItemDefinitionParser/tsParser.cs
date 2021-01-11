@@ -273,7 +273,7 @@ namespace ItemDefinitionParser
     {
         private char[] tchars = new char[] { '\t', ' ', ',', '\'' };
         public string id { get; set; }
-        public List<string> items { get; set; } = new List<string>();
+        public List<string> values { get; set; } = new List<string>();
         public KEYWORDS(ref int i, List<string> Lines)
         {
             for (; i < Lines.Count; i++)
@@ -284,7 +284,7 @@ namespace ItemDefinitionParser
                 else if (current.StartsWith("CONST "))
                     id = current.Split(' ').Where(p => p != "").ToArray()[1].Trim(':');
                 else if (current.StartsWith("'"))
-                    items.Add(current.Trim(tchars));
+                    values.Add(current.Trim(tchars));
             }
         }
     }
@@ -453,13 +453,13 @@ namespace ItemDefinitionParser
                 targ = "%%%" + kw + "%%%";
                 if (kw == "VALUETYPES")
                 { 
-                    var lst = KEYWORDS[kw].items.ToList();
+                    var lst = KEYWORDS[kw].values.ToList();
                     foreach (var key in ENUMS.Keys)
                         lst.AddRange(ENUMS[key].values);
                     items = string.Join("|", lst);
                 }
                 else
-                    items = string.Join("|", KEYWORDS[kw].items);
+                    items = string.Join("|", KEYWORDS[kw].values);
                 source = source.Replace(targ, items);
             }
 

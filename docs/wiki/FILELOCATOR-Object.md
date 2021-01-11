@@ -1,7 +1,20 @@
 # Object: FILELOCATOR
 **NOTE:** This documentation was auto-generated from the FabricationDefinition.ts file and any errors within this text needs to be resolved within that source file
 ## Constructor
-This first-class object cannot be directly created, but is in fact Static and can be accessed at any time without constructing.
+Constructs a FileLocator Object.
+If optional parameters are not specified when constructing the FILELOCATOR object,
+use the FILELOCATOR.Scan method to specify them.
+#### Signature
+New FILELOCATOR([RootPath: STRING], [SearchWildcard: STRING], [SearchFiles: BOOLEAN], [SearchFolders: BOOLEAN])
+#### Arguments
+- **RootPath** as Optional: STRING
+  - Remarks: Optional String of Root Path to Search.
+- **SearchWildcard** as Optional: STRING
+  - Remarks: Optional String Wildcard to match against.
+- **SearchFiles** as Optional: BOOLEAN
+  - Remarks: Optional Boolean Flag to search against Files.
+- **SearchFolders** as Optional: BOOLEAN
+  - Remarks: Optional Boolean Flag to search against Folders.
 ## Properties
 The following items are accessed from the base object by a dot notation
 ### Property: File
@@ -36,24 +49,6 @@ No additional remarks available
 STRING
 ## Methods
 The following items are invoked from the base object by a dot notation
-### Function: FileLocator
-Constructs a FileLocator Object.
-
-If optional parameters are not specified when constructing the FILELOCATOR object,
-use the FILELOCATOR.Scan method to specify them.
-##### Signature
-FileLocator([RootPath: STRING], [SearchWildcard: STRING], [SearchFiles: BOOLEAN], [SearchFolders: BOOLEAN])
-##### Arguments
-- **RootPath** as Optional: STRING
-  - Remarks: Optional String of Root Path to Search.
-- **SearchWildcard** as Optional: STRING
-  - Remarks: Optional String Wildcard to match against.
-- **SearchFiles** as Optional: BOOLEAN
-  - Remarks: Optional Boolean Flag to search against Files.
-- **SearchFolders** as Optional: BOOLEAN
-  - Remarks: Optional Boolean Flag to search against Folders.
-##### Returns
-VOID
 ### Function: Scan
 Scan a root path for Files and/or Folders matching a Wildcard string.
 

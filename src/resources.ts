@@ -13,11 +13,10 @@ export interface IJsonLoadable {
 }
 
 function readJsonDataFile(datafile: string, intoObject: IJsonLoadable): void {
-	var dataPath = path.resolve(__dirname, datafile);
-	fs.readFile(dataPath, "utf8", function(err: Error, data: string) {        
-		if (err === null && intoObject["loadFromJsonObject"]) {
-			intoObject.loadFromJsonObject(JSON.parse(data));
-		}
-	});    
+	let dataPath = path.resolve(__dirname, datafile);
+	let content: string = fs.readFileSync(dataPath, { encoding: "utf8" });
+	if (content && intoObject["loadFromJsonObject"]) {
+		intoObject.loadFromJsonObject(JSON.parse(content));
+	}
 }	
 

@@ -49,7 +49,8 @@ suite('Extension Test Suite', () => {
             creator: complexPath.toUpperCase(),
             variables: new Map<string, Array<entities.Entity>>(),
             functions: new Map<string, Array<entities.Entity>>(),
-            importedFunctions: new Map<string, Array<entities.Entity>>(),
+			importedFunctions: new Map<string, Array<entities.Entity>>(),
+			skipped: [],
             includes: []
 			};
 
@@ -58,6 +59,7 @@ suite('Extension Test Suite', () => {
 			variables: new Map<string, Array<entities.Entity>>(),
 			functions: new Map<string, Array<entities.Entity>>(),
 			importedFunctions: new Map<string, Array<entities.Entity>>(),
+			skipped: [],
 			includes: []
 			};
 

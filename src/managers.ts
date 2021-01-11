@@ -1,30 +1,26 @@
 import * as vscode from "vscode";
 import { library } from "./resources";
 import { FabExt } from './extension';
-//import * as fs from	'fs-extra';
-import { FabDocument } from "./support/document";
-import { COD } from './support/parser';
+import * as fs from	'fs-extra';
+import { COD, CODParser } from './support/parser';
 
-export interface DocumentSources {
-
-}
 
 
 export class FabDocumentManager{	
 	private _cached: Map<string, COD> = new Map();
 	private _watchers: vscode.FileSystemWatcher[] = [];
 	
-	get WorkspaceDocuments(): FabDocument[] { 
-		return this.getWorkspaceDocuments(); 
+	get WorkspaceDocuments(): COD[] {
+		return [...this._cached.values()];
 	}
-	// get ActiveDocument(): ReadonlyDocument { 
-	// 	if (vscode.window.activeTextEditor) {
-	// 		const key = this.documentConsumeOrValidate(vscode.window.activeTextEditor.document, Origins.OPENED);			
-	// 		return this._cached.get(key)?.internal;
-	// 	} else {
-	// 		return null;
-	// 	}		
-	// }
+	get ActiveDocument(): COD { 
+		if (vscode.window.activeTextEditor) {
+			const key = this.documentConsumeOrValidate(vscode.window.activeTextEditor.document);			
+			return this._cached.get(key);
+		} else {
+			return null;
+		}		
+	}
 	
 	get ActiveTextDocument(): vscode.TextDocument|undefined { 
 		return vscode.window.activeTextEditor?.document;
@@ -47,76 +43,68 @@ export class FabDocumentManager{
 	}
 
 	private normalizePath(path: string): string {
-		return path.replace(/\//g, '\\');
+		return path.replace(/\//g, '\\').toUpperCase();
 	}
 
-	private tryUpdateInternal(sources: DocumentSources){
-		// if (sources.native && (!sources.internal || !sources.internal.equal(sources.native))) {
-		// 	sources.internal = ReadonlyDocument.getMemoryDocument(sources.native);
-		// }
+	private tryUpdateInternal(cod: COD, doc: vscode.TextDocument): void {		
+		if (cod?.text !== doc?.getText()) {
+			CODParser.updateCOD(doc, cod);			
+		}
 	}
 
 	private pathConsumeOrValidate(path: string): string {
-		// const key = this.normalizePath(path);		
-		// if (fs.existsSync(key) && this.getSelectorType(key) === DocumentManager.Selectors.lsp) {
-		// 	if (this._cached.has(key) === false) {
-		// 		const sources = DocumentSources.create(flag, ReadonlyDocument.open(key));
-		// 		this._cached.set(key, sources);
-		// 	} else {
-		// 		const sources = this._cached.get(key);				
-		// 		this.tryUpdateInternal(sources);
-		// 		sources.flags.add(flag);
-		// 	}
-		// 	return key;
-		// } else {
-		// 	return '';
-		// }
-		return path;
+		const key = this.normalizePath(path);		
+		if (fs.existsSync(key) && this.isValidCOD(key)) {
+			if (this._cached.has(key) === false) {
+				try {
+					const text = fs.readFileSync(path).toString();
+					const cod = CODParser.createCOD(text);
+					this._cached.set(key, cod);	
+				} catch (error) {
+					debugger;
+				}
+			} else {
+				try {
+					const cod = this._cached.get(key);			
+					this.tryUpdateInternal(cod, cod.source);	
+				} catch (error) {
+					debugger;
+				}
+				
+			}
+			return key;
+		} else {
+			return '';
+		}
 	}
 
 	private documentConsumeOrValidate(doc: vscode.TextDocument, key?: string): string {
-		// if (!key){
-		// 	key = this.normalizePath(doc.fileName);
-		// }
-		// if (this.getSelectorType(key) === DocumentManager.Selectors.lsp){
-		// 	if (this._cached.has(key) === false) {
-		// 		const sources = DocumentSources.create(flag, doc);
-		// 		this._cached.set(key, sources);
-		// 	} else {
-		// 		const sources = this._cached.get(key);
-		// 		sources.native = doc;
-		// 		this.tryUpdateInternal(sources);
-		// 		sources.flags.add(flag);
-		// 	}
-		// 	return key;
-		// } else {
-		// 	return '';
-		// }
-		return key ? key : '';
+		if (!key){
+			key = this.normalizePath(doc.fileName);
+		}
+		if (this.isValidCOD(key)) {
+			if (this._cached.has(key) === false) {
+				try {
+					const sources = CODParser.createCOD(doc);
+					this._cached.set(key, sources);
+				} catch (error) {
+					debugger;
+				}
+			} else {
+				this.tryUpdateInternal(this._cached.get(key), doc);
+			}
+			return key;
+		} else {
+			return '';
+		}
 	}
 
-	getDocument(nDoc: vscode.TextDocument): FabDocument|null {
-		// const key = this.documentConsumeOrValidate(nDoc, Origins.OPENED);					
-		// return this._cached.get(key)?.internal;
-		return null;
+	getDocument(nDoc: vscode.TextDocument): COD|null {
+		const key = this.documentConsumeOrValidate(nDoc);
+		return this._cached.get(key);
 	}	
 
 
-	// Gets a complete ReadonlyDocuments representing the workspace, but will update cached internal versions if it is out of sync with an available vscode.TextDocument
-	private getWorkspaceDocuments(): FabDocument[] {
-		const result: FabDocument[] = [];
-		// this.cacheKeys.forEach(key => {
-		// 	const sources = this._cached.get(key);
-		// 	if (sources.flags.has(Origins.WSPACE)) {
-		// 		this.tryUpdateInternal(sources);
-		// 		if (!sources.internal) {
-		// 			sources.internal = ReadonlyDocument.open(key);
-		// 		}
-		// 		result.push(sources.internal);
-		// 	}
-		// });
-		return result;
-	}
 
 	// Creates the FileSystemWatcher's & builds a workspace blueprint
 	private initialize(): void {
@@ -132,13 +120,11 @@ export class FabDocumentManager{
 			this.documentConsumeOrValidate(vscode.window.activeTextEditor.document);
 		}
 
-		// This builds the '_workspace' *.LSP Memory Document placeholder set
-		// 		This feature does make the "fair assumption" that AutoCAD machines have plenty of memory to be holding all this information
-		// 		The impact of creating read-only documents was stress tested with a root workspace folder containing 10mb of *.LSP files
-		//		and the memory footprint from just the ReadonlyDocument's increased the memory (sustained) by less than 50mb		
 		vscode.workspace.findFiles("**").then((items: vscode.Uri[]) => {
 			items.forEach((fileUri: vscode.Uri) => {	
-				this.pathConsumeOrValidate(fileUri.fsPath);
+				try {
+					this.pathConsumeOrValidate(fileUri.fsPath);	
+				} catch (error) { debugger;}
 			});
 		});
 		
@@ -179,8 +165,12 @@ export class FabDocumentManager{
 		// Create FileSystemWatcher's & build the workspace blueprint
 		this.initialize();
 
+		FabExt.Subscriptions?.push(vscode.workspace.onDidSaveTextDocument((e: vscode.TextDocument) => {
+			this.documentConsumeOrValidate(e);
+		}));
+
 		FabExt.Subscriptions?.push(vscode.workspace.onDidCloseTextDocument((e: vscode.TextDocument) => {
-			// probably update the RO file?
+			this.documentConsumeOrValidate(e);
 		}));
 	
 		FabExt.Subscriptions?.push(vscode.workspace.onDidOpenTextDocument((e: vscode.TextDocument) => {
