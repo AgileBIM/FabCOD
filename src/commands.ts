@@ -1,76 +1,70 @@
 import { FabExt } from "./extension";
 import * as vscode from 'vscode';
-import { CODParser, COD } from "./support/parser";
-import { Entity, EntityType, ValueType } from './support/entities';
+import { HoverProviderCOD } from './providers/hoverProvider';
+import { FoldingProviderCOD } from './providers/foldingRangeProvider';
 
 export function loadAllCommands() {
+	FabExt.Subscriptions.push(vscode.languages.registerHoverProvider(FabExt.selector, new HoverProviderCOD()));
+	FabExt.Subscriptions.push(vscode.languages.registerFoldingRangeProvider(FabExt.selector, new FoldingProviderCOD()));
+	
+	
+	FabExt.Subscriptions.push(vscode.commands.registerCommand('fabext.acadexecute', () => {
+		try {
+			if (vscode.window.activeTextEditor?.document && FabExt.Documents.isValidCOD(vscode.window.activeTextEditor.document.fileName)) {
+				executeScript(vscode.window.activeTextEditor.document.fileName);
+			}
+		}
+		catch (err) {}
+	}));
 
-	vscode.languages.registerHoverProvider(FabExt.selector, new HoverProviderCOD());
-
-
+	// Associated with the right click "Insert Region" menu item
+	FabExt.Subscriptions.push(vscode.commands.registerCommand("fabext.insertregion", async () => {
+		try {
+			const linefeed = vscode.window.activeTextEditor.document.eol === vscode.EndOfLine.CRLF ? '\r\n' : '\n';
+			const commentChar = 'REM ';
+			const snip = new vscode.SnippetString(commentChar + '#region ${1:description}' + linefeed + '${TM_SELECTED_TEXT}' + linefeed + commentChar + "#endregion");
+			await vscode.window.activeTextEditor.insertSnippet(snip);
+		}
+		catch (err) { vscode.window.showErrorMessage('Failed to insert snippet', err); }
+	}));
 
 
 
 }
 
 
-class HoverProviderCOD implements vscode.HoverProvider {
-	provideHover(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken): vscode.ProviderResult<vscode.Hover> {
-		const line = document.lineAt(position.line).text;
-		const cod = FabExt.Documents.getDocument(document);
-		const found = cod.entities.find(p => p.contains(position));		
-		if (found) {
-			let res: vscode.MarkdownString;
-			if (found.valueType === ValueType.CONSTANT) {
-				res = FabExt.Data.getNamedObjectMarkdown(found.value);
-			} else if (found.valueType === ValueType.OBJECT) {
-				res = FabExt.Data.getObjectMarkdown(found.value);
-			} else if (found.valueType === ValueType.KEYWORD || found.valueType === ValueType.VARIABLE) {
-				switch (found.entityType) {
-					case EntityType.ENTITY:
-					case EntityType.DOTTED:
-						if (FabExt.Data.objects[found.value.toUpperCase()]) {
-							res = FabExt.Data.getObjectMarkdown(found.value);	
-						} else if (cod.keywords.variables.has(found.value.toUpperCase())) {
-							const ents = cod.keywords.variables.get(found.value.toUpperCase());
-							const firstSet = ents.find(p => cod.entities[p.index - 1]?.value.toUpperCase() === 'DIM' || cod.entities[p.index - 1]?.value.toUpperCase() === 'OBJECT');
-							if (firstSet) {
-								for (let i = firstSet.index + 1; i <= firstSet.index + 3; i++) {
-									const element = cod.entities[i].value.toUpperCase();
-									if (['=', 'AS', 'NEW'].includes(element) === false) {
-										const setter = cod.entities[i];
-										if (cod.entities[setter.index+1].value !== '.') {
-											res = FabExt.Data.getObjectMarkdown(cod.entities[i].value);
-										}
-										break;
-									}
-								}
-							}
-						}						
-						break;
-					case EntityType.INDEXED:
-					case EntityType.METHOD:
-					case EntityType.PROPERTY:
-						res = FabExt.Data.getDottedMarkdown(cod, found);	
-						break;
-					default:
-						if (FabExt.Data.objects[found.value.toUpperCase()]) {
-							res = FabExt.Data.getObjectMarkdown(found.value);	
-						} else {
-							res = FabExt.Data.getNamedObjectMarkdown(found.value);
-						}
-						break;
-				}
-			}
-			if (res) {
-				return new vscode.Hover(res);
-			} else {
-				return;
-			}
-		} else {
-			return;
-		}
-		// 	vscode.env.openExternal(vscode.Uri.parse(urlPath));
-	}
 
+
+
+
+
+
+import { spawn, ChildProcess } from 'child_process';
+import { join } from 'path';
+
+function executeScript(path: string) {
+	if (process.platform === 'win32') { 
+		const procPath = join(__dirname, 'support', 'ExecuteInAcad.exe');
+		let proc: ChildProcess = spawn(procPath, [ path ]);
+		proc.stdout.setEncoding('utf8');
+		proc.stdout.on('data', lines(line => {
+			if (line.includes('Success') === false) {
+				const msg = line.trim().replace('->', ': ');
+				vscode.window.showInformationMessage(msg);
+			}
+		}));
+	}		
+}
+
+function lines(callback: (a: string) => void) {
+	let unfinished = '';
+	return (data: string | Buffer) => {
+		const lines = data.toString().split(/\r?\n/);
+		const finishedLines = lines.slice(0, lines.length - 1);
+		finishedLines[0] = unfinished + finishedLines[0];
+		unfinished = lines[lines.length - 1];
+		for (const s of finishedLines) {
+			callback(s);
+		}
+	};
 }

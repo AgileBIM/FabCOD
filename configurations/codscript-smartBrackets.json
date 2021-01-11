@@ -17,12 +17,7 @@
 		["[","]"]
 	],
 	"autoCloseBefore": ";:.,=}])<>` \n\t",
-	"folding": {
-		"markers": {
-			"start": "^\\s*(REM #region|if|If|IF)\\b.*$",
-			"end": "^\\s*(REM #endregion|end|End|END).*$"
-		}	
-	},
+	
 	"indentationRules": {
 		"comment": "I had problems with CASE, but if I refine the regex to backsearch for Select, then maybe it can go back in",
 		"increaseIndentPattern": "^\\s*(if|If|IF|else|Else|ELSE|elseif|elseIf|Elseif|ElseIf|ELSEIF|while|While|WHILE|for|For|FOR|select|Select|SELECT|function|Function|FUNCTION)\\b.*$",

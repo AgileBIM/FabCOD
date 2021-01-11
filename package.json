@@ -35,7 +35,7 @@
 	"activationEvents": [
 		"onLanguage:codscript"
 	],
-	"contributes": {
+	"contributes": { 
 		"languages": [
 			{
 				"id": "codscript",
@@ -80,11 +80,46 @@
 				"editor.suggestSelection": "recentlyUsed"
 			}
 		},
-		"commands": [ { "title": "HelloWorld", "command": "cadmepext.helloWorld" } ],
+		"keybindings":[
+			{
+				"when": "resourceLangId == codscript",
+				"command": "fabext.acadexecute",
+				"key": "F5"
+			},
+			{
+				"when": "resourceLangId == codscript",
+				"command": "fabext.insertregion",
+				"key": "Ctrl+Shift+/"
+			}
+		],
+		"commands": [
+			{
+				"command": "fabext.acadexecute",
+				"category": "FabCOD",
+				"title": "Execute Active Script in ACAD"
+			},
+			{
+				"command": "fabext.insertregion",
+				"category": "FabCOD",
+				"title": "Insert Folding Region"
+			},
+			{ "title": "HelloWorld", "command": "cadmepext.helloWorld" } 
+		],
 		"menus": {
 			"view/title": [],
 			"view/item/context": [],
-			"editor/context": [],
+			"editor/context": [
+				{
+					"when": "resourceLangId == codscript",
+					"command": "fabext.acadexecute",
+					"group": "navigation@1"
+				},
+				{
+					"when": "resourceLangId == codscript",
+					"command": "fabext.insertregion",
+					"group": "navigation@2"
+				}
+			],
 			"explorer/context": []
 		}
 	},
