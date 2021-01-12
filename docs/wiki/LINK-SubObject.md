@@ -6,16 +6,19 @@ This second-class object cannot be directly created. These types of sub-objects 
 The following items are accessed from the base object by a dot notation
 ### Property: Name
 Get/Set the Link Name of the LINK Object.
+
 No additional remarks available
 ##### Returns
 STRING
 ### Property: Param
 Get/Set the Parameters of the LINK Object.
+
 No additional remarks available
 ##### Returns
 STRING
 ### Property: Target
 Get/Set the URL Target of the LINK Object.
+
 No additional remarks available
 ##### Returns
 STRING

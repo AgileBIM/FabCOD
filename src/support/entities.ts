@@ -15,7 +15,6 @@ export enum ValueType {
 	SYMBOL = 'SYMBOL',
 	BOOL = 'BOOLEAN',
 	NULL = 'NULL',
-	NOTHING = 'NOTHING',
 
 	// Non-Primitives handled by forumulation
 	OBJECT = 'OBJECT',
@@ -31,11 +30,12 @@ export enum EntityType {
 	CONTENTS = 'CONTENTS', 			// the body of non-sequencial a collection types. IE, a user defined Function, If, Else, Select, Case, etcetera
 	SEQUENCE = 'SEQUENCE', 			// Represents a large number of scenarios where a chain of symbols appearing on the same line need to be grouped
 
-	// Sequencial Collections
-	FUNCTION = 'FUNCTION',			// Any circumstance where a word ends with an attached (
+	// Sequencial Informal Collections
+	FUNCTION = 'FUNCTION',			// Any circumstance where a word ends with an attached ( and does not begin with a .
+	METHOD = 'METHOD',				// Any circumstance where a word ends with an attached ( and begins with a .
 	INDEXED = 'INDEXED',			// Any circumstance where a word ends with an attached [
-	DOTTED = 'DOTTED', 				// represents a sequence of words that have been joined by dots and could contain child INDEXED or FUNCTION collections	
-	PROPERTY = 'PROPERTY',
+	DOTTED = 'DOTTED', 				// represents the beginning of a dotted sequence
+	PROPERTY = 'PROPERTY',			// Anything in a Dotted sequence that isn't a dot starter, indexed or method type.
 
 	// Non-Loop Collections
 	FUNCTIONDEF = 'FUNCTIONDEF',
@@ -48,9 +48,8 @@ export enum EntityType {
 
 	// Loop Collections
 	WHILE = 'WHILE',			
-	DOWHILE = 'DOWHILE',		
-	DOUNTIL = 'DOUNTIL',
-	FORNEXT = 'FOR'
+	DO = 'DO',
+	FOR = 'FOR'
 }
 
 // It would be interesting if it was possible to add an helpObject pointer (probably index | indices[]) to each symbol as your parsing
@@ -60,28 +59,46 @@ export class Entity {
 	value: string;	
 	entityType: EntityType;
 	valueType: ValueType;
+	index: number;
 	
 
 	getRange(): vscode.Range {		
 		return new vscode.Range(this.line, this.column, this.line, this.column + this.value.length);
 	}
 
-	constructor(etype: EntityType, vtype: ValueType, val?: string, lin?: number, col?: number) {
+	constructor(etype: EntityType, vtype: ValueType, val?: string, lin?: number, col?: number, globalPosition?: number) {
 		this.valueType = vtype;
 		this.entityType = etype ? etype : EntityType.ENTITY; 
-		this.line = lin ? lin : 0;
-		this.column = col ? col : 0;
-		this.value = val ? val : '';
+		this.line = lin ?? 0;
+		this.column = col ?? 0;
+		this.value = val ?? '';
+		this.index = globalPosition ?? -1;
 		}
 
 	get endColumn(): number { return this.column + this.value.length; }
 	get position(): vscode.Position{ return new vscode.Position(this.line, this.column); }
+	get isPrimitive(): boolean { return this.isComment || this.isString || this.isNumber || this.isBoolean || this.isNull || this.isSymbol; }
+	get isBoolean(): boolean { return this.valueType === ValueType.BOOL; }
+	get isNull(): boolean { return this.valueType === ValueType.NULL; }
 	get isComment(): boolean { return this.valueType === ValueType.COMMENT; }
 	get isString(): boolean { return this.valueType === ValueType.STRING; }
 	get isNumber(): boolean { return this.valueType === ValueType.NUMBER; }
+	get isSymbol(): boolean { return this.valueType === ValueType.SYMBOL; }
 
 	public getText(_doc: vscode.TextDocument): string {
 		return this.value;
+	}
+
+	getAtPosition(pos: vscode.Position): Entity|null {
+		return this.getRange().contains(pos) ? this : null;
+	}
+
+	equal(ent: Entity): boolean {
+		return ent.line === this.line && ent.column === this.column && ent.value === this.value;
+	}
+
+	contains(pos: vscode.Position): boolean {
+		return this.getRange().contains(pos);
 	}
 
 	toString() { return this.value; }
@@ -113,7 +130,13 @@ export abstract class EntityCollection extends Entity {
 	}
 
 	lastEntity(): Entity {
-		const last = this.children[-1];
+		let last: Entity|EntityCollection;
+		for (let i = this.children.length-1; i >= 0; i--) {
+			last = this.children[i];
+			if (last) {
+				break;
+			}
+		}
 		if (last instanceof EntityCollection) {
 			return last.lastEntity();
 		} else {
@@ -129,6 +152,50 @@ export abstract class EntityCollection extends Entity {
 
 	getText(_doc: vscode.TextDocument): string {
 		return _doc.getText(this.getRange());
+	}
+
+	getAtPosition(pos: vscode.Position): Entity|null {
+		const found = this.children.find(p => p.getRange().contains(pos));
+		if (found instanceof EntityCollection) {
+			return found.getAtPosition(pos);
+		} else {
+			return found ?? null;
+		}
+	}
+
+	contains(pos: vscode.Position|Entity|EntityCollection) {
+		if (!(pos instanceof vscode.Position)) {
+			pos = pos.position;
+		}
+		return this.getRange().contains(pos);
+	}
+
+	getParentCollection(source: Entity|EntityCollection, searchIn: Array<Entity|EntityCollection>): Array<Entity|EntityCollection> {
+		let result: Array<Entity|EntityCollection>;
+		if (source instanceof EntityCollection) {
+			for (let i = 0; i < searchIn.length; i++) {
+				const ent = searchIn[i];
+				if (ent instanceof EntityCollection){
+					if (ent.equal(source)) {
+						result = searchIn;
+					} else if (ent.contains(source.position)) {
+						result = ent.getParentCollection(source, ent.children);	
+					}
+				}	
+			}
+		} else {
+			for (let i = 0; i < searchIn.length; i++) {
+				const ent = searchIn[i];
+				if (ent instanceof EntityCollection && ent.contains(source.position)) {
+					result = ent.getParentCollection(source, ent.children);
+					break;
+				} else if (ent.equal(source)) {
+					result = searchIn;
+					break;
+				}
+			}
+		}
+		return result;
 	}
 
 	toString() { return this.children.join(' '); }
@@ -176,26 +243,25 @@ export class ContentsEntity extends EntityCollection {
 
 
 export class FunctionDefinitionEntity extends EntityCollection {
-	keyword: Entity;
-	name: Entity;
-	argSet: EntityCollection;
+	header: EntityCollection;	
 	contents: EntityCollection;
-	endSet: Entity|EntityCollection;	
-	constructor(starter: Entity, fname: Entity, inputs: EntityCollection, body: EntityCollection, ender: Entity|EntityCollection) {
-		super(EntityType.FUNCTIONDEF);
-		this.keyword = starter;
-		this.name = fname;
-		this.argSet = inputs;
+	footer: EntityCollection;	
+	constructor(starter: EntityCollection, body: EntityCollection, ender: EntityCollection) {
+		super(EntityType.FUNCTIONDEF);		
+		this.header = starter;
 		this.contents = body;
-		this.endSet = ender;
+		this.footer = ender;
 		this.value = this.toString();
 		const first = this.firstEntity();
 		this.line = first.line;
 		this.column = first.column;
 	}
 
+	get name(): Entity { return this.header[1]; }
+	get args(): Entity[] { return this.header.children.filter(p => p.valueType !== ValueType.SYMBOL).slice(2); }
+
 	get children(): Array<Entity|EntityCollection> { 
-		return [this.keyword, this.name, this.argSet, this.contents, this.endSet]; 
+		return [this.header, this.contents, this.footer]; 
 	}
 
 	warnings(parent?: EntityCollection): Array<vscode.CodeLens> {
@@ -204,101 +270,87 @@ export class FunctionDefinitionEntity extends EntityCollection {
 }
 
 export class InlineIfEntity extends EntityCollection {
-	keyword: Entity|EntityCollection; // Could be an If or Else If
-	expression: EntityCollection;
-	thenEntity: Entity;
-	contents: EntityCollection;
-	constructor(starter: Entity|EntityCollection, test: EntityCollection, then: Entity, body: EntityCollection) {
+	children: Array<Entity>; // Could be an If or Else If	
+	constructor(starter: Array<Entity>) {
 		super(EntityType.IFINLINE);
-		this.keyword = starter;
-		this.expression = test;
-		this.thenEntity = then;
-		this.contents = body;
+		this.children = starter;
 		this.value = this.toString();
 		const first = this.firstEntity();
 		this.line = first.line;
 		this.column = first.column;
 	}
 
-	get children(): Array<Entity|EntityCollection> { 
-		return [this.keyword, this.expression, this.thenEntity, this.contents]; 
+	get header(): Entity[]|null { 
+		const elif = this.children.findIndex(p => p.value.toUpperCase().endsWith('IF'));
+		if (elif !== -1) {
+			return this.children.slice(0, elif+1);
+		} else {
+			return null;
+		}
+	}
+
+	get expression(): Entity[]|null { 
+		const elif = this.children.findIndex(p => p.value.toUpperCase().endsWith('IF'));
+		const then = this.children.findIndex(p => p.value.toUpperCase() === 'THEN');
+		if (then !== -1) {
+			return this.children.slice(elif+1, then);
+		} else {
+			return null;
+		}
+	}
+	get contents(): Entity[]|null { 
+		const then = this.children.findIndex(p => p.value.toUpperCase() === 'THEN');
+		if (then !== -1) {
+			return this.children.slice(then+1);
+		} else {
+			return null;
+		}
 	}
 
 	warnings(parent?: EntityCollection): Array<vscode.CodeLens> {
-		const result: Array<vscode.CodeLens> = [];
-		this.children.forEach(ent => {
-			if (ent instanceof EntityCollection) {
-				result.push(...ent.warnings(this));
-			}
-		});
-		if (!this.thenEntity) {
-			result.push(
-				new vscode.CodeLens(
-					this.children[0].getRange(), 
-					{ 
-						command: '',
-						title: 'All IF statements require a THEN statement' 
-					}));
-		} else {
-			return []; 
-		}
+		return []; 
 	}
 }
 
 export class IfEntity extends EntityCollection {
-	keyword: Entity;
-	expression: EntityCollection;
-	thenEntity: Entity;
+	header: EntityCollection;
 	contents: EntityCollection;
-	endSet: Entity|EntityCollection;
-	constructor(starter: Entity, test: EntityCollection, then: Entity, body: EntityCollection, ender: Entity|EntityCollection) {
-		super(EntityType.IF);
-		this.keyword = starter;
-		this.expression = test;
-		this.thenEntity = then;
+	footer: EntityCollection;
+	constructor(starter: EntityCollection, body: EntityCollection, ender: EntityCollection) {
+		super(EntityType.IF);		
+		this.header = starter;
 		this.contents = body;
-		this.endSet = ender;
+		this.footer = ender;
 		this.value = this.toString();
 		const first = this.firstEntity();
 		this.line = first.line;
 		this.column = first.column;
 	}
 
+	get expression(): Entity[]|null { 
+		const then = this.header.children.findIndex(p => p.value.toUpperCase() === 'THEN');
+		if (then !== -1) {
+			return this.header.children.slice(1, then);
+		} else {
+			return null;
+		}
+	}
+
 	get children(): Array<Entity|EntityCollection> { 
-		return [this.keyword, this.expression, this.thenEntity, this.contents, this.endSet]; 
+		return [this.header, this.contents, this.footer]; 
 	}
 
 	warnings(parent?: EntityCollection): Array<vscode.CodeLens> {
-		const result: Array<vscode.CodeLens> = [];
-		this.children.forEach(ent => {
-			if (ent instanceof EntityCollection) {
-				result.push(...ent.warnings(this));
-			}
-		});
-		if (!this.thenEntity) {
-			result.push(
-				new vscode.CodeLens(
-					this.children[0].getRange(), 
-					{ 
-						command: '',
-						title: 'All IF statements require a THEN statement' 
-					}));
-		} else {
-			return []; 
-		}
+		return [];
 	}
 }
 
 export class ElseIfEntity extends EntityCollection {
-	keyword: Entity|EntityCollection;
-	expression: EntityCollection;
-	thenEntity: Entity;
+	header: EntityCollection;
 	contents: EntityCollection;
-	constructor(starter: Entity|EntityCollection, test: EntityCollection, then: Entity, body: EntityCollection) {
+	constructor(starter: EntityCollection, body: EntityCollection) {
 		super(EntityType.ELSEIF);
-		this.keyword = starter;
-		this.expression = test;
-		this.thenEntity = then;
+		this.header = starter;
 		this.contents = body;
 		this.value = this.toString();
 		const first = this.firstEntity();
@@ -306,38 +358,32 @@ export class ElseIfEntity extends EntityCollection {
 		this.column = first.column;
 	}
 
+	get expression(): Entity[]|null { 
+		const elif = this.header.children.findIndex(p => p.value.toUpperCase().endsWith('IF'));
+		const then = this.header.children.findIndex(p => p.value.toUpperCase() === 'THEN');
+		if (then !== -1) {
+			return this.header.children.slice(elif+1, then);
+		} else {
+			return null;
+		}
+	}
+
 	get children(): Array<Entity|EntityCollection> { 
-		return [this.keyword, this.expression, this.thenEntity, this.contents]; 
+		return [this.header, this.contents]; 
 	}
 
 	warnings(parent?: EntityCollection): Array<vscode.CodeLens> {
-		const result: Array<vscode.CodeLens> = [];
-		this.children.forEach(ent => {
-			if (ent instanceof EntityCollection) {
-				result.push(...ent.warnings(this));
-			}
-		});
-		if (!this.thenEntity) {
-			result.push(
-				new vscode.CodeLens(
-					this.children[0].getRange(), 
-					{ 
-						command: '',
-						title: 'All IF statements require a THEN statement' 
-					}));
-		} else {
-			return []; 
-		}
+		return []; 
 	}
 }
 
 
 export class ElseEntity extends EntityCollection {
-	keyword: Entity;
+	header: Entity;
 	contents: EntityCollection;
 	constructor(starter: Entity, body: EntityCollection) {
 		super(EntityType.ELSE);
-		this.keyword = starter;
+		this.header = starter;
 		this.contents = body;
 		this.value = this.toString();
 		const first = this.firstEntity();
@@ -346,7 +392,7 @@ export class ElseEntity extends EntityCollection {
 	}
 
 	get children(): Array<Entity|EntityCollection> { 
-		return [this.keyword, this.contents]; 
+		return [this.header, this.contents]; 
 	}
 
 	warnings(parent?: EntityCollection): Array<vscode.CodeLens> { 
@@ -355,13 +401,11 @@ export class ElseEntity extends EntityCollection {
 }
 
 export class CaseEntity extends EntityCollection {
-	keyword: Entity;
-	expression: EntityCollection;
+	header: EntityCollection;
 	contents: EntityCollection;
-	constructor(starter: Entity, test: EntityCollection, body: EntityCollection) {
+	constructor(starter: EntityCollection, body: EntityCollection) {
 		super(EntityType.CASE);
-		this.keyword = starter;
-		this.expression = test;
+		this.header = starter;
 		this.contents = body;
 		this.value = this.toString();
 		const first = this.firstEntity();
@@ -369,8 +413,16 @@ export class CaseEntity extends EntityCollection {
 		this.column = first.column;
 	}
 
+	get expression(): Entity[]|null { 
+		if (this.header.children.length >= 2) {
+			return this.header.children.slice(1);
+		} else {
+			return null;
+		}
+	}
+
 	get children(): Array<Entity|EntityCollection> { 
-		return [this.keyword, this.expression, this.contents]; 
+		return [this.header, this.contents]; 
 	}
 
 	warnings(parent?: EntityCollection): Array<vscode.CodeLens> {
@@ -379,76 +431,62 @@ export class CaseEntity extends EntityCollection {
 }
 
 export class SelectEntity extends EntityCollection {
-	keyword: Entity;
-	expression: EntityCollection;
+	header: EntityCollection;
 	contents: EntityCollection;
-	endSet: Entity|EntityCollection;
-	constructor(starter: Entity, test: EntityCollection, body: EntityCollection, ender: Entity|EntityCollection) {
+	footer: EntityCollection;
+	constructor(starter: EntityCollection, body: EntityCollection, ender: EntityCollection) {
 		super(EntityType.SELECT);
-		this.keyword = starter;
-		this.expression = test;
+		this.header = starter;		
 		this.contents = body;
-		this.endSet = ender;
+		this.footer = ender;
 		this.value = this.toString();
 		const first = this.firstEntity();
 		this.line = first.line;
 		this.column = first.column;
 	}
 
+	get expression(): Entity[]|null { 
+		if (this.header.children.length >= 2) {
+			return this.header.children.slice(1);
+		} else {
+			return null;
+		}
+	}
+
 	get children(): Array<Entity|EntityCollection> { 
-		return [this.keyword, this.expression, this.contents, this.endSet]; 
+		return [this.header, this.contents, this.footer]; 
 	}
 
 	warnings(parent?: EntityCollection): Array<vscode.CodeLens> { 
-		const result: Array<vscode.CodeLens> = [];
-		this.children.forEach(ent => {
-			if (ent.isComment === true) {
-				// its okay
-			} else if (ent instanceof EntityCollection) {
-				if (ent.entityType === EntityType.CASE) {
-					result.push(...ent.warnings(this));
-				} else { // non-case statement in body of select; would have to be before the first case or a case would have captured it.
-					result.push(
-						new vscode.CodeLens(
-							ent.getRange(), 
-							{ 
-								command: '',
-								title: 'Select statements only support case structures and comments'
-							}));
-				}
-			} else { // random primitive in the body of the select statement, presumably before the first case statement
-				result.push(
-					new vscode.CodeLens(
-						ent.getRange(),
-						{
-							command: '',
-							title: 'Select statements only support case structures and comments'
-						}));
-			}
-		});
 		return []; 
 	}
 }
 
 export class WhileEntity extends EntityCollection {
-	keyword: Entity;
-	expression: EntityCollection;
+	header: EntityCollection;
 	contents: EntityCollection;
-	endSet: Entity|EntityCollection;
-	constructor(starter: Entity, test: EntityCollection, body: EntityCollection, ender: Entity|EntityCollection) {
+	footer: EntityCollection;
+	constructor(starter: EntityCollection, body: EntityCollection, ender: EntityCollection) {
 		super(EntityType.WHILE);
-		this.keyword = starter;
-		this.expression = test;
+		this.header = starter;
 		this.contents = body;
-		this.endSet = ender;
+		this.footer = ender;
 		this.value = this.toString();
 		const first = this.firstEntity();
 		this.line = first.line;
 		this.column = first.column;
 	}
 
+	get expression(): Entity[]|null { 
+		if (this.header.children.length >= 2) {
+			return this.header.children.slice(1);
+		} else {
+			return null;
+		}
+	}
+
 	get children(): Array<Entity|EntityCollection> { 
-		return [this.keyword, this.expression, this.contents, this.endSet]; 
+		return [this.header, this.contents, this.footer]; 
 	}
 
 	warnings(parent?: EntityCollection): Array<vscode.CodeLens> { 
@@ -456,17 +494,15 @@ export class WhileEntity extends EntityCollection {
 	}
 }
 
-export class DoWhileEntity extends EntityCollection {
-	keyword: EntityCollection;
-	expression: EntityCollection;
+export class DoEntity extends EntityCollection {
+	header: EntityCollection;
 	contents: EntityCollection;
-	endSet: Entity;
-	constructor(starter: EntityCollection, test: EntityCollection, body: EntityCollection, ender: Entity) {
-		super(EntityType.DOWHILE);
-		this.keyword = starter;
-		this.expression = test;
+	footer: EntityCollection;
+	constructor(starter: EntityCollection, body: EntityCollection, ender: EntityCollection) {
+		super(EntityType.DO);
+		this.header = starter;
 		this.contents = body;
-		this.endSet = ender;
+		this.footer = ender;
 		this.value = this.toString();
 		const first = this.firstEntity();
 		this.line = first.line;
@@ -474,33 +510,7 @@ export class DoWhileEntity extends EntityCollection {
 	}
 
 	get children(): Array<Entity|EntityCollection> { 
-		return [this.keyword, this.expression, this.contents, this.endSet]; 
-	}
-
-	warnings(parent?: EntityCollection): Array<vscode.CodeLens> { 
-		return []; 
-	}
-}
-
-export class DoUntilEntity extends EntityCollection {
-	keyword: Entity;
-	contents: EntityCollection;
-	endSet: EntityCollection;
-	expression: EntityCollection;
-	constructor(starter: Entity, body: EntityCollection, ender: EntityCollection, test: EntityCollection) {
-		super(EntityType.DOWHILE);
-		this.keyword = starter;		
-		this.contents = body;
-		this.endSet = ender;
-		this.expression = test;
-		this.value = this.toString();
-		const first = this.firstEntity();
-		this.line = first.line;
-		this.column = first.column;
-	}
-
-	get children(): Array<Entity|EntityCollection> { 
-		return [this.keyword, this.contents, this.endSet, this.expression]; 
+		return [this.header, this.contents, this.footer]; 
 	}
 
 	warnings(parent?: EntityCollection): Array<vscode.CodeLens> { 
@@ -509,17 +519,15 @@ export class DoUntilEntity extends EntityCollection {
 }
 
 export class ForNextEntity extends EntityCollection {
-	keyword: Entity;
-	expression: EntityCollection; // this will include variable initializers, the to, its target value and optionally the step sequence
+	header: EntityCollection;
 	contents: EntityCollection;
-	endSet: EntityCollection; // this will include the Next keyword and whatever variable(s) are being incremented
+	footer: EntityCollection;
 	
-	constructor(starter: Entity, directives: EntityCollection, body: EntityCollection, ender: EntityCollection) {
-		super(EntityType.DOWHILE);
-		this.keyword = starter;
-		this.expression = directives;
+	constructor(starter: EntityCollection, body: EntityCollection, ender: EntityCollection) {
+		super(EntityType.DO);
+		this.header = starter;
 		this.contents = body;
-		this.endSet = ender;
+		this.footer = ender;
 		this.value = this.toString();
 		const first = this.firstEntity();
 		this.line = first.line;
@@ -527,7 +535,7 @@ export class ForNextEntity extends EntityCollection {
 	}
 
 	get children(): Array<Entity|EntityCollection> { 
-		return [this.keyword, this.expression, this.contents, this.endSet]; 
+		return [this.header, this.contents, this.footer]; 
 	}
 
 	warnings(parent?: EntityCollection): Array<vscode.CodeLens> { 

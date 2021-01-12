@@ -6,11 +6,13 @@ This second-class object cannot be directly created. These types of sub-objects 
 The following items are accessed from the base object by a dot notation
 ### Property: Value
 Get/Set the value of the Custom Data field, which could be Nothing
+
 No additional remarks available
 ##### Returns
 STRING or NUMBER or NULL
 ### Property: Id
 Get the index number as defined in the Fabrication Database
+
 No additional remarks available
 ##### Returns
 NUMBER

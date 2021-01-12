@@ -73,8 +73,8 @@ namespace ItemDefinitionParser
 
         public string toMarkdown(codLibrary lib)
         {
-            string result = "## " + id + Environment.NewLine;
-            result += (info.ContainsKey("desc") ? info["desc"] : "No description available") + Environment.NewLine;
+            string result = "## Function: " + id + Environment.NewLine;
+            result += (info.ContainsKey("desc") ? info["desc"] : "No description available") + Environment.NewLine + Environment.NewLine;
             result += (info.ContainsKey("remarks") ? info["remarks"] : "No additional remarks available") + Environment.NewLine;
             result += "#### Signature" + Environment.NewLine;
             result += id + "(" + string.Join(", ", args) + ")" + Environment.NewLine;
@@ -118,8 +118,8 @@ namespace ItemDefinitionParser
 
         public string toMarkdown(codLibrary lib)
         {
-            string result = "### " + id + Environment.NewLine;
-            result += (info.ContainsKey("desc") ? info["desc"] : "No description available") + Environment.NewLine;
+            string result = "### Function: " + id + Environment.NewLine;
+            result += (info.ContainsKey("desc") ? info["desc"] : "No description available") + Environment.NewLine + Environment.NewLine;
             result += (info.ContainsKey("remarks") ? info["remarks"] : "No additional remarks available") + Environment.NewLine;
             result += "##### Signature" + Environment.NewLine;
             result += id + "(" + string.Join(", ", args) + ")" + Environment.NewLine;
@@ -173,14 +173,15 @@ namespace ItemDefinitionParser
                     else if (upper.StartsWith("@READONLY"))
                         rw = false;
                     else if (upper.StartsWith("@REMARKS"))
-                        remarks = current.Substring(8).Trim();
+                        remarks = current;
                     else if (upper.StartsWith("@RETURNS"))
                         returns = current.Substring(8).Trim();
                 }
                 else if (Lines[i].Trim(tchars).Length >= 4)
                     desc = Lines[i].Trim(tchars);
             }
-            remarks = remarks.Trim();
+            if (remarks != "")
+                remarks = remarks.Substring(8).Trim();
         }
 
         public Dictionary<string, object> toDictionary()
@@ -260,7 +261,7 @@ namespace ItemDefinitionParser
         public string toMarkdown(codLibrary lib, bool isChild)
         {
             string result = (isChild ? "### Property: " : "## Property: ") + id + Environment.NewLine;            
-            result += (info.ContainsKey("desc") ? info["desc"] : "No description available") + Environment.NewLine;
+            result += (info.ContainsKey("desc") ? info["desc"] : "No description available") + Environment.NewLine + Environment.NewLine;
             result += (info.ContainsKey("remarks") ? info["remarks"] : "No additional remarks available") + Environment.NewLine;            
             result += (isChild ? "##### Returns" : "#### Returns") + Environment.NewLine;
             result += lib.JOIN(" or ", returns) + Environment.NewLine;
@@ -272,7 +273,7 @@ namespace ItemDefinitionParser
     {
         private char[] tchars = new char[] { '\t', ' ', ',', '\'' };
         public string id { get; set; }
-        public List<string> items { get; set; } = new List<string>();
+        public List<string> values { get; set; } = new List<string>();
         public KEYWORDS(ref int i, List<string> Lines)
         {
             for (; i < Lines.Count; i++)
@@ -283,7 +284,7 @@ namespace ItemDefinitionParser
                 else if (current.StartsWith("CONST "))
                     id = current.Split(' ').Where(p => p != "").ToArray()[1].Trim(':');
                 else if (current.StartsWith("'"))
-                    items.Add(current.Trim(tchars));
+                    values.Add(current.Trim(tchars));
             }
         }
     }
@@ -452,13 +453,13 @@ namespace ItemDefinitionParser
                 targ = "%%%" + kw + "%%%";
                 if (kw == "VALUETYPES")
                 { 
-                    var lst = KEYWORDS[kw].items.ToList();
+                    var lst = KEYWORDS[kw].values.ToList();
                     foreach (var key in ENUMS.Keys)
                         lst.AddRange(ENUMS[key].values);
                     items = string.Join("|", lst);
                 }
                 else
-                    items = string.Join("|", KEYWORDS[kw].items);
+                    items = string.Join("|", KEYWORDS[kw].values);
                 source = source.Replace(targ, items);
             }
 

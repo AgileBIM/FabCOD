@@ -1,0 +1,6321 @@
+{
+  "KEYWORDS": {
+    "FLOWCONTROL": {
+      "id": "FLOWCONTROL",
+      "values": [
+        "IF",
+        "THEN",
+        "ELSE",
+        "ELSE IF",
+        "ELSEIF",
+        "END IF",
+        "ENDIF",
+        "WHILE",
+        "END WHILE",
+        "ENDWHILE",
+        "FOR",
+        "TO",
+        "STEP",
+        "NEXT",
+        "DO",
+        "UNTIL",
+        "LOOP",
+        "LOOPUNTIL",
+        "SELECT",
+        "CASE",
+        "END SELECT",
+        "ENDSELECT",
+        "FUNCTION",
+        "RETURN",
+        "END FUNCTION",
+        "ENDFUNCTION"
+      ]
+    },
+    "VALUETYPES": {
+      "id": "VALUETYPES",
+      "values": [
+        "TRUE",
+        "FALSE",
+        "NULL",
+        "VOID"
+      ]
+    },
+    "SPECIALTYPES": {
+      "id": "SPECIALTYPES",
+      "values": [
+        "AND",
+        "OR",
+        "NOT",
+        "AS",
+        "IS",
+        "NEW",
+        "DIM",
+        "OBJECT",
+        "REQUIRES",
+        "INCLUDE"
+      ]
+    }
+  },
+  "FUNCTIONS": {
+    "ACos": {
+      "id": "ACos",
+      "returns": [
+        "NUMBER"
+      ],
+      "args": [
+        {
+          "id": "Adjacent",
+          "types": [
+            "NUMBER"
+          ],
+          "optional": false,
+          "notes": ""
+        },
+        {
+          "id": "Hypotenuse",
+          "types": [
+            "NUMBER"
+          ],
+          "optional": false,
+          "notes": ""
+        }
+      ],
+      "info": {
+        "desc": "Get the inverse Cosine angle of Adj/Hyp",
+        "args": {
+          "Adjacent": "",
+          "Hypotenuse": ""
+        },
+        "returns": "number"
+      }
+    },
+    "ASin": {
+      "id": "ASin",
+      "returns": [
+        "NUMBER"
+      ],
+      "args": [
+        {
+          "id": "Opposite",
+          "types": [
+            "NUMBER"
+          ],
+          "optional": false,
+          "notes": ""
+        },
+        {
+          "id": "Hypotenuse",
+          "types": [
+            "NUMBER"
+          ],
+          "optional": false,
+          "notes": ""
+        }
+      ],
+      "info": {
+        "desc": "Get the inverse Sine angle of Opp/Hyp",
+        "args": {
+          "Opposite": "",
+          "Hypotenuse": ""
+        },
+        "returns": "number"
+      }
+    },
+    "ATan": {
+      "id": "ATan",
+      "returns": [
+        "NUMBER"
+      ],
+      "args": [
+        {
+          "id": "Opposite",
+          "types": [
+            "NUMBER"
+          ],
+          "optional": false,
+          "notes": ""
+        },
+        {
+          "id": "Adjacent",
+          "types": [
+            "NUMBER"
+          ],
+          "optional": false,
+          "notes": ""
+        }
+      ],
+      "info": {
+        "desc": "Get the inverse Tangent angle of Opp/Adj",
+        "args": {
+          "Opposite": "",
+          "Adjacent": ""
+        },
+        "returns": "number"
+      }
+    },
+    "Cos": {
+      "id": "Cos",
+      "returns": [
+        "NUMBER"
+      ],
+      "args": [
+        {
+          "id": "Angle",
+          "types": [
+            "NUMBER"
+          ],
+          "optional": false,
+          "notes": ""
+        }
+      ],
+      "info": {
+        "desc": "Get the Cosine of angle.",
+        "args": {
+          "Angle": ""
+        },
+        "returns": "number"
+      }
+    },
+    "Sin": {
+      "id": "Sin",
+      "returns": [
+        "NUMBER"
+      ],
+      "args": [
+        {
+          "id": "Angle",
+          "types": [
+            "NUMBER"
+          ],
+          "optional": false,
+          "notes": ""
+        }
+      ],
+      "info": {
+        "desc": "Get the Sine of angle.",
+        "args": {
+          "Angle": ""
+        },
+        "returns": "number"
+      }
+    },
+    "Tan": {
+      "id": "Tan",
+      "returns": [
+        "NUMBER"
+      ],
+      "args": [
+        {
+          "id": "Angle",
+          "types": [
+            "NUMBER"
+          ],
+          "optional": false,
+          "notes": ""
+        }
+      ],
+      "info": {
+        "desc": "Get the Tangent of angle.",
+        "args": {
+          "Angle": ""
+        },
+        "returns": "number"
+      }
+    },
+    "Exp": {
+      "id": "Exp",
+      "returns": [
+        "NUMBER"
+      ],
+      "args": [
+        {
+          "id": "Value",
+          "types": [
+            "NUMBER"
+          ],
+          "optional": false,
+          "notes": ""
+        }
+      ],
+      "info": {
+        "desc": "Get the Inverse log of value (10 to the power of value).",
+        "args": {
+          "Value": ""
+        },
+        "returns": "number"
+      }
+    },
+    "Log": {
+      "id": "Log",
+      "returns": [
+        "NUMBER"
+      ],
+      "args": [
+        {
+          "id": "Value",
+          "types": [
+            "NUMBER"
+          ],
+          "optional": false,
+          "notes": ""
+        }
+      ],
+      "info": {
+        "desc": "Get the log of value (base 10).",
+        "args": {
+          "Value": ""
+        },
+        "returns": "number"
+      }
+    },
+    "Number": {
+      "id": "Number",
+      "returns": [
+        "NUMBER"
+      ],
+      "args": [
+        {
+          "id": "Value",
+          "types": [
+            "ANY"
+          ],
+          "optional": false,
+          "notes": ""
+        }
+      ],
+      "info": {
+        "desc": "Forces extraction of Number from variable data types.",
+        "args": {
+          "Value": ""
+        },
+        "returns": "number"
+      }
+    },
+    "Pow": {
+      "id": "Pow",
+      "returns": [
+        "NUMBER"
+      ],
+      "args": [
+        {
+          "id": "Value",
+          "types": [
+            "NUMBER"
+          ],
+          "optional": false,
+          "notes": ""
+        },
+        {
+          "id": "N",
+          "types": [
+            "NUMBER"
+          ],
+          "optional": false,
+          "notes": ""
+        }
+      ],
+      "info": {
+        "desc": "Get the value to the power of n.",
+        "args": {
+          "Value": "",
+          "N": ""
+        },
+        "returns": "number"
+      }
+    },
+    "Sign": {
+      "id": "Sign",
+      "returns": [
+        "NUMBER"
+      ],
+      "args": [
+        {
+          "id": "Value",
+          "types": [
+            "NUMBER"
+          ],
+          "optional": false,
+          "notes": ""
+        }
+      ],
+      "info": {
+        "desc": "Get the sign of a number.",
+        "args": {
+          "Value": ""
+        },
+        "returns": "+1, -1, or 0 depending if value is positive, negative or very close to zero respectively."
+      }
+    },
+    "Sqrt": {
+      "id": "Sqrt",
+      "returns": [
+        "NUMBER"
+      ],
+      "args": [
+        {
+          "id": "Value",
+          "types": [
+            "NUMBER"
+          ],
+          "optional": false,
+          "notes": ""
+        }
+      ],
+      "info": {
+        "desc": "Get the Square root of the number",
+        "args": {
+          "Value": ""
+        },
+        "returns": "number"
+      }
+    },
+    "Sqr": {
+      "id": "Sqr",
+      "returns": [
+        "NUMBER"
+      ],
+      "args": [
+        {
+          "id": "Value",
+          "types": [
+            "NUMBER"
+          ],
+          "optional": false,
+          "notes": ""
+        }
+      ],
+      "info": {
+        "desc": "Get the Square of the number passed (ie value x value).",
+        "args": {
+          "Value": ""
+        },
+        "returns": "number"
+      }
+    },
+    "Round": {
+      "id": "Round",
+      "returns": [
+        "NUMBER"
+      ],
+      "args": [
+        {
+          "id": "Value",
+          "types": [
+            "NUMBER"
+          ],
+          "optional": false,
+          "notes": ""
+        },
+        {
+          "id": "DecimalPlaces",
+          "types": [
+            "NUMBER"
+          ],
+          "optional": true,
+          "notes": "Optional and defaults to zero (0)."
+        }
+      ],
+      "info": {
+        "desc": "Get the value rounded number of decimalplaces (nearest up or down).",
+        "args": {
+          "Value": "",
+          "DecimalPlaces": "Optional and defaults to zero (0)."
+        },
+        "returns": "Number rounded to the nearest number of decimal places."
+      }
+    },
+    "RoundDown": {
+      "id": "RoundDown",
+      "returns": [
+        "NUMBER"
+      ],
+      "args": [
+        {
+          "id": "Value",
+          "types": [
+            "NUMBER"
+          ],
+          "optional": false,
+          "notes": ""
+        },
+        {
+          "id": "DecimalPlaces",
+          "types": [
+            "NUMBER"
+          ],
+          "optional": true,
+          "notes": "Optional and defaults to zero (0)."
+        }
+      ],
+      "info": {
+        "desc": "Get the number rounded down to number of decimalplaces.",
+        "args": {
+          "Value": "",
+          "DecimalPlaces": "Optional and defaults to zero (0)."
+        },
+        "returns": "Number rounded down to the nearest number of decimal places."
+      }
+    },
+    "RoundUp": {
+      "id": "RoundUp",
+      "returns": [
+        "NUMBER"
+      ],
+      "args": [
+        {
+          "id": "Value",
+          "types": [
+            "NUMBER"
+          ],
+          "optional": false,
+          "notes": ""
+        },
+        {
+          "id": "DecimalPlaces",
+          "types": [
+            "NUMBER"
+          ],
+          "optional": true,
+          "notes": "Optional and defaults to zero (0)."
+        }
+      ],
+      "info": {
+        "desc": "Get the value rounded up to number of decimalplaces.",
+        "args": {
+          "Value": "",
+          "DecimalPlaces": "Optional and defaults to zero (0)."
+        },
+        "returns": "Number rounded up to the nearest number of decimal places."
+      }
+    },
+    "Asc": {
+      "id": "Asc",
+      "returns": [
+        "NUMBER"
+      ],
+      "args": [
+        {
+          "id": "FirstChar",
+          "types": [
+            "STRING"
+          ],
+          "optional": false,
+          "notes": "Can be any length string,- but only the first character is evaluated."
+        }
+      ],
+      "info": {
+        "desc": "Gets the ASCII numeric code from a string.",
+        "args": {
+          "FirstChar": "Can be any length string,- but only the first character is evaluated."
+        },
+        "returns": "A number representing the ASCII code of the first character in the provided string.",
+        "remarks": "This does not work with unicode characters. If you want an ASCII code from an index other than the first character\nthen you will have to use the MID() function to carve it out."
+      }
+    },
+    "Ascii": {
+      "id": "Ascii",
+      "returns": [
+        "STRING"
+      ],
+      "args": [
+        {
+          "id": "CharacterCode",
+          "types": [
+            "NUMBER"
+          ],
+          "optional": false,
+          "notes": "A number representing an ASCII character."
+        }
+      ],
+      "info": {
+        "desc": "Create a string with a non-enterable character code.",
+        "args": {
+          "CharacterCode": "A number representing an ASCII character."
+        },
+        "returns": "A single character String, code or non-enterable text represented by an ASCII character code.",
+        "remarks": "This does not work with unicode characters, but is ideal generating tabs, line-feeds and other things\nthat aren't easily represented in double quoted strings."
+      }
+    },
+    "Chr": {
+      "id": "Chr",
+      "returns": [
+        "STRING"
+      ],
+      "args": [
+        {
+          "id": "TextString",
+          "types": [
+            "STRING"
+          ],
+          "optional": false,
+          "notes": "The base string to be searched."
+        },
+        {
+          "id": "CharacterPosition",
+          "types": [
+            "NUMBER"
+          ],
+          "optional": false,
+          "notes": "The numeric index of the character to return."
+        }
+      ],
+      "info": {
+        "desc": "Returns string containing the character at the specified 1-based index of String txt.",
+        "args": {
+          "TextString": "The base string to be searched.",
+          "CharacterPosition": "The numeric index of the character to return."
+        },
+        "returns": "A single character String.",
+        "remarks": "The CharacterPosition argument is a 1-Based index: 1 = first character, 2 = second character, etc."
+      }
+    },
+    "GetFileExt": {
+      "id": "GetFileExt",
+      "returns": [
+        "STRING"
+      ],
+      "args": [
+        {
+          "id": "FileName",
+          "types": [
+            "STRING"
+          ],
+          "optional": false,
+          "notes": "A String representing a file name with or without the full path."
+        }
+      ],
+      "info": {
+        "desc": "Extract file extension (including .) from filename / full path + filename.",
+        "args": {
+          "FileName": "A String representing a file name with or without the full path."
+        },
+        "returns": "A String of the file extension (including '.') of the specified filename/path.",
+        "remarks": "File extension is returned including the dot [.] If no extension is specified, will return an empty string [\"\"].\nOptional path may use either backslash [\\] or forwardslash [/] seperators between directories."
+      }
+    },
+    "GetFileName": {
+      "id": "GetFileName",
+      "returns": [
+        "STRING"
+      ],
+      "args": [
+        {
+          "id": "FilePathAndName",
+          "types": [
+            "STRING"
+          ],
+          "optional": false,
+          "notes": "A String representing a file full path and name."
+        }
+      ],
+      "info": {
+        "desc": "Extract filename path (including extension) full path + filename.",
+        "args": {
+          "FilePathAndName": "A String representing a file full path and name."
+        },
+        "returns": "A String of the file name including extension.",
+        "remarks": "File name is returned including the extension.\nPath may use either backslash [\\] or forwardslash [/] seperators between directories."
+      }
+    },
+    "InStr": {
+      "id": "InStr",
+      "returns": [
+        "NUMBER"
+      ],
+      "args": [
+        {
+          "id": "StartingFrom",
+          "types": [
+            "NUMBER"
+          ],
+          "optional": false,
+          "notes": "The numeric index of the character to begin the search at"
+        },
+        {
+          "id": "SearchIn",
+          "types": [
+            "STRING"
+          ],
+          "optional": false,
+          "notes": "The base string to be searched"
+        },
+        {
+          "id": "SearchFor",
+          "types": [
+            "STRING"
+          ],
+          "optional": false,
+          "notes": "The value string to be located"
+        },
+        {
+          "id": "IsCaseSensitive",
+          "types": [
+            "BOOLEAN"
+          ],
+          "optional": true,
+          "notes": "Optional and defaults to FALSE. If provided as TRUE, then \"CaSe SeNsItIvE\" would not match \"Case Sensitive\""
+        }
+      ],
+      "info": {
+        "desc": "Extracts the first index location of a string if completely found within another string.",
+        "args": {
+          "StartingFrom": "The numeric index of the character to begin the search at",
+          "SearchIn": "The base string to be searched",
+          "SearchFor": "The value string to be located",
+          "IsCaseSensitive": "Optional and defaults to FALSE. If provided as TRUE, then \"CaSe SeNsItIvE\" would not match \"Case Sensitive\""
+        },
+        "returns": "A Number representing the first occurrence the SearchFor value was found in the SearchIn string or 0 if not found.",
+        "remarks": "The StartingFrom argument and the subsequent return values are a 1-Based index: 1 = first character, 2 = second character, etc."
+      }
+    },
+    "Left": {
+      "id": "Left",
+      "returns": [
+        "STRING"
+      ],
+      "args": [
+        {
+          "id": "TextString",
+          "types": [
+            "STRING"
+          ],
+          "optional": false,
+          "notes": "The text String to extract a SubString from."
+        },
+        {
+          "id": "Length",
+          "types": [
+            "NUMBER"
+          ],
+          "optional": false,
+          "notes": "A number representing the length of the SubString desired."
+        }
+      ],
+      "info": {
+        "desc": "Get a Sub String from the start of text String which is the specified number of characters in length.",
+        "args": {
+          "TextString": "The text String to extract a SubString from.",
+          "Length": "A number representing the length of the SubString desired."
+        },
+        "returns": "A String the specified length starting from the beginning of the original text String."
+      }
+    },
+    "Len": {
+      "id": "Len",
+      "returns": [
+        "NUMBER"
+      ],
+      "args": [
+        {
+          "id": "TextString",
+          "types": [
+            "STRING"
+          ],
+          "optional": false,
+          "notes": "A String to find the length of."
+        }
+      ],
+      "info": {
+        "desc": "Get length of String.",
+        "args": {
+          "TextString": "A String to find the length of."
+        },
+        "returns": "A Number specifying the length of the String."
+      }
+    },
+    "Lower": {
+      "id": "Lower",
+      "returns": [
+        "STRING"
+      ],
+      "args": [
+        {
+          "id": "TextString",
+          "types": [
+            "STRING"
+          ],
+          "optional": false,
+          "notes": "A String to convert to lower case."
+        }
+      ],
+      "info": {
+        "desc": "Convert text String to all lower case.",
+        "args": {
+          "TextString": "A String to convert to lower case."
+        },
+        "returns": "A String converted to all lower case."
+      }
+    },
+    "LTrim": {
+      "id": "LTrim",
+      "returns": [
+        "STRING"
+      ],
+      "args": [
+        {
+          "id": "TextString",
+          "types": [
+            "STRING"
+          ],
+          "optional": false,
+          "notes": "A String to trim leading spaces from (if any)."
+        }
+      ],
+      "info": {
+        "desc": "Get text String with any leading spaces removed.",
+        "args": {
+          "TextString": "A String to trim leading spaces from (if any)."
+        },
+        "returns": "A String with any leading spaces removed."
+      }
+    },
+    "Mid": {
+      "id": "Mid",
+      "returns": [
+        "STRING"
+      ],
+      "args": [
+        {
+          "id": "SearchString",
+          "types": [
+            "STRING"
+          ],
+          "optional": false,
+          "notes": "The text String to extract a SubString from."
+        },
+        {
+          "id": "StartingIndex",
+          "types": [
+            "NUMBER"
+          ],
+          "optional": false,
+          "notes": ""
+        },
+        {
+          "id": "Length",
+          "types": [
+            "NUMBER"
+          ],
+          "optional": false,
+          "notes": "A number representing the length of the SubString desired."
+        }
+      ],
+      "info": {
+        "desc": "Get Sub String from the middle of another string by specifying the start position and length.",
+        "args": {
+          "SearchString": "The text String to extract a SubString from.",
+          "StartingFrom": "A Number (1-based index) for the starting character position to get the substring from.",
+          "Length": "A number representing the length of the SubString desired."
+        },
+        "returns": "A String the specified length starting from the specified character position.",
+        "remarks": "The StartingFrom argumentis a 1-Based index: 1 = first character, 2 = second character, etc.\nSimilar to SubString() except you specify a starting position and length."
+      }
+    },
+    "Right": {
+      "id": "Right",
+      "returns": [
+        "STRING"
+      ],
+      "args": [
+        {
+          "id": "TextString",
+          "types": [
+            "STRING"
+          ],
+          "optional": false,
+          "notes": "The text String to extract a SubString from."
+        },
+        {
+          "id": "Length",
+          "types": [
+            "NUMBER"
+          ],
+          "optional": false,
+          "notes": "A number representing the length of the SubString desired."
+        }
+      ],
+      "info": {
+        "desc": "Get a Sub String from the end of text String which is the specified number of characters in length.",
+        "args": {
+          "TextString": "The text String to extract a SubString from.",
+          "Length": "A number representing the length of the SubString desired."
+        },
+        "returns": "A String the specified length starting from the end of the original text String."
+      }
+    },
+    "RTrim": {
+      "id": "RTrim",
+      "returns": [
+        "STRING"
+      ],
+      "args": [
+        {
+          "id": "TextString",
+          "types": [
+            "STRING"
+          ],
+          "optional": false,
+          "notes": "A String to trim trailing spaces from (if any)."
+        }
+      ],
+      "info": {
+        "desc": "Get text String with and trailing spaces removed.",
+        "args": {
+          "TextString": "A String to trim trailing spaces from (if any)."
+        },
+        "returns": "A String with any trailing spaces removed."
+      }
+    },
+    "SubString": {
+      "id": "SubString",
+      "returns": [
+        "STRING"
+      ],
+      "args": [
+        {
+          "id": "TextString",
+          "types": [
+            "STRING"
+          ],
+          "optional": false,
+          "notes": "The text String to extract a SubString from."
+        },
+        {
+          "id": "StartingFrom",
+          "types": [
+            "NUMBER"
+          ],
+          "optional": false,
+          "notes": "A Number (1-based index) for the starting character position to get the substring from."
+        },
+        {
+          "id": "EndingAt",
+          "types": [
+            "NUMBER"
+          ],
+          "optional": false,
+          "notes": "A number (1-based index) for the ending character position to get the substrinbg from."
+        }
+      ],
+      "info": {
+        "desc": "Get a Sub String, starting and ending at specified indexes.",
+        "args": {
+          "TextString": "The text String to extract a SubString from.",
+          "StartingFrom": "A Number (1-based index) for the starting character position to get the substring from.",
+          "EndingAt": "A number (1-based index) for the ending character position to get the substrinbg from."
+        },
+        "returns": "A String the specified length starting from the specified character position.",
+        "remarks": "The StartingFrom and EndingAt arguments are a 1-Based index: 1 = first character, 2 = second character, etc.\nSimilar to Mid() except you specify a starting position and length.\n0 or even negative values can be used for the index which is interpreted as 'from the end of the string (inclusive)'"
+      }
+    },
+    "Trim": {
+      "id": "Trim",
+      "returns": [
+        "STRING"
+      ],
+      "args": [
+        {
+          "id": "TextString",
+          "types": [
+            "STRING"
+          ],
+          "optional": false,
+          "notes": "A String to trim leadibng and trailing spaces from (if any)."
+        }
+      ],
+      "info": {
+        "desc": "Get text String with any leading and trailing spaces.",
+        "args": {
+          "TextString": "A String to trim leadibng and trailing spaces from (if any)."
+        },
+        "returns": "A String with any leading and trailing spaces removed."
+      }
+    },
+    "Upper": {
+      "id": "Upper",
+      "returns": [
+        "STRING"
+      ],
+      "args": [
+        {
+          "id": "TextString",
+          "types": [
+            "STRING"
+          ],
+          "optional": false,
+          "notes": "A String to convert to upper case."
+        }
+      ],
+      "info": {
+        "desc": "Convert text String to all upper case.",
+        "args": {
+          "TextString": "A String to convert to upper case."
+        },
+        "returns": "A String converted to all upper case."
+      }
+    },
+    "WildCard": {
+      "id": "WildCard",
+      "returns": [
+        "BOOLEAN"
+      ],
+      "args": [
+        {
+          "id": "SearchString",
+          "types": [
+            "STRING"
+          ],
+          "optional": false,
+          "notes": "A String to text against a wildcard match."
+        },
+        {
+          "id": "WildcardString",
+          "types": [
+            "STRING"
+          ],
+          "optional": false,
+          "notes": "A Wildcard String to match against."
+        }
+      ],
+      "info": {
+        "desc": "Test if text String contains wildcard string.",
+        "args": {
+          "SearchString": "A String to text against a wildcard match.",
+          "WildcardString": "A Wildcard String to match against."
+        },
+        "returns": "A Boolean flag if wildcard string was found."
+      }
+    },
+    "Debug": {
+      "id": "Debug",
+      "returns": [
+        "VOID"
+      ],
+      "args": [
+        {
+          "id": "MessageTest",
+          "types": [
+            "STRING"
+          ],
+          "optional": false,
+          "notes": ""
+        }
+      ],
+      "info": {
+        "desc": "Display an Alert message box with a single OK button used to dismiss the message.",
+        "args": {
+          "MessageText": "A String Label to display in the dialog title bar."
+        },
+        "returns": "This can be called with and without parenthesis"
+      }
+    },
+    "Exec": {
+      "id": "Exec",
+      "returns": [
+        "VOID"
+      ],
+      "args": [
+        {
+          "id": "FullFilePath",
+          "types": [
+            "STRING"
+          ],
+          "optional": false,
+          "notes": "String represnting fill path and name of EXE, Document or Link."
+        },
+        {
+          "id": "ShowFlags",
+          "types": [
+            "EXECFLAG"
+          ],
+          "optional": false,
+          "notes": "Number (ENUM) to configure how to display external application."
+        },
+        {
+          "id": "AppParams",
+          "types": [
+            "STRING"
+          ],
+          "optional": false,
+          "notes": "String paramaters to pass to the external application."
+        },
+        {
+          "id": "AppWorkingDir",
+          "types": [
+            "STRING"
+          ],
+          "optional": false,
+          "notes": "String full path to the working directory for the external application."
+        }
+      ],
+      "info": {
+        "desc": "Execute an external Application, Document or Link",
+        "args": {
+          "FullFilePath": "String represnting fill path and name of EXE, Document or Link.",
+          "ShowFlags": "Number (ENUM) to configure how to display external application.",
+          "AppParams": "String paramaters to pass to the external application.",
+          "AppWorkingDir": "String full path to the working directory for the external application."
+        }
+      }
+    },
+    "InputBox": {
+      "id": "InputBox",
+      "returns": [
+        "STRING"
+      ],
+      "args": [
+        {
+          "id": "TitleText",
+          "types": [
+            "STRING"
+          ],
+          "optional": false,
+          "notes": "A String Label to display in the dialog title bar."
+        },
+        {
+          "id": "PromptText",
+          "types": [
+            "STRING"
+          ],
+          "optional": false,
+          "notes": "A String message instructing the user what to enter."
+        },
+        {
+          "id": "DefaultText",
+          "types": [
+            "STRING"
+          ],
+          "optional": false,
+          "notes": "A String to use as default Text in the Editbox."
+        }
+      ],
+      "info": {
+        "desc": "Display a Dialog with an Editbox for the user to enter data.",
+        "args": {
+          "TitleText": "A String Label to display in the dialog title bar.",
+          "PromptText": "A String message instructing the user what to enter.",
+          "DefaultText": "A String to use as default Text in the Editbox."
+        },
+        "returns": "Text String as entered by the user.",
+        "remarks": "Message box provides an OK and CANCEL button for the user to accept or dismiss the dialog and\nuser entered data. Clicking CANCEL will return an empty string."
+      }
+    },
+    "Query": {
+      "id": "Query",
+      "returns": [
+        "BOOLEAN"
+      ],
+      "args": [
+        {
+          "id": "PromptText",
+          "types": [
+            "STRING"
+          ],
+          "optional": false,
+          "notes": "A String message instructing the user what to enter."
+        }
+      ],
+      "info": {
+        "desc": "Display a simple dialog for the user to select \"YES\" or \"NO\".",
+        "args": {
+          "PromptText": "A String message instructing the user what to enter."
+        },
+        "returns": "Text String as entered by the user."
+      }
+    },
+    "Error": {
+      "id": "Error",
+      "returns": [
+        "VOID"
+      ],
+      "args": [
+        {
+          "id": "Input",
+          "types": [
+            "ANY"
+          ],
+          "optional": false,
+          "notes": "Accepts just about any 1 item"
+        }
+      ],
+      "info": {
+        "desc": "How to use this function works is currently unknown",
+        "args": {
+          "Input": "Accepts just about any 1 item"
+        },
+        "returns": "Nothing"
+      }
+    }
+  },
+  "CONSTANTS": {
+    "MAPPATH_BACKUP": {
+      "id": "MAPPATH_BACKUP",
+      "returns": [
+        "STRING"
+      ],
+      "info": {
+        "desc": "The 'BACKUP' directory of the Fabrication Database as configured in MAP.INI",
+        "readonly": true
+      }
+    },
+    "MAPPATH_BLOCKS": {
+      "id": "MAPPATH_BLOCKS",
+      "returns": [
+        "STRING"
+      ],
+      "info": {
+        "desc": "The 'BLOCKS' directory of the Fabrication Database as configured in MAP.INI",
+        "readonly": true
+      }
+    },
+    "MAPPATH_CNC": {
+      "id": "MAPPATH_CNC",
+      "returns": [
+        "STRING"
+      ],
+      "info": {
+        "desc": "The 'CNC' directory of the Fabrication Database as configured in MAP.INI",
+        "readonly": true
+      }
+    },
+    "MAPPATH_DATABASE": {
+      "id": "MAPPATH_DATABASE",
+      "returns": [
+        "STRING"
+      ],
+      "info": {
+        "desc": "The 'DATABASE' directory of the Fabrication Database as configured in MAP.INI",
+        "readonly": true
+      }
+    },
+    "MAPPATH_DXF": {
+      "id": "MAPPATH_DXF",
+      "returns": [
+        "STRING"
+      ],
+      "info": {
+        "desc": "The 'DXF' directory of the Fabrication Database as configured in MAP.INI",
+        "readonly": true
+      }
+    },
+    "MAPPATH_FILTER": {
+      "id": "MAPPATH_FILTER",
+      "returns": [
+        "STRING"
+      ],
+      "info": {
+        "desc": "The 'FILTER' directory of the Fabrication Database as configured in MAP.INI",
+        "readonly": true
+      }
+    },
+    "MAPPATH_HOME": {
+      "id": "MAPPATH_HOME",
+      "returns": [
+        "STRING"
+      ],
+      "info": {
+        "desc": "The current working directory of the Fabrication Database",
+        "readonly": true
+      }
+    },
+    "MAPPATH_IMAGES": {
+      "id": "MAPPATH_IMAGES",
+      "returns": [
+        "STRING"
+      ],
+      "info": {
+        "desc": "The 'IMAGES' directory of the Fabrication Database as configured in MAP.INI",
+        "readonly": true
+      }
+    },
+    "MAPPATH_INSTALL": {
+      "id": "MAPPATH_INSTALL",
+      "returns": [
+        "STRING"
+      ],
+      "info": {
+        "desc": "The 'INSTALL' directory of the Fabrication Database where MAP.INI is located",
+        "readonly": true
+      }
+    },
+    "MAPPATH_ITEMS": {
+      "id": "MAPPATH_ITEMS",
+      "returns": [
+        "STRING"
+      ],
+      "info": {
+        "desc": "The 'ITEMS' directory of the Fabrication Database as configured in MAP.INI",
+        "readonly": true
+      }
+    },
+    "MAPPATH_PARTS": {
+      "id": "MAPPATH_PARTS",
+      "returns": [
+        "STRING"
+      ],
+      "info": {
+        "desc": "The 'PARTS' directory of the Fabrication Database as configured in MAP.INI",
+        "readonly": true
+      }
+    },
+    "MAPPATH_PROJECT": {
+      "id": "MAPPATH_PROJECT",
+      "returns": [
+        "STRING"
+      ],
+      "info": {
+        "desc": "The 'PROJECT' directory of the Fabrication Database as configured in MAP.INI",
+        "readonly": true
+      }
+    },
+    "MAPPATH_REMNANTS": {
+      "id": "MAPPATH_REMNANTS",
+      "returns": [
+        "STRING"
+      ],
+      "info": {
+        "desc": "The 'REMNANTS' directory of the Fabrication Database as configured in MAP.INI",
+        "readonly": true
+      }
+    },
+    "MAPPATH_REPORTS": {
+      "id": "MAPPATH_REPORTS",
+      "returns": [
+        "STRING"
+      ],
+      "info": {
+        "desc": "The 'REPORTS' directory of the Fabrication Database as configured in MAP.INI",
+        "readonly": true
+      }
+    },
+    "MAPPATH_SCRIPTS": {
+      "id": "MAPPATH_SCRIPTS",
+      "returns": [
+        "STRING"
+      ],
+      "info": {
+        "desc": "The 'SCRIPTS' directory of the Fabrication Database as configured in MAP.INI",
+        "readonly": true
+      }
+    },
+    "PI": {
+      "id": "PI",
+      "returns": [
+        "NUMBER"
+      ],
+      "info": {
+        "desc": "The value of the mathamatical constant PI",
+        "readonly": true
+      }
+    },
+    "EO_NEVER": {
+      "id": "EO_NEVER",
+      "returns": [
+        "NUMBER"
+      ],
+      "info": {
+        "desc": "Unknown Constant / Purpose Unknown",
+        "readonly": true
+      }
+    }
+  },
+  "ENUMS": {
+    "DBLOCKCAN": {
+      "id": "DBLOCKCAN",
+      "values": [
+        "LOCK_USER",
+        "LOCK_OWNER"
+      ],
+      "info": {
+        "desc": "Represents value options for various FILE functions",
+        "readonly": true
+      }
+    },
+    "EXECFLAG": {
+      "id": "EXECFLAG",
+      "values": [
+        "EXEC_DEFAULT",
+        "EXEC_WAIT",
+        "EXEC_SHOW_NORMAL",
+        "EXEC_SHOW_MAX",
+        "EXEC_SHOW_MIN"
+      ],
+      "info": {
+        "desc": "Represents value options for the ShowFlags argument of EXEC()",
+        "readonly": true
+      }
+    },
+    "FILEMODE": {
+      "id": "FILEMODE",
+      "values": [
+        "FORINPUT",
+        "FOROUTPUT",
+        "ISTEXT",
+        "UNICODETEXT"
+      ],
+      "info": {
+        "desc": "Represents value options for various FILE functions",
+        "readonly": true
+      }
+    },
+    "FILEPOS": {
+      "id": "FILEPOS",
+      "values": [
+        "FILE_END",
+        "FILE_START"
+      ],
+      "info": {
+        "desc": "Represents value options for the FILE.POSITION property",
+        "readonly": true
+      }
+    },
+    "TIMEUNITS": {
+      "id": "TIMEUNITS",
+      "values": [
+        "TIME_SECS",
+        "TIME_MINS",
+        "TIME_HOURS"
+      ],
+      "info": {
+        "desc": "Represents value options for time unit related properties.",
+        "readonly": true
+      }
+    }
+  },
+  "INTERFACES": {
+    "AIRTURN": {
+      "id": "AIRTURN",
+      "methods": [],
+      "properties": [
+        {
+          "id": "Locked",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set Lock Status of the AIRTURN Object."
+          }
+        },
+        {
+          "id": "Value",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Name of the AIRTURN Object.",
+            "remarks": "Group of the Airturn is nmot given and can not be specified."
+          }
+        }
+      ],
+      "link": "https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/AIRTURN-SubObject.md"
+    },
+    "CONNECTOR": {
+      "id": "CONNECTOR",
+      "methods": [],
+      "properties": [
+        {
+          "id": "Alt",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set Alternatge Code of the CONNECTOR Object.",
+            "remarks": "Alternate Code is used for enforcing Alternate Connector values using the Specifications."
+          }
+        },
+        {
+          "id": "Group",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get the Connector Group for the CONNECTOR Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Locked",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the Lock Status of the CONNECTOR Object."
+          }
+        },
+        {
+          "id": "Material",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Connector Material of the CONNECTOR Object.",
+            "remarks": "Property only exists on Pattern Numbers 522, 1522 and 2522 (coupling patterns) to allow for\ntransitions to alternate material types. When set to \"None\", scripts return the value of \"Error\" however\nthe value can be set to \"None\" using Item.Connector[index].Material = \"None\".\nIf duct coupling pattern 522 is Doublewall, an Error will also result for the Skin Connector Material.\nSkin Connector Material property can not be set via UI but can be reset via code using\nItem.SkinConnector[index].Material = \"None\""
+          }
+        },
+        {
+          "id": "Type",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get the Connector Library Type of the CONNECTOR Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Value",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Name of the Connector.",
+            "remarks": "Group is given by the Group property."
+          }
+        }
+      ],
+      "link": "https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/CONNECTOR-SubObject.md"
+    },
+    "CUSTOMDEF": {
+      "id": "CUSTOMDEF",
+      "methods": [],
+      "properties": [
+        {
+          "id": "Value",
+          "returns": [
+            "STRING",
+            "NUMBER",
+            "NULL"
+          ],
+          "info": {
+            "desc": "Get/Set the value of the Custom Data field, which could be Nothing"
+          }
+        },
+        {
+          "id": "Id",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the index number as defined in the Fabrication Database",
+            "readonly": true
+          }
+        }
+      ],
+      "link": "https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/CUSTOMDEF-SubObject.md"
+    },
+    "DAMPER": {
+      "id": "DAMPER",
+      "methods": [],
+      "properties": [
+        {
+          "id": "Locked",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set Lock Status of the DAMPER Object."
+          }
+        },
+        {
+          "id": "Value",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the name of the DAMPER Object."
+          }
+        }
+      ],
+      "link": "https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/DAMPER-SubObject.md"
+    },
+    "DBLOCKHISTORY": {
+      "id": "DBLOCKHISTORY",
+      "methods": [],
+      "properties": [
+        {
+          "id": "Changed",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get the Date/Time Stamp of the Version Record of the DBLOCKHISTORY Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "History",
+          "returns": [
+            "DBLOCKHISTORY"
+          ],
+          "info": {
+            "desc": "Get the History Object of the DBLOCKHISTORY Object.",
+            "remarks": "History object is recursive. Each History Object contains another History object. This continues until the\nHistroy object returns a NULL value. Do NOT interate through the nested History objects using the Version\nproperty as that property can be rolled back/forward and many not indicate the number of history entries accurately."
+          }
+        },
+        {
+          "id": "Info",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get the Information Data of the Version Record of the DBLOCKHISTORY Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Owner",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get the Previous Owner of DBLOCKHISTORY Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Version",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the Previous Version of the DBLOCKHISTORY Object",
+            "readonly": true
+          }
+        }
+      ],
+      "link": "https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/DBLOCKHISTORY-SubObject.md"
+    },
+    "DBLOCKINFO": {
+      "id": "DBLOCKINFO",
+      "methods": [
+        {
+          "id": "Can",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [
+            {
+              "id": "LockType",
+              "types": [
+                "DBLOCKCAN"
+              ],
+              "optional": false,
+              "notes": "Enum/Number for access type to check."
+            }
+          ],
+          "info": {
+            "desc": "Indicates if the Items's current Owner allows access to History/Versioning.",
+            "args": {
+              "LockType": "Enum/Number for access type to check."
+            }
+          }
+        },
+        {
+          "id": "SetOwner",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [
+            {
+              "id": "NewOwner",
+              "types": [
+                "STRING"
+              ],
+              "optional": false,
+              "notes": "String representing new owner."
+            },
+            {
+              "id": "Reason",
+              "types": [
+                "STRING"
+              ],
+              "optional": false,
+              "notes": "String description of the reason for the change."
+            }
+          ],
+          "info": {
+            "desc": "Changes the current owner.",
+            "args": {
+              "NewOwner": "String representing new owner.",
+              "Reason": "String description of the reason for the change."
+            },
+            "returns": "Boolean Flag is successful or not.",
+            "remarks": "Only returns TRUE if allowed to change and change is different than current owner."
+          }
+        },
+        {
+          "id": "SetVersion",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [
+            {
+              "id": "NewVersion",
+              "types": [
+                "NUMBER"
+              ],
+              "optional": false,
+              "notes": "Number representing new version."
+            },
+            {
+              "id": "Reason",
+              "types": [
+                "STRING"
+              ],
+              "optional": false,
+              "notes": "String description of the reason for the change."
+            }
+          ],
+          "info": {
+            "desc": "Changes the current version.",
+            "args": {
+              "NewVersion": "Number representing new version.",
+              "Reason": "String description of the reason for the change."
+            },
+            "remarks": "Only returns TRUE if allowed to change an change is different than current version."
+          }
+        }
+      ],
+      "properties": [
+        {
+          "id": "History",
+          "returns": [
+            "DBLOCKHISTORY"
+          ],
+          "info": {
+            "desc": "Get the History Object of the ITEM Object.",
+            "remarks": "History object is recursive. Each History Object contains another History object. This continues until the\nHistroy object returns a NULL value. Do NOT interate through the nested History objects using the Version\nproperty as that property can be rolled back/forward and many not indicate the number of history entries accurately."
+          }
+        },
+        {
+          "id": "Owner",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get the Previous Owner of DBLOCKINFO Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Version",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the Previous Version of the DBLOCKINFO Object",
+            "readonly": true
+          }
+        }
+      ],
+      "link": "https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/DBLOCKINFO-SubObject.md"
+    },
+    "DECOILERINFO": {
+      "id": "DECOILERINFO",
+      "methods": [],
+      "properties": [
+        {
+          "id": "Beading",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get the Beading Flag of the DECOILERINFO Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "CoilWidth",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the cofigured Decoiler Width of the DECOILERINFO Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "SmallLength",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the remainder of straight length of the DECOILERINFO Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "StdLength",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the standard straight length that the entered length is broken into of the DECOILERINFO Object.",
+            "readonly": true,
+            "remarks": "Standard Length may be smaller than the Coil Width depending on connector adjusts, etc."
+          }
+        },
+        {
+          "id": "StqQty",
+          "returns": [
+            "\tNUMBER"
+          ],
+          "info": {
+            "desc": "Get the quantity of standard lengths that the entered length is broken into for the DECOILER Object.",
+            "readonly": true
+          }
+        }
+      ],
+      "link": "https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/DECOILERINFO-SubObject.md"
+    },
+    "DIM": {
+      "id": "DIM",
+      "methods": [],
+      "properties": [
+        {
+          "id": "Annotation",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get the Annotation of the DIM Object.",
+            "readonly": true,
+            "remarks": "Annotations of the Dimension are the A, B, C, etc. text strings related to the dimension."
+          }
+        },
+        {
+          "id": "Locked",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the Lock Status of the DIM Object."
+          }
+        },
+        {
+          "id": "Name",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get the Dimension Name of the DIM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "NumValue",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the Calculated Numerical Value of the DIM Object.",
+            "readonly": true,
+            "remarks": "Some Dimension values have settings like \"Auto\", \"Dependent\", \"Calculated\". This property retuns\nthe calculated value of the dimension with those settings."
+          }
+        },
+        {
+          "id": "Status",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get the Status of the Dimension of the DIM Object.",
+            "readonly": true,
+            "remarks": "Status values are \"Input\", \"Display\", \"Not Used\" or \"Fixed\""
+          }
+        },
+        {
+          "id": "Value",
+          "returns": [
+            "STRING",
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Value of the DIM Object."
+          }
+        }
+      ],
+      "link": "https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/DIM-SubObject.md"
+    },
+    "INSULATION": {
+      "id": "INSULATION",
+      "methods": [],
+      "properties": [
+        {
+          "id": "Facing",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Facing Name of the INSULATION Object.",
+            "remarks": "Facing Name only is given. Facing Group is not given as part of the value."
+          }
+        },
+        {
+          "id": "Gauge",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Insulation Gauge of the INSULATION Object.",
+            "remarks": "For Insulation Material Types 'Linear Ductwork' and 'For Machines', Gauge gives the Insulation Thickness.\nFor Insulation Material Types 'Pipework', 'Electrical Containment' and 'Undefined' Gauge gives the Insualtion Material\nIndex Number as entered in the Insulation Material (e.g. May be a decimal)."
+          }
+        },
+        {
+          "id": "Material",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Insulation Material Name of the INSULATION Object.",
+            "remarks": "Insulation Material Group is not given as part of the value."
+          }
+        },
+        {
+          "id": "MaterialLock",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the Lock Status for the Material property of the INSUALTION Object."
+          }
+        },
+        {
+          "id": "Status",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Insualtion Status of the INSULATION Object.",
+            "remarks": "\"OFF\", \"INSIDE\" and \"OUTSIDE\" are the only values allowed."
+          }
+        },
+        {
+          "id": "StatusLock",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the Lock Status for the Status property of the INSULATION Object."
+          }
+        }
+      ],
+      "link": "https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/INSULATION-SubObject.md"
+    },
+    "JOB": {
+      "id": "JOB",
+      "methods": [
+        {
+          "id": "SetStatus",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [
+            {
+              "id": "NameOrIndex",
+              "types": [
+                "NUMBER",
+                "STRING"
+              ],
+              "optional": false,
+              "notes": "Number or String of Status to be altered."
+            },
+            {
+              "id": "Active",
+              "types": [
+                "BOOLEAN"
+              ],
+              "optional": false,
+              "notes": "Boolean Flag indicating if Status should be made Active."
+            }
+          ],
+          "info": {
+            "desc": "This alters the Active Flag of a Job Status",
+            "args": {
+              "NameOrIndex": "Number or String of Status to be altered.",
+              "Active": "Boolean Flag indicating if Status should be made Active."
+            },
+            "returns": "Boolean Flag indicating is status activation was successful.",
+            "remarks": "Returns False if there was ann error during Status Activation, True otherwise."
+          }
+        }
+      ],
+      "properties": [
+        {
+          "id": "Colour",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Job Color value of the JOB Object.",
+            "remarks": "Value is given as an integer representing AutoCAD's Color index (0 - 255)."
+          }
+        },
+        {
+          "id": "CustomData",
+          "returns": [
+            "CUSTOMDEF[]"
+          ],
+          "info": {
+            "desc": "If applicable, this gets an array of CUSTOM DATA Objects for the JOB Object.",
+            "remarks": "There is no way to itterate over this array, you need to be aware of the custom data indices or names that exist in your database."
+          }
+        },
+        {
+          "id": "Date",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get the Job Creation Date value of the JOB Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Field1",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set generic utility field #1 of JOB Object.",
+            "remarks": "Field can be used for any user defined purpose."
+          }
+        },
+        {
+          "id": "Field2",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set generic utility field #2 of JOB Object.",
+            "remarks": "Field can be used for any user defined purpose."
+          }
+        },
+        {
+          "id": "Items",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the Number of Items in job of the JOB Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Item",
+          "returns": [
+            "ITEM[]"
+          ],
+          "info": {
+            "desc": "If applicable, this gets an array of ITEM Objects for the JOB Object.",
+            "remarks": "Always check to see if the 'Items' property returns a value >= 1 before using Job.Item[index#]"
+          }
+        },
+        {
+          "id": "Name",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get the Job Name of the JOB Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Notes",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Notes property of the JOB Object."
+          }
+        },
+        {
+          "id": "Project",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get the Job Path { relative to PROJECT path } of the JOB Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Reference",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get the Job Ref property of the JOB Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Statuses",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the number of Statuses of the JOB Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Status",
+          "returns": [
+            "JOBSTATUS[]"
+          ],
+          "info": {
+            "desc": "If applicable, this gets an array of JOBSTATUS Objects for the JOB Object."
+          }
+        }
+      ],
+      "link": "https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/JOB-SubObject.md"
+    },
+    "JOBSTATUS": {
+      "id": "JOBSTATUS",
+      "methods": [],
+      "properties": [
+        {
+          "id": "Active",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get Status Active flag of the JOBSTATUS Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "LastActivated",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get Date status was last activated in short-date string format of the JOBSTATUS Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Name",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get the Status Name of the JOBSTATUS Object.",
+            "readonly": true
+          }
+        }
+      ],
+      "link": "https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/JOBSTATUS-SubObject.md"
+    },
+    "LINK": {
+      "id": "LINK",
+      "methods": [],
+      "properties": [
+        {
+          "id": "Name",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Link Name of the LINK Object."
+          }
+        },
+        {
+          "id": "Param",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Parameters of the LINK Object."
+          }
+        },
+        {
+          "id": "Target",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the URL Target of the LINK Object."
+          }
+        }
+      ],
+      "link": "https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/LINK-SubObject.md"
+    },
+    "OPTION": {
+      "id": "OPTION",
+      "methods": [],
+      "properties": [
+        {
+          "id": "Locked",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the Lock Status of the OPTION Object."
+          }
+        },
+        {
+          "id": "Name",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get the Name of the OPTION Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Status",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get the Status of the OPTION Object.",
+            "readonly": true,
+            "remarks": "Valid values are 'Hidden' and 'Input'."
+          }
+        },
+        {
+          "id": "Value",
+          "returns": [
+            "NUMBER",
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Value of the OPTION Object."
+          }
+        }
+      ],
+      "link": "https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/OPTION-SubObject.md"
+    },
+    "PRODUCTENTRY": {
+      "id": "PRODUCTENTRY",
+      "methods": [],
+      "properties": [
+        {
+          "id": "Alias",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Alias property of the PRODUCTENTRY Object."
+          }
+        },
+        {
+          "id": "Area",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Area property of the PRODUCTENTRY Object."
+          }
+        },
+        {
+          "id": "BoughtOut",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the BoughtOut flag of the PRODUCTENTRY Object."
+          }
+        },
+        {
+          "id": "CadBlock",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the CAD Block name of the PRODUCTENTRY Object."
+          }
+        },
+        {
+          "id": "CustomData",
+          "returns": [
+            "CUSTOMDEF[]"
+          ],
+          "info": {
+            "desc": "This gets an array of CUSTOMDEF Objects of the PRODUCTENTRY Object."
+          }
+        },
+        {
+          "id": "DatabaseID",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Database ID property of the PRODUCTENTRY Object."
+          }
+        },
+        {
+          "id": "Dim",
+          "returns": [
+            "NUMBER[]",
+            "STRING[]"
+          ],
+          "info": {
+            "desc": "This Gets an array of DIM Objects of the PRODUCTENTRY Object.",
+            "remarks": "Available properties of the DIM Object are limited within the PRODUCTENTRY Object."
+          }
+        },
+        {
+          "id": "FlowMax",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Maximum Flow value of the PRODUCTENTRY Object."
+          }
+        },
+        {
+          "id": "FlowMin",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Minimum Flow value of the PRODUCTENTRY Object."
+          }
+        },
+        {
+          "id": "Model",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Model Name property of the PRODUCTENTRY Object."
+          }
+        },
+        {
+          "id": "Name",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Product Entry name of the PRODUCTENTRY Object."
+          }
+        },
+        {
+          "id": "Option",
+          "returns": [
+            "NUMBER[]",
+            "STRING[]"
+          ],
+          "info": {
+            "desc": "This Gets an array of OPTION Objects of the PRODUCTENTRY Object.",
+            "remarks": "Available properties of the OPTION Object are limited within the PRODUCTENTRY Object."
+          }
+        },
+        {
+          "id": "Order",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Order property of the PRODUCTENTRY Object."
+          }
+        },
+        {
+          "id": "SKey",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the SKey property of the PRUDUCTENTRY Object."
+          }
+        },
+        {
+          "id": "Weight",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Weight value of the PRODUCTENTRY Object."
+          }
+        }
+      ],
+      "link": "https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/PRODUCTENTRY-SubObject.md"
+    },
+    "PRODUCTINFO": {
+      "id": "PRODUCTINFO",
+      "methods": [],
+      "properties": [
+        {
+          "id": "Entries",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the Number of Product List Entries of the PRODUCTINFO Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Entry",
+          "returns": [
+            "PRODUCTENTRY[]"
+          ],
+          "info": {
+            "desc": "This gets an array of PRODUCTENTRY Objects of the PRODUCTINFO Object."
+          }
+        },
+        {
+          "id": "HasAlias",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get the HasAlias flag of the PRODUCTINFO Object.",
+            "readonly": true,
+            "remarks": "Flag indicates if the Product List contains an Alias column as part of its data."
+          }
+        },
+        {
+          "id": "HasArea",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get the HasArea Flag of the PRODUCTINFO Object.",
+            "readonly": true,
+            "remarks": "Flag indicates if the Product List contains an Area column as part of its data."
+          }
+        },
+        {
+          "id": "HasBoughtOut",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get the HasBoughtOut Flag of the PRODUCTINFO Object.",
+            "readonly": true,
+            "remarks": "Flag indicates if the Product List contains a BoughtOut column as part of its data."
+          }
+        },
+        {
+          "id": "HasCADBlock",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get the HasCadBlock Flag of the PRODUCTINFO Object.",
+            "readonly": true,
+            "remarks": "Flag indicates if the Product List contains a CAD Block column as part of its data."
+          }
+        },
+        {
+          "id": "HasCustomData",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get the HasCustomData Flag of the PRODUCTINFO Object.",
+            "readonly": true,
+            "remarks": "Flag indicates if the Product List contains any Custom Data columns as part of its data."
+          }
+        },
+        {
+          "id": "HasCustomDatas",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the number of Custom Data columns of the PRODUCTINFO Object.",
+            "readonly": true,
+            "remarks": "Number indicates the number of custom data columns in the Product List."
+          }
+        },
+        {
+          "id": "HasDatabaseID",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get the HasDatabaseID Flag of the PRODUCTINFO Object.",
+            "readonly": true,
+            "remarks": "Flag indicates if the Product List contains a Database ID column as part of its data."
+          }
+        },
+        {
+          "id": "HasDims",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the number of DIM columns of the PRODUCTINFO Object.",
+            "readonly": true,
+            "remarks": "Number indicates the number of Dimension columns in the Product List."
+          }
+        },
+        {
+          "id": "HasFlow",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get the HasFlow Flag of the PRODUCTINFO Object.",
+            "readonly": true,
+            "remarks": "Flag indicates if the Product List contains the Min & Max Flow columns as part of its data."
+          }
+        },
+        {
+          "id": "HasOptions",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the number of OPTION columns of the PRODUCTINFO Object.",
+            "readonly": true,
+            "remarks": "Number indicates the number of Option columns in the Product List."
+          }
+        },
+        {
+          "id": "HasOrder",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get the HasOrder Flag of the PRODUCTINFO Object.",
+            "readonly": true,
+            "remarks": "Flag indicates if the Product List contains the Order column as part of its data."
+          }
+        },
+        {
+          "id": "HasSKey",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get the HasSKey Flag of the PRODUCTINFO Object.",
+            "readonly": true,
+            "remarks": "Flag indicates if the Product List contains the SKey column as part of its data."
+          }
+        },
+        {
+          "id": "HasWeight",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get the HasWeight Flag of the PRODUCTINFO Object.",
+            "readonly": true,
+            "remarks": "Flag indicates if the Product List contains the Weight column as part of its data."
+          }
+        },
+        {
+          "id": "Revision",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get the Revision property of the PRODUCTINFO Object.",
+            "readonly": true
+          }
+        }
+      ],
+      "link": "https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/PRODUCTINFO-SubObject.md"
+    },
+    "SEALENT": {
+      "id": "SEALENT",
+      "methods": [],
+      "properties": [
+        {
+          "id": "Locked",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the Lock Status of the Sealent Value of the SEALENT Object."
+          }
+        },
+        {
+          "id": "Value",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Sealent Name of the SEALENT Object."
+          }
+        }
+      ],
+      "link": "https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/SEALENT-SubObject.md"
+    },
+    "SEAM": {
+      "id": "SEAM",
+      "methods": [],
+      "properties": [
+        {
+          "id": "Alt",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set Alternatge Code of the SEAM Object.",
+            "remarks": "Alternate Code is used for enforcing Alternate Seam values using the Specifications."
+          }
+        },
+        {
+          "id": "Locked",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the Lock Status flag for the Seam Name property of the SEAM Object."
+          }
+        },
+        {
+          "id": "Value",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Seam Name value of the SEAM Object.",
+            "remarks": "Seam Group is not returned. There is no known way to retrieve the Group of the Seam.\nSeam can be set using either an Index or Name."
+          }
+        }
+      ],
+      "link": "https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/SEAM-SubObject.md"
+    },
+    "SPLITTER": {
+      "id": "SPLITTER",
+      "methods": [],
+      "properties": [
+        {
+          "id": "Value",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Splitter Name of the ITEM Object.",
+            "remarks": "Splitter Name only is given. Splitter Group is not given as part of the value.\nSplitter can be set using the 'Name' or 'Index'."
+          }
+        },
+        {
+          "id": "Locked",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the Lock Status flag for the Splitter property of the SPLITTER Object."
+          }
+        }
+      ],
+      "link": "https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/SPLITTER-SubObject.md"
+    },
+    "STATUS": {
+      "id": "STATUS",
+      "methods": [],
+      "properties": [
+        {
+          "id": "DateTime",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get the Date and Time Stamp of the STATUS Object",
+            "readonly": true,
+            "remarks": "Date and Time Stamp reflect the Date and Time when the Status changed.\nA value of 'Default' is the first (unchanged) Status."
+          }
+        },
+        {
+          "id": "Id",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the Status ID of the STATUS Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "UserId",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the User ID of the user who changed the Status of the STATUS Object.",
+            "readonly": true,
+            "remarks": "Does not appear to change or work. Does not appear to be Read/Write as Autodesk's documentation suggests."
+          }
+        },
+        {
+          "id": "Value",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get the Status Description of the STATUS Object.",
+            "readonly": true
+          }
+        }
+      ],
+      "link": "https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/STATUS-SubObject.md"
+    },
+    "STIFFENER": {
+      "id": "STIFFENER",
+      "methods": [],
+      "properties": [
+        {
+          "id": "Locked",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the Lock Status flag for the Stiffener property of the STIFFENER Object."
+          }
+        },
+        {
+          "id": "Qty",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Number of Stiffeners required (excluding End Stiffeners) of the STIFFENER Object."
+          }
+        },
+        {
+          "id": "Spacing",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the Spacing between Stiffeners of the STIFFENER Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Value",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Splitter Name value of the SPLITTER Object.",
+            "remarks": "Stiffener Name only is given. Stiffener Group is not given as part of the value.\nStiffener can be set using the 'Name' only."
+          }
+        }
+      ],
+      "link": "https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/STIFFENER-SubObject.md"
+    },
+    "SUPPORT": {
+      "id": "SUPPORT",
+      "methods": [],
+      "properties": [
+        {
+          "id": "Locked",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the Lock Status flag of the Support property of the SUPPORT Object."
+          }
+        },
+        {
+          "id": "Qty",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Quantity of Supports required of the SUPPORT Object."
+          }
+        },
+        {
+          "id": "Spacing",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Spacing between Supports of the SUPPORT Object.",
+            "remarks": "If set, this will change the value of the 'Qty'."
+          }
+        },
+        {
+          "id": "Value",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Support Name of the SUPPORT Object.",
+            "remarks": "Support Name only is given. Support Group is not given as part of the value.\nSupport can be set using the 'Name' or Index."
+          }
+        }
+      ],
+      "link": "https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/SUPPORT-SubObject.md"
+    },
+    "TASKSELECTION": {
+      "id": "TASKSELECTION",
+      "methods": [],
+      "properties": [
+        {
+          "id": "Count",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set a Count (Number of Items) in the Selection for the TASKSELECTION Object."
+          }
+        }
+      ],
+      "link": "https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/TASKSELECTION-SubObject.md"
+    }
+  },
+  "OBJECTS": {
+    "ARRAY": {
+      "id": "ARRAY",
+      "constructor": {
+        "id": "constructor",
+        "returns": [
+          ""
+        ],
+        "args": [
+          {
+            "id": "NumberOfItems",
+            "types": [
+              "NUMBER"
+            ],
+            "optional": true,
+            "notes": "Optional Number of items to initialize Array Object to hold."
+          }
+        ],
+        "info": {
+          "desc": "Constructs an Array Object",
+          "args": {
+            "NumberOfItems": "Optional Number of items to initialize Array Object to hold."
+          },
+          "returns": "Nothing.",
+          "remarks": "Constructs an Array object with the number of inital elements as specified. Each element's\nvalue will be NULL/False.\nIf optional NumberOfItems is not specifcied, a default value of 0 (zero) is used."
+        }
+      },
+      "methods": [
+        {
+          "id": "Add",
+          "returns": [
+            "NUMBER"
+          ],
+          "args": [
+            {
+              "id": "ArrayData",
+              "types": [
+                "ANY[]"
+              ],
+              "optional": false,
+              "notes": ""
+            }
+          ],
+          "info": {
+            "desc": "Adds/appends the specified data items to an array.",
+            "args": {
+              "ArrayData": ""
+            },
+            "returns": "Number of elements added to the array."
+          }
+        },
+        {
+          "id": "Delete",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [
+            {
+              "id": "ArrayIndex",
+              "types": [
+                "NUMBER"
+              ],
+              "optional": true,
+              "notes": "Optional Number specifying the index number of the element to remove from the array."
+            }
+          ],
+          "info": {
+            "desc": "Removes the specified item from an array.",
+            "args": {
+              "ArrayIndex": "Optional Number specifying the index number of the element to remove from the array."
+            },
+            "returns": "Boolean Flag indicating if element removal was successful.",
+            "remarks": "Index is a '1-based' meaning the first item in the Array is index # 1.\nDefault when ArrayIndex is missing is the last item in the Array.\nArray is dynamically resized, removing an item from the beginning or middle of the array\nresults in the array being smaller and the other elements moving up in position."
+          }
+        },
+        {
+          "id": "Insert",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [
+            {
+              "id": "ArrayData",
+              "types": [
+                "ANY"
+              ],
+              "optional": false,
+              "notes": "Any type of data to insert into an array."
+            },
+            {
+              "id": "ArrayIndex",
+              "types": [
+                "NUMBER"
+              ],
+              "optional": true,
+              "notes": ""
+            }
+          ],
+          "info": {
+            "desc": "Inserts a piece of data into an Array at specified index.",
+            "args": {
+              "ArrayData": "Any type of data to insert into an array.",
+              "ArrayIndex?": "Optional Index position to insert data into."
+            },
+            "remarks": "When inserting data into an Array at a sepecific index, the previous data and all other\ndownstream data are shifed down in the index chain.\nDefault when ArrayIndex is missing is to insert at the end of the array."
+          }
+        }
+      ],
+      "properties": [
+        {
+          "id": "Count",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Number of elements in the array of the ARRAY Object.",
+            "remarks": "If changed, new elements are set to NULL/False"
+          }
+        }
+      ],
+      "link": "https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/ARRAY-Object.md"
+    },
+    "FILE": {
+      "id": "FILE",
+      "constructor": {
+        "id": "constructor",
+        "returns": [
+          ""
+        ],
+        "args": [
+          {
+            "id": "FileName",
+            "types": [
+              "STRING"
+            ],
+            "optional": true,
+            "notes": "Optional String Name of file to open."
+          },
+          {
+            "id": "AccessMode",
+            "types": [
+              "FILEMODE"
+            ],
+            "optional": true,
+            "notes": "Optional Mode(s) for file open."
+          }
+        ],
+        "info": {
+          "desc": "Constructs a File Object",
+          "args": {
+            "FileName": "Optional String Name of file to open.",
+            "AccessMode": "Optional Mode(s) for file open."
+          },
+          "returns": "Nothing",
+          "remarks": "If optional parameters are not specified when constructing the FILE Object,\nuse the FILE.Open method to specify them."
+        }
+      },
+      "methods": [
+        {
+          "id": "Close",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [],
+          "info": {
+            "desc": "Closes an open File.",
+            "returns": "Boolean Flag indicating if file closure was sucessful or not.",
+            "remarks": "Any open file needs to be closed before any other application can access it in Read/Write mode."
+          }
+        },
+        {
+          "id": "Delete",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [
+            {
+              "id": "UseRecycleBin",
+              "types": [
+                "BOOLEAN"
+              ],
+              "optional": true,
+              "notes": "Optional Boolean Flag to add deleted file to the Windows Recycle Bin"
+            }
+          ],
+          "info": {
+            "desc": "Deletes a file.",
+            "args": {
+              "UseRecycleBin": "Optional Boolean Flag to add deleted file to the Windows Recycle Bin"
+            },
+            "returns": "Boolead Flag indicating of file deletion was successful or not."
+          }
+        },
+        {
+          "id": "Open",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [
+            {
+              "id": "Filename",
+              "types": [
+                "STRING"
+              ],
+              "optional": false,
+              "notes": "String Name of file to open."
+            },
+            {
+              "id": "AccessMode",
+              "types": [
+                "FILEMODE"
+              ],
+              "optional": false,
+              "notes": "Mode(s) for file open."
+            }
+          ],
+          "info": {
+            "desc": "Opens a file for access based on file mode.",
+            "args": {
+              "FileName": "String Name of file to open.",
+              "AccessMode": "Mode(s) for file open."
+            },
+            "returns": "Boolean Flag indicating if file was successfully opened for the specified access mode/type.",
+            "remarks": "This function is not needed if the FILE Object Constructor was called with parameters specifying the\nfile name and access mode/type."
+          }
+        },
+        {
+          "id": "ReadByte",
+          "returns": [
+            "NUMBER"
+          ],
+          "args": [],
+          "info": {
+            "desc": "Read an 8-but Byte (0-255) from a binary file.",
+            "returns": "Number read from the open file.",
+            "remarks": "File must be opened as non-text."
+          }
+        },
+        {
+          "id": "ReadChar",
+          "returns": [
+            "STRING"
+          ],
+          "args": [],
+          "info": {
+            "desc": "Reads a character from a binary file.",
+            "remarks": "File must be opened as non-text.\nWill read a BYTE for ANSI files and a WORD for Unicode Files."
+          }
+        },
+        {
+          "id": "ReadInt",
+          "returns": [
+            "NUMBER"
+          ],
+          "args": [],
+          "info": {
+            "desc": "Read a 32-bit signed integer from a binary file.",
+            "returns": "Number read fronm file.",
+            "remarks": "File must be opened as non-text."
+          }
+        },
+        {
+          "id": "ReadLine",
+          "returns": [
+            "STRING"
+          ],
+          "args": [],
+          "info": {
+            "desc": "Read a line of text (minsus CR/LF) from a text file.",
+            "returns": "String read from file.",
+            "remarks": "File must be opened as text (Unicode or ANSI)\nEach call reads up into the next CR (Carriage Return), LF (Line Feed) or EOF (End of File) marker.\nReturned String does not contain CR/LR or EOF characters."
+          }
+        },
+        {
+          "id": "ReadReal",
+          "returns": [
+            "NUMBER"
+          ],
+          "args": [],
+          "info": {
+            "desc": "Read a C-Style double precision floating point number from a binary file.",
+            "returns": "Number read from file.",
+            "remarks": "File must be opened as non-text."
+          }
+        },
+        {
+          "id": "ReadString",
+          "returns": [
+            "STRING"
+          ],
+          "args": [],
+          "info": {
+            "desc": "Read a String from a binary file.",
+            "returns": "String read from file.",
+            "remarks": "File must be opened as non-text.\nWill read BTYEs for ANSI files and WORDs for Unicode files."
+          }
+        },
+        {
+          "id": "ReadWord",
+          "returns": [
+            "NUMBER"
+          ],
+          "args": [],
+          "info": {
+            "desc": "Read a 16-bit WORD (0-65535) from a binary file.",
+            "returns": "Number read from file.",
+            "remarks": "File must be opened as non-text."
+          }
+        },
+        {
+          "id": "Rename",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [
+            {
+              "id": "FileName",
+              "types": [
+                "STRING"
+              ],
+              "optional": false,
+              "notes": "String representing the name of the file to rename to."
+            }
+          ],
+          "info": {
+            "desc": "Renames the current file held by the FILE object.",
+            "args": {
+              "FileName": "String representing the name of the file to rename to."
+            },
+            "returns": "Boolean Flag indicating is file rename was successful or not.",
+            "remarks": "Current File Name must be assigned but file must not be opened for access."
+          }
+        },
+        {
+          "id": "WriteByte",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [
+            {
+              "id": "ByteToWrite",
+              "types": [
+                "NUMBER"
+              ],
+              "optional": false,
+              "notes": "BYTE to write to file."
+            }
+          ],
+          "info": {
+            "desc": "Write an 8-bit BYTE (0-255) to a binary file.",
+            "args": {
+              "ByteToWrite": "BYTE to write to file."
+            },
+            "returns": "Boolean Flag indicating if write was successful or not.",
+            "remarks": "File must be opened as non-text."
+          }
+        },
+        {
+          "id": "WriteChar",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [
+            {
+              "id": "CharacterToWrite",
+              "types": [
+                "STRING"
+              ],
+              "optional": false,
+              "notes": "String character to write to file."
+            }
+          ],
+          "info": {
+            "desc": "Wtite a Character to a binary file.",
+            "args": {
+              "CharacterToWrite": "String character to write to file."
+            },
+            "remarks": "File must be opened as non-text.\nWill write a BYTE for ANSI files or WORK for Unicodes files."
+          }
+        },
+        {
+          "id": "WriteInt",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [
+            {
+              "id": "IntegerToWrite",
+              "types": [
+                "NUMBER"
+              ],
+              "optional": false,
+              "notes": "Number to write to file."
+            }
+          ],
+          "info": {
+            "desc": "Write a 32-bit signed integer to a binary file.",
+            "args": {
+              "IntegerToWrite": "Number to write to file."
+            },
+            "returns": "Boolean Flag indicating if write was successful or not.",
+            "remarks": "File must be opened as non-text."
+          }
+        },
+        {
+          "id": "WriteLine",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [
+            {
+              "id": "StringToWrite",
+              "types": [
+                "STRING"
+              ],
+              "optional": false,
+              "notes": "String to write to file."
+            },
+            {
+              "id": "AppendCR",
+              "types": [
+                "BOOLEAN"
+              ],
+              "optional": true,
+              "notes": "Optional Boolean Flag to automatically append a CR+LF to and of line."
+            }
+          ],
+          "info": {
+            "desc": "Write a line of text to a text file.",
+            "args": {
+              "StringToWrite": "String to write to file.",
+              "AppendCR": "Optional Boolean Flag to automatically append a CR+LF to and of line."
+            },
+            "returns": "Boolead Flag indicating if write was successful or not.",
+            "remarks": "Of optional AppendCR paramater missing, True is default and will automatically append\na Carrage Return (CR) and Line Feed (LR) character to the end of the specified string."
+          }
+        },
+        {
+          "id": "WriteReal",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [
+            {
+              "id": "RealToWrite",
+              "types": [
+                "NUMBER"
+              ],
+              "optional": false,
+              "notes": "Number to write to file."
+            }
+          ],
+          "info": {
+            "desc": "Write a C-Style double precision floating point number to a binary file.",
+            "args": {
+              "RealToWrite": "Number to write to file."
+            },
+            "returns": "Boolean Flag indicating if write was successful or not.",
+            "remarks": "File must be opened as non-text."
+          }
+        },
+        {
+          "id": "WriteString",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [
+            {
+              "id": "StringToWrite",
+              "types": [
+                "STRING"
+              ],
+              "optional": false,
+              "notes": "String to write to file."
+            }
+          ],
+          "info": {
+            "desc": "Write a string to a text file.",
+            "args": {
+              "StringToWrite": "String to write to file."
+            },
+            "returns": "Boolean Flag indicating if write was successful or not.",
+            "remarks": "File must be opened as non-text.\nWill write BYTEs for ANSI files and WORDs for Unicode files."
+          }
+        },
+        {
+          "id": "WriteWord",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [
+            {
+              "id": "WordToWrite",
+              "types": [
+                "NUMBER"
+              ],
+              "optional": false,
+              "notes": "Number to write to file."
+            }
+          ],
+          "info": {
+            "desc": "Write a 16-bit WORD (0-65535) to a binary file.",
+            "args": {
+              "WordToWrite": "Number to write to file."
+            },
+            "returns": "Boolean Flag indicating if write was successful or not.",
+            "remarks": "File must be opened as non-text."
+          }
+        }
+      ],
+      "properties": [
+        {
+          "id": "EOF",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get the End of File flag for the FILE Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Exists",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get the Flag indicating if the file exist or not for the FILE Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "FileName",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the File Name of file to open for the FILE Object."
+          }
+        },
+        {
+          "id": "IsOpen",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get the Flag indicating if the file is open for the FILE Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "IsUnicode",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get the Flag indicating if the file Unicode for the FILE Object.",
+            "readonly": true,
+            "remarks": "File is ANSI encoded if not Unicode."
+          }
+        },
+        {
+          "id": "Length",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the Length of file (in Bytes) for the FILE Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Mode",
+          "returns": [
+            "FILEMODE"
+          ],
+          "info": {
+            "desc": "Get/Set the File Open Mode (flags) for the FILE Object."
+          }
+        },
+        {
+          "id": "Position",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the current File Position (in Bytes) for the FILE Object."
+          }
+        }
+      ],
+      "link": "https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/FILE-Object.md"
+    },
+    "ITEMSTRUCT": {
+      "id": "ITEMSTRUCT",
+      "constructor": {
+        "id": "constructor",
+        "returns": [
+          ""
+        ],
+        "args": [],
+        "info": {
+          "desc": "Constructs an ItemStruct Object",
+          "returns": "ITEMSTRUCT",
+          "remarks": "Represents a dynamically loaded ITM file and acts nearly identical to a native ITEM reference"
+        }
+      },
+      "methods": [
+        {
+          "id": "AddCustomData",
+          "returns": [
+            "VOID"
+          ],
+          "args": [
+            {
+              "id": "NameOrIndex",
+              "types": [
+                "STRING",
+                "NUMBER"
+              ],
+              "optional": false,
+              "notes": ""
+            }
+          ],
+          "info": {
+            "desc": "Dynamically adds Custom Data to the item (for 'User' custom data types)",
+            "args": {
+              "NameOrIndex": ""
+            },
+            "returns": "Nothing",
+            "remarks": "This function merely added the specified 'User' Custom Data 'Field' to the Item. Once the\nfield is added, you can set a value using the Custom Data property Item.CustomData[name/index#].Value"
+          }
+        },
+        {
+          "id": "BitmapFile",
+          "returns": [
+            "STRING"
+          ],
+          "args": [
+            {
+              "id": "ItmFilePath",
+              "types": [
+                "STRING"
+              ],
+              "optional": false,
+              "notes": ""
+            }
+          ],
+          "info": {
+            "desc": "Gets the file name of the Image used for a ITM.",
+            "args": {
+              "ItmFilePath": ""
+            },
+            "returns": "String representing path and name of the image file."
+          }
+        },
+        {
+          "id": "CanDoubleWall",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [],
+          "info": {
+            "desc": "Indicates if Item supports DoubleWall entry or not.",
+            "returns": "Boolean"
+          }
+        },
+        {
+          "id": "CanRotary",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [],
+          "info": {
+            "desc": "Indicates if Item supports Rotary Nesting or not.",
+            "returns": "Boolean"
+          }
+        },
+        {
+          "id": "EndLocation",
+          "returns": [
+            "STRING"
+          ],
+          "args": [
+            {
+              "id": "ConnectorIndex",
+              "types": [
+                "NUMBER"
+              ],
+              "optional": false,
+              "notes": "This index number is associated with the connector number shown in the edit item dialog"
+            },
+            {
+              "id": "XYZ",
+              "types": [
+                "STRING"
+              ],
+              "optional": true,
+              "notes": "Optional string representing an X, Y or Z portion of the connector centerline coordinate."
+            }
+          ],
+          "info": {
+            "desc": "Gets a string representing the location of a connectors X, Y and/or Z value.",
+            "args": {
+              "ConnectorIndex": "This index number is associated with the connector number shown in the edit item dialog",
+              "XYZ": "Optional string representing an X, Y or Z portion of the connector centerline coordinate."
+            },
+            "returns": "String representing the X, Y, Z or all 3 if XYZ was not provided.",
+            "remarks": "Supported values are...'XYZ', 'X', 'Y', 'Z', 'TOP' and 'BTM'.\nThe string 'XYZ', missing parameters, empty strings or any other non supported value returns\na string representing the X, Y & Z coordinates seperated by spaces (e.g. '1.25 4.54 0.00').\nIf the string 'X', 'Y' or 'Z' is speified, a string representing just tha compoentent of the\nendpoint is returned.\nIf the string 'TOP' or 'BTM' is specified, a string representing the Z coordinate of the connector's\nTop or Bottom is returned."
+          }
+        },
+        {
+          "id": "Level",
+          "returns": [
+            "NUMBER"
+          ],
+          "args": [
+            {
+              "id": "LevelName",
+              "types": [
+                "STRING"
+              ],
+              "optional": false,
+              "notes": "Allowed values are \"Soffit\" and \"Floor\""
+            }
+          ],
+          "info": {
+            "desc": "Get the Level value of the specified Item based on it's section.",
+            "args": {
+              "LevelName": "Allowed values are \"Soffit\" and \"Floor\""
+            },
+            "returns": "Number representing the Soffit/Floor level of the Item's Section."
+          }
+        },
+        {
+          "id": "Load",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [
+            {
+              "id": "ItemFile",
+              "types": [
+                "STRING"
+              ],
+              "optional": false,
+              "notes": "String of full path and file name including '.ITM' extension."
+            }
+          ],
+          "info": {
+            "desc": "Loads an ITM file from disk",
+            "args": {
+              "ItemFile": "String of full path and file name including '.ITM' extension."
+            },
+            "returns": "Boolean Flag indicating if loading of ITM file was sucessful."
+          }
+        },
+        {
+          "id": "RefreshCosts",
+          "returns": [
+            "VOID"
+          ],
+          "args": [],
+          "info": {
+            "desc": "Refreshes all costs to Item",
+            "returns": "Nothing",
+            "remarks": "Call after making any change to the Item that may affect cost."
+          }
+        },
+        {
+          "id": "RemoveHoles",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [],
+          "info": {
+            "desc": "Remove all holes added to Item.",
+            "returns": "Boolean Flag indicating if hole removal was sucessful."
+          }
+        },
+        {
+          "id": "Save",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [
+            {
+              "id": "ItemFile",
+              "types": [
+                "STRING"
+              ],
+              "optional": false,
+              "notes": ""
+            }
+          ],
+          "info": {
+            "desc": "Save an ITM file to disk",
+            "args": {
+              "ItemFile": ""
+            },
+            "returns": "Boolean Flag indicating if saving of ITM file was sucessful."
+          }
+        },
+        {
+          "id": "SetFlow",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [
+            {
+              "id": "FlowType",
+              "types": [
+                "NUMBER"
+              ],
+              "optional": false,
+              "notes": "Number between 0 and 3. 0='Not Set', 1='Supply', 2='Return', 3='None'"
+            },
+            {
+              "id": "FlowValue",
+              "types": [
+                "NUMBER"
+              ],
+              "optional": false,
+              "notes": "Number representing flow value in standard flow units."
+            }
+          ],
+          "info": {
+            "desc": "Set Flow Type and Value on an Item.",
+            "args": {
+              "FlowType": "Number between 0 and 3. 0='Not Set', 1='Supply', 2='Return', 3='None'",
+              "FlowValue": "Number representing flow value in standard flow units."
+            },
+            "returns": "Boolean Flag indicating sucess or failure. Failure implies an invalid type."
+          }
+        },
+        {
+          "id": "Update",
+          "returns": [
+            "VOID"
+          ],
+          "args": [],
+          "info": {
+            "desc": "Refreshes Item's developments.",
+            "returns": "Nothing",
+            "remarks": "Call after making any change to the Item that may developments, specifiction or model"
+          }
+        },
+        {
+          "id": "WriteDXF",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [
+            {
+              "id": "DXFFile",
+              "types": [
+                "STRING"
+              ],
+              "optional": false,
+              "notes": "String of full path and file name to export"
+            },
+            {
+              "id": "IncludeLeads",
+              "types": [
+                "BOOLEAN"
+              ],
+              "optional": true,
+              "notes": "Optional Boolead Flag indicating if Lead Ins/Outs should be written to DXF."
+            }
+          ],
+          "info": {
+            "desc": "Save Item's Developments as DXF File(s).",
+            "args": {
+              "DXFFile": "String of full path and file name to export",
+              "IncludeLeads": "Optional Boolead Flag indicating if Lead Ins/Outs should be written to DXF."
+            },
+            "remarks": "File to save should exclude the '.DXF' file extension.\nFlag for writing Lead Ins/Outs defaults to TRUE if ommited.\nEach development is appended with a '-1', '-2', '-3', etc. suffix to the specified file name."
+          }
+        }
+      ],
+      "properties": [
+        {
+          "id": "Airturns",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the number of AirTurns in the AIRTURN Array of the ITEM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Airturn",
+          "returns": [
+            "AIRTURN[]"
+          ],
+          "info": {
+            "desc": "If applicable, this gets an array of AIRTURN Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Airturns' property returns a value >= 1 before using Item.Airturn[index#/name]"
+          }
+        },
+        {
+          "id": "Alias",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Alias property of the ITEM Object."
+          }
+        },
+        {
+          "id": "Alternate",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Alternate property of the ITEM Object."
+          }
+        },
+        {
+          "id": "Bitmap",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Bitmap (Image File Name) of the ITEM Object.",
+            "remarks": "May be full, relative Path, just Filename or blank for default. May be a BMP or PNG image type.\nPNG image type recommended for reduced file size and performance."
+          }
+        },
+        {
+          "id": "BoughtOut",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the BoughtOut Flag of the ITEM Object."
+          }
+        },
+        {
+          "id": "Box",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Box property of the ITEM Object."
+          }
+        },
+        {
+          "id": "ButtonAlias",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Button Code Alias that the ITEM Object was taken off with."
+          }
+        },
+        {
+          "id": "ButtonCode",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the ButtonCode that the ITEM Object was taken off with."
+          }
+        },
+        {
+          "id": "CADBlock",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the CADBlock name associated with the ITEM Object."
+          }
+        },
+        {
+          "id": "Catalogue",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get the Catalog Flag of the ITEM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "CID",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the CID number of the ITEM Object.",
+            "remarks": "CID is not guarenteed to be the same as the Pattern Number. Best practice is to not\nchange the CID value which defaults to the Pattern Number without very specific reasons and\nknowledge of it's impact."
+          }
+        },
+        {
+          "id": "Comment",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Comment text of the ITEM Object.",
+            "remarks": "Supports multi-line text and may contain Carriage Returns."
+          }
+        },
+        {
+          "id": "Connectors",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the number of Connectors in the CONNECTOR Array of the ITEM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Connector",
+          "returns": [
+            "CONNECTOR[]"
+          ],
+          "info": {
+            "desc": "If applicable, this gets an array of CONNECTOR Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Connectors' property returns a value >= 1 before using Item.Connector[index#/name]"
+          }
+        },
+        {
+          "id": "CostByLength",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the CostByLength (Cost Units) Flag of the ITEM Object.",
+            "remarks": "Cost Units are set by the CostByLength flag. 0 = Cost by Qty, 1 Cost by Ft."
+          }
+        },
+        {
+          "id": "CostType",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the CostType property of the ITEM Object.",
+            "remarks": "Valid CostType values are...'Demolition', 'Free Issue', 'Normal', 'Relocation' and 'Supply Only'."
+          }
+        },
+        {
+          "id": "CustomData",
+          "returns": [
+            "CUSTOMDEF[]"
+          ],
+          "info": {
+            "desc": "If applicable, this gets an array of CUSTOM DATA Objects for the ITEM Object.",
+            "remarks": "There is no way to itterate over this array, you need to be aware of the custom data indices or names that exist in your database."
+          }
+        },
+        {
+          "id": "CutType",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the CutType property of the ITEM Object.",
+            "remarks": "Alowwed values of CutType vary depending on the ITM's Pattern Number."
+          }
+        },
+        {
+          "id": "Dampers",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the number of Dampers in the DAMPER Array of the ITEM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Damper",
+          "returns": [
+            "DAMPER[]"
+          ],
+          "info": {
+            "desc": "If applicable, this gets an array of DAMPER Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Dampers' property returns a value >= 1 before using Item.Dampers[index#/name]"
+          }
+        },
+        {
+          "id": "DatabaseID",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Database ID property of the ITEM Object."
+          }
+        },
+        {
+          "id": "DBLock",
+          "returns": [
+            "DBLOCKINFO"
+          ],
+          "info": {
+            "desc": "This gets the DBLOCKINFO Object of the ITEM Object."
+          }
+        },
+        {
+          "id": "Decoiler",
+          "returns": [
+            "DECOILERINFO"
+          ],
+          "info": {
+            "desc": "This gets the DECOILERINFO Object of the ITEM Object."
+          }
+        },
+        {
+          "id": "Description",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Description of the ITEM Object."
+          }
+        },
+        {
+          "id": "Dims",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the number of Dimensions in the DIM Array of the ITEM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Dim",
+          "returns": [
+            "DIM[]"
+          ],
+          "info": {
+            "desc": "If applicable, this gets an array of DIM Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Dims' property returns a value >= 1 before using Item.Dim[index#/name]"
+          }
+        },
+        {
+          "id": "DimSide",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Dimension Side Flag of the ITEM Object.",
+            "remarks": "Possible values are 'Inside', 'Outside' and 'None'.\nIf DoubleWall, this flag controls whether dimensions are inside or outside sizes.\nIf not DoubleWall and Insulation is inside, this also controls whether dimensions\nare inside or outside sizes. This setting is remembered seperately for DoubleWall\nor not DoubleWall. Ensure DoubleWall is set correctly before changing."
+          }
+        },
+        {
+          "id": "DimSideLock",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the Lock Status of the DimSide Flag of the ITEM Object."
+          }
+        },
+        {
+          "id": "DoubleWall",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the DoubleWall Flag of the ITEM Object."
+          }
+        },
+        {
+          "id": "Drawing",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Drawing property of the ITEM Object."
+          }
+        },
+        {
+          "id": "DWLock",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the Lock Status for the DoubleWall Flag of the ITEM Object."
+          }
+        },
+        {
+          "id": "ETag",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the E-Tag property of the ITEM Object."
+          }
+        },
+        {
+          "id": "ExtraETime",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Extra Install Time of the ITEM Object.",
+            "remarks": "The 'E' in ETime stands for 'Erection' or Installation Time.\nExtra ETime is expressed in terms of units specified by the ExtraETimeUnits property."
+          }
+        },
+        {
+          "id": "ExtraETimeRate",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Extra Install Time Rate of the ITEM Object.",
+            "remarks": "The 'E' in ETime stands for 'Erection' or Installation Time.\nExtraETimeRate can be specified by Rate 'Name' or Index."
+          }
+        },
+        {
+          "id": "ExtraETimeUnits",
+          "returns": [
+            "TIMEUNITS"
+          ],
+          "info": {
+            "desc": "Get/Set the Extra Install Time Units of the ITEM Object.",
+            "remarks": "The 'E' in ETime stands for 'Erection' or Installation Time."
+          }
+        },
+        {
+          "id": "ExtraFTime",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Extra Fabrication Time of the ITEM Object.",
+            "remarks": "The 'F' in FTime stands for 'Fabrication'.\nExtra FTime is expressed in terms of units specified by the ExtraFTimeUnits property."
+          }
+        },
+        {
+          "id": "ExtraFTimeRate",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Extra Fabrication Time Rate of the ITEM Object.",
+            "remarks": "The 'F' in FTime stands for 'Fabrication'.\nExtraFTimeRate can be specified by Rate 'Name' or Index."
+          }
+        },
+        {
+          "id": "ExtraFTimeUnits",
+          "returns": [
+            "TIMEUNITS"
+          ],
+          "info": {
+            "desc": "Get/Set the Extra Fabrication Time Units of the ITEM Object.",
+            "remarks": "The 'F' in FTime stands for 'Fabrication'."
+          }
+        },
+        {
+          "id": "FabTable",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Fabrication Table Name property of the ITEM Object.",
+            "remarks": "Only the Table Name is given, not the Group. Autodesk documentation INCORRECTLY\nindicates the Table Name includes the Group (e.g. 'Group: Name'). Value is subject to\nchange if this Autodesk defect is corrected in future releases."
+          }
+        },
+        {
+          "id": "FabTableLock",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the Lock Status of the Fabrication Table property of the ITEM Object."
+          }
+        },
+        {
+          "id": "Facing",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Facing Name of the ITEM Object.",
+            "remarks": "Facing Name only is given. Facing Group is not given as part of the value."
+          }
+        },
+        {
+          "id": "FacingLock",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the Lock Status of the Facing property of the ITEM Object."
+          }
+        },
+        {
+          "id": "Filename",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the ITM Filename of the ITEM Object.",
+            "remarks": "Filename is given without the ITM file extension."
+          }
+        },
+        {
+          "id": "FixRelative",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the FixRelative Flag of the ITEM Object."
+          }
+        },
+        {
+          "id": "Gauge",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Material Gauge of the ITEM Object.",
+            "remarks": "For Material Types 'Linear Ductwork' and 'For Machines', Gauge gives the Material Thickness.\nFor Material Types 'Pipework', 'Electrical Containment' and 'Undefined' Gauge gives the\nMaterial Index Number as entered in the material (e.g. May be a decimal)."
+          }
+        },
+        {
+          "id": "GaugeLock",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the Lock Status of the Gauge property of the ITEM Object."
+          }
+        },
+        {
+          "id": "Guid",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get the 32-Bit GUID Scan Code of the ITEM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Guid64",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get the 64-Bit GUID Scan Code of the ITEM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Handle",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the Handle of the ITEM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "HasProduct",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get the HasProduct Flag of the ITEM Object.",
+            "readonly": true,
+            "remarks": "A value of True or 0 indicates the ITEM is product listed."
+          }
+        },
+        {
+          "id": "InsSpec",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Insualtion Specification Group & Name (e.g. 'Group: Name') of the ITEM Object.",
+            "remarks": "Property may also be set to 'Not Set' or 'Off' preset values."
+          }
+        },
+        {
+          "id": "InstallTable",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Installation Table Name property of the ITEM Object.",
+            "remarks": "Only the Table Name is given, not the Group. Autodesk documentation INCORRECTLY\nindicates the Table Name includes the Group (e.g. 'Group: Name'). Value is subject to\nchange if Autodesk defect is corrected in future releases."
+          }
+        },
+        {
+          "id": "InstallTableLock",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the Lock Status of the InstallTable property of the ITEM OBject."
+          }
+        },
+        {
+          "id": "Insulation",
+          "returns": [
+            "INSULATION"
+          ],
+          "info": {
+            "desc": "Get Insulation Object of the ITEM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "ISpecLock",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the Lock Status of the Insualtion Specification property of the ITEM Object."
+          }
+        },
+        {
+          "id": "Library",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get the Library property of the ITEM OBject.",
+            "readonly": true,
+            "remarks": "The dominant library for the ITM. Possible values are 'Ductboard', 'Electrical', 'Equipment',\n'Fabrication', 'Flat Oval', Free Entry', 'Furniture', 'Pipework', 'Profiled', 'Rectangular',\n'Round', 'Standard', 'Structure', 'Sub Assembly' or 'Unknown'."
+          }
+        },
+        {
+          "id": "Lifespan",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Lifespan (in Years) of the ITEM Object."
+          }
+        },
+        {
+          "id": "Links",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the number of Links in the LINK Array of the ITEM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Link",
+          "returns": [
+            "LINK[]"
+          ],
+          "info": {
+            "desc": "If applicable, this gets an array of LINK Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Links' property returns a value >= 1 before using Item.Link[index#/name]"
+          }
+        },
+        {
+          "id": "ManyOldStatus",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the number of Old Statuses in the History of the ITEM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "MatAbrv",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get Material Abreviation of the ITEM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Material",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Material Name & Group (e.g. 'Group: Name') of the ITEM Object."
+          }
+        },
+        {
+          "id": "NestPriority",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Nest Priority of the ITEM Object.",
+            "remarks": "Items with a higher number nest first giving preference to those itesm in the nesting process."
+          }
+        },
+        {
+          "id": "Notes",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Notes property of the ITEM Object."
+          }
+        },
+        {
+          "id": "Number",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Number property of the ITEM Object."
+          }
+        },
+        {
+          "id": "OldStatus",
+          "returns": [
+            "STATUS[]"
+          ],
+          "info": {
+            "desc": "If applicable, this gets an array of STATUS Objects of the ITEM Object."
+          }
+        },
+        {
+          "id": "OperatingCost",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Operating Cost (per Year) of the ITEM Object."
+          }
+        },
+        {
+          "id": "Options",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the number of Options in the OPTION Array of the ITEM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Option",
+          "returns": [
+            "OPTION[]"
+          ],
+          "info": {
+            "desc": "If applicable, this gets an array of OPTION Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Options' property returns a value >= 1 before using Item.Option[index#/name]"
+          }
+        },
+        {
+          "id": "Order",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Order property of the ITEM Object."
+          }
+        },
+        {
+          "id": "Pallet",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Pallet property of the ITEM Object."
+          }
+        },
+        {
+          "id": "PartsCut",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the Number of Parts to Cut of the ITEM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "PartCut",
+          "returns": [
+            "BOOLEAN[]"
+          ],
+          "info": {
+            "desc": "If applicable, this gets an array of Cut Statuses of the ITEM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Path",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Path property of the ITEM Object.",
+            "remarks": "Path includes the terminating slash (/). Note that folder seperators are\nforward slashes (/) as opposed to backslashes (/) which are more commonly seen."
+          }
+        },
+        {
+          "id": "PatNo",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the Pattern Number of rthe ITEM Object.",
+            "readonly": true,
+            "remarks": "Unlike CID, Pattern Number is the true Pattern for the ITM and can not be changed.\nThis property is only available in Fabrication 2019.1 versions and later."
+          }
+        },
+        {
+          "id": "PriceList",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Price List Name & Group (e.g. 'Group: Name') of the ITEM Object."
+          }
+        },
+        {
+          "id": "PriceTableLock",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the Lock Status for the Price List property of the ITEM Object."
+          }
+        },
+        {
+          "id": "Product",
+          "returns": [
+            "PRODUCTINFO"
+          ],
+          "info": {
+            "desc": "This gets the PRODUCTINFO Object of the ITEM Object."
+          }
+        },
+        {
+          "id": "Qty",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Item Quantity property of the ITEM Object."
+          }
+        },
+        {
+          "id": "Scale",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Scale Factor of the ITEM Object."
+          }
+        },
+        {
+          "id": "Sealant",
+          "returns": [
+            "SEALENT"
+          ],
+          "info": {
+            "desc": "This gets the SEALENT Object of the ITEM Object."
+          }
+        },
+        {
+          "id": "Seams",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "If applicable gets the number of Seams in the SEAM Array of the ITEM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Seam",
+          "returns": [
+            "SEAM[]"
+          ],
+          "info": {
+            "desc": "If applicable, this gets an array of SEAM Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Seams' property returns a value >= 1 before using Item.Seam[index#]"
+          }
+        },
+        {
+          "id": "Section",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Section Name & Group (e.g. 'Group: Name') of the ITEM Object.",
+            "remarks": "Can be set by specifying 'Name' or 'Group:Name'. Can be reset by setting\nto 'None' or empty string ''."
+          }
+        },
+        {
+          "id": "Service",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Service Name & Group (e.g. 'Group: Name') of the ITEM Object."
+          }
+        },
+        {
+          "id": "ServiceType",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the ServiceType property of the ITEM Object.",
+            "remarks": "ServiceType can be set using the 'Name' or 'Index' of the desired ServieType."
+          }
+        },
+        {
+          "id": "SkinConnector",
+          "returns": [
+            "CONNECTOR[]"
+          ],
+          "info": {
+            "desc": "If applicable, this gets an array of Skin CONNECTOR Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Connectors' property returns a value >= 1 before using Item.SkinConnector[index#]"
+          }
+        },
+        {
+          "id": "SkinDecoiler",
+          "returns": [
+            "DECOILERINFO"
+          ],
+          "info": {
+            "desc": "This gets the Skin DECOILERINFO Object of the ITEM Object."
+          }
+        },
+        {
+          "id": "SkinGauge",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Skin Gauge (thinckness) for the Skin Material of the ITEM Object.",
+            "remarks": "Only valid if DoubleWall flag is set."
+          }
+        },
+        {
+          "id": "SkinMaterial",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Skin Material Name & Group (e.g. 'Group: Name') of the ITEM Object.",
+            "remarks": "Only valid if DoubleWall flag is set."
+          }
+        },
+        {
+          "id": "SkinMaterialLock",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the Lock Status flag for the Skin Material property of the ITEM Object."
+          }
+        },
+        {
+          "id": "SkinSeam",
+          "returns": [
+            "SEAM[]"
+          ],
+          "info": {
+            "desc": "If applicable this gets an array of Skin SEAM Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Seams' property returns a value >= 1 before using Item.SkinSeam[index#]"
+          }
+        },
+        {
+          "id": "SkinSide",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Skin Side property of the ITEM OBject.",
+            "remarks": "Only valid if DoubleWall flag is set. Possible values are 'Inside' or 'Outside'."
+          }
+        },
+        {
+          "id": "Specification",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Specification Name & Group (e.g. 'Group: Name') of the ITEM Object.",
+            "remarks": "Can be set by specifying 'Name' or 'Group:Name'. Can be reset by setting\nto 'None' or empty string ''."
+          }
+        },
+        {
+          "id": "SpecLock",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the Lock Status flag for the Specification property of the ITEM Object."
+          }
+        },
+        {
+          "id": "Splitters",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the number of Splitters in the SPLITTER Array of the ITEM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Splitter",
+          "returns": [
+            "SPLITTER[]"
+          ],
+          "info": {
+            "desc": "If applicable this gets an array of SPLITTER Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Splitters' property returns a value >= 1 before using Item.Splitter[index#]"
+          }
+        },
+        {
+          "id": "Spool",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Spool Name property of the ITEM Object."
+          }
+        },
+        {
+          "id": "SpoolColour",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Spool Color property of the ITEM Object."
+          }
+        },
+        {
+          "id": "Status",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Status property of the ITEM Object.",
+            "remarks": "Status can be set using the 'Name' or 'Index' of the desired Status."
+          }
+        },
+        {
+          "id": "Stiffeners",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the number of Stiffeners in the STIFFENER Array of the ITEM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Stiffener",
+          "returns": [
+            "STIFFENER[]"
+          ],
+          "info": {
+            "desc": "If applicable this gets an array of STIFFENER Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Stiffeners' property returns a value >= 1 before using Item.Stiffener[index#]"
+          }
+        },
+        {
+          "id": "StructureType",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Set Structure Type of ITEM Object.",
+            "remarks": "StructureType can be set using the 'Name' or 'Index' however this property is not able to be\nread. It can only be set."
+          }
+        },
+        {
+          "id": "SubItems",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the number of Sub Items in a Sub Assembly for the SUBITEM Array of the ITEM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "SubItem",
+          "returns": [
+            "ITEM[]"
+          ],
+          "info": {
+            "desc": "If applicable this gets an array of ITEM Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'SubItems' property returns a value >= 1 before using Item.SubItem[index#]"
+          }
+        },
+        {
+          "id": "Support",
+          "returns": [
+            "SUPPORT"
+          ],
+          "info": {
+            "desc": "This gets the SUPPORT Object of the ITEM Object."
+          }
+        },
+        {
+          "id": "Type",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get the Type property of the ITEM Object.",
+            "readonly": true,
+            "remarks": "Property can list one or more library types combined and seperated by a slash. Possible values\nare 'Ductboard','Electrical', 'Equipment', 'Fabrication', 'Flat Oval', Free Entry', 'Furniture',\n'Pipework', 'Profiled', 'Rectangular', 'Round', 'Standard', 'Structure', 'Sub Assembly' or 'Unknown'."
+          }
+        },
+        {
+          "id": "Weight",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Weight (in base units) of the ITEM Object.",
+            "remarks": "If Costed by Length, Weight will be returned as per Meter/Foot otherwise by Quantity."
+          }
+        },
+        {
+          "id": "WeightLock",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the Lock Status of the Weight property of the ITEM Object."
+          }
+        },
+        {
+          "id": "WireGauge",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Material Wire Gauge of the ITEM Object."
+          }
+        },
+        {
+          "id": "Zone",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "GetSet the Zone property of the ITEM Object."
+          }
+        }
+      ],
+      "link": "https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/ITEMSTRUCT-Object.md"
+    },
+    "ITEM": {
+      "id": "ITEM",
+      "constructor": null,
+      "methods": [
+        {
+          "id": "AddCustomData",
+          "returns": [
+            "VOID"
+          ],
+          "args": [
+            {
+              "id": "NameOrIndex",
+              "types": [
+                "STRING",
+                "NUMBER"
+              ],
+              "optional": false,
+              "notes": ""
+            }
+          ],
+          "info": {
+            "desc": "Dynamically adds Custom Data to the item (for 'User' custom data types)",
+            "args": {
+              "NameOrIndex": ""
+            },
+            "returns": "Nothing",
+            "remarks": "This function merely added the specified 'User' Custom Data 'Field' to the Item. Once the\nfield is added, you can set a value using the Custom Data property Item.CustomData[name/index#].Value"
+          }
+        },
+        {
+          "id": "BitmapFile",
+          "returns": [
+            "STRING"
+          ],
+          "args": [
+            {
+              "id": "ItmFilePath",
+              "types": [
+                "STRING"
+              ],
+              "optional": false,
+              "notes": ""
+            }
+          ],
+          "info": {
+            "desc": "Gets the file name of the Image used for a ITM.",
+            "args": {
+              "ItmFilePath": ""
+            },
+            "returns": "String representing path and name of the image file."
+          }
+        },
+        {
+          "id": "CanDoubleWall",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [],
+          "info": {
+            "desc": "Indicates if Item supports DoubleWall entry or not.",
+            "returns": "Boolean"
+          }
+        },
+        {
+          "id": "CanRotary",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [],
+          "info": {
+            "desc": "Indicates if Item supports Rotary Nesting or not.",
+            "returns": "Boolean"
+          }
+        },
+        {
+          "id": "EndLocation",
+          "returns": [
+            "STRING"
+          ],
+          "args": [
+            {
+              "id": "ConnectorIndex",
+              "types": [
+                "NUMBER"
+              ],
+              "optional": false,
+              "notes": "This index number is associated with the connector number shown in the edit item dialog"
+            },
+            {
+              "id": "XYZ",
+              "types": [
+                "STRING"
+              ],
+              "optional": true,
+              "notes": "Optional string representing an X, Y or Z portion of the connector centerline coordinate."
+            }
+          ],
+          "info": {
+            "desc": "Gets a string representing the location of a connectors X, Y and/or Z value.",
+            "args": {
+              "ConnectorIndex": "This index number is associated with the connector number shown in the edit item dialog",
+              "XYZ": "Optional string representing an X, Y or Z portion of the connector centerline coordinate."
+            },
+            "returns": "String representing the X, Y, Z or all 3 if XYZ was not provided.",
+            "remarks": "Supported values are...'XYZ', 'X', 'Y', 'Z', 'TOP' and 'BTM'.\nThe string 'XYZ', missing parameters, empty strings or any other non supported value returns\na string representing the X, Y & Z coordinates seperated by spaces (e.g. '1.25 4.54 0.00').\nIf the string 'X', 'Y' or 'Z' is speified, a string representing just tha compoentent of the\nendpoint is returned.\nIf the string 'TOP' or 'BTM' is specified, a string representing the Z coordinate of the connector's\nTop or Bottom is returned."
+          }
+        },
+        {
+          "id": "Level",
+          "returns": [
+            "NUMBER"
+          ],
+          "args": [
+            {
+              "id": "LevelName",
+              "types": [
+                "STRING"
+              ],
+              "optional": false,
+              "notes": "Allowed values are \"Soffit\" and \"Floor\""
+            }
+          ],
+          "info": {
+            "desc": "Get the Level value of the specified Item based on it's section.",
+            "args": {
+              "LevelName": "Allowed values are \"Soffit\" and \"Floor\""
+            },
+            "returns": "Number representing the Soffit/Floor level of the Item's Section."
+          }
+        },
+        {
+          "id": "Load",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [
+            {
+              "id": "ItemFile",
+              "types": [
+                "STRING"
+              ],
+              "optional": false,
+              "notes": "String of full path and file name including '.ITM' extension."
+            }
+          ],
+          "info": {
+            "desc": "Loads an ITM file from disk",
+            "args": {
+              "ItemFile": "String of full path and file name including '.ITM' extension."
+            },
+            "returns": "Boolean Flag indicating if loading of ITM file was sucessful."
+          }
+        },
+        {
+          "id": "RefreshCosts",
+          "returns": [
+            "VOID"
+          ],
+          "args": [],
+          "info": {
+            "desc": "Refreshes all costs to Item",
+            "returns": "Nothing",
+            "remarks": "Call after making any change to the Item that may affect cost."
+          }
+        },
+        {
+          "id": "RemoveHoles",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [],
+          "info": {
+            "desc": "Remove all holes added to Item.",
+            "returns": "Boolean Flag indicating if hole removal was sucessful."
+          }
+        },
+        {
+          "id": "Save",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [
+            {
+              "id": "ItemFile",
+              "types": [
+                "STRING"
+              ],
+              "optional": false,
+              "notes": ""
+            }
+          ],
+          "info": {
+            "desc": "Save an ITM file to disk",
+            "args": {
+              "ItemFile": ""
+            },
+            "returns": "Boolean Flag indicating if saving of ITM file was sucessful."
+          }
+        },
+        {
+          "id": "SetFlow",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [
+            {
+              "id": "FlowType",
+              "types": [
+                "NUMBER"
+              ],
+              "optional": false,
+              "notes": "Number between 0 and 3. 0='Not Set', 1='Supply', 2='Return', 3='None'"
+            },
+            {
+              "id": "FlowValue",
+              "types": [
+                "NUMBER"
+              ],
+              "optional": false,
+              "notes": "Number representing flow value in standard flow units."
+            }
+          ],
+          "info": {
+            "desc": "Set Flow Type and Value on an Item.",
+            "args": {
+              "FlowType": "Number between 0 and 3. 0='Not Set', 1='Supply', 2='Return', 3='None'",
+              "FlowValue": "Number representing flow value in standard flow units."
+            },
+            "returns": "Boolean Flag indicating sucess or failure. Failure implies an invalid type."
+          }
+        },
+        {
+          "id": "Update",
+          "returns": [
+            "VOID"
+          ],
+          "args": [],
+          "info": {
+            "desc": "Refreshes Item's developments.",
+            "returns": "Nothing",
+            "remarks": "Call after making any change to the Item that may developments, specifiction or model"
+          }
+        },
+        {
+          "id": "WriteDXF",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [
+            {
+              "id": "DXFFile",
+              "types": [
+                "STRING"
+              ],
+              "optional": false,
+              "notes": "String of full path and file name to export"
+            },
+            {
+              "id": "IncludeLeads",
+              "types": [
+                "BOOLEAN"
+              ],
+              "optional": true,
+              "notes": "Optional Boolead Flag indicating if Lead Ins/Outs should be written to DXF."
+            }
+          ],
+          "info": {
+            "desc": "Save Item's Developments as DXF File(s).",
+            "args": {
+              "DXFFile": "String of full path and file name to export",
+              "IncludeLeads": "Optional Boolead Flag indicating if Lead Ins/Outs should be written to DXF."
+            },
+            "remarks": "File to save should exclude the '.DXF' file extension.\nFlag for writing Lead Ins/Outs defaults to TRUE if ommited.\nEach development is appended with a '-1', '-2', '-3', etc. suffix to the specified file name."
+          }
+        }
+      ],
+      "properties": [
+        {
+          "id": "Airturns",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the number of AirTurns in the AIRTURN Array of the ITEM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Airturn",
+          "returns": [
+            "AIRTURN[]"
+          ],
+          "info": {
+            "desc": "If applicable, this gets an array of AIRTURN Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Airturns' property returns a value >= 1 before using Item.Airturn[index#/name]"
+          }
+        },
+        {
+          "id": "Alias",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Alias property of the ITEM Object."
+          }
+        },
+        {
+          "id": "Alternate",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Alternate property of the ITEM Object."
+          }
+        },
+        {
+          "id": "Bitmap",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Bitmap (Image File Name) of the ITEM Object.",
+            "remarks": "May be full, relative Path, just Filename or blank for default. May be a BMP or PNG image type.\nPNG image type recommended for reduced file size and performance."
+          }
+        },
+        {
+          "id": "BoughtOut",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the BoughtOut Flag of the ITEM Object."
+          }
+        },
+        {
+          "id": "Box",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Box property of the ITEM Object."
+          }
+        },
+        {
+          "id": "ButtonAlias",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Button Code Alias that the ITEM Object was taken off with."
+          }
+        },
+        {
+          "id": "ButtonCode",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the ButtonCode that the ITEM Object was taken off with."
+          }
+        },
+        {
+          "id": "CADBlock",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the CADBlock name associated with the ITEM Object."
+          }
+        },
+        {
+          "id": "Catalogue",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get the Catalog Flag of the ITEM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "CID",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the CID number of the ITEM Object.",
+            "remarks": "CID is not guarenteed to be the same as the Pattern Number. Best practice is to not\nchange the CID value which defaults to the Pattern Number without very specific reasons and\nknowledge of it's impact."
+          }
+        },
+        {
+          "id": "Comment",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Comment text of the ITEM Object.",
+            "remarks": "Supports multi-line text and may contain Carriage Returns."
+          }
+        },
+        {
+          "id": "Connectors",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the number of Connectors in the CONNECTOR Array of the ITEM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Connector",
+          "returns": [
+            "CONNECTOR[]"
+          ],
+          "info": {
+            "desc": "If applicable, this gets an array of CONNECTOR Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Connectors' property returns a value >= 1 before using Item.Connector[index#/name]"
+          }
+        },
+        {
+          "id": "CostByLength",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the CostByLength (Cost Units) Flag of the ITEM Object.",
+            "remarks": "Cost Units are set by the CostByLength flag. 0 = Cost by Qty, 1 Cost by Ft."
+          }
+        },
+        {
+          "id": "CostType",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the CostType property of the ITEM Object.",
+            "remarks": "Valid CostType values are...'Demolition', 'Free Issue', 'Normal', 'Relocation' and 'Supply Only'."
+          }
+        },
+        {
+          "id": "CustomData",
+          "returns": [
+            "CUSTOMDEF[]"
+          ],
+          "info": {
+            "desc": "If applicable, this gets an array of CUSTOM DATA Objects for the ITEM Object.",
+            "remarks": "There is no way to itterate over this array, you need to be aware of the custom data indices or names that exist in your database."
+          }
+        },
+        {
+          "id": "CutType",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the CutType property of the ITEM Object.",
+            "remarks": "Alowwed values of CutType vary depending on the ITM's Pattern Number."
+          }
+        },
+        {
+          "id": "Dampers",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the number of Dampers in the DAMPER Array of the ITEM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Damper",
+          "returns": [
+            "DAMPER[]"
+          ],
+          "info": {
+            "desc": "If applicable, this gets an array of DAMPER Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Dampers' property returns a value >= 1 before using Item.Dampers[index#/name]"
+          }
+        },
+        {
+          "id": "DatabaseID",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Database ID property of the ITEM Object."
+          }
+        },
+        {
+          "id": "DBLock",
+          "returns": [
+            "DBLOCKINFO"
+          ],
+          "info": {
+            "desc": "This gets the DBLOCKINFO Object of the ITEM Object."
+          }
+        },
+        {
+          "id": "Decoiler",
+          "returns": [
+            "DECOILERINFO"
+          ],
+          "info": {
+            "desc": "This gets the DECOILERINFO Object of the ITEM Object."
+          }
+        },
+        {
+          "id": "Description",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Description of the ITEM Object."
+          }
+        },
+        {
+          "id": "Dims",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the number of Dimensions in the DIM Array of the ITEM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Dim",
+          "returns": [
+            "DIM[]"
+          ],
+          "info": {
+            "desc": "If applicable, this gets an array of DIM Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Dims' property returns a value >= 1 before using Item.Dim[index#/name]"
+          }
+        },
+        {
+          "id": "DimSide",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Dimension Side Flag of the ITEM Object.",
+            "remarks": "Possible values are 'Inside', 'Outside' and 'None'.\nIf DoubleWall, this flag controls whether dimensions are inside or outside sizes.\nIf not DoubleWall and Insulation is inside, this also controls whether dimensions\nare inside or outside sizes. This setting is remembered seperately for DoubleWall\nor not DoubleWall. Ensure DoubleWall is set correctly before changing."
+          }
+        },
+        {
+          "id": "DimSideLock",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the Lock Status of the DimSide Flag of the ITEM Object."
+          }
+        },
+        {
+          "id": "DoubleWall",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the DoubleWall Flag of the ITEM Object."
+          }
+        },
+        {
+          "id": "Drawing",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Drawing property of the ITEM Object."
+          }
+        },
+        {
+          "id": "DWLock",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the Lock Status for the DoubleWall Flag of the ITEM Object."
+          }
+        },
+        {
+          "id": "ETag",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the E-Tag property of the ITEM Object."
+          }
+        },
+        {
+          "id": "ExtraETime",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Extra Install Time of the ITEM Object.",
+            "remarks": "The 'E' in ETime stands for 'Erection' or Installation Time.\nExtra ETime is expressed in terms of units specified by the ExtraETimeUnits property."
+          }
+        },
+        {
+          "id": "ExtraETimeRate",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Extra Install Time Rate of the ITEM Object.",
+            "remarks": "The 'E' in ETime stands for 'Erection' or Installation Time.\nExtraETimeRate can be specified by Rate 'Name' or Index."
+          }
+        },
+        {
+          "id": "ExtraETimeUnits",
+          "returns": [
+            "TIMEUNITS"
+          ],
+          "info": {
+            "desc": "Get/Set the Extra Install Time Units of the ITEM Object.",
+            "remarks": "The 'E' in ETime stands for 'Erection' or Installation Time."
+          }
+        },
+        {
+          "id": "ExtraFTime",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Extra Fabrication Time of the ITEM Object.",
+            "remarks": "The 'F' in FTime stands for 'Fabrication'.\nExtra FTime is expressed in terms of units specified by the ExtraFTimeUnits property."
+          }
+        },
+        {
+          "id": "ExtraFTimeRate",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Extra Fabrication Time Rate of the ITEM Object.",
+            "remarks": "The 'F' in FTime stands for 'Fabrication'.\nExtraFTimeRate can be specified by Rate 'Name' or Index."
+          }
+        },
+        {
+          "id": "ExtraFTimeUnits",
+          "returns": [
+            "TIMEUNITS"
+          ],
+          "info": {
+            "desc": "Get/Set the Extra Fabrication Time Units of the ITEM Object.",
+            "remarks": "The 'F' in FTime stands for 'Fabrication'."
+          }
+        },
+        {
+          "id": "FabTable",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Fabrication Table Name property of the ITEM Object.",
+            "remarks": "Only the Table Name is given, not the Group. Autodesk documentation INCORRECTLY\nindicates the Table Name includes the Group (e.g. 'Group: Name'). Value is subject to\nchange if this Autodesk defect is corrected in future releases."
+          }
+        },
+        {
+          "id": "FabTableLock",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the Lock Status of the Fabrication Table property of the ITEM Object."
+          }
+        },
+        {
+          "id": "Facing",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Facing Name of the ITEM Object.",
+            "remarks": "Facing Name only is given. Facing Group is not given as part of the value."
+          }
+        },
+        {
+          "id": "FacingLock",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the Lock Status of the Facing property of the ITEM Object."
+          }
+        },
+        {
+          "id": "Filename",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the ITM Filename of the ITEM Object.",
+            "remarks": "Filename is given without the ITM file extension."
+          }
+        },
+        {
+          "id": "FixRelative",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the FixRelative Flag of the ITEM Object."
+          }
+        },
+        {
+          "id": "Gauge",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Material Gauge of the ITEM Object.",
+            "remarks": "For Material Types 'Linear Ductwork' and 'For Machines', Gauge gives the Material Thickness.\nFor Material Types 'Pipework', 'Electrical Containment' and 'Undefined' Gauge gives the\nMaterial Index Number as entered in the material (e.g. May be a decimal)."
+          }
+        },
+        {
+          "id": "GaugeLock",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the Lock Status of the Gauge property of the ITEM Object."
+          }
+        },
+        {
+          "id": "Guid",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get the 32-Bit GUID Scan Code of the ITEM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Guid64",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get the 64-Bit GUID Scan Code of the ITEM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Handle",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the Handle of the ITEM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "HasProduct",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get the HasProduct Flag of the ITEM Object.",
+            "readonly": true,
+            "remarks": "A value of True or 0 indicates the ITEM is product listed."
+          }
+        },
+        {
+          "id": "InsSpec",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Insualtion Specification Group & Name (e.g. 'Group: Name') of the ITEM Object.",
+            "remarks": "Property may also be set to 'Not Set' or 'Off' preset values."
+          }
+        },
+        {
+          "id": "InstallTable",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Installation Table Name property of the ITEM Object.",
+            "remarks": "Only the Table Name is given, not the Group. Autodesk documentation INCORRECTLY\nindicates the Table Name includes the Group (e.g. 'Group: Name'). Value is subject to\nchange if Autodesk defect is corrected in future releases."
+          }
+        },
+        {
+          "id": "InstallTableLock",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the Lock Status of the InstallTable property of the ITEM OBject."
+          }
+        },
+        {
+          "id": "Insulation",
+          "returns": [
+            "INSULATION"
+          ],
+          "info": {
+            "desc": "Get Insulation Object of the ITEM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "ISpecLock",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the Lock Status of the Insualtion Specification property of the ITEM Object."
+          }
+        },
+        {
+          "id": "Library",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get the Library property of the ITEM OBject.",
+            "readonly": true,
+            "remarks": "The dominant library for the ITM. Possible values are 'Ductboard', 'Electrical', 'Equipment',\n'Fabrication', 'Flat Oval', Free Entry', 'Furniture', 'Pipework', 'Profiled', 'Rectangular',\n'Round', 'Standard', 'Structure', 'Sub Assembly' or 'Unknown'."
+          }
+        },
+        {
+          "id": "Lifespan",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Lifespan (in Years) of the ITEM Object."
+          }
+        },
+        {
+          "id": "Links",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the number of Links in the LINK Array of the ITEM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Link",
+          "returns": [
+            "LINK[]"
+          ],
+          "info": {
+            "desc": "If applicable, this gets an array of LINK Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Links' property returns a value >= 1 before using Item.Link[index#/name]"
+          }
+        },
+        {
+          "id": "ManyOldStatus",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the number of Old Statuses in the History of the ITEM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "MatAbrv",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get Material Abreviation of the ITEM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Material",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Material Name & Group (e.g. 'Group: Name') of the ITEM Object."
+          }
+        },
+        {
+          "id": "NestPriority",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Nest Priority of the ITEM Object.",
+            "remarks": "Items with a higher number nest first giving preference to those itesm in the nesting process."
+          }
+        },
+        {
+          "id": "Notes",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Notes property of the ITEM Object."
+          }
+        },
+        {
+          "id": "Number",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Number property of the ITEM Object."
+          }
+        },
+        {
+          "id": "OldStatus",
+          "returns": [
+            "STATUS[]"
+          ],
+          "info": {
+            "desc": "If applicable, this gets an array of STATUS Objects of the ITEM Object."
+          }
+        },
+        {
+          "id": "OperatingCost",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Operating Cost (per Year) of the ITEM Object."
+          }
+        },
+        {
+          "id": "Options",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the number of Options in the OPTION Array of the ITEM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Option",
+          "returns": [
+            "OPTION[]"
+          ],
+          "info": {
+            "desc": "If applicable, this gets an array of OPTION Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Options' property returns a value >= 1 before using Item.Option[index#/name]"
+          }
+        },
+        {
+          "id": "Order",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Order property of the ITEM Object."
+          }
+        },
+        {
+          "id": "Pallet",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Pallet property of the ITEM Object."
+          }
+        },
+        {
+          "id": "PartsCut",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the Number of Parts to Cut of the ITEM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "PartCut",
+          "returns": [
+            "BOOLEAN[]"
+          ],
+          "info": {
+            "desc": "If applicable, this gets an array of Cut Statuses of the ITEM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Path",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Path property of the ITEM Object.",
+            "remarks": "Path includes the terminating slash (/). Note that folder seperators are\nforward slashes (/) as opposed to backslashes (/) which are more commonly seen."
+          }
+        },
+        {
+          "id": "PatNo",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the Pattern Number of rthe ITEM Object.",
+            "readonly": true,
+            "remarks": "Unlike CID, Pattern Number is the true Pattern for the ITM and can not be changed.\nThis property is only available in Fabrication 2019.1 versions and later."
+          }
+        },
+        {
+          "id": "PriceList",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Price List Name & Group (e.g. 'Group: Name') of the ITEM Object."
+          }
+        },
+        {
+          "id": "PriceTableLock",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the Lock Status for the Price List property of the ITEM Object."
+          }
+        },
+        {
+          "id": "Product",
+          "returns": [
+            "PRODUCTINFO"
+          ],
+          "info": {
+            "desc": "This gets the PRODUCTINFO Object of the ITEM Object."
+          }
+        },
+        {
+          "id": "Qty",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Item Quantity property of the ITEM Object."
+          }
+        },
+        {
+          "id": "Scale",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Scale Factor of the ITEM Object."
+          }
+        },
+        {
+          "id": "Sealant",
+          "returns": [
+            "SEALENT"
+          ],
+          "info": {
+            "desc": "This gets the SEALENT Object of the ITEM Object."
+          }
+        },
+        {
+          "id": "Seams",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "If applicable gets the number of Seams in the SEAM Array of the ITEM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Seam",
+          "returns": [
+            "SEAM[]"
+          ],
+          "info": {
+            "desc": "If applicable, this gets an array of SEAM Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Seams' property returns a value >= 1 before using Item.Seam[index#]"
+          }
+        },
+        {
+          "id": "Section",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Section Name & Group (e.g. 'Group: Name') of the ITEM Object.",
+            "remarks": "Can be set by specifying 'Name' or 'Group:Name'. Can be reset by setting\nto 'None' or empty string ''."
+          }
+        },
+        {
+          "id": "Service",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Service Name & Group (e.g. 'Group: Name') of the ITEM Object."
+          }
+        },
+        {
+          "id": "ServiceType",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the ServiceType property of the ITEM Object.",
+            "remarks": "ServiceType can be set using the 'Name' or 'Index' of the desired ServieType."
+          }
+        },
+        {
+          "id": "SkinConnector",
+          "returns": [
+            "CONNECTOR[]"
+          ],
+          "info": {
+            "desc": "If applicable, this gets an array of Skin CONNECTOR Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Connectors' property returns a value >= 1 before using Item.SkinConnector[index#]"
+          }
+        },
+        {
+          "id": "SkinDecoiler",
+          "returns": [
+            "DECOILERINFO"
+          ],
+          "info": {
+            "desc": "This gets the Skin DECOILERINFO Object of the ITEM Object."
+          }
+        },
+        {
+          "id": "SkinGauge",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Skin Gauge (thinckness) for the Skin Material of the ITEM Object.",
+            "remarks": "Only valid if DoubleWall flag is set."
+          }
+        },
+        {
+          "id": "SkinMaterial",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Skin Material Name & Group (e.g. 'Group: Name') of the ITEM Object.",
+            "remarks": "Only valid if DoubleWall flag is set."
+          }
+        },
+        {
+          "id": "SkinMaterialLock",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the Lock Status flag for the Skin Material property of the ITEM Object."
+          }
+        },
+        {
+          "id": "SkinSeam",
+          "returns": [
+            "SEAM[]"
+          ],
+          "info": {
+            "desc": "If applicable this gets an array of Skin SEAM Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Seams' property returns a value >= 1 before using Item.SkinSeam[index#]"
+          }
+        },
+        {
+          "id": "SkinSide",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Skin Side property of the ITEM OBject.",
+            "remarks": "Only valid if DoubleWall flag is set. Possible values are 'Inside' or 'Outside'."
+          }
+        },
+        {
+          "id": "Specification",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Specification Name & Group (e.g. 'Group: Name') of the ITEM Object.",
+            "remarks": "Can be set by specifying 'Name' or 'Group:Name'. Can be reset by setting\nto 'None' or empty string ''."
+          }
+        },
+        {
+          "id": "SpecLock",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the Lock Status flag for the Specification property of the ITEM Object."
+          }
+        },
+        {
+          "id": "Splitters",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the number of Splitters in the SPLITTER Array of the ITEM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Splitter",
+          "returns": [
+            "SPLITTER[]"
+          ],
+          "info": {
+            "desc": "If applicable this gets an array of SPLITTER Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Splitters' property returns a value >= 1 before using Item.Splitter[index#]"
+          }
+        },
+        {
+          "id": "Spool",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Spool Name property of the ITEM Object."
+          }
+        },
+        {
+          "id": "SpoolColour",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Spool Color property of the ITEM Object."
+          }
+        },
+        {
+          "id": "Status",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Status property of the ITEM Object.",
+            "remarks": "Status can be set using the 'Name' or 'Index' of the desired Status."
+          }
+        },
+        {
+          "id": "Stiffeners",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the number of Stiffeners in the STIFFENER Array of the ITEM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Stiffener",
+          "returns": [
+            "STIFFENER[]"
+          ],
+          "info": {
+            "desc": "If applicable this gets an array of STIFFENER Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'Stiffeners' property returns a value >= 1 before using Item.Stiffener[index#]"
+          }
+        },
+        {
+          "id": "StructureType",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Set Structure Type of ITEM Object.",
+            "remarks": "StructureType can be set using the 'Name' or 'Index' however this property is not able to be\nread. It can only be set."
+          }
+        },
+        {
+          "id": "SubItems",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the number of Sub Items in a Sub Assembly for the SUBITEM Array of the ITEM Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "SubItem",
+          "returns": [
+            "ITEM[]"
+          ],
+          "info": {
+            "desc": "If applicable this gets an array of ITEM Objects of the ITEM Object.",
+            "remarks": "Always check to see if the 'SubItems' property returns a value >= 1 before using Item.SubItem[index#]"
+          }
+        },
+        {
+          "id": "Support",
+          "returns": [
+            "SUPPORT"
+          ],
+          "info": {
+            "desc": "This gets the SUPPORT Object of the ITEM Object."
+          }
+        },
+        {
+          "id": "Type",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get the Type property of the ITEM Object.",
+            "readonly": true,
+            "remarks": "Property can list one or more library types combined and seperated by a slash. Possible values\nare 'Ductboard','Electrical', 'Equipment', 'Fabrication', 'Flat Oval', Free Entry', 'Furniture',\n'Pipework', 'Profiled', 'Rectangular', 'Round', 'Standard', 'Structure', 'Sub Assembly' or 'Unknown'."
+          }
+        },
+        {
+          "id": "Weight",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Weight (in base units) of the ITEM Object.",
+            "remarks": "If Costed by Length, Weight will be returned as per Meter/Foot otherwise by Quantity."
+          }
+        },
+        {
+          "id": "WeightLock",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the Lock Status of the Weight property of the ITEM Object."
+          }
+        },
+        {
+          "id": "WireGauge",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Material Wire Gauge of the ITEM Object."
+          }
+        },
+        {
+          "id": "Zone",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "GetSet the Zone property of the ITEM Object."
+          }
+        }
+      ],
+      "link": "https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/ITEM-Object.md"
+    },
+    "FILELOCATOR": {
+      "id": "FILELOCATOR",
+      "constructor": {
+        "id": "constructor",
+        "returns": [
+          ""
+        ],
+        "args": [
+          {
+            "id": "RootPath",
+            "types": [
+              "STRING"
+            ],
+            "optional": true,
+            "notes": "Optional String of Root Path to Search."
+          },
+          {
+            "id": "SearchWildcard",
+            "types": [
+              "STRING"
+            ],
+            "optional": true,
+            "notes": "Optional String Wildcard to match against."
+          },
+          {
+            "id": "SearchFiles",
+            "types": [
+              "BOOLEAN"
+            ],
+            "optional": true,
+            "notes": "Optional Boolean Flag to search against Files."
+          },
+          {
+            "id": "SearchFolders",
+            "types": [
+              "BOOLEAN"
+            ],
+            "optional": true,
+            "notes": "Optional Boolean Flag to search against Folders."
+          }
+        ],
+        "info": {
+          "desc": "Constructs a FileLocator Object.",
+          "args": {
+            "RootPath": "Optional String of Root Path to Search.",
+            "SearchWildcard": "Optional String Wildcard to match against.",
+            "SearchFiles": "Optional Boolean Flag to search against Files.",
+            "SearchFolders": "Optional Boolean Flag to search against Folders."
+          },
+          "returns": "Nothing.",
+          "remarks": "If optional parameters are not specified when constructing the FILELOCATOR object,\nuse the FILELOCATOR.Scan method to specify them."
+        }
+      },
+      "methods": [
+        {
+          "id": "Scan",
+          "returns": [
+            "NUMBER"
+          ],
+          "args": [
+            {
+              "id": "RootPath",
+              "types": [
+                "STRING"
+              ],
+              "optional": false,
+              "notes": "Optional String of Root Path to Search."
+            },
+            {
+              "id": "SearchWildcard",
+              "types": [
+                "STRING"
+              ],
+              "optional": false,
+              "notes": "Optional String Wildcard to match against."
+            },
+            {
+              "id": "SearchFiles",
+              "types": [
+                "BOOLEAN"
+              ],
+              "optional": false,
+              "notes": "Optional Boolean Flag to search against Files."
+            },
+            {
+              "id": "SearchFolders",
+              "types": [
+                "BOOLEAN"
+              ],
+              "optional": false,
+              "notes": "Optional Boolean Flag to search against Folders."
+            }
+          ],
+          "info": {
+            "desc": "Scan a root path for Files and/or Folders matching a Wildcard string.",
+            "args": {
+              "RootPath": "Optional String of Root Path to Search.",
+              "SearchWildcard": "Optional String Wildcard to match against.",
+              "SearchFiles": "Optional Boolean Flag to search against Files.",
+              "SearchFolders": "Optional Boolean Flag to search against Folders."
+            },
+            "returns": "Number indicating how many files and/or folders matched the search.",
+            "remarks": "This function is not needed if the FILELOCATOR Object Constructor was called with parameters specifying the\npath, search wildcard, file and folder search flags."
+          }
+        }
+      ],
+      "properties": [
+        {
+          "id": "File",
+          "returns": [
+            "STRING[]"
+          ],
+          "info": {
+            "desc": "This gets an array of File Names of found files for the FILELOCATOR Object."
+          }
+        },
+        {
+          "id": "FileCount",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the Number of Files that were found for the FILELOCATOR Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Folder",
+          "returns": [
+            "STRING[]"
+          ],
+          "info": {
+            "desc": "This gets an array of Folder Names of found folders for the FILELOCATOR Object."
+          }
+        },
+        {
+          "id": "FolderCount",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the Number of Folders that were found for the FILELOCATOR Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Path",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set full Path of Folder being scanned for the FILELOCATOR Object."
+          }
+        }
+      ],
+      "link": "https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/FILELOCATOR-Object.md"
+    },
+    "TASK": {
+      "id": "TASK",
+      "constructor": null,
+      "methods": [
+        {
+          "id": "BeginProgress",
+          "returns": [
+            "VOID"
+          ],
+          "args": [
+            {
+              "id": "NumberOfTasks",
+              "types": [
+                "NUMBER"
+              ],
+              "optional": false,
+              "notes": "Number indicating the number of tasks to perform."
+            }
+          ],
+          "info": {
+            "desc": "Initialize and display progress bars setting maximum task length",
+            "args": {
+              "NumberOfTasks": "Number indicating the number of tasks to perform."
+            },
+            "returns": "Nothing",
+            "remarks": "NumberofTasks should ideally specify the number of iterations you go through to that the progress bars\ndialog shows a progress relative to the tasks you're performing. You must use the Task.Progress\nproperty to move the progress bars as your tasks process."
+          }
+        },
+        {
+          "id": "EndProgress",
+          "returns": [
+            "VOID"
+          ],
+          "args": [],
+          "info": {
+            "desc": "Terminate the display of the progress bars dialog",
+            "returns": "Nothing",
+            "remarks": "Call to end the display of the progress bars dialog when tasks are finished processing.\nYou mat use the Task.Aborted proeprty to determine if the user canceled the process. When the\nuser cancels the progress bars, this does not stop your tasks from processing, merely sets the\nAborted property. You must monitor the Aborted flag and exit your task processing in your code\nto propertly terminate a task by a user."
+          }
+        }
+      ],
+      "properties": [
+        {
+          "id": "Aborted",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get Task Status Flag indicating if Task was aborted for the TASK Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Message",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the Message Text for the progress dialog for the TASK Object"
+          }
+        },
+        {
+          "id": "Progress",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Progress Bar for the progress dialog for the TASK Object."
+          }
+        },
+        {
+          "id": "Selection",
+          "returns": [
+            "TASKSELECTION[]"
+          ],
+          "info": {
+            "desc": "Gets an array of TASKSELECTION Objects of the TASK Object.",
+            "remarks": "Always check to see if the 'Task.Selection.Count' property returns a value >= 1 before\nusing Task.Selection[index#]"
+          }
+        }
+      ],
+      "link": "https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/TASK-Object.md"
+    }
+  }
+}

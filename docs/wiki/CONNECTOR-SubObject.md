@@ -6,21 +6,25 @@ This second-class object cannot be directly created. These types of sub-objects 
 The following items are accessed from the base object by a dot notation
 ### Property: Alt
 Get/Set Alternatge Code of the CONNECTOR Object.
+
 Alternate Code is used for enforcing Alternate Connector values using the Specifications.
 ##### Returns
 STRING
 ### Property: Group
 Get the Connector Group for the CONNECTOR Object.
+
 No additional remarks available
 ##### Returns
 STRING
 ### Property: Locked
 Get/Set the Lock Status of the CONNECTOR Object.
+
 No additional remarks available
 ##### Returns
 BOOLEAN
 ### Property: Material
 Get/Set the Connector Material of the CONNECTOR Object.
+
 Property only exists on Pattern Numbers 522, 1522 and 2522 (coupling patterns) to allow for
 transitions to alternate material types. When set to "None", scripts return the value of "Error" however
 the value can be set to "None" using Item.Connector[index].Material = "None".
@@ -31,11 +35,13 @@ Item.SkinConnector[index].Material = "None"
 STRING
 ### Property: Type
 Get the Connector Library Type of the CONNECTOR Object.
+
 No additional remarks available
 ##### Returns
 STRING
 ### Property: Value
 Get/Set the Name of the Connector.
+
 Group is given by the Group property.
 ##### Returns
 STRING

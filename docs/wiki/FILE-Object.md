@@ -2,7 +2,8 @@
 **NOTE:** This documentation was auto-generated from the FabricationDefinition.ts file and any errors within this text needs to be resolved within that source file
 ## Constructor
 Constructs a File Object
-No additional remarks available
+If optional parameters are not specified when constructing the FILE Object,
+use the FILE.Open method to specify them.
 #### Signature
 New FILE([FileName: STRING], [AccessMode: FILEMODE])
 #### Arguments
@@ -18,56 +19,66 @@ New FILE([FileName: STRING], [AccessMode: FILEMODE])
 The following items are accessed from the base object by a dot notation
 ### Property: EOF
 Get the End of File flag for the FILE Object.
+
 No additional remarks available
 ##### Returns
 BOOLEAN
 ### Property: Exists
 Get the Flag indicating if the file exist or not for the FILE Object.
+
 No additional remarks available
 ##### Returns
 BOOLEAN
 ### Property: FileName
 Get/Set the File Name of file to open for the FILE Object.
+
 No additional remarks available
 ##### Returns
 STRING
 ### Property: IsOpen
 Get the Flag indicating if the file is open for the FILE Object.
+
 No additional remarks available
 ##### Returns
 BOOLEAN
 ### Property: IsUnicode
 Get the Flag indicating if the file Unicode for the FILE Object.
-No additional remarks available
+
+File is ANSI encoded if not Unicode.
 ##### Returns
 BOOLEAN
 ### Property: Length
 Get the Length of file (in Bytes) for the FILE Object.
+
 No additional remarks available
 ##### Returns
 NUMBER
 ### Property: Mode
 Get/Set the File Open Mode (flags) for the FILE Object.
+
 No additional remarks available
 ##### Returns
 FILEMODE
 ### Property: Position
 Get/Set the current File Position (in Bytes) for the FILE Object.
+
 No additional remarks available
 ##### Returns
 NUMBER
 ## Methods
 The following items are invoked from the base object by a dot notation
-### Close
+### Function: Close
 Closes an open File.
-No additional remarks available
+
+Any open file needs to be closed before any other application can access it in Read/Write mode.
 ##### Signature
 Close()
 ##### Arguments
 ##### Returns
 BOOLEAN
-### Delete
+### Function: Delete
 Deletes a file.
+
 No additional remarks available
 ##### Signature
 Delete([UseRecycleBin: BOOLEAN])
@@ -76,9 +87,11 @@ Delete([UseRecycleBin: BOOLEAN])
   - Remarks: Optional Boolean Flag to add deleted file to the Windows Recycle Bin
 ##### Returns
 BOOLEAN
-### Open
+### Function: Open
 Opens a file for access based on file mode.
-No additional remarks available
+
+This function is not needed if the FILE Object Constructor was called with parameters specifying the
+file name and access mode/type.
 ##### Signature
 Open(Filename: STRING, AccessMode: FILEMODE)
 ##### Arguments
@@ -92,65 +105,77 @@ Open(Filename: STRING, AccessMode: FILEMODE)
   - Remarks: Mode(s) for file open.
 ##### Returns
 BOOLEAN
-### ReadByte
+### Function: ReadByte
 Read an 8-but Byte (0-255) from a binary file.
+
 File must be opened as non-text.
 ##### Signature
 ReadByte()
 ##### Arguments
 ##### Returns
 NUMBER
-### ReadChar
+### Function: ReadChar
 Reads a character from a binary file.
-No additional remarks available
+
+File must be opened as non-text.
+Will read a BYTE for ANSI files and a WORD for Unicode Files.
 ##### Signature
 ReadChar()
 ##### Arguments
 ##### Returns
 STRING
-### ReadInt
+### Function: ReadInt
 Read a 32-bit signed integer from a binary file.
-No additional remarks available
+
+File must be opened as non-text.
 ##### Signature
 ReadInt()
 ##### Arguments
 ##### Returns
 NUMBER
-### ReadLine
+### Function: ReadLine
 Read a line of text (minsus CR/LF) from a text file.
-No additional remarks available
+
+File must be opened as text (Unicode or ANSI)
+Each call reads up into the next CR (Carriage Return), LF (Line Feed) or EOF (End of File) marker.
+Returned String does not contain CR/LR or EOF characters.
 ##### Signature
 ReadLine()
 ##### Arguments
 ##### Returns
 STRING
-### ReadReal
+### Function: ReadReal
 Read a C-Style double precision floating point number from a binary file.
-No additional remarks available
+
+File must be opened as non-text.
 ##### Signature
 ReadReal()
 ##### Arguments
 ##### Returns
 NUMBER
-### ReadString
+### Function: ReadString
 Read a String from a binary file.
-No additional remarks available
+
+File must be opened as non-text.
+Will read BTYEs for ANSI files and WORDs for Unicode files.
 ##### Signature
 ReadString()
 ##### Arguments
 ##### Returns
 STRING
-### ReadWord
+### Function: ReadWord
 Read a 16-bit WORD (0-65535) from a binary file.
-No additional remarks available
+
+File must be opened as non-text.
 ##### Signature
 ReadWord()
 ##### Arguments
 ##### Returns
 NUMBER
-### Rename
+### Function: Rename
 Renames the current file held by the FILE object.
-No additional remarks available
+
+Current File Name must be assigned but file must not be opened for access.
 ##### Signature
 Rename(FileName: STRING)
 ##### Arguments
@@ -158,9 +183,10 @@ Rename(FileName: STRING)
   - Remarks: String representing the name of the file to rename to.
 ##### Returns
 BOOLEAN
-### WriteByte
+### Function: WriteByte
 Write an 8-bit BYTE (0-255) to a binary file.
-No additional remarks available
+
+File must be opened as non-text.
 ##### Signature
 WriteByte(ByteToWrite: NUMBER)
 ##### Arguments
@@ -168,9 +194,11 @@ WriteByte(ByteToWrite: NUMBER)
   - Remarks: BYTE to write to file.
 ##### Returns
 BOOLEAN
-### WriteChar
+### Function: WriteChar
 Wtite a Character to a binary file.
-No additional remarks available
+
+File must be opened as non-text.
+Will write a BYTE for ANSI files or WORK for Unicodes files.
 ##### Signature
 WriteChar(CharacterToWrite: STRING)
 ##### Arguments
@@ -178,9 +206,10 @@ WriteChar(CharacterToWrite: STRING)
   - Remarks: String character to write to file.
 ##### Returns
 BOOLEAN
-### WriteInt
+### Function: WriteInt
 Write a 32-bit signed integer to a binary file.
-No additional remarks available
+
+File must be opened as non-text.
 ##### Signature
 WriteInt(IntegerToWrite: NUMBER)
 ##### Arguments
@@ -188,9 +217,11 @@ WriteInt(IntegerToWrite: NUMBER)
   - Remarks: Number to write to file.
 ##### Returns
 BOOLEAN
-### WriteLine
+### Function: WriteLine
 Write a line of text to a text file.
-No additional remarks available
+
+Of optional AppendCR paramater missing, True is default and will automatically append
+a Carrage Return (CR) and Line Feed (LR) character to the end of the specified string.
 ##### Signature
 WriteLine(StringToWrite: STRING, [AppendCR: BOOLEAN])
 ##### Arguments
@@ -200,9 +231,10 @@ WriteLine(StringToWrite: STRING, [AppendCR: BOOLEAN])
   - Remarks: Optional Boolean Flag to automatically append a CR+LF to and of line.
 ##### Returns
 BOOLEAN
-### WriteReal
+### Function: WriteReal
 Write a C-Style double precision floating point number to a binary file.
-No additional remarks available
+
+File must be opened as non-text.
 ##### Signature
 WriteReal(RealToWrite: NUMBER)
 ##### Arguments
@@ -210,9 +242,11 @@ WriteReal(RealToWrite: NUMBER)
   - Remarks: Number to write to file.
 ##### Returns
 BOOLEAN
-### WriteString
+### Function: WriteString
 Write a string to a text file.
-No additional remarks available
+
+File must be opened as non-text.
+Will write BYTEs for ANSI files and WORDs for Unicode files.
 ##### Signature
 WriteString(StringToWrite: STRING)
 ##### Arguments
@@ -220,9 +254,10 @@ WriteString(StringToWrite: STRING)
   - Remarks: String to write to file.
 ##### Returns
 BOOLEAN
-### WriteWord
+### Function: WriteWord
 Write a 16-bit WORD (0-65535) to a binary file.
-No additional remarks available
+
+File must be opened as non-text.
 ##### Signature
 WriteWord(WordToWrite: NUMBER)
 ##### Arguments

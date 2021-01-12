@@ -16,16 +16,14 @@ using System.Windows.Shapes;
 
 namespace ItemDefinitionParser
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+
     public partial class MainWindow : Window
     {
         System.IO.DirectoryInfo root;    
         public string Documentation { get { return confirmExists(root.FullName + "\\docs\\wiki\\", false); } set { } }
         public string tmTemplate { get { return confirmExists(root.FullName + "\\configurations\\codscript-tmLanguage.template.json"); } set { } }
         public string tmTarget { get { return confirmExists(root.FullName + "\\configurations\\codscript-tmLanguage.json"); } set { } }
-        public string jsonObject { get { return confirmExists(root.FullName + "\\src\\data\\FabricationDefinition.json"); } set { } }
+        public string jsonObject { get { return confirmExists(root.FullName + "\\src\\support\\FabricationDefinition.json"); } set { } }
         public string tsObject { get { return confirmExists(root.FullName + "\\src\\support\\FabricationDefinition.ts"); } set { } }
 
         private string confirmExists(string path, bool isFile = true)
@@ -47,12 +45,10 @@ namespace ItemDefinitionParser
             InitializeComponent();
         }
 
-    
-
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
             var blocks = tsParser.ExtractLibrary(System.IO.File.ReadAllLines(tbxDefPath.Text).ToList());
-            blocks.Pack("C:\\Autodesk\\Blocks.json");
+            blocks.Pack(jsonObject);
             blocks.ApplyData(tmTemplate, tmTarget);
             blocks.createWikis(Documentation);
         }

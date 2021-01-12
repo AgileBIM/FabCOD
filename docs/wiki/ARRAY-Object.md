@@ -2,7 +2,9 @@
 **NOTE:** This documentation was auto-generated from the FabricationDefinition.ts file and any errors within this text needs to be resolved within that source file
 ## Constructor
 Constructs an Array Object
-No additional remarks available
+Constructs an Array object with the number of inital elements as specified. Each element's
+value will be NULL/False.
+If optional NumberOfItems is not specifcied, a default value of 0 (zero) is used.
 #### Signature
 New ARRAY([NumberOfItems: NUMBER])
 #### Arguments
@@ -12,13 +14,15 @@ New ARRAY([NumberOfItems: NUMBER])
 The following items are accessed from the base object by a dot notation
 ### Property: Count
 Get/Set the Number of elements in the array of the ARRAY Object.
-No additional remarks available
+
+If changed, new elements are set to NULL/False
 ##### Returns
 NUMBER
 ## Methods
 The following items are invoked from the base object by a dot notation
-### Add
+### Function: Add
 Adds/appends the specified data items to an array.
+
 No additional remarks available
 ##### Signature
 Add(ArrayData: ANY[])
@@ -26,9 +30,13 @@ Add(ArrayData: ANY[])
 - **ArrayData** as: ANY[]
 ##### Returns
 NUMBER
-### Delete
+### Function: Delete
 Removes the specified item from an array.
-No additional remarks available
+
+Index is a '1-based' meaning the first item in the Array is index # 1.
+Default when ArrayIndex is missing is the last item in the Array.
+Array is dynamically resized, removing an item from the beginning or middle of the array
+results in the array being smaller and the other elements moving up in position.
 ##### Signature
 Delete([ArrayIndex: NUMBER])
 ##### Arguments
@@ -36,9 +44,12 @@ Delete([ArrayIndex: NUMBER])
   - Remarks: Optional Number specifying the index number of the element to remove from the array.
 ##### Returns
 BOOLEAN
-### Insert
+### Function: Insert
 Inserts a piece of data into an Array at specified index.
-No additional remarks available
+
+When inserting data into an Array at a sepecific index, the previous data and all other
+downstream data are shifed down in the index chain.
+Default when ArrayIndex is missing is to insert at the end of the array.
 ##### Signature
 Insert(ArrayData: ANY, [ArrayIndex: NUMBER])
 ##### Arguments
