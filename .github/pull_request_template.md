@@ -1,12 +1,3 @@
----
-name: Pull Request
-about: Provide the details of your request
-title: 'PR # [DESC]'
-labels:
-assignees: ''
-
----
-
 ##### Objective
 <!-- Why do we make the changes -->
 
