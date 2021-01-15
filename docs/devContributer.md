@@ -55,7 +55,7 @@ Image 2: Here the important things are circled. First, you have to give your new
 
 ## Committing Changes
 
-The general principal of a commit is to save your changes in more permanent way than hitting Ctrl+S in VSCode, but committing changes is something of a tiered system. Your really only committing them locally until they are explicitly **PUSH**ed to the cloud. Whether they get pushed or not, each commit does represent a snapshot in time, that could each individually be undone. 
+The general principal of a commit is to save your changes in more permanent way than hitting Ctrl+S in VSCode, but committing changes is something of a tiered system. You're really only committing them locally until they are explicitly **PUSH**ed to the cloud. Whether they get pushed or not, each commit does represent a snapshot in time, that could each individually be undone. 
 
 Assuming you've made some changes to the files and want commit them, your GH App might look something like this:
 
