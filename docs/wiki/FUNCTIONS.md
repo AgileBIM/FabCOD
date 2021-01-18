@@ -83,7 +83,7 @@ NUMBER
 ## Function: Debug
 Display an Alert message box with a single OK button used to dismiss the message.
 
-No additional remarks available
+This can be called with and without parenthesis
 #### Signature
 Debug(MessageTest: STRING)
 #### Arguments

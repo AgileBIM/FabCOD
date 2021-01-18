@@ -283,6 +283,8 @@ namespace ItemDefinitionParser
                     break;
                 else if (current.StartsWith("CONST "))
                     id = current.Split(' ').Where(p => p != "").ToArray()[1].Trim(':');
+                else if (current.StartsWith("EXPORT CONST "))
+                    id = current.Split(' ').Where(p => p != "").ToArray()[2].Trim(':');
                 else if (current.StartsWith("'"))
                     values.Add(current.Trim(tchars));
             }
@@ -573,6 +575,11 @@ namespace ItemDefinitionParser
                     output.FUNCTIONS.Add(obj.id, obj);
                 }
                 else if (current.StartsWith("CONST "))
+                {
+                    var obj = new KEYWORDS(ref i, Lines);
+                    output.KEYWORDS.Add(obj.id, obj);
+                }
+                else if (current.StartsWith("EXPORT CONST "))
                 {
                     var obj = new KEYWORDS(ref i, Lines);
                     output.KEYWORDS.Add(obj.id, obj);

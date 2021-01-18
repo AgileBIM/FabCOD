@@ -13,7 +13,7 @@ BOOLEAN
 ### Property: Value
 Get/Set the Name of the AIRTURN Object.
 
-Group of the Airturn is nmot given and can not be specified.
+Group of the Airturn is not given and can not be specified.
 ##### Returns
 STRING
 ## Methods

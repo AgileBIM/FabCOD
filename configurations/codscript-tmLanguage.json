@@ -40,12 +40,12 @@
 		{
 			"comment": "Control Keywords",
 			"name": "markup.bold support.type.property-name",
-			"match": "\\b((?i)IF|THEN|ELSE|ELSE IF|ELSEIF|END IF|ENDIF|WHILE|END WHILE|ENDWHILE|FOR|TO|STEP|NEXT|DO|UNTIL|LOOP|LOOPUNTIL|SELECT|CASE|END SELECT|ENDSELECT|FUNCTION|RETURN|END FUNCTION|ENDFUNCTION)\\b"
+			"match": "\\b((?i)IF|THEN|ELSE|ELSE IF|ELSEIF|END IF|ENDIF|WHILE|END WHILE|ENDWHILE|FOR|TO|STEP|NEXT|DO|UNTIL|LOOP|SELECT|CASE|END SELECT|ENDSELECT|FUNCTION|RETURN|END FUNCTION|ENDFUNCTION)\\b"
 		},
 		{
 			"comment": "Special Keywords",
 			"name": "keyword.control",
-			"match": "(?<=^|\\s+)((?i)AND|OR|NOT|AS|IS|NEW|DIM|OBJECT|REQUIRES|INCLUDE)(?=\\s+)"
+			"match": "(?<=^|\\s+)((?i)AND|OR|NOT|AS|IS|NEW|DIM|OBJECT|REQUIRES|INCLUDE|RUN)(?=\\s+)"
 		},
 		{
 			"comment": "Global Functions",
@@ -55,7 +55,7 @@
 		{
 			"comment": "Objects",
 			"name": "markup.bold string.regexp",
-			"match": "\\b((?i)ARRAY|FILE|ITEMSTRUCT|ITEM|FILELOCATOR|TASK)\\b"
+			"match": "(^|\\s|=)((?i)ARRAY|FILE|FILELOCATOR|ITEMSTRUCT|ITEM|TASK)\\b"
 		},
 		{
 			"comment": "Object Collections",

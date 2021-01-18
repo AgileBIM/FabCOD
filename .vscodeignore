@@ -1,6 +1,8 @@
 .git/**
+.github/**
 .vscode/**
 .vscode-test/**
+configurations/__pycache__/**
 out/test/**
 src/**
 .gitignore
@@ -9,6 +11,7 @@ vsc-extension-quickstart.md
 **/tsconfig.json
 **/.eslintrc.json
 **/*.map
+**/*.py
 **/*.ts
 docs
 node_modules/**
