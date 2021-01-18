@@ -54,59 +54,58 @@ Review Notes (Dyoung - 2021.01.11)
 
 // This namespace represents a template of the entire Autodesk Fabrication scripting environment
 // There are some caveats to this for OPERATORS, NUMBERS & STRINGS
-namespace FABRICATION {
+export namespace FABRICATION {
 
 	//#region Fabrication Keyword Groups
 
-	const FLOWCONTROL: Array<string> = [
-		'IF',
-		'THEN', 
-		'ELSE', 
-		'ELSE IF', 
-		'ELSEIF', 
-		'END IF', 
-		'ENDIF', 
-		'WHILE', 
-		'END WHILE', 
-		'ENDWHILE', 
-		'FOR', 
-		'TO', 
-		'STEP', 
-		'NEXT', 
-		'DO', 
-		'UNTIL', 
-		'LOOP', 
-		'LOOPUNTIL', 
-		'SELECT', 
-		'CASE', 
-		'END SELECT', 
-		'ENDSELECT', 
-		'FUNCTION', 
-		'RETURN', 
-		'END FUNCTION', 
-		'ENDFUNCTION',		
+	export const FLOWCONTROL: Array<string> = [
+		'If',
+		'Then', 
+		'Else', 
+		'Else If', 
+		'ElseIf', 
+		'End If', 
+		'EndIf', 
+		'While', 
+		'End While', 
+		'EndWhile', 
+		'For', 
+		'To', 
+		'Step', 
+		'Next', 
+		'Do', 
+		'Until', 
+		'Loop', 
+		'Select', 
+		'Case', 
+		'End Select', 
+		'EndSelect', 
+		'Function', 
+		'Return', 
+		'End Function', 
+		'EndFunction',		
 	];
 	
 	// Note: The entire enumeration section further below is merged into this list for highlighting purposes when generating codscript-tmLanguage.json
-	const VALUETYPES: Array<string> = [
-		'TRUE',
-		'FALSE', 
-		'NULL', 
-		'VOID'
+	export const VALUETYPES: Array<string> = [
+		'True',
+		'False', 
+		'Null', 
+		'Void'
 	];
 
-	const SPECIALTYPES: Array<string> = [
-		'AND', 
-		'OR', 
-		'NOT', 
-		'AS', 
-		'IS', 
-		'NEW', 
-		'DIM', 
-		'OBJECT', 
-		'REQUIRES',
-		'INCLUDE',
-		'RUN'
+	export const SPECIALTYPES: Array<string> = [
+		'And', 
+		'Or', 
+		'Not', 
+		'As', 
+		'Is', 
+		'New', 
+		'Dim', 
+		'Object', 
+		'Requires',
+		'Include',
+		'Run'
 	];
 
 	//#endregion Fabrication Keyword Groups

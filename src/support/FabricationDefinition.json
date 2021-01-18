@@ -20,7 +20,6 @@
         "DO",
         "UNTIL",
         "LOOP",
-        "LOOPUNTIL",
         "SELECT",
         "CASE",
         "END SELECT",
@@ -52,7 +51,8 @@
         "DIM",
         "OBJECT",
         "REQUIRES",
-        "INCLUDE"
+        "INCLUDE",
+        "RUN"
       ]
     }
   },
@@ -1006,7 +1006,8 @@
         "args": {
           "MessageText": "A String Label to display in the dialog title bar."
         },
-        "returns": "This can be called with and without parenthesis"
+        "returns": "Nothing",
+        "remarks": "This can be called with and without parenthesis"
       }
     },
     "Exec": {
@@ -1403,7 +1404,7 @@
           ],
           "info": {
             "desc": "Get/Set the Name of the AIRTURN Object.",
-            "remarks": "Group of the Airturn is nmot given and can not be specified."
+            "remarks": "Group of the Airturn is not given and can not be specified."
           }
         }
       ],
@@ -3349,6 +3350,163 @@
         }
       ],
       "link": "https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/FILE-Object.md"
+    },
+    "FILELOCATOR": {
+      "id": "FILELOCATOR",
+      "constructor": {
+        "id": "constructor",
+        "returns": [
+          ""
+        ],
+        "args": [
+          {
+            "id": "RootPath",
+            "types": [
+              "STRING"
+            ],
+            "optional": true,
+            "notes": "Optional String of Root Path to Search."
+          },
+          {
+            "id": "SearchWildcard",
+            "types": [
+              "STRING"
+            ],
+            "optional": true,
+            "notes": "Optional String Wildcard to match against."
+          },
+          {
+            "id": "SearchFiles",
+            "types": [
+              "BOOLEAN"
+            ],
+            "optional": true,
+            "notes": "Optional Boolean Flag to search against Files."
+          },
+          {
+            "id": "SearchFolders",
+            "types": [
+              "BOOLEAN"
+            ],
+            "optional": true,
+            "notes": "Optional Boolean Flag to search against Folders."
+          }
+        ],
+        "info": {
+          "desc": "Constructs a FileLocator Object.",
+          "args": {
+            "RootPath": "Optional String of Root Path to Search.",
+            "SearchWildcard": "Optional String Wildcard to match against.",
+            "SearchFiles": "Optional Boolean Flag to search against Files.",
+            "SearchFolders": "Optional Boolean Flag to search against Folders."
+          },
+          "returns": "Nothing.",
+          "remarks": "If optional parameters are not specified when constructing the FILELOCATOR object,\nuse the FILELOCATOR.Scan method to specify them."
+        }
+      },
+      "methods": [
+        {
+          "id": "Scan",
+          "returns": [
+            "NUMBER"
+          ],
+          "args": [
+            {
+              "id": "RootPath",
+              "types": [
+                "STRING"
+              ],
+              "optional": false,
+              "notes": "Optional String of Root Path to Search."
+            },
+            {
+              "id": "SearchWildcard",
+              "types": [
+                "STRING"
+              ],
+              "optional": false,
+              "notes": "Optional String Wildcard to match against."
+            },
+            {
+              "id": "SearchFiles",
+              "types": [
+                "BOOLEAN"
+              ],
+              "optional": false,
+              "notes": "Optional Boolean Flag to search against Files."
+            },
+            {
+              "id": "SearchFolders",
+              "types": [
+                "BOOLEAN"
+              ],
+              "optional": false,
+              "notes": "Optional Boolean Flag to search against Folders."
+            }
+          ],
+          "info": {
+            "desc": "Scan a root path for Files and/or Folders matching a Wildcard string.",
+            "args": {
+              "RootPath": "Optional String of Root Path to Search.",
+              "SearchWildcard": "Optional String Wildcard to match against.",
+              "SearchFiles": "Optional Boolean Flag to search against Files.",
+              "SearchFolders": "Optional Boolean Flag to search against Folders."
+            },
+            "returns": "Number indicating how many files and/or folders matched the search.",
+            "remarks": "This function is not needed if the FILELOCATOR Object Constructor was called with parameters specifying the\npath, search wildcard, file and folder search flags."
+          }
+        }
+      ],
+      "properties": [
+        {
+          "id": "File",
+          "returns": [
+            "STRING[]"
+          ],
+          "info": {
+            "desc": "This gets an array of File Names of found files for the FILELOCATOR Object."
+          }
+        },
+        {
+          "id": "FileCount",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the Number of Files that were found for the FILELOCATOR Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Folder",
+          "returns": [
+            "STRING[]"
+          ],
+          "info": {
+            "desc": "This gets an array of Folder Names of found folders for the FILELOCATOR Object."
+          }
+        },
+        {
+          "id": "FolderCount",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the Number of Folders that were found for the FILELOCATOR Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Path",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set full Path of Folder being scanned for the FILELOCATOR Object."
+          }
+        }
+      ],
+      "link": "https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/FILELOCATOR-Object.md"
     },
     "ITEMSTRUCT": {
       "id": "ITEMSTRUCT",
@@ -6076,163 +6234,6 @@
         }
       ],
       "link": "https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/ITEM-Object.md"
-    },
-    "FILELOCATOR": {
-      "id": "FILELOCATOR",
-      "constructor": {
-        "id": "constructor",
-        "returns": [
-          ""
-        ],
-        "args": [
-          {
-            "id": "RootPath",
-            "types": [
-              "STRING"
-            ],
-            "optional": true,
-            "notes": "Optional String of Root Path to Search."
-          },
-          {
-            "id": "SearchWildcard",
-            "types": [
-              "STRING"
-            ],
-            "optional": true,
-            "notes": "Optional String Wildcard to match against."
-          },
-          {
-            "id": "SearchFiles",
-            "types": [
-              "BOOLEAN"
-            ],
-            "optional": true,
-            "notes": "Optional Boolean Flag to search against Files."
-          },
-          {
-            "id": "SearchFolders",
-            "types": [
-              "BOOLEAN"
-            ],
-            "optional": true,
-            "notes": "Optional Boolean Flag to search against Folders."
-          }
-        ],
-        "info": {
-          "desc": "Constructs a FileLocator Object.",
-          "args": {
-            "RootPath": "Optional String of Root Path to Search.",
-            "SearchWildcard": "Optional String Wildcard to match against.",
-            "SearchFiles": "Optional Boolean Flag to search against Files.",
-            "SearchFolders": "Optional Boolean Flag to search against Folders."
-          },
-          "returns": "Nothing.",
-          "remarks": "If optional parameters are not specified when constructing the FILELOCATOR object,\nuse the FILELOCATOR.Scan method to specify them."
-        }
-      },
-      "methods": [
-        {
-          "id": "Scan",
-          "returns": [
-            "NUMBER"
-          ],
-          "args": [
-            {
-              "id": "RootPath",
-              "types": [
-                "STRING"
-              ],
-              "optional": false,
-              "notes": "Optional String of Root Path to Search."
-            },
-            {
-              "id": "SearchWildcard",
-              "types": [
-                "STRING"
-              ],
-              "optional": false,
-              "notes": "Optional String Wildcard to match against."
-            },
-            {
-              "id": "SearchFiles",
-              "types": [
-                "BOOLEAN"
-              ],
-              "optional": false,
-              "notes": "Optional Boolean Flag to search against Files."
-            },
-            {
-              "id": "SearchFolders",
-              "types": [
-                "BOOLEAN"
-              ],
-              "optional": false,
-              "notes": "Optional Boolean Flag to search against Folders."
-            }
-          ],
-          "info": {
-            "desc": "Scan a root path for Files and/or Folders matching a Wildcard string.",
-            "args": {
-              "RootPath": "Optional String of Root Path to Search.",
-              "SearchWildcard": "Optional String Wildcard to match against.",
-              "SearchFiles": "Optional Boolean Flag to search against Files.",
-              "SearchFolders": "Optional Boolean Flag to search against Folders."
-            },
-            "returns": "Number indicating how many files and/or folders matched the search.",
-            "remarks": "This function is not needed if the FILELOCATOR Object Constructor was called with parameters specifying the\npath, search wildcard, file and folder search flags."
-          }
-        }
-      ],
-      "properties": [
-        {
-          "id": "File",
-          "returns": [
-            "STRING[]"
-          ],
-          "info": {
-            "desc": "This gets an array of File Names of found files for the FILELOCATOR Object."
-          }
-        },
-        {
-          "id": "FileCount",
-          "returns": [
-            "NUMBER"
-          ],
-          "info": {
-            "desc": "Get the Number of Files that were found for the FILELOCATOR Object.",
-            "readonly": true
-          }
-        },
-        {
-          "id": "Folder",
-          "returns": [
-            "STRING[]"
-          ],
-          "info": {
-            "desc": "This gets an array of Folder Names of found folders for the FILELOCATOR Object."
-          }
-        },
-        {
-          "id": "FolderCount",
-          "returns": [
-            "NUMBER"
-          ],
-          "info": {
-            "desc": "Get the Number of Folders that were found for the FILELOCATOR Object.",
-            "readonly": true
-          }
-        },
-        {
-          "id": "Path",
-          "returns": [
-            "STRING"
-          ],
-          "info": {
-            "desc": "Get/Set full Path of Folder being scanned for the FILELOCATOR Object."
-          }
-        }
-      ],
-      "link": "https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/FILELOCATOR-Object.md"
     },
     "TASK": {
       "id": "TASK",

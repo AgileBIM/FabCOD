@@ -75,8 +75,8 @@ export class Entity {
 		this.index = globalPosition ?? -1;
 		}
 
-	get endColumn(): number { return this.column + this.value.length; }
-	get position(): vscode.Position{ return new vscode.Position(this.line, this.column); }
+	get endColumn(): number { return this.isValid ? this.column + this.value.length : -1; }
+	get position(): vscode.Position{ return new vscode.Position(this.isValid ? this.line : 0, this.isValid ? this.column: 0); }
 	get isPrimitive(): boolean { return this.isComment || this.isString || this.isNumber || this.isBoolean || this.isNull || this.isSymbol; }
 	get isBoolean(): boolean { return this.valueType === ValueType.BOOL; }
 	get isNull(): boolean { return this.valueType === ValueType.NULL; }
@@ -84,6 +84,7 @@ export class Entity {
 	get isString(): boolean { return this.valueType === ValueType.STRING; }
 	get isNumber(): boolean { return this.valueType === ValueType.NUMBER; }
 	get isSymbol(): boolean { return this.valueType === ValueType.SYMBOL; }
+	get isValid(): boolean { return this.line !== -1 && this.column !== -1; }
 
 	public getText(_doc: vscode.TextDocument): string {
 		return this.value;
@@ -94,7 +95,7 @@ export class Entity {
 	}
 
 	equal(ent: Entity): boolean {
-		return ent.line === this.line && ent.column === this.column && ent.value === this.value;
+		return ent && ent.line === this.line && ent.column === this.column && ent.value === this.value;
 	}
 
 	contains(pos: vscode.Position): boolean {
@@ -213,8 +214,8 @@ export class SequenceEntity extends EntityCollection {
 		this.children = args;
 		this.value = this.toString();
 		const first = this.firstEntity();
-		this.line = first.line;
-		this.column = first.column;
+		this.line = first ? first.line : -1;
+		this.column = first ? first.column : -1;
 	}
 
 	warnings(parent?: EntityCollection): Array<vscode.CodeLens> {
@@ -230,10 +231,9 @@ export class ContentsEntity extends EntityCollection {
 		super(EntityType.CONTENTS);
 		this.children = args;
 		this.value = this.toString();
-		this.line = this.firstEntity().line;
 		const first = this.firstEntity();
-		this.line = first.line;
-		this.column = first.column;
+		this.line = first ? first.line : -1;
+		this.column = first ? first.column : -1;
 	}
 
 	warnings(parent?: EntityCollection): Array<vscode.CodeLens> {
@@ -253,8 +253,8 @@ export class FunctionDefinitionEntity extends EntityCollection {
 		this.footer = ender;
 		this.value = this.toString();
 		const first = this.firstEntity();
-		this.line = first.line;
-		this.column = first.column;
+		this.line = first ? first.line : -1;
+		this.column = first ? first.column : -1;
 	}
 
 	get name(): Entity { return this.header[1]; }
@@ -276,8 +276,8 @@ export class InlineIfEntity extends EntityCollection {
 		this.children = starter;
 		this.value = this.toString();
 		const first = this.firstEntity();
-		this.line = first.line;
-		this.column = first.column;
+		this.line = first ? first.line : -1;
+		this.column = first ? first.column : -1;
 	}
 
 	get header(): Entity[]|null { 
@@ -323,8 +323,8 @@ export class IfEntity extends EntityCollection {
 		this.footer = ender;
 		this.value = this.toString();
 		const first = this.firstEntity();
-		this.line = first.line;
-		this.column = first.column;
+		this.line = first ? first.line : -1;
+		this.column = first ? first.column : -1;
 	}
 
 	get expression(): Entity[]|null { 
@@ -354,8 +354,8 @@ export class ElseIfEntity extends EntityCollection {
 		this.contents = body;
 		this.value = this.toString();
 		const first = this.firstEntity();
-		this.line = first.line;
-		this.column = first.column;
+		this.line = first ? first.line : -1;
+		this.column = first ? first.column : -1;
 	}
 
 	get expression(): Entity[]|null { 
@@ -387,8 +387,8 @@ export class ElseEntity extends EntityCollection {
 		this.contents = body;
 		this.value = this.toString();
 		const first = this.firstEntity();
-		this.line = first.line;
-		this.column = first.column;
+		this.line = first ? first.line : -1;
+		this.column = first ? first.column : -1;
 	}
 
 	get children(): Array<Entity|EntityCollection> { 
@@ -409,8 +409,8 @@ export class CaseEntity extends EntityCollection {
 		this.contents = body;
 		this.value = this.toString();
 		const first = this.firstEntity();
-		this.line = first.line;
-		this.column = first.column;
+		this.line = first ? first.line : -1;
+		this.column = first ? first.column : -1;
 	}
 
 	get expression(): Entity[]|null { 
@@ -441,8 +441,8 @@ export class SelectEntity extends EntityCollection {
 		this.footer = ender;
 		this.value = this.toString();
 		const first = this.firstEntity();
-		this.line = first.line;
-		this.column = first.column;
+		this.line = first ? first.line : -1;
+		this.column = first ? first.column : -1;
 	}
 
 	get expression(): Entity[]|null { 
@@ -473,8 +473,8 @@ export class WhileEntity extends EntityCollection {
 		this.footer = ender;
 		this.value = this.toString();
 		const first = this.firstEntity();
-		this.line = first.line;
-		this.column = first.column;
+		this.line = first ? first.line : -1;
+		this.column = first ? first.column : -1;
 	}
 
 	get expression(): Entity[]|null { 
@@ -505,8 +505,8 @@ export class DoEntity extends EntityCollection {
 		this.footer = ender;
 		this.value = this.toString();
 		const first = this.firstEntity();
-		this.line = first.line;
-		this.column = first.column;
+		this.line = first ? first.line : -1;
+		this.column = first ? first.column : -1;
 	}
 
 	get children(): Array<Entity|EntityCollection> { 
@@ -530,8 +530,8 @@ export class ForNextEntity extends EntityCollection {
 		this.footer = ender;
 		this.value = this.toString();
 		const first = this.firstEntity();
-		this.line = first.line;
-		this.column = first.column;
+		this.line = first ? first.line : -1;
+		this.column = first ? first.column : -1;
 	}
 
 	get children(): Array<Entity|EntityCollection> { 

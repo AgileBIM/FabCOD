@@ -55,7 +55,7 @@
 		{
 			"comment": "Objects",
 			"name": "markup.bold string.regexp",
-			"match": "\\b((?i)%%%OBJECTS%%%)\\b"
+			"match": "(^|\\s|=)((?i)%%%OBJECTS%%%)\\b"
 		},
 		{
 			"comment": "Object Collections",

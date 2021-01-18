@@ -20,6 +20,28 @@
 		],
 		"description": "Defines a step counter and uses in a For i to TestExp step # loop"
 	},
+	"dountil":
+	{
+		"prefix": "do",
+		"body":[
+			"Dim ${1:Flag} = False",
+			"Do",			
+			"\t",
+			"Loop Until ${1:Flag}"
+		],
+		"description": "Defines loop that will get executed at least once and until condition is True"
+	},
+	"dowhile":
+	{
+		"prefix": "do",
+		"body":[
+			"Dim ${1:Flag} = True",
+			"Do while ${1:Flag}",			
+			"\t",
+			"Loop"
+		],
+		"description": "Defines loop that will get excuted until the condition is False"
+	},
 	"ifel":
 	{
 		"prefix": "ifel",

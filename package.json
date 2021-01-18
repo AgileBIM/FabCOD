@@ -2,7 +2,7 @@
 	"name": "fabcod",
 	"displayName": "FabCOD",
 	"description": "Fabrication COD Scripting Language Support",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"license": "MIT",
 	"publisher": "agilebim",
 	"bugs": {
@@ -29,13 +29,11 @@
 	],
 	"icon": "fabcodlogo.png",
 	"main": "./out/extension.js",
-	"files": [
-		"fabcod.vsix"
-	],
+	"files": [],
 	"activationEvents": [
 		"onLanguage:codscript"
 	],
-	"contributes": { 
+	"contributes": {
 		"languages": [
 			{
 				"id": "codscript",
@@ -65,13 +63,14 @@
 			"[codscript]": {
 				"files.autoGuessEncoding": true,
 				"editor.tabSize": 2,
-				"editor.wordBasedSuggestions": true,
+				"editor.wordBasedSuggestions": false,
 				"editor.detectIndentation": true,
 				"editor.quickSuggestions": {
 					"other": true,
 					"comments": false,
 					"strings": false
 				},
+				"editor.snippetSuggestions": "none",
 				"editor.autoIndent": "full",
 				"editor.formatOnType": true,
 				"files.encoding": "utf8",
@@ -81,6 +80,16 @@
 			}
 		},
 		"keybindings":[
+			{
+				"when": "resourceLangId == codscript",
+				"command": "fabext.dimpicker",
+				"key": "Shift+F1"
+			},
+			{
+				"when": "resourceLangId == codscript",
+				"command": "fabext.optionpicker",
+				"key": "Shift+F2"
+			},
 			{
 				"when": "resourceLangId == codscript",
 				"command": "fabext.acadexecute",
@@ -93,6 +102,16 @@
 			}
 		],
 		"commands": [
+			{
+				"command": "fabext.dimpicker",
+				"category": "FabCOD",
+				"title": "CID Dim Name Lookup"
+			},
+			{
+				"command": "fabext.optionpicker",
+				"category": "FabCOD",
+				"title": "CID Option Name Lookup"
+			},
 			{
 				"command": "fabext.acadexecute",
 				"category": "FabCOD",
@@ -118,6 +137,16 @@
 					"when": "resourceLangId == codscript",
 					"command": "fabext.insertregion",
 					"group": "navigation@2"
+				},
+				{
+					"when": "resourceLangId == codscript",
+					"command": "fabext.dimpicker",
+					"group": "navigation@3"
+				},
+				{
+					"when": "resourceLangId == codscript",
+					"command": "fabext.optionpicker",
+					"group": "navigation@4"
 				}
 			],
 			"explorer/context": []

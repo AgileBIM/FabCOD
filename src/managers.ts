@@ -2,7 +2,8 @@ import * as vscode from "vscode";
 import { library } from "./resources";
 import { FabExt } from './extension';
 import * as fs from	'fs-extra';
-import { COD, CODParser } from './support/parser';
+import { CODParser } from './support/parser';
+import { COD } from "./support/document";
 
 
 
@@ -80,7 +81,11 @@ export class FabDocumentManager{
 
 	private documentConsumeOrValidate(doc: vscode.TextDocument, key?: string): string {
 		if (!key){
-			key = this.normalizePath(doc.fileName);
+			try {
+				key = this.normalizePath(doc.fileName);	
+			} catch (error) {
+				debugger;
+			}
 		}
 		if (this.isValidCOD(key)) {
 			if (this._cached.has(key) === false) {
@@ -99,8 +104,16 @@ export class FabDocumentManager{
 		}
 	}
 
-	getDocument(nDoc: vscode.TextDocument): COD|null {
-		const key = this.documentConsumeOrValidate(nDoc);
+	getDocument(nDoc: vscode.TextDocument, tryUpdate: boolean = true): COD {
+		let key: string = '';
+		try {
+			key = this.normalizePath(nDoc.fileName);	
+		} catch (error) {
+			debugger;
+		}
+		if (tryUpdate || !this._cached.has(key)) {
+			key = this.documentConsumeOrValidate(nDoc);
+		} 
 		return this._cached.get(key);
 	}	
 

@@ -1,5 +1,4 @@
 import * as vscode from 'vscode';
-import * as path from 'path';
 import { 
     Entity, 
     EntityCollection, 
@@ -20,28 +19,8 @@ import {
     stdSymbols,
     blockStarters
  } from "./entities";
+import { COD, NameTracker } from './document';
 import { FabExt } from '../extension';
-
- export interface COD {
-    text: string;
-    contents: Array<Entity|EntityCollection>;
-    entities: Array<Entity>;
-    keywords: NameTracker;
-    source: vscode.TextDocument;
-}
-
-export class NameTracker {
-    creator: string = '';
-    variables: Map<string, Array<Entity>> = new Map();
-    skipped: Array<Entity> = [];
-    functions: Map<string, Array<Entity>> = new Map();
-    importedFunctions: Map<string, Array<Entity>> = new Map();
-    includes: Array<string> = [];
-
-    constructor(fspath: string) {
-        this.creator = fspath;
-    }
-}
 
 export namespace CODParser {
     interface IndexTracker {
@@ -390,19 +369,21 @@ export namespace CODParser {
             const upper = curr.value.toUpperCase();
             if (curr.valueType === ValueType.UNKNOWN || upper === 'DIM')
             {
-                if (pUpper === '.') {
+                const nAttach = !next ? false : curr.column + curr.value.length === next.column;
+                const pAttach = !prev ? false : prev.column + prev.value.length === curr.column;
+                if (pAttach && pUpper === '.') {
                     // dotted
-                    if (next?.value === '[') {
+                    if (nAttach && next.value === '[') {
                         curr.valueType = ValueType.KEYWORD;
                         curr.entityType = EntityType.INDEXED;
-                    } else if (next?.value === '(') {
+                    } else if (nAttach && next.value === '(') {
                         curr.valueType = ValueType.KEYWORD;
                         curr.entityType = EntityType.METHOD;                        
                     } else {
                         curr.valueType = ValueType.KEYWORD;
                         curr.entityType = EntityType.PROPERTY;
                     }
-                } else if (next?.value === '.') {
+                } else if (nAttach && next.value === '.') {
                     if (ids.variables.has(upper)) {
                         ids.variables.get(upper).push(curr);
                         curr.valueType = ValueType.VARIABLE;
@@ -411,7 +392,7 @@ export namespace CODParser {
                         curr.valueType = ValueType.OBJECT;
                         curr.entityType = EntityType.DOTTED;
                     }
-                } else if (next?.value === '[') {
+                } else if (nAttach && next.value === '[') {
                     if (ids.variables.has(upper)) {
                         ids.variables.get(upper).push(curr);
                         curr.valueType = ValueType.VARIABLE;
@@ -420,7 +401,7 @@ export namespace CODParser {
                         curr.valueType = ValueType.OBJECT;
                         curr.entityType = EntityType.INDEXED;
                     }
-                } else if (next?.value === '(') {
+                } else if (nAttach && next.value === '(') {
                     curr.valueType = ValueType.KEYWORD;
                     curr.entityType = EntityType.FUNCTION;
                     if (!FabExt.Data.functions[upper]) {
@@ -456,8 +437,8 @@ export namespace CODParser {
                 } else {
                     ids.skipped.push(curr);
                 }
-            } else if (curr.valueType === ValueType.STRING && pUpper === 'INCLUDE') {
-                ids.includes.push(upper.replace('"', ''));
+            } else if (curr.isString && pUpper === 'INCLUDE') {
+                ids.includes.push(upper.replace(/\"/g, ''));
             }
             // This COULD be enhanced to make EntityCollections of dotted pairs, functions with variables, varaible declarations and assignments, etcetera
             result.push(curr);
@@ -622,20 +603,20 @@ export namespace CODParser {
                             state = ValueType.NUMBER;
                         } else {
                             if (temp) {
-                                result.push(enhancePrimitives(temp));
+                                result.push(enhancePrimitives(temp, result[result.length -1]));
                                 temp = null;
                             }
                             result.push(new Entity(EntityType.ENTITY, ValueType.SYMBOL, curr, lnum, col, result.length));
                         }
                     } else if (stdSymbols.includes(curr)) {
                         if (temp) {
-                            result.push(enhancePrimitives(temp));
+                            result.push(enhancePrimitives(temp, result[result.length -1]));
                             temp = null;
                         }
                         result.push(new Entity(EntityType.ENTITY, ValueType.SYMBOL, curr, lnum, col, result.length));
                     } else if (curr === '"') {
                         if (temp) {
-                            result.push(enhancePrimitives(temp));
+                            result.push(enhancePrimitives(temp, result[result.length -1]));
                             temp = null;
                         }
                         temp = new Entity(EntityType.ENTITY, ValueType.STRING, curr, lnum, col, result.length);
@@ -649,7 +630,7 @@ export namespace CODParser {
                             const combo = (next1 && next2) ? (curr + next1 + next2) : '';
                             if (combo === 'REM' && (next3 === ' ' || next3 === '\t')) {
                                 if (temp) {
-                                    result.push(enhancePrimitives(temp));
+                                    result.push(enhancePrimitives(temp, result[result.length -1]));
                                     temp = null;
                                 }
                                 temp = new Entity(EntityType.ENTITY, ValueType.COMMENT, curr, lnum, col, result.length);
@@ -660,7 +641,7 @@ export namespace CODParser {
                         if (!handled) {
                             if (/\s/.test(curr)){
                                 if (temp) {
-                                    result.push(enhancePrimitives(temp));
+                                    result.push(enhancePrimitives(temp, result[result.length -1]));
                                     temp = null;
                                 }
                             } else if (temp) {
@@ -680,13 +661,13 @@ export namespace CODParser {
             }
         }
         if (temp) {
-            result.push(enhancePrimitives(temp));
+            result.push(enhancePrimitives(temp, result[result.length -1]));
         }
         return result;
     } // End tokenize()
 
 
-    function enhancePrimitives(ent: Entity) {        
+    function enhancePrimitives(ent: Entity, prev: Entity) {        
         const val = ent.value.toUpperCase();
         switch (val) {
             case 'NULL':
@@ -702,12 +683,14 @@ export namespace CODParser {
                 ent.valueType = ValueType.VOID;
                 break;
             default:
-                if (FabExt.Data.flowTypes.includes(val) || FabExt.Data.specialTypes.includes(val)) {
-                    ent.valueType = ValueType.KEYWORD;
-                } else if (FabExt.Data.enumTypes.includes(val) || FabExt.Data.constants[val]) {
-                    ent.valueType = ValueType.CONSTANT;
-                } else if (FabExt.Data.objects[val]) {
-                    ent.valueType = ValueType.OBJECT;
+                if (prev && prev.value !== '.') {
+                    if (FabExt.Data.flowTypes.includes(val) || FabExt.Data.specialTypes.includes(val)) {
+                        ent.valueType = ValueType.KEYWORD;
+                    } else if (FabExt.Data.enumTypes.includes(val) || FabExt.Data.constants[val]) {
+                        ent.valueType = ValueType.CONSTANT;
+                    } else if (FabExt.Data.objects[val]) {
+                        ent.valueType = ValueType.OBJECT;
+                    }
                 }
                 break;
         }

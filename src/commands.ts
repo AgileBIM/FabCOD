@@ -2,13 +2,44 @@ import { FabExt } from "./extension";
 import * as vscode from 'vscode';
 import { HoverProviderCOD } from './providers/hoverProvider';
 import { FoldingProviderCOD } from './providers/foldingRangeProvider';
+import { CompletionProviderCOD } from "./providers/completionProvider";
+import { SignatureHelpProviderCOD } from "./providers/signatureProvider";
 
 export function loadAllCommands() {
 	FabExt.Subscriptions.push(vscode.languages.registerHoverProvider(FabExt.selector, new HoverProviderCOD()));
 	FabExt.Subscriptions.push(vscode.languages.registerFoldingRangeProvider(FabExt.selector, new FoldingProviderCOD()));
+	FabExt.Subscriptions.push(vscode.languages.registerCompletionItemProvider(FabExt.selector, new CompletionProviderCOD(), '.', '('));
+	FabExt.Subscriptions.push(vscode.languages.registerSignatureHelpProvider(FabExt.selector, new SignatureHelpProviderCOD(), '(', ',', ')' ));
+
+	FabExt.Subscriptions.push(vscode.commands.registerTextEditorCommand('fabext.dimpicker', () => {
+		try {
+			vscode.window.showQuickPick(FabExt.Data.patterns.keys).then(selected => {
+				if (FabExt.Data.patterns.data[selected]) {
+					vscode.window.showQuickPick(FabExt.Data.patterns.data[selected].dimensions).then(value => {
+						const snip = new vscode.SnippetString('"' + value + '"');
+						vscode.window.activeTextEditor.insertSnippet(snip);
+					});
+				}
+			});
+		}
+		catch (err) {}
+	}));
+
+	FabExt.Subscriptions.push(vscode.commands.registerTextEditorCommand('fabext.optionpicker', () => {
+		try {
+			vscode.window.showQuickPick(FabExt.Data.patterns.keys).then(selected => {
+				if (FabExt.Data.patterns.data[selected]) {
+					vscode.window.showQuickPick(FabExt.Data.patterns.data[selected].options).then(value => {
+						const snip = new vscode.SnippetString('"' + value + '"');
+						vscode.window.activeTextEditor.insertSnippet(snip);
+					});
+				}
+			});
+		}
+		catch (err) {}
+	}));
 	
-	
-	FabExt.Subscriptions.push(vscode.commands.registerCommand('fabext.acadexecute', () => {
+	FabExt.Subscriptions.push(vscode.commands.registerTextEditorCommand('fabext.acadexecute', () => {
 		try {
 			if (vscode.window.activeTextEditor?.document && FabExt.Documents.isValidCOD(vscode.window.activeTextEditor.document.fileName)) {
 				executeScript(vscode.window.activeTextEditor.document.fileName);

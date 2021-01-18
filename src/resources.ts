@@ -1,11 +1,15 @@
 import * as path from 'path';
 import * as fs from 'fs';
-import { DataLibrary } from "./support/data";
+import { DataLibrary, SnippetLibrary, PatternLibrary } from "./support/data";
 
-export let library: DataLibrary = new DataLibrary();
+export const library: DataLibrary = new DataLibrary();
+export const snippets: SnippetLibrary = new SnippetLibrary();
+export const patterns: PatternLibrary = new PatternLibrary();
 
 export function loadAllResources(){
 	readJsonDataFile("./support/FabricationDefinition.json", library);
+	readJsonDataFile("./support/DimOptionChoices.json", patterns);
+	readJsonDataFile("./support/codscript-snippets.json", snippets);
 }	
 
 export interface IJsonLoadable {
