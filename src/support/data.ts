@@ -136,8 +136,8 @@ export class DataLibrary implements IJsonLoadable {
 		return (args.length >= 1 ? result.slice(0, -2) : result) + ')';
 	}
 
-	public getArgumentMarkdown(arg: Argument) {
-		return '**' + arg.id + (arg.optional ? '?' : '') + '** as ' + arg.types.join('|') + '\n\n' + arg.notes;
+	public getArgumentMarkdown(arg: Argument): vscode.MarkdownString {
+		return new vscode.MarkdownString('**' + arg.id + (arg.optional ? '?' : '') + '** as ' + arg.types.join('|') + '\n\n' + arg.notes);
 	}
 
 

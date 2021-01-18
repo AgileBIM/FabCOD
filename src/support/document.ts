@@ -28,14 +28,18 @@ export class NameTracker {
         fkeys.forEach(key => { 
             const demarc = this.functions.get(key).find(x => cod.entities[x.index - 1]?.value.toUpperCase() === 'FUNCTION');
             if (demarc) {
-                result.push(FabExt.Data.getCompletionItem(demarc.value, vscode.CompletionItemKind.Function, '1', 'User Defined'));
+                const uci = FabExt.Data.getCompletionItem(demarc.value, vscode.CompletionItemKind.Function, '1', 'User Defined');
+                uci.detail = 'User-Defined';
+                result.push(uci);
             }
         });
         const vkeys = [...this.variables.keys()];
         vkeys.forEach(key => { 
             const demarc = this.variables.get(key).find(x => cod.entities[x.index - 1]?.value.toUpperCase() === 'DIM' || cod.entities[x.index - 1]?.value.toUpperCase() === 'OBJECT');
             if (demarc) {
-                result.push(FabExt.Data.getCompletionItem(demarc.value, vscode.CompletionItemKind.Variable, '1', 'User Defined'));
+                const uci = FabExt.Data.getCompletionItem(demarc.value, vscode.CompletionItemKind.Variable, '1', 'User Defined');
+                uci.detail = 'User-Defined';
+                result.push(uci);
             }
         });
         return result;

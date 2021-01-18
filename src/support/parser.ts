@@ -97,6 +97,13 @@ export namespace CODParser {
             }            
         }
         const closer = new SequenceEntity(EntityType.SEQUENCE, ender);
+        // const fstart = header.children.findIndex(p => p.value === 'FUNCTION');
+        // const fname = header.children[fstart - 1];
+        // if (fname) {
+        //     if (tracker.ids.functions.has(fname.value.toUpperCase())) {
+        //         tracker.ids.functions.get(fname.value.toUpperCase()).push(fname);
+        //     }
+        // }
         return new FunctionDefinitionEntity(header, new ContentsEntity(body), closer);
     }
 
@@ -362,12 +369,12 @@ export namespace CODParser {
     function processEntityRun(ents: Array<Entity>, ids: NameTracker, assumeVariables?: boolean) : EntityCollection { 
         const result: Array<Entity|EntityCollection> = [];
         for (let i = 0; i < ents.length; i++) {
-            const prev = ents[i-1];
+            const prev = ents[i - 1];
             const curr = ents[i];
-            const next = ents[i+1];
+            const next = ents[i + 1];
             const pUpper = prev ? prev.value.toUpperCase() : '';
             const upper = curr.value.toUpperCase();
-            if (curr.valueType === ValueType.UNKNOWN || upper === 'DIM')
+            if (curr.valueType === ValueType.UNKNOWN || upper === 'DIM' || pUpper === 'FUNCTION')
             {
                 const nAttach = !next ? false : curr.column + curr.value.length === next.column;
                 const pAttach = !prev ? false : prev.column + prev.value.length === curr.column;
@@ -400,6 +407,14 @@ export namespace CODParser {
                     } else {
                         curr.valueType = ValueType.OBJECT;
                         curr.entityType = EntityType.INDEXED;
+                    }
+                } else if (pUpper === 'FUNCTION' && next.value === '(') {
+                    curr.valueType = ValueType.KEYWORD;
+                    curr.entityType = EntityType.FUNCTION;
+                    if (ids.functions.has(upper)) {
+                        ids.functions.get(upper).push(curr);
+                    } else {
+                        ids.functions.set(upper, [curr]);
                     }
                 } else if (nAttach && next.value === '(') {
                     curr.valueType = ValueType.KEYWORD;

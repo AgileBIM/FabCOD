@@ -1,7 +1,8 @@
 import * as vscode from 'vscode';
 import { FabExt } from '../extension';
 import { COD, CODutil } from '../support/document';
-import { Argument, Function } from "../support/data";
+import * as dataTypes from '../support/data';
+//import { Argument, Function } from "../support/data";
 
 export class SignatureHelpProviderCOD implements vscode.SignatureHelpProvider {
 	provideSignatureHelp(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.SignatureHelpContext): vscode.ProviderResult<vscode.SignatureHelp> {
@@ -41,14 +42,15 @@ export class SignatureHelpProviderCOD implements vscode.SignatureHelpProvider {
 						break;
 					}
 				}
-				if (count === 0) {
+				if (count === 0) {					
 					const starter = CODutil.getSequenceStartEntity(cod, items[i].index);
 					const ender = items[i];
-					const [typName, meth] = FabExt.Data.getDotSeqTypeName(cod, starter, ender);
-					if (meth instanceof Function) {
+					const [typName, funcprop] = FabExt.Data.getDotSeqTypeName(cod, starter, ender);					
+					if (funcprop && funcprop['args']) {
+						const meth: dataTypes.Function = funcprop as dataTypes.Function;
 						const sig = new vscode.SignatureHelp();		
 						const siginfo = new vscode.SignatureInformation(meth.id, FabExt.Data.getDottedMarkdown(cod, ender));						
-						meth.arguments.forEach((arg: Argument, idx) => {
+						meth.args.forEach((arg: dataTypes.Argument, idx) => {
 							const parinfo = new vscode.ParameterInformation(arg.id, FabExt.Data.getArgumentMarkdown(arg));
 							siginfo.parameters.push(parinfo);
 						});
@@ -56,21 +58,26 @@ export class SignatureHelpProviderCOD implements vscode.SignatureHelpProvider {
 						sig.signatures.push(siginfo);
 						return sig;
 					} else if (FabExt.Data.functions[ender.value.toUpperCase()]) {
-
 						const sig = new vscode.SignatureHelp();		
 						const meth = FabExt.Data.functions[ender.value.toUpperCase()];
-						const siginfo = new vscode.SignatureInformation(meth.id, FabExt.Data.getDottedMarkdown(cod, ender));						
-						meth.args.forEach((arg: Argument, idx) => {
+						const siginfo = new vscode.SignatureInformation(meth.id, FabExt.Data.getNamedObjectMarkdown(ender.value.toUpperCase()));						
+						meth.args.forEach((arg: dataTypes.Argument, idx) => {
 							const parinfo = new vscode.ParameterInformation(arg.id, FabExt.Data.getArgumentMarkdown(arg));
 							siginfo.parameters.push(parinfo);
 						});
 						sig.activeParameter = qty;
 						sig.signatures.push(siginfo);
-						return sig;
+						return sig;	
 					} else if (cod.keywords.functions.has(ender.value.toUpperCase())) {
-						const sig = new vscode.SignatureHelp();
-						sig.signatures.push(new vscode.SignatureInformation(ender.value));
-						return sig;
+						const deflist = cod.keywords.functions.get(ender.value.toUpperCase());
+						const defstart = deflist.find(p => cod.entities[p.index - 1].value.toUpperCase() === 'FUNCTION');
+						if (defstart) {
+							const sig = new vscode.SignatureHelp();
+							sig.signatures.push(new vscode.SignatureInformation(document.lineAt(defstart.line).text.trim()));
+							return sig;
+						} else {
+							return;
+						}
 					} else {
 						return;
 					}
