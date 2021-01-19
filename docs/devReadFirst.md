@@ -136,5 +136,5 @@ There are multiple ways to accomplish building a VSIX file, but easiest way is t
 
 ## :gift: Contributing :gift:
 
-If you plan to contribute to the project, then please continue reading in the [devCONTRIBUTE.md](devCONTRIBUTE.md)
+If you plan to contribute to the project, then please continue reading in the [devContributer.md](https://github.com/AgileBIM/FabCOD/blob/main/docs/devContributer.md)
 
