@@ -33,13 +33,13 @@ export namespace CODParser {
         // requester needs to be used to ensure that 2 COD's don't create an infinate loop by including each other as references.
         const text = doc instanceof Object ? doc.getText() : doc;
         const ids: NameTracker = new NameTracker(doc instanceof Object ? doc.fileName.toUpperCase() : '');
-        const ents: Array<Entity> = segmentation(text);
-        const retn = formulation(ids, ents);
+        const ents: Array<Entity> = segmentation(text) ?? [];
+        const retn = formulation(ids, ents) ?? ents;
         
         return {
             text: text,
-            keywords: retn[0],
-            contents: retn[1],
+            keywords: ids,
+            contents: retn,
             entities: ents,            
             source: doc instanceof Object ? doc : null
         };
@@ -48,11 +48,11 @@ export namespace CODParser {
     export function updateCOD(doc: string|vscode.TextDocument, source: COD) {
         const text = doc instanceof Object ? doc.getText() : doc;
         const ids: NameTracker = new NameTracker(doc instanceof Object ? doc.fileName.toUpperCase() : '');
-        const ents = segmentation(text);
-        const retn = formulation(ids, ents);
+        const ents = segmentation(text) ?? [];
+        const retn = formulation(ids, ents) ?? ents;
         source.text = text;
-        source.keywords = retn[0];
-        source.contents = retn[1];
+        source.keywords = ids;
+        source.contents = retn;
         source.entities = ents;
         source.source = doc instanceof Object ? doc : null;
     }
@@ -503,7 +503,7 @@ export namespace CODParser {
     }
 
 
-    export function formulation(idObj: NameTracker, ents: Array<Entity>): [NameTracker, Array<Entity|EntityCollection>] {
+    export function formulation(idObj: NameTracker, ents: Array<Entity>): Array<Entity|EntityCollection> {
         const result: Array<Entity|EntityCollection> = [];
         //const np = path.resolve(path.relative("C:\\Users\\howar\\Music\\OtherApps\\ITMedit.Validation.Approvals\\whatever.cod", "..\\..\\Builds"));
         const tracker: IndexTracker = { 
@@ -535,7 +535,7 @@ export namespace CODParser {
         if (removes.length >= 1) {
             tracker.ids.skipped = tracker.ids.skipped.filter((obj, i) => !removes.includes(i));
         }
-        return [tracker.ids, result];
+        return result;
     }
 
 //#endregion Block Formulation Flow Control

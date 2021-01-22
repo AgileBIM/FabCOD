@@ -49,7 +49,11 @@ export class FabDocumentManager{
 
 	private tryUpdateInternal(cod: COD, doc: vscode.TextDocument): void {		
 		if (cod?.text !== doc?.getText()) {
-			CODParser.updateCOD(doc, cod);			
+			try {
+				CODParser.updateCOD(doc, cod);	
+			} catch (error) {
+				//debugger;
+			}
 		}
 	}
 
@@ -62,14 +66,14 @@ export class FabDocumentManager{
 					const cod = CODParser.createCOD(text);
 					this._cached.set(key, cod);	
 				} catch (error) {
-					debugger;
+					//debugger;
 				}
 			} else {
 				try {
 					const cod = this._cached.get(key);			
 					this.tryUpdateInternal(cod, cod.source);	
 				} catch (error) {
-					debugger;
+					//debugger;
 				}
 				
 			}
@@ -84,7 +88,7 @@ export class FabDocumentManager{
 			try {
 				key = this.normalizePath(doc.fileName);	
 			} catch (error) {
-				debugger;
+				//debugger;
 			}
 		}
 		if (this.isValidCOD(key)) {
@@ -93,7 +97,7 @@ export class FabDocumentManager{
 					const sources = CODParser.createCOD(doc);
 					this._cached.set(key, sources);
 				} catch (error) {
-					debugger;
+					//debugger;
 				}
 			} else {
 				this.tryUpdateInternal(this._cached.get(key), doc);
@@ -109,7 +113,7 @@ export class FabDocumentManager{
 		try {
 			key = this.normalizePath(nDoc.fileName);	
 		} catch (error) {
-			debugger;
+			//debugger;
 		}
 		if (tryUpdate || !this._cached.has(key)) {
 			key = this.documentConsumeOrValidate(nDoc);
@@ -137,7 +141,9 @@ export class FabDocumentManager{
 			items.forEach((fileUri: vscode.Uri) => {	
 				try {
 					this.pathConsumeOrValidate(fileUri.fsPath);	
-				} catch (error) { debugger;}
+				} catch (error) { 
+					//debugger;
+				}
 			});
 		});
 		

@@ -23,9 +23,7 @@
 		"autocad"
 	],
 	"categories": [
-		"Programming Languages",
-		"Formatters",
-		"Snippets"
+		"Programming Languages"
 	],
 	"icon": "fabcodlogo.png",
 	"main": "./out/extension.js",
@@ -79,7 +77,7 @@
 				"editor.suggestSelection": "recentlyUsed"
 			}
 		},
-		"keybindings":[
+		"keybindings": [
 			{
 				"when": "resourceLangId == codscript",
 				"command": "fabext.dimpicker",
@@ -121,8 +119,7 @@
 				"command": "fabext.insertregion",
 				"category": "FabCOD",
 				"title": "Insert Folding Region"
-			},
-			{ "title": "HelloWorld", "command": "cadmepext.helloWorld" } 
+			}
 		],
 		"menus": {
 			"view/title": [],
@@ -158,8 +155,7 @@
 		"watch": "tsc -watch -p ./",
 		"pretest": "npm run compile && npm run lint",
 		"lint": "eslint src --ext ts",
-		"test": "node ./out/test/runTest.js",
-		"IncludeJson": "cp src/support/FabricationDefinition.json out/support/FabricationDefinition.json"
+		"test": "node ./out/test/runTest.js"
 	},
 	"devDependencies": {
 		"@types/fs-extra": "^8.1.0",
@@ -177,13 +173,14 @@
 		"del": "^4.1.1",
 		"event-stream": "^4.0.1",
 		"run-sequence": "^2.2.1",
-		"source-map-resolve": "0.6.0"
+		"source-map-resolve": "0.6.0",
+		"vscode-languageclient": "7.0.0"
 	},
 	"dependencies": {
 		"execa": "5.0.0",
 		"fs-extra": "9.0.0",
 		"os-locale": "5.0.0",
-		"vsce": "1.83.0",
+		"vsce": "1.84.0",
 		"vscode-languageclient": "7.0.0"
 	}
 }

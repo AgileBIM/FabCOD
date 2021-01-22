@@ -50,8 +50,8 @@ suite('Extension Test Suite', () => {
 		try {
 			const complexf = parser.CODParser.formulation(cids, complexs);
 			const massivef = parser.CODParser.formulation(mids, massives);
-			assert.isAbove(complexf[1].length, 1);
-			assert.isAbove(massivef[1].length, 1);	
+			assert.isAbove(complexf.length, 1);
+			assert.isAbove(massivef.length, 1);	
 		} catch (error) {
 			assert.fail('Formulation Failed');
 		}
