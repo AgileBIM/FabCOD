@@ -14,7 +14,6 @@ vsc-extension-quickstart.md
 **/*.py
 **/*.ts
 docs
-node_modules/**
 test_cases/**
 .vscodeignore
 pack.py
