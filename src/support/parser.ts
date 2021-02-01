@@ -1,5 +1,4 @@
 import * as vscode from 'vscode';
-import * as path from 'path';
 import { 
     Entity, 
     EntityCollection, 
@@ -20,28 +19,8 @@ import {
     stdSymbols,
     blockStarters
  } from "./entities";
+import { COD, NameTracker } from './document';
 import { FabExt } from '../extension';
-
- export interface COD {
-    text: string;
-    contents: Array<Entity|EntityCollection>;
-    entities: Array<Entity>;
-    keywords: NameTracker;
-    source: vscode.TextDocument;
-}
-
-export class NameTracker {
-    creator: string = '';
-    variables: Map<string, Array<Entity>> = new Map();
-    skipped: Array<Entity> = [];
-    functions: Map<string, Array<Entity>> = new Map();
-    importedFunctions: Map<string, Array<Entity>> = new Map();
-    includes: Array<string> = [];
-
-    constructor(fspath: string) {
-        this.creator = fspath;
-    }
-}
 
 export namespace CODParser {
     interface IndexTracker {
@@ -54,13 +33,13 @@ export namespace CODParser {
         // requester needs to be used to ensure that 2 COD's don't create an infinate loop by including each other as references.
         const text = doc instanceof Object ? doc.getText() : doc;
         const ids: NameTracker = new NameTracker(doc instanceof Object ? doc.fileName.toUpperCase() : '');
-        const ents: Array<Entity> = segmentation(text);
-        const retn = formulation(ids, ents);
+        const ents: Array<Entity> = segmentation(text) ?? [];
+        const retn = formulation(ids, ents) ?? ents;
         
         return {
             text: text,
-            keywords: retn[0],
-            contents: retn[1],
+            keywords: ids,
+            contents: retn,
             entities: ents,            
             source: doc instanceof Object ? doc : null
         };
@@ -69,11 +48,11 @@ export namespace CODParser {
     export function updateCOD(doc: string|vscode.TextDocument, source: COD) {
         const text = doc instanceof Object ? doc.getText() : doc;
         const ids: NameTracker = new NameTracker(doc instanceof Object ? doc.fileName.toUpperCase() : '');
-        const ents = segmentation(text);
-        const retn = formulation(ids, ents);
+        const ents = segmentation(text) ?? [];
+        const retn = formulation(ids, ents) ?? ents;
         source.text = text;
-        source.keywords = retn[0];
-        source.contents = retn[1];
+        source.keywords = ids;
+        source.contents = retn;
         source.entities = ents;
         source.source = doc instanceof Object ? doc : null;
     }
@@ -118,6 +97,13 @@ export namespace CODParser {
             }            
         }
         const closer = new SequenceEntity(EntityType.SEQUENCE, ender);
+        // const fstart = header.children.findIndex(p => p.value === 'FUNCTION');
+        // const fname = header.children[fstart - 1];
+        // if (fname) {
+        //     if (tracker.ids.functions.has(fname.value.toUpperCase())) {
+        //         tracker.ids.functions.get(fname.value.toUpperCase()).push(fname);
+        //     }
+        // }
         return new FunctionDefinitionEntity(header, new ContentsEntity(body), closer);
     }
 
@@ -383,26 +369,28 @@ export namespace CODParser {
     function processEntityRun(ents: Array<Entity>, ids: NameTracker, assumeVariables?: boolean) : EntityCollection { 
         const result: Array<Entity|EntityCollection> = [];
         for (let i = 0; i < ents.length; i++) {
-            const prev = ents[i-1];
+            const prev = ents[i - 1];
             const curr = ents[i];
-            const next = ents[i+1];
+            const next = ents[i + 1];
             const pUpper = prev ? prev.value.toUpperCase() : '';
             const upper = curr.value.toUpperCase();
-            if (curr.valueType === ValueType.UNKNOWN || upper === 'DIM')
+            if (curr.valueType === ValueType.UNKNOWN || upper === 'DIM' || pUpper === 'FUNCTION')
             {
-                if (pUpper === '.') {
+                const nAttach = !next ? false : curr.column + curr.value.length === next.column;
+                const pAttach = !prev ? false : prev.column + prev.value.length === curr.column;
+                if (pAttach && pUpper === '.') {
                     // dotted
-                    if (next?.value === '[') {
+                    if (nAttach && next.value === '[') {
                         curr.valueType = ValueType.KEYWORD;
                         curr.entityType = EntityType.INDEXED;
-                    } else if (next?.value === '(') {
+                    } else if (nAttach && next.value === '(') {
                         curr.valueType = ValueType.KEYWORD;
                         curr.entityType = EntityType.METHOD;                        
                     } else {
                         curr.valueType = ValueType.KEYWORD;
                         curr.entityType = EntityType.PROPERTY;
                     }
-                } else if (next?.value === '.') {
+                } else if (nAttach && next.value === '.') {
                     if (ids.variables.has(upper)) {
                         ids.variables.get(upper).push(curr);
                         curr.valueType = ValueType.VARIABLE;
@@ -411,7 +399,7 @@ export namespace CODParser {
                         curr.valueType = ValueType.OBJECT;
                         curr.entityType = EntityType.DOTTED;
                     }
-                } else if (next?.value === '[') {
+                } else if (nAttach && next.value === '[') {
                     if (ids.variables.has(upper)) {
                         ids.variables.get(upper).push(curr);
                         curr.valueType = ValueType.VARIABLE;
@@ -420,7 +408,15 @@ export namespace CODParser {
                         curr.valueType = ValueType.OBJECT;
                         curr.entityType = EntityType.INDEXED;
                     }
-                } else if (next?.value === '(') {
+                } else if (pUpper === 'FUNCTION' && next.value === '(') {
+                    curr.valueType = ValueType.KEYWORD;
+                    curr.entityType = EntityType.FUNCTION;
+                    if (ids.functions.has(upper)) {
+                        ids.functions.get(upper).push(curr);
+                    } else {
+                        ids.functions.set(upper, [curr]);
+                    }
+                } else if (nAttach && next.value === '(') {
                     curr.valueType = ValueType.KEYWORD;
                     curr.entityType = EntityType.FUNCTION;
                     if (!FabExt.Data.functions[upper]) {
@@ -456,8 +452,8 @@ export namespace CODParser {
                 } else {
                     ids.skipped.push(curr);
                 }
-            } else if (curr.valueType === ValueType.STRING && pUpper === 'INCLUDE') {
-                ids.includes.push(upper.replace('"', ''));
+            } else if (curr.isString && pUpper === 'INCLUDE') {
+                ids.includes.push(upper.replace(/\"/g, ''));
             }
             // This COULD be enhanced to make EntityCollections of dotted pairs, functions with variables, varaible declarations and assignments, etcetera
             result.push(curr);
@@ -507,7 +503,7 @@ export namespace CODParser {
     }
 
 
-    export function formulation(idObj: NameTracker, ents: Array<Entity>): [NameTracker, Array<Entity|EntityCollection>] {
+    export function formulation(idObj: NameTracker, ents: Array<Entity>): Array<Entity|EntityCollection> {
         const result: Array<Entity|EntityCollection> = [];
         //const np = path.resolve(path.relative("C:\\Users\\howar\\Music\\OtherApps\\ITMedit.Validation.Approvals\\whatever.cod", "..\\..\\Builds"));
         const tracker: IndexTracker = { 
@@ -539,7 +535,7 @@ export namespace CODParser {
         if (removes.length >= 1) {
             tracker.ids.skipped = tracker.ids.skipped.filter((obj, i) => !removes.includes(i));
         }
-        return [tracker.ids, result];
+        return result;
     }
 
 //#endregion Block Formulation Flow Control
@@ -622,20 +618,20 @@ export namespace CODParser {
                             state = ValueType.NUMBER;
                         } else {
                             if (temp) {
-                                result.push(enhancePrimitives(temp));
+                                result.push(enhancePrimitives(temp, result[result.length -1]));
                                 temp = null;
                             }
                             result.push(new Entity(EntityType.ENTITY, ValueType.SYMBOL, curr, lnum, col, result.length));
                         }
                     } else if (stdSymbols.includes(curr)) {
                         if (temp) {
-                            result.push(enhancePrimitives(temp));
+                            result.push(enhancePrimitives(temp, result[result.length -1]));
                             temp = null;
                         }
                         result.push(new Entity(EntityType.ENTITY, ValueType.SYMBOL, curr, lnum, col, result.length));
                     } else if (curr === '"') {
                         if (temp) {
-                            result.push(enhancePrimitives(temp));
+                            result.push(enhancePrimitives(temp, result[result.length -1]));
                             temp = null;
                         }
                         temp = new Entity(EntityType.ENTITY, ValueType.STRING, curr, lnum, col, result.length);
@@ -649,7 +645,7 @@ export namespace CODParser {
                             const combo = (next1 && next2) ? (curr + next1 + next2) : '';
                             if (combo === 'REM' && (next3 === ' ' || next3 === '\t')) {
                                 if (temp) {
-                                    result.push(enhancePrimitives(temp));
+                                    result.push(enhancePrimitives(temp, result[result.length -1]));
                                     temp = null;
                                 }
                                 temp = new Entity(EntityType.ENTITY, ValueType.COMMENT, curr, lnum, col, result.length);
@@ -660,7 +656,7 @@ export namespace CODParser {
                         if (!handled) {
                             if (/\s/.test(curr)){
                                 if (temp) {
-                                    result.push(enhancePrimitives(temp));
+                                    result.push(enhancePrimitives(temp, result[result.length -1]));
                                     temp = null;
                                 }
                             } else if (temp) {
@@ -680,13 +676,13 @@ export namespace CODParser {
             }
         }
         if (temp) {
-            result.push(enhancePrimitives(temp));
+            result.push(enhancePrimitives(temp, result[result.length -1]));
         }
         return result;
     } // End tokenize()
 
 
-    function enhancePrimitives(ent: Entity) {        
+    function enhancePrimitives(ent: Entity, prev: Entity) {        
         const val = ent.value.toUpperCase();
         switch (val) {
             case 'NULL':
@@ -702,12 +698,14 @@ export namespace CODParser {
                 ent.valueType = ValueType.VOID;
                 break;
             default:
-                if (FabExt.Data.flowTypes.includes(val) || FabExt.Data.specialTypes.includes(val)) {
-                    ent.valueType = ValueType.KEYWORD;
-                } else if (FabExt.Data.enumTypes.includes(val) || FabExt.Data.constants[val]) {
-                    ent.valueType = ValueType.CONSTANT;
-                } else if (FabExt.Data.objects[val]) {
-                    ent.valueType = ValueType.OBJECT;
+                if (prev && prev.value !== '.') {
+                    if (FabExt.Data.flowTypes.includes(val) || FabExt.Data.specialTypes.includes(val)) {
+                        ent.valueType = ValueType.KEYWORD;
+                    } else if (FabExt.Data.enumTypes.includes(val) || FabExt.Data.constants[val]) {
+                        ent.valueType = ValueType.CONSTANT;
+                    } else if (FabExt.Data.objects[val]) {
+                        ent.valueType = ValueType.OBJECT;
+                    }
                 }
                 break;
         }

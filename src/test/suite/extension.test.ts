@@ -4,7 +4,7 @@ import { assert } from 'chai';
 import * as entities from '../../support/entities';
 import * as fs from 'fs-extra';
 import * as parser from '../../support/parser';
-//import * as documents from '../../support/document';
+import { COD, NameTracker } from "../../support/document";
 
 const complexPath = path.join(__dirname + '\\..\\..\\..\\test_cases\\complex.cod');
 const massivePath = path.join(__dirname + '\\..\\..\\..\\test_cases\\massive.cod');
@@ -45,29 +45,13 @@ suite('Extension Test Suite', () => {
 		}
 	});
 	test('Attempt Formulation', () => {
-		const cids: parser.NameTracker = {
-            creator: complexPath.toUpperCase(),
-            variables: new Map<string, Array<entities.Entity>>(),
-            functions: new Map<string, Array<entities.Entity>>(),
-			importedFunctions: new Map<string, Array<entities.Entity>>(),
-			skipped: [],
-            includes: []
-			};
-
-		const mids: parser.NameTracker = {
-			creator: massivePath.toUpperCase(),
-			variables: new Map<string, Array<entities.Entity>>(),
-			functions: new Map<string, Array<entities.Entity>>(),
-			importedFunctions: new Map<string, Array<entities.Entity>>(),
-			skipped: [],
-			includes: []
-			};
-
+		const cids = new NameTracker(complexPath.toUpperCase());
+		const mids = new NameTracker(massivePath.toUpperCase());
 		try {
 			const complexf = parser.CODParser.formulation(cids, complexs);
 			const massivef = parser.CODParser.formulation(mids, massives);
-			assert.isAbove(complexf[1].length, 1);
-			assert.isAbove(massivef[1].length, 1);	
+			assert.isAbove(complexf.length, 1);
+			assert.isAbove(massivef.length, 1);	
 		} catch (error) {
 			assert.fail('Formulation Failed');
 		}

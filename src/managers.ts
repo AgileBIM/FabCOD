@@ -2,7 +2,8 @@ import * as vscode from "vscode";
 import { library } from "./resources";
 import { FabExt } from './extension';
 import * as fs from	'fs-extra';
-import { COD, CODParser } from './support/parser';
+import { CODParser } from './support/parser';
+import { COD } from "./support/document";
 
 
 
@@ -48,7 +49,11 @@ export class FabDocumentManager{
 
 	private tryUpdateInternal(cod: COD, doc: vscode.TextDocument): void {		
 		if (cod?.text !== doc?.getText()) {
-			CODParser.updateCOD(doc, cod);			
+			try {
+				CODParser.updateCOD(doc, cod);	
+			} catch (error) {
+				//debugger;
+			}
 		}
 	}
 
@@ -61,14 +66,14 @@ export class FabDocumentManager{
 					const cod = CODParser.createCOD(text);
 					this._cached.set(key, cod);	
 				} catch (error) {
-					debugger;
+					//debugger;
 				}
 			} else {
 				try {
 					const cod = this._cached.get(key);			
 					this.tryUpdateInternal(cod, cod.source);	
 				} catch (error) {
-					debugger;
+					//debugger;
 				}
 				
 			}
@@ -80,7 +85,11 @@ export class FabDocumentManager{
 
 	private documentConsumeOrValidate(doc: vscode.TextDocument, key?: string): string {
 		if (!key){
-			key = this.normalizePath(doc.fileName);
+			try {
+				key = this.normalizePath(doc.fileName);	
+			} catch (error) {
+				//debugger;
+			}
 		}
 		if (this.isValidCOD(key)) {
 			if (this._cached.has(key) === false) {
@@ -88,7 +97,7 @@ export class FabDocumentManager{
 					const sources = CODParser.createCOD(doc);
 					this._cached.set(key, sources);
 				} catch (error) {
-					debugger;
+					//debugger;
 				}
 			} else {
 				this.tryUpdateInternal(this._cached.get(key), doc);
@@ -99,8 +108,16 @@ export class FabDocumentManager{
 		}
 	}
 
-	getDocument(nDoc: vscode.TextDocument): COD|null {
-		const key = this.documentConsumeOrValidate(nDoc);
+	getDocument(nDoc: vscode.TextDocument, tryUpdate: boolean = true): COD {
+		let key: string = '';
+		try {
+			key = this.normalizePath(nDoc.fileName);	
+		} catch (error) {
+			//debugger;
+		}
+		if (tryUpdate || !this._cached.has(key)) {
+			key = this.documentConsumeOrValidate(nDoc);
+		} 
 		return this._cached.get(key);
 	}	
 
@@ -124,7 +141,9 @@ export class FabDocumentManager{
 			items.forEach((fileUri: vscode.Uri) => {	
 				try {
 					this.pathConsumeOrValidate(fileUri.fsPath);	
-				} catch (error) { debugger;}
+				} catch (error) { 
+					//debugger;
+				}
 			});
 		});
 		

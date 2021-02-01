@@ -7,22 +7,7 @@ import shlex
 import platform
 import sys
 import json
-
-def copyFile(src, dst, description):
-    try:
-        shutil.copy(src, dst)
-        print("===============================================")
-        print("          " + description)
-        print("===============================================")
-        print("\n\n")
-    except IOError as e:
-        print("Unable to copy file. %s" % e)
-    return 0
-
-def copyExecuteInAcad():
-    src = os.path.join(os.path.curdir, 'util', 'Builds', 'ExecuteInAcad.exe')
-    dst = os.path.join(os.path.curdir, 'out', 'support', 'ExecuteInAcad.exe')
-    copyFile(src, dst, 'copied ExecuteInAcad.exe')
+from copyFiles import copyDimOptionChoices, copyExecuteInAcad, copyFabDataJson, copySnippetDefs
 
 def makepackage_vsix():    
     with open('package.json', 'r') as jfile:
@@ -50,7 +35,10 @@ def makepackage_vsix():
     return ret
 
 if __name__ == "__main__":
+    copyDimOptionChoices()
     copyExecuteInAcad()
+    copyFabDataJson()
+    copySnippetDefs()
     print("===============================================")
     print("      generate vsix package start")
     print("===============================================")

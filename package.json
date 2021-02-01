@@ -2,7 +2,7 @@
 	"name": "fabcod",
 	"displayName": "FabCOD",
 	"description": "Fabrication COD Scripting Language Support",
-	"version": "0.0.1",
+	"version": "0.0.3",
 	"license": "MIT",
 	"publisher": "agilebim",
 	"bugs": {
@@ -23,19 +23,15 @@
 		"autocad"
 	],
 	"categories": [
-		"Programming Languages",
-		"Formatters",
-		"Snippets"
+		"Programming Languages"
 	],
 	"icon": "fabcodlogo.png",
 	"main": "./out/extension.js",
-	"files": [
-		"fabcod.vsix"
-	],
+	"files": [],
 	"activationEvents": [
 		"onLanguage:codscript"
 	],
-	"contributes": { 
+	"contributes": {
 		"languages": [
 			{
 				"id": "codscript",
@@ -65,13 +61,14 @@
 			"[codscript]": {
 				"files.autoGuessEncoding": true,
 				"editor.tabSize": 2,
-				"editor.wordBasedSuggestions": true,
+				"editor.wordBasedSuggestions": false,
 				"editor.detectIndentation": true,
 				"editor.quickSuggestions": {
 					"other": true,
 					"comments": false,
 					"strings": false
 				},
+				"editor.snippetSuggestions": "none",
 				"editor.autoIndent": "full",
 				"editor.formatOnType": true,
 				"files.encoding": "utf8",
@@ -80,7 +77,17 @@
 				"editor.suggestSelection": "recentlyUsed"
 			}
 		},
-		"keybindings":[
+		"keybindings": [
+			{
+				"when": "resourceLangId == codscript",
+				"command": "fabext.dimpicker",
+				"key": "Shift+F1"
+			},
+			{
+				"when": "resourceLangId == codscript",
+				"command": "fabext.optionpicker",
+				"key": "Shift+F2"
+			},
 			{
 				"when": "resourceLangId == codscript",
 				"command": "fabext.acadexecute",
@@ -94,6 +101,16 @@
 		],
 		"commands": [
 			{
+				"command": "fabext.dimpicker",
+				"category": "FabCOD",
+				"title": "CID Dim Name Lookup"
+			},
+			{
+				"command": "fabext.optionpicker",
+				"category": "FabCOD",
+				"title": "CID Option Name Lookup"
+			},
+			{
 				"command": "fabext.acadexecute",
 				"category": "FabCOD",
 				"title": "Execute Active Script in ACAD"
@@ -102,8 +119,7 @@
 				"command": "fabext.insertregion",
 				"category": "FabCOD",
 				"title": "Insert Folding Region"
-			},
-			{ "title": "HelloWorld", "command": "cadmepext.helloWorld" } 
+			}
 		],
 		"menus": {
 			"view/title": [],
@@ -118,6 +134,16 @@
 					"when": "resourceLangId == codscript",
 					"command": "fabext.insertregion",
 					"group": "navigation@2"
+				},
+				{
+					"when": "resourceLangId == codscript",
+					"command": "fabext.dimpicker",
+					"group": "navigation@3"
+				},
+				{
+					"when": "resourceLangId == codscript",
+					"command": "fabext.optionpicker",
+					"group": "navigation@4"
 				}
 			],
 			"explorer/context": []
@@ -129,8 +155,7 @@
 		"watch": "tsc -watch -p ./",
 		"pretest": "npm run compile && npm run lint",
 		"lint": "eslint src --ext ts",
-		"test": "node ./out/test/runTest.js",
-		"IncludeJson": "cp src/support/FabricationDefinition.json out/support/FabricationDefinition.json"
+		"test": "node ./out/test/runTest.js"
 	},
 	"devDependencies": {
 		"@types/fs-extra": "^8.1.0",
@@ -148,13 +173,14 @@
 		"del": "^4.1.1",
 		"event-stream": "^4.0.1",
 		"run-sequence": "^2.2.1",
-		"source-map-resolve": "0.6.0"
+		"source-map-resolve": "0.6.0",
+		"vscode-languageclient": "7.0.0"
 	},
 	"dependencies": {
 		"execa": "5.0.0",
 		"fs-extra": "9.0.0",
 		"os-locale": "5.0.0",
-		"vsce": "1.83.0",
+		"vsce": "1.84.0",
 		"vscode-languageclient": "7.0.0"
 	}
 }
