@@ -83,7 +83,7 @@ NUMBER
 ## Function: Debug
 Display an Alert message box with a single OK button used to dismiss the message.
 
-No additional remarks available
+This can be called with and without parenthesis
 #### Signature
 Debug(MessageTest: STRING)
 #### Arguments
@@ -91,7 +91,7 @@ Debug(MessageTest: STRING)
 #### Returns
 VOID
 ## Function: Error
-How to use this function works is currently unknown
+Dispalys to the User, a customer error message as desired by your code.
 
 No additional remarks available
 #### Signature
@@ -271,6 +271,20 @@ Number(Value: ANY)
 - **Value** as: ANY
 #### Returns
 NUMBER
+## Function: Output
+Outputs a message to the Console window.
+
+Applies to the Console Window of ESTmep and CAMduct. Does nothing
+in CADmep.
+This function displays a text string only. It can not be used to automate
+or issue commands to or automate from the Console Window.
+#### Signature
+Output(TextMessage: ANY)
+#### Arguments
+- **TextMessage** as: ANY
+  - Remarks: Text to output to the console window.
+#### Returns
+VOID
 ## Function: Pow
 Get the value to the power of n.
 

@@ -52,7 +52,9 @@
         "DIM",
         "OBJECT",
         "REQUIRES",
-        "INCLUDE"
+        "INCLUDE",
+        "RUN",
+        "BREAKPOINT"
       ]
     }
   },
@@ -1006,7 +1008,8 @@
         "args": {
           "MessageText": "A String Label to display in the dialog title bar."
         },
-        "returns": "This can be called with and without parenthesis"
+        "returns": "Nothing",
+        "remarks": "This can be called with and without parenthesis"
       }
     },
     "Exec": {
@@ -1139,11 +1142,34 @@
         }
       ],
       "info": {
-        "desc": "How to use this function works is currently unknown",
+        "desc": "Dispalys to the User, a customer error message as desired by your code.",
         "args": {
           "Input": "Accepts just about any 1 item"
         },
         "returns": "Nothing"
+      }
+    },
+    "Output": {
+      "id": "Output",
+      "returns": [
+        "VOID"
+      ],
+      "args": [
+        {
+          "id": "TextMessage",
+          "types": [
+            "ANY"
+          ],
+          "optional": false,
+          "notes": "Text to output to the console window."
+        }
+      ],
+      "info": {
+        "desc": "Outputs a message to the Console window.",
+        "args": {
+          "TextMessage": "Text to output to the console window."
+        },
+        "remarks": "Applies to the Console Window of ESTmep and CAMduct. Does nothing\nin CADmep.\nThis function displays a text string only. It can not be used to automate\nor issue commands to or automate from the Console Window."
       }
     }
   },
@@ -1403,7 +1429,7 @@
           ],
           "info": {
             "desc": "Get/Set the Name of the AIRTURN Object.",
-            "remarks": "Group of the Airturn is nmot given and can not be specified."
+            "remarks": "Group of the Airturn is not given and can not be specified."
           }
         }
       ],
@@ -1936,7 +1962,7 @@
               "Active": "Boolean Flag indicating if Status should be made Active."
             },
             "returns": "Boolean Flag indicating is status activation was successful.",
-            "remarks": "Returns False if there was ann error during Status Activation, True otherwise."
+            "remarks": "Returns False if there was an error during Status Activation, True otherwise."
           }
         }
       ],
@@ -2192,7 +2218,326 @@
     },
     "PRODUCTENTRY": {
       "id": "PRODUCTENTRY",
-      "methods": [],
+      "methods": [
+        {
+          "id": "AddAlias",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [],
+          "info": {
+            "desc": "Adds 'ALIAS' Column to Product List",
+            "returns": "Boolean flag indicating if adding column was sucessful or not."
+          }
+        },
+        {
+          "id": "AddArea",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [],
+          "info": {
+            "desc": "Adds 'AREA' Column to Product List",
+            "returns": "Boolean flag indicating if adding column was sucessful or not."
+          }
+        },
+        {
+          "id": "AddBoughtOut",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [],
+          "info": {
+            "desc": "Adds 'BOUGHTOUT' Column to Product List",
+            "returns": "Boolean flag indicating if adding column was sucessful or not."
+          }
+        },
+        {
+          "id": "AddCADBlock",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [],
+          "info": {
+            "desc": "Adds 'CADBLOCK' Column to Product List",
+            "returns": "Boolean flag indicating if adding column was sucessful or not."
+          }
+        },
+        {
+          "id": "AddCustomData",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [
+            {
+              "id": "CustomDataName",
+              "types": [
+                "STRING"
+              ],
+              "optional": false,
+              "notes": "Text Name of Custom Data field to add."
+            }
+          ],
+          "info": {
+            "desc": "Adds 'CUSTOMDATA[<dataname>]' Column to Product List",
+            "args": {
+              "CustomDataName": "Text Name of Custom Data field to add."
+            },
+            "returns": "Boolean flag indicating if adding column was sucessful or not."
+          }
+        },
+        {
+          "id": "AddDatabaseID",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [],
+          "info": {
+            "desc": "Adds 'ID' Column to Product List",
+            "returns": "Boolean flag indicating if adding column was sucessful or not."
+          }
+        },
+        {
+          "id": "AddDim",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [
+            {
+              "id": "DimName",
+              "types": [
+                "STRING"
+              ],
+              "optional": true,
+              "notes": "Optional Upper Case Name of Dimension to add."
+            }
+          ],
+          "info": {
+            "desc": "Adds 'DIM' Column(s) to Product List",
+            "args": {
+              "DimName": "Optional Upper Case Name of Dimension to add."
+            },
+            "returns": "Boolean flag indicating if adding column was sucessful or not.",
+            "remarks": "Function is very buggy. Repeated calls with improper syntax will cause\npredictability of this function to be sporatic at best. Repeated calls without\nspecifying the dimension name to add sequentially adds the next dimension\nas they are listed in the pattern."
+          }
+        },
+        {
+          "id": "AddFlow",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [],
+          "info": {
+            "desc": "Adds 'FLOWMIN' and 'FLOWMAX' Columns to Product List",
+            "returns": "Boolean flag indicating if adding columns was sucessful or not."
+          }
+        },
+        {
+          "id": "AddOption",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [
+            {
+              "id": "OptionNmae",
+              "types": [
+                "STRING"
+              ],
+              "optional": true,
+              "notes": ""
+            }
+          ],
+          "info": {
+            "desc": "Adds 'OPTION' Column(s) to Product List",
+            "args": {
+              "OptionName": "Optional Upper Case Name of Option to add."
+            },
+            "returns": "Boolean flag indicating if adding column was sucessful or not.",
+            "remarks": "Function is very buggy. Repeated calls with improper syntax will cause\npredictability of this function to be sporatic at best. Repeated calls without\nspecifying the dimension name to add sequentially adds the next dimension\nas they are listed in the pattern."
+          }
+        },
+        {
+          "id": "AddOrder",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [],
+          "info": {
+            "desc": "Adds 'ORDER' Column to Product List",
+            "returns": "Boolean flag indicating if adding columns was sucessful or not."
+          }
+        },
+        {
+          "id": "AddWeight",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [],
+          "info": {
+            "desc": "Adds 'WEIGHT' Column to Product List",
+            "returns": "Boolean flag indicating if adding columns was sucessful or not."
+          }
+        },
+        {
+          "id": "RemoveAlias",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [],
+          "info": {
+            "desc": "Removes 'ALIAS' Column from Product List",
+            "returns": "Boolean flag indicating if removing column was sucessful or not."
+          }
+        },
+        {
+          "id": "RemoveArea",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [],
+          "info": {
+            "desc": "Removes 'AREA' Column from Product List",
+            "returns": "Boolean flag indicating if removing column was sucessful or not."
+          }
+        },
+        {
+          "id": "RemoveBoughtOut",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [],
+          "info": {
+            "desc": "Removes 'BOUGHTOUT' Column from Product List",
+            "returns": "Boolean flag indicating if removing column was sucessful or not."
+          }
+        },
+        {
+          "id": "RemoveCADBlock",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [],
+          "info": {
+            "desc": "Removes 'CADBLOCK' Column from Product List",
+            "returns": "Boolean flag indicating if removing column was sucessful or not."
+          }
+        },
+        {
+          "id": "RemoveCustomData",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [
+            {
+              "id": "Name",
+              "types": [
+                "STRING"
+              ],
+              "optional": false,
+              "notes": ""
+            }
+          ],
+          "info": {
+            "desc": "Removes 'CUSTOMDATA[<dataname>]' Column from Product List",
+            "args": {
+              "CustomDataName": "Text Name of Custom Data field to remove."
+            },
+            "returns": "Boolean flag indicating if removing column was sucessful or not."
+          }
+        },
+        {
+          "id": "RemoveDatabaseID",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [],
+          "info": {
+            "desc": "Removes 'ID' Column from Product List",
+            "returns": "Boolean flag indicating if removing column was sucessful or not."
+          }
+        },
+        {
+          "id": "RemoveDim",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [
+            {
+              "id": "DimIndex",
+              "types": [
+                "NUMBER"
+              ],
+              "optional": false,
+              "notes": "Zero based index of Dimension column to remove."
+            }
+          ],
+          "info": {
+            "desc": "Removes 'DIM' Column(s) from Product List",
+            "args": {
+              "DimIndex": "Zero based index of Dimension column to remove."
+            },
+            "returns": "Boolean flag indicating if removing column was sucessful or not.",
+            "remarks": "Function is very buggy. Repeated calls with improper syntax will cause\npredictability of this function to be sporatic at best. Calls without\nspecifying the Dimension index appear to do nothing."
+          }
+        },
+        {
+          "id": "RemoveFlow",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [],
+          "info": {
+            "desc": "Removes 'FLOWMIN' and 'FLOWMAX' Columns from Product List",
+            "returns": "Boolean flag indicating if removing columns was sucessful or not."
+          }
+        },
+        {
+          "id": "RemoveOption",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [
+            {
+              "id": "OptionIndex",
+              "types": [
+                "NUMBER"
+              ],
+              "optional": false,
+              "notes": "Zero based index of Option column to remove."
+            }
+          ],
+          "info": {
+            "desc": "Removes 'OPTION' Column(s) from Product List",
+            "args": {
+              "OptionIndex": "Zero based index of Option column to remove."
+            },
+            "returns": "Boolean flag indicating if removing column was sucessful or not.",
+            "remarks": "Function is very buggy. Repeated calls with improper syntax will cause\npredictability of this function to be sporatic at best. Calls without\nspecifying the Option index appear to do nothing."
+          }
+        },
+        {
+          "id": "RemoveOrder",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [],
+          "info": {
+            "desc": "Removes 'ORDER' Column from Product List",
+            "returns": "Boolean flag indicating if removing column was sucessful or not."
+          }
+        },
+        {
+          "id": "RemoveWeight",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [],
+          "info": {
+            "desc": "REmoves 'WEIGHT' Column from Product List",
+            "returns": "Boolean flag indicating if removing column was sucessful or not."
+          }
+        }
+      ],
       "properties": [
         {
           "id": "Alias",
@@ -3092,6 +3437,53 @@
           }
         },
         {
+          "id": "SeekEntry",
+          "returns": [
+            "VOID"
+          ],
+          "args": [
+            {
+              "id": "DataToGoTo",
+              "types": [
+                "ANY"
+              ],
+              "optional": false,
+              "notes": "Data to position the file reader to."
+            }
+          ],
+          "info": {
+            "desc": "Positions the file reader to the position after the specified data in the file.",
+            "args": {
+              "DataToGoTo": "Data to position the file reader to."
+            },
+            "returns": "Nothing.",
+            "remarks": "File reader positions to just after the data that's specified by the function.\nSubsequent calls to functions that read data will return the data immediantely after\nthe data that was specified."
+          }
+        },
+        {
+          "id": "SeekLine",
+          "returns": [
+            "VOID"
+          ],
+          "args": [
+            {
+              "id": "DataToFind",
+              "types": [
+                "ANY"
+              ],
+              "optional": false,
+              "notes": ""
+            }
+          ],
+          "info": {
+            "desc": "Returns Boolean flag if specified data was found in the file.",
+            "args": {
+              "DataToFind": ""
+            },
+            "returns": "Boolean Flag indicating if data was found or not."
+          }
+        },
+        {
           "id": "WriteByte",
           "returns": [
             "BOOLEAN"
@@ -3350,6 +3742,163 @@
       ],
       "link": "https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/FILE-Object.md"
     },
+    "FILELOCATOR": {
+      "id": "FILELOCATOR",
+      "constructor": {
+        "id": "constructor",
+        "returns": [
+          ""
+        ],
+        "args": [
+          {
+            "id": "RootPath",
+            "types": [
+              "STRING"
+            ],
+            "optional": true,
+            "notes": "Optional String of Root Path to Search."
+          },
+          {
+            "id": "SearchWildcard",
+            "types": [
+              "STRING"
+            ],
+            "optional": true,
+            "notes": "Optional String Wildcard to match against."
+          },
+          {
+            "id": "SearchFiles",
+            "types": [
+              "BOOLEAN"
+            ],
+            "optional": true,
+            "notes": "Optional Boolean Flag to search against Files."
+          },
+          {
+            "id": "SearchFolders",
+            "types": [
+              "BOOLEAN"
+            ],
+            "optional": true,
+            "notes": "Optional Boolean Flag to search against Folders."
+          }
+        ],
+        "info": {
+          "desc": "Constructs a FileLocator Object.",
+          "args": {
+            "RootPath": "Optional String of Root Path to Search.",
+            "SearchWildcard": "Optional String Wildcard to match against.",
+            "SearchFiles": "Optional Boolean Flag to search against Files.",
+            "SearchFolders": "Optional Boolean Flag to search against Folders."
+          },
+          "returns": "Nothing.",
+          "remarks": "If optional parameters are not specified when constructing the FILELOCATOR object,\nuse the FILELOCATOR.Scan method to specify them."
+        }
+      },
+      "methods": [
+        {
+          "id": "Scan",
+          "returns": [
+            "NUMBER"
+          ],
+          "args": [
+            {
+              "id": "RootPath",
+              "types": [
+                "STRING"
+              ],
+              "optional": false,
+              "notes": "Optional String of Root Path to Search."
+            },
+            {
+              "id": "SearchWildcard",
+              "types": [
+                "STRING"
+              ],
+              "optional": false,
+              "notes": "Optional String Wildcard to match against."
+            },
+            {
+              "id": "SearchFiles",
+              "types": [
+                "BOOLEAN"
+              ],
+              "optional": false,
+              "notes": "Optional Boolean Flag to search against Files."
+            },
+            {
+              "id": "SearchFolders",
+              "types": [
+                "BOOLEAN"
+              ],
+              "optional": false,
+              "notes": "Optional Boolean Flag to search against Folders."
+            }
+          ],
+          "info": {
+            "desc": "Scan a root path for Files and/or Folders matching a Wildcard string.",
+            "args": {
+              "RootPath": "Optional String of Root Path to Search.",
+              "SearchWildcard": "Optional String Wildcard to match against.",
+              "SearchFiles": "Optional Boolean Flag to search against Files.",
+              "SearchFolders": "Optional Boolean Flag to search against Folders."
+            },
+            "returns": "Number indicating how many files and/or folders matched the search.",
+            "remarks": "This function is not needed if the FILELOCATOR Object Constructor was called with parameters specifying the\npath, search wildcard, file and folder search flags."
+          }
+        }
+      ],
+      "properties": [
+        {
+          "id": "File",
+          "returns": [
+            "STRING[]"
+          ],
+          "info": {
+            "desc": "This gets an array of File Names of found files for the FILELOCATOR Object."
+          }
+        },
+        {
+          "id": "FileCount",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the Number of Files that were found for the FILELOCATOR Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Folder",
+          "returns": [
+            "STRING[]"
+          ],
+          "info": {
+            "desc": "This gets an array of Folder Names of found folders for the FILELOCATOR Object."
+          }
+        },
+        {
+          "id": "FolderCount",
+          "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get the Number of Folders that were found for the FILELOCATOR Object.",
+            "readonly": true
+          }
+        },
+        {
+          "id": "Path",
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set full Path of Folder being scanned for the FILELOCATOR Object."
+          }
+        }
+      ],
+      "link": "https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/FILELOCATOR-Object.md"
+    },
     "ITEMSTRUCT": {
       "id": "ITEMSTRUCT",
       "constructor": {
@@ -3388,6 +3937,47 @@
             },
             "returns": "Nothing",
             "remarks": "This function merely added the specified 'User' Custom Data 'Field' to the Item. Once the\nfield is added, you can set a value using the Custom Data property Item.CustomData[name/index#].Value"
+          }
+        },
+        {
+          "id": "AddLink",
+          "returns": [
+            "NUMBER"
+          ],
+          "args": [
+            {
+              "id": "Link",
+              "types": [
+                "STRING"
+              ],
+              "optional": false,
+              "notes": "String of the URL to use for the Link"
+            },
+            {
+              "id": "Description",
+              "types": [
+                "STRING"
+              ],
+              "optional": false,
+              "notes": "String description of the Link"
+            },
+            {
+              "id": "Page",
+              "types": [
+                "STRING"
+              ],
+              "optional": false,
+              "notes": "String page on the link to go to. e.g. '#Page=2'"
+            }
+          ],
+          "info": {
+            "desc": "Adds Hyperlink to the Links tab of the Item Properties.",
+            "args": {
+              "Link": "String of the URL to use for the Link",
+              "Description": "String description of the Link",
+              "Page": "String page on the link to go to. e.g. '#Page=2'"
+            },
+            "returns": "Number representing the number of the link added."
           }
         },
         {
@@ -3433,6 +4023,29 @@
           "info": {
             "desc": "Indicates if Item supports Rotary Nesting or not.",
             "returns": "Boolean"
+          }
+        },
+        {
+          "id": "DeleteLink",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [
+            {
+              "id": "LinkNumber",
+              "types": [
+                "NUMBER"
+              ],
+              "optional": false,
+              "notes": "Number of link to remove from the Item."
+            }
+          ],
+          "info": {
+            "desc": "Removes Link from the Links tab of the Item Properties",
+            "args": {
+              "LinkNumber": "Number of link to remove from the Item."
+            },
+            "returns": "Boolean Flag indicating if link deletion was sucessful or not."
           }
         },
         {
@@ -3558,6 +4171,39 @@
               "ItemFile": ""
             },
             "returns": "Boolean Flag indicating if saving of ITM file was sucessful."
+          }
+        },
+        {
+          "id": "SetDevNotCutFlag",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [
+            {
+              "id": "DevNumber",
+              "types": [
+                "NUMBER"
+              ],
+              "optional": false,
+              "notes": "Number of development part to set the flag of."
+            },
+            {
+              "id": "DoNotCut",
+              "types": [
+                "BOOLEAN"
+              ],
+              "optional": false,
+              "notes": "Boolean flag toggling the 'Do Not Cut' property of the development."
+            }
+          ],
+          "info": {
+            "desc": "Set Flag on a development part indicating if it should not be cut.",
+            "args": {
+              "DevNumber": "Number of development part to set the flag of.",
+              "DoNotCut": "Boolean flag toggling the 'Do Not Cut' property of the development."
+            },
+            "returns": "Boolean Flag indicating of toggling flag was sucessful or not.",
+            "remarks": "Use the 'Item.PartsCut' property first to determine the number of parts available\nin the Item to help determine which development number(s) you may want to toggle."
           }
         },
         {
@@ -4749,6 +5395,47 @@
           }
         },
         {
+          "id": "AddLink",
+          "returns": [
+            "NUMBER"
+          ],
+          "args": [
+            {
+              "id": "Link",
+              "types": [
+                "STRING"
+              ],
+              "optional": false,
+              "notes": "String of the URL to use for the Link"
+            },
+            {
+              "id": "Description",
+              "types": [
+                "STRING"
+              ],
+              "optional": false,
+              "notes": "String description of the Link"
+            },
+            {
+              "id": "Page",
+              "types": [
+                "STRING"
+              ],
+              "optional": false,
+              "notes": "String page on the link to go to. e.g. '#Page=2'"
+            }
+          ],
+          "info": {
+            "desc": "Adds Hyperlink to the Links tab of the Item Properties.",
+            "args": {
+              "Link": "String of the URL to use for the Link",
+              "Description": "String description of the Link",
+              "Page": "String page on the link to go to. e.g. '#Page=2'"
+            },
+            "returns": "Number representing the number of the link added."
+          }
+        },
+        {
           "id": "BitmapFile",
           "returns": [
             "STRING"
@@ -4791,6 +5478,29 @@
           "info": {
             "desc": "Indicates if Item supports Rotary Nesting or not.",
             "returns": "Boolean"
+          }
+        },
+        {
+          "id": "DeleteLink",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [
+            {
+              "id": "LinkNumber",
+              "types": [
+                "NUMBER"
+              ],
+              "optional": false,
+              "notes": "Number of link to remove from the Item."
+            }
+          ],
+          "info": {
+            "desc": "Removes Link from the Links tab of the Item Properties",
+            "args": {
+              "LinkNumber": "Number of link to remove from the Item."
+            },
+            "returns": "Boolean Flag indicating if link deletion was sucessful or not."
           }
         },
         {
@@ -4916,6 +5626,39 @@
               "ItemFile": ""
             },
             "returns": "Boolean Flag indicating if saving of ITM file was sucessful."
+          }
+        },
+        {
+          "id": "SetDevNotCutFlag",
+          "returns": [
+            "BOOLEAN"
+          ],
+          "args": [
+            {
+              "id": "DevNumber",
+              "types": [
+                "NUMBER"
+              ],
+              "optional": false,
+              "notes": "Number of development part to set the flag of."
+            },
+            {
+              "id": "DoNotCut",
+              "types": [
+                "BOOLEAN"
+              ],
+              "optional": false,
+              "notes": "Boolean flag toggling the 'Do Not Cut' property of the development."
+            }
+          ],
+          "info": {
+            "desc": "Set Flag on a development part indicating if it should not be cut.",
+            "args": {
+              "DevNumber": "Number of development part to set the flag of.",
+              "DoNotCut": "Boolean flag toggling the 'Do Not Cut' property of the development."
+            },
+            "returns": "Boolean Flag indicating of toggling flag was sucessful or not.",
+            "remarks": "Use the 'Item.PartsCut' property first to determine the number of parts available\nin the Item to help determine which development number(s) you may want to toggle."
           }
         },
         {
@@ -6076,163 +6819,6 @@
         }
       ],
       "link": "https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/ITEM-Object.md"
-    },
-    "FILELOCATOR": {
-      "id": "FILELOCATOR",
-      "constructor": {
-        "id": "constructor",
-        "returns": [
-          ""
-        ],
-        "args": [
-          {
-            "id": "RootPath",
-            "types": [
-              "STRING"
-            ],
-            "optional": true,
-            "notes": "Optional String of Root Path to Search."
-          },
-          {
-            "id": "SearchWildcard",
-            "types": [
-              "STRING"
-            ],
-            "optional": true,
-            "notes": "Optional String Wildcard to match against."
-          },
-          {
-            "id": "SearchFiles",
-            "types": [
-              "BOOLEAN"
-            ],
-            "optional": true,
-            "notes": "Optional Boolean Flag to search against Files."
-          },
-          {
-            "id": "SearchFolders",
-            "types": [
-              "BOOLEAN"
-            ],
-            "optional": true,
-            "notes": "Optional Boolean Flag to search against Folders."
-          }
-        ],
-        "info": {
-          "desc": "Constructs a FileLocator Object.",
-          "args": {
-            "RootPath": "Optional String of Root Path to Search.",
-            "SearchWildcard": "Optional String Wildcard to match against.",
-            "SearchFiles": "Optional Boolean Flag to search against Files.",
-            "SearchFolders": "Optional Boolean Flag to search against Folders."
-          },
-          "returns": "Nothing.",
-          "remarks": "If optional parameters are not specified when constructing the FILELOCATOR object,\nuse the FILELOCATOR.Scan method to specify them."
-        }
-      },
-      "methods": [
-        {
-          "id": "Scan",
-          "returns": [
-            "NUMBER"
-          ],
-          "args": [
-            {
-              "id": "RootPath",
-              "types": [
-                "STRING"
-              ],
-              "optional": false,
-              "notes": "Optional String of Root Path to Search."
-            },
-            {
-              "id": "SearchWildcard",
-              "types": [
-                "STRING"
-              ],
-              "optional": false,
-              "notes": "Optional String Wildcard to match against."
-            },
-            {
-              "id": "SearchFiles",
-              "types": [
-                "BOOLEAN"
-              ],
-              "optional": false,
-              "notes": "Optional Boolean Flag to search against Files."
-            },
-            {
-              "id": "SearchFolders",
-              "types": [
-                "BOOLEAN"
-              ],
-              "optional": false,
-              "notes": "Optional Boolean Flag to search against Folders."
-            }
-          ],
-          "info": {
-            "desc": "Scan a root path for Files and/or Folders matching a Wildcard string.",
-            "args": {
-              "RootPath": "Optional String of Root Path to Search.",
-              "SearchWildcard": "Optional String Wildcard to match against.",
-              "SearchFiles": "Optional Boolean Flag to search against Files.",
-              "SearchFolders": "Optional Boolean Flag to search against Folders."
-            },
-            "returns": "Number indicating how many files and/or folders matched the search.",
-            "remarks": "This function is not needed if the FILELOCATOR Object Constructor was called with parameters specifying the\npath, search wildcard, file and folder search flags."
-          }
-        }
-      ],
-      "properties": [
-        {
-          "id": "File",
-          "returns": [
-            "STRING[]"
-          ],
-          "info": {
-            "desc": "This gets an array of File Names of found files for the FILELOCATOR Object."
-          }
-        },
-        {
-          "id": "FileCount",
-          "returns": [
-            "NUMBER"
-          ],
-          "info": {
-            "desc": "Get the Number of Files that were found for the FILELOCATOR Object.",
-            "readonly": true
-          }
-        },
-        {
-          "id": "Folder",
-          "returns": [
-            "STRING[]"
-          ],
-          "info": {
-            "desc": "This gets an array of Folder Names of found folders for the FILELOCATOR Object."
-          }
-        },
-        {
-          "id": "FolderCount",
-          "returns": [
-            "NUMBER"
-          ],
-          "info": {
-            "desc": "Get the Number of Folders that were found for the FILELOCATOR Object.",
-            "readonly": true
-          }
-        },
-        {
-          "id": "Path",
-          "returns": [
-            "STRING"
-          ],
-          "info": {
-            "desc": "Get/Set full Path of Folder being scanned for the FILELOCATOR Object."
-          }
-        }
-      ],
-      "link": "https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/FILELOCATOR-Object.md"
     },
     "TASK": {
       "id": "TASK",

@@ -183,6 +183,29 @@ Rename(FileName: STRING)
   - Remarks: String representing the name of the file to rename to.
 ##### Returns
 BOOLEAN
+### Function: SeekEntry
+Positions the file reader to the position after the specified data in the file.
+
+File reader positions to just after the data that's specified by the function.
+Subsequent calls to functions that read data will return the data immediantely after
+the data that was specified.
+##### Signature
+SeekEntry(DataToGoTo: ANY)
+##### Arguments
+- **DataToGoTo** as: ANY
+  - Remarks: Data to position the file reader to.
+##### Returns
+VOID
+### Function: SeekLine
+Returns Boolean flag if specified data was found in the file.
+
+No additional remarks available
+##### Signature
+SeekLine(DataToFind: ANY)
+##### Arguments
+- **DataToFind** as: ANY
+##### Returns
+VOID
 ### Function: WriteByte
 Write an 8-bit BYTE (0-255) to a binary file.
 
