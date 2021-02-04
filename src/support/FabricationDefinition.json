@@ -20,7 +20,6 @@
         "DO",
         "UNTIL",
         "LOOP",
-        "LOOPUNTIL",
         "SELECT",
         "CASE",
         "END SELECT",
