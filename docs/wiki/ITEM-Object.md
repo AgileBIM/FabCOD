@@ -715,6 +715,21 @@ AddCustomData(NameOrIndex: STRING|NUMBER)
 - **NameOrIndex** as: STRING or NUMBER
 ##### Returns
 VOID
+### Function: AddLink
+Adds Hyperlink to the Links tab of the Item Properties.
+
+No additional remarks available
+##### Signature
+AddLink(Link: STRING, Description: STRING, Page: STRING)
+##### Arguments
+- **Link** as: STRING
+  - Remarks: String of the URL to use for the Link
+- **Description** as: STRING
+  - Remarks: String description of the Link
+- **Page** as: STRING
+  - Remarks: String page on the link to go to. e.g. '#Page=2'
+##### Returns
+NUMBER
 ### Function: BitmapFile
 Gets the file name of the Image used for a ITM.
 
@@ -741,6 +756,17 @@ No additional remarks available
 ##### Signature
 CanRotary()
 ##### Arguments
+##### Returns
+BOOLEAN
+### Function: DeleteLink
+Removes Link from the Links tab of the Item Properties
+
+No additional remarks available
+##### Signature
+DeleteLink(LinkNumber: NUMBER)
+##### Arguments
+- **LinkNumber** as: NUMBER
+  - Remarks: Number of link to remove from the Item.
 ##### Returns
 BOOLEAN
 ### Function: EndLocation
@@ -810,6 +836,20 @@ No additional remarks available
 Save(ItemFile: STRING)
 ##### Arguments
 - **ItemFile** as: STRING
+##### Returns
+BOOLEAN
+### Function: SetDevNotCutFlag
+Set Flag on a development part indicating if it should not be cut.
+
+Use the 'Item.PartsCut' property first to determine the number of parts available
+in the Item to help determine which development number(s) you may want to toggle.
+##### Signature
+SetDevNotCutFlag(DevNumber: NUMBER, DoNotCut: BOOLEAN)
+##### Arguments
+- **DevNumber** as: NUMBER
+  - Remarks: Number of development part to set the flag of.
+- **DoNotCut** as: BOOLEAN
+  - Remarks: Boolean flag toggling the 'Do Not Cut' property of the development.
 ##### Returns
 BOOLEAN
 ### Function: SetFlow

@@ -96,3 +96,221 @@ No additional remarks available
 NUMBER
 ## Methods
 The following items are invoked from the base object by a dot notation
+### Function: AddAlias
+Adds 'ALIAS' Column to Product List
+
+No additional remarks available
+##### Signature
+AddAlias()
+##### Arguments
+##### Returns
+BOOLEAN
+### Function: AddArea
+Adds 'AREA' Column to Product List
+
+No additional remarks available
+##### Signature
+AddArea()
+##### Arguments
+##### Returns
+BOOLEAN
+### Function: AddBoughtOut
+Adds 'BOUGHTOUT' Column to Product List
+
+No additional remarks available
+##### Signature
+AddBoughtOut()
+##### Arguments
+##### Returns
+BOOLEAN
+### Function: AddCADBlock
+Adds 'CADBLOCK' Column to Product List
+
+No additional remarks available
+##### Signature
+AddCADBlock()
+##### Arguments
+##### Returns
+BOOLEAN
+### Function: AddCustomData
+Adds 'CUSTOMDATA[<dataname>]' Column to Product List
+
+No additional remarks available
+##### Signature
+AddCustomData(CustomDataName: STRING)
+##### Arguments
+- **CustomDataName** as: STRING
+  - Remarks: Text Name of Custom Data field to add.
+##### Returns
+BOOLEAN
+### Function: AddDatabaseID
+Adds 'ID' Column to Product List
+
+No additional remarks available
+##### Signature
+AddDatabaseID()
+##### Arguments
+##### Returns
+BOOLEAN
+### Function: AddDim
+Adds 'DIM' Column(s) to Product List
+
+Function is very buggy. Repeated calls with improper syntax will cause
+predictability of this function to be sporatic at best. Repeated calls without
+specifying the dimension name to add sequentially adds the next dimension
+as they are listed in the pattern.
+##### Signature
+AddDim([DimName: STRING])
+##### Arguments
+- **DimName** as Optional: STRING
+  - Remarks: Optional Upper Case Name of Dimension to add.
+##### Returns
+BOOLEAN
+### Function: AddFlow
+Adds 'FLOWMIN' and 'FLOWMAX' Columns to Product List
+
+No additional remarks available
+##### Signature
+AddFlow()
+##### Arguments
+##### Returns
+BOOLEAN
+### Function: AddOption
+Adds 'OPTION' Column(s) to Product List
+
+Function is very buggy. Repeated calls with improper syntax will cause
+predictability of this function to be sporatic at best. Repeated calls without
+specifying the dimension name to add sequentially adds the next dimension
+as they are listed in the pattern.
+##### Signature
+AddOption([OptionNmae: STRING])
+##### Arguments
+- **OptionNmae** as Optional: STRING
+##### Returns
+BOOLEAN
+### Function: AddOrder
+Adds 'ORDER' Column to Product List
+
+No additional remarks available
+##### Signature
+AddOrder()
+##### Arguments
+##### Returns
+BOOLEAN
+### Function: AddWeight
+Adds 'WEIGHT' Column to Product List
+
+No additional remarks available
+##### Signature
+AddWeight()
+##### Arguments
+##### Returns
+BOOLEAN
+### Function: RemoveAlias
+Removes 'ALIAS' Column from Product List
+
+No additional remarks available
+##### Signature
+RemoveAlias()
+##### Arguments
+##### Returns
+BOOLEAN
+### Function: RemoveArea
+Removes 'AREA' Column from Product List
+
+No additional remarks available
+##### Signature
+RemoveArea()
+##### Arguments
+##### Returns
+BOOLEAN
+### Function: RemoveBoughtOut
+Removes 'BOUGHTOUT' Column from Product List
+
+No additional remarks available
+##### Signature
+RemoveBoughtOut()
+##### Arguments
+##### Returns
+BOOLEAN
+### Function: RemoveCADBlock
+Removes 'CADBLOCK' Column from Product List
+
+No additional remarks available
+##### Signature
+RemoveCADBlock()
+##### Arguments
+##### Returns
+BOOLEAN
+### Function: RemoveCustomData
+Removes 'CUSTOMDATA[<dataname>]' Column from Product List
+
+No additional remarks available
+##### Signature
+RemoveCustomData(Name: STRING)
+##### Arguments
+- **Name** as: STRING
+##### Returns
+BOOLEAN
+### Function: RemoveDatabaseID
+Removes 'ID' Column from Product List
+
+No additional remarks available
+##### Signature
+RemoveDatabaseID()
+##### Arguments
+##### Returns
+BOOLEAN
+### Function: RemoveDim
+Removes 'DIM' Column(s) from Product List
+
+Function is very buggy. Repeated calls with improper syntax will cause
+predictability of this function to be sporatic at best. Calls without
+specifying the Dimension index appear to do nothing.
+##### Signature
+RemoveDim(DimIndex: NUMBER)
+##### Arguments
+- **DimIndex** as: NUMBER
+  - Remarks: Zero based index of Dimension column to remove.
+##### Returns
+BOOLEAN
+### Function: RemoveFlow
+Removes 'FLOWMIN' and 'FLOWMAX' Columns from Product List
+
+No additional remarks available
+##### Signature
+RemoveFlow()
+##### Arguments
+##### Returns
+BOOLEAN
+### Function: RemoveOption
+Removes 'OPTION' Column(s) from Product List
+
+Function is very buggy. Repeated calls with improper syntax will cause
+predictability of this function to be sporatic at best. Calls without
+specifying the Option index appear to do nothing.
+##### Signature
+RemoveOption(OptionIndex: NUMBER)
+##### Arguments
+- **OptionIndex** as: NUMBER
+  - Remarks: Zero based index of Option column to remove.
+##### Returns
+BOOLEAN
+### Function: RemoveOrder
+Removes 'ORDER' Column from Product List
+
+No additional remarks available
+##### Signature
+RemoveOrder()
+##### Arguments
+##### Returns
+BOOLEAN
+### Function: RemoveWeight
+REmoves 'WEIGHT' Column from Product List
+
+No additional remarks available
+##### Signature
+RemoveWeight()
+##### Arguments
+##### Returns
+BOOLEAN

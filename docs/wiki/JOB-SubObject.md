@@ -87,7 +87,7 @@ The following items are invoked from the base object by a dot notation
 ### Function: SetStatus
 This alters the Active Flag of a Job Status
 
-Returns False if there was ann error during Status Activation, True otherwise.
+Returns False if there was an error during Status Activation, True otherwise.
 ##### Signature
 SetStatus(NameOrIndex: NUMBER|STRING, Active: BOOLEAN)
 ##### Arguments

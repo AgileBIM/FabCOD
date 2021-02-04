@@ -44,9 +44,15 @@ Review Notes:
 Review Notes (Dyoung - 2021.01.11)
 	Changed FileLocator() function to Constructor
 	Moved FileLocator object after File object to maintain alphabetical order of objects.
-	Added RUN and INCLUDE to SPECIALTYPES KEywork Group
+	Added RUN and INCLUDE to SPECIALTYPES Keyword Group
 	Minor updates/misspelling in documentation in various locations
-	
+Review Notes (DYoung = 2021.01.25)
+	Added 'BREAKPOINT' to SPEACIALTYPES
+	Added 'OUTPUT()' to Global Functions
+	Edited Description for 'ERROR' Global Function
+	Added 11 'Add____()' and 11 'Remove____()' Methods to 'PRODUCTENTRY' Object.
+	Added 'SEEKENTY()' and 'SEEKLINE()' Methods to 'FILE' Object.
+	Added 'ADDLINK()', 'DELETELINK()' and 'SETDONOTCUTFLAG()' Methods to 'ITEMSTRUCT' Object.
 */
 
 // IMPORTANT: Anywhere (in code) you are representing an actual value of a string, please use single quotes. This does not apply to the /** documentation areas */
@@ -105,7 +111,8 @@ export namespace FABRICATION {
 		'Object', 
 		'Requires',
 		'Include',
-		'Run'
+		'Run',
+		'Breakpoint'
 	];
 
 	//#endregion Fabrication Keyword Groups
@@ -658,7 +665,7 @@ export namespace FABRICATION {
 	}
 
 	/**
-	 * How to use this function works is currently unknown
+	 * Dispalys to the User, a customer error message as desired by your code.
 	 * @param Input Accepts just about any 1 item
 	 * @returns Nothing
 	 */
@@ -666,6 +673,18 @@ export namespace FABRICATION {
 		return null;
 	}
 
+	/**
+	 * Outputs a message to the Console window.
+	 * @param TextMessage Text to output to the console window.
+	 * @remarks
+	 * Applies to the Console Window of ESTmep and CAMduct. Does nothing
+	 * in CADmep.
+	 * This function displays a text string only. It can not be used to automate
+	 * or issue commands to or automate from the Console Window.
+	 */
+	function Output(TextMessage: any): void {
+		return null;
+	}
 	
 	//#endregion Fabrication Global Functions
 
@@ -1137,7 +1156,7 @@ export namespace FABRICATION {
 		 * @param Active Boolean Flag indicating if Status should be made Active.
 		 * @returns Boolean Flag indicating is status activation was successful.
 		 * @remarks
-		 * Returns False if there was ann error during Status Activation, True otherwise.
+		 * Returns False if there was an error during Status Activation, True otherwise.
 		 */
 		SetStatus(NameOrIndex: number|string, Active: boolean): boolean;
 	
@@ -1320,7 +1339,163 @@ export namespace FABRICATION {
 		//#endregion PRODUCTENTRY Properties Group
 	
 		//#region PRODUCTENTRY Methods Group
-		// Not Applicable
+
+		/**
+		 * Adds 'ALIAS' Column to Product List
+		 * @returns Boolean flag indicating if adding column was sucessful or not.
+		*/
+	    AddAlias(): boolean;
+
+		/**
+		 * Adds 'AREA' Column to Product List
+		 * @returns Boolean flag indicating if adding column was sucessful or not.
+		 */
+		AddArea(): boolean;
+
+		/**
+		 * Adds 'BOUGHTOUT' Column to Product List
+		 * @returns Boolean flag indicating if adding column was sucessful or not.
+		 */
+		AddBoughtOut(): boolean;
+
+		/**
+		 * Adds 'CADBLOCK' Column to Product List
+		 * @returns Boolean flag indicating if adding column was sucessful or not.
+		 */
+		AddCADBlock(): boolean;
+		
+		/**
+		 * Adds 'CUSTOMDATA[<dataname>]' Column to Product List
+		 * @param CustomDataName Text Name of Custom Data field to add.
+		 * @returns Boolean flag indicating if adding column was sucessful or not.
+		 */
+		AddCustomData(CustomDataName: string): boolean;
+		
+		/**
+		 * Adds 'ID' Column to Product List
+		 * @returns Boolean flag indicating if adding column was sucessful or not.
+		 */
+		AddDatabaseID(): boolean;
+		
+		/**
+		 * Adds 'DIM' Column(s) to Product List
+		 * @param DimName Optional Upper Case Name of Dimension to add.
+		 * @returns Boolean flag indicating if adding column was sucessful or not.
+		 * @remarks
+		 * Function is very buggy. Repeated calls with improper syntax will cause
+		 * predictability of this function to be sporatic at best. Repeated calls without
+		 * specifying the dimension name to add sequentially adds the next dimension
+		 * as they are listed in the pattern.
+		 */
+		AddDim(DimName?: string): boolean;
+		
+		/**
+		 * Adds 'FLOWMIN' and 'FLOWMAX' Columns to Product List
+		 * @returns Boolean flag indicating if adding columns was sucessful or not.
+		 */
+		AddFlow(): boolean;
+		
+		/**
+		 * Adds 'OPTION' Column(s) to Product List
+		 * @param OptionName Optional Upper Case Name of Option to add.
+		 * @returns Boolean flag indicating if adding column was sucessful or not.
+		 * @remarks
+		 * Function is very buggy. Repeated calls with improper syntax will cause
+		 * predictability of this function to be sporatic at best. Repeated calls without
+		 * specifying the dimension name to add sequentially adds the next dimension
+		 * as they are listed in the pattern.
+		 */
+		AddOption(OptionNmae?: string): boolean;
+		
+		/**
+		 * Adds 'ORDER' Column to Product List
+		 * @returns Boolean flag indicating if adding columns was sucessful or not.
+		 */
+		AddOrder(): boolean;
+		
+		/**
+		 * Adds 'WEIGHT' Column to Product List
+		 * @returns Boolean flag indicating if adding columns was sucessful or not.
+		 */
+		AddWeight(): boolean;
+
+		/**
+		 * Removes 'ALIAS' Column from Product List
+		 * @returns Boolean flag indicating if removing column was sucessful or not.
+		 */
+	    RemoveAlias(): boolean;
+
+		/**
+		 * Removes 'AREA' Column from Product List
+		 * @returns Boolean flag indicating if removing column was sucessful or not.
+		 */
+		RemoveArea(): boolean;
+
+		/**
+		 * Removes 'BOUGHTOUT' Column from Product List
+		 * @returns Boolean flag indicating if removing column was sucessful or not.
+		 */
+		RemoveBoughtOut(): boolean;
+		
+		/**
+		 * Removes 'CADBLOCK' Column from Product List
+		 * @returns Boolean flag indicating if removing column was sucessful or not.
+		 */
+		RemoveCADBlock(): boolean;
+		
+		/**
+		 * Removes 'CUSTOMDATA[<dataname>]' Column from Product List
+		 * @param CustomDataName Text Name of Custom Data field to remove.
+		 * @returns Boolean flag indicating if removing column was sucessful or not.
+		 */
+		RemoveCustomData(Name: string): boolean;
+		
+		/**
+		 * Removes 'ID' Column from Product List
+		 * @returns Boolean flag indicating if removing column was sucessful or not.
+		 */
+		RemoveDatabaseID(): boolean;
+		
+		/**
+		 * Removes 'DIM' Column(s) from Product List
+		 * @param DimIndex Zero based index of Dimension column to remove.
+		 * @returns Boolean flag indicating if removing column was sucessful or not.
+		 * @remarks
+		 * Function is very buggy. Repeated calls with improper syntax will cause
+		 * predictability of this function to be sporatic at best. Calls without
+		 * specifying the Dimension index appear to do nothing.
+		 */
+	    RemoveDim(DimIndex: number): boolean;
+		
+		/**
+		 * Removes 'FLOWMIN' and 'FLOWMAX' Columns from Product List
+		 * @returns Boolean flag indicating if removing columns was sucessful or not.
+		 */
+		RemoveFlow(): boolean;
+
+		/**
+		 * Removes 'OPTION' Column(s) from Product List
+		 * @param OptionIndex Zero based index of Option column to remove.
+		 * @returns Boolean flag indicating if removing column was sucessful or not.
+		 * @remarks
+		 * Function is very buggy. Repeated calls with improper syntax will cause
+		 * predictability of this function to be sporatic at best. Calls without
+		 * specifying the Option index appear to do nothing.
+		 */	
+		RemoveOption(OptionIndex: number): boolean;
+		
+		/**
+		 * Removes 'ORDER' Column from Product List
+		 * @returns Boolean flag indicating if removing column was sucessful or not.
+		 */
+		RemoveOrder(): boolean;
+		
+		/**
+		 * REmoves 'WEIGHT' Column from Product List
+		 * @returns Boolean flag indicating if removing column was sucessful or not.
+		 */
+	    RemoveWeight(): boolean;
+
 		//#endregion PRODUCTENTRY Methods Group
 	
 	}
@@ -1881,6 +2056,24 @@ export namespace FABRICATION {
 		 * Current File Name must be assigned but file must not be opened for access.
 		 */
 		abstract Rename(FileName: string): boolean;
+
+		/**
+		 * Positions the file reader to the position after the specified data in the file.
+		 * @param DataToGoTo Data to position the file reader to.
+		 * @returns Nothing.
+		 * @remarks
+		 * File reader positions to just after the data that's specified by the function.
+		 * Subsequent calls to functions that read data will return the data immediantely after
+		 * the data that was specified.
+		 */
+		abstract SeekEntry(DataToGoTo: any): void;
+
+		/**
+		 * Returns Boolean flag if specified data was found in the file.
+		 * @param DataToFind
+		 * @returns Boolean Flag indicating if data was found or not.
+		 */
+		abstract SeekLine(DataToFind: any): void;
 
 		/**
 		 * Write an 8-bit BYTE (0-255) to a binary file.
@@ -2750,6 +2943,15 @@ export namespace FABRICATION {
 		abstract AddCustomData(NameOrIndex: string|number): void;
 
 		/**
+		 * Adds Hyperlink to the Links tab of the Item Properties.
+		 * @param Link String of the URL to use for the Link
+		 * @param Description String description of the Link
+		 * @param Page String page on the link to go to. e.g. '#Page=2'
+		 * @returns Number representing the number of the link added.
+		 */
+		abstract AddLink(Link: string, Description: string, Page: string): number;
+
+		/**
 		 * Gets the file name of the Image used for a ITM.
 		 * @param ItmFilePath 
 		 * @returns String representing path and name of the image file.
@@ -2768,6 +2970,13 @@ export namespace FABRICATION {
 		 */
 		abstract CanRotary(): boolean;
 	
+		/**
+		 * Removes Link from the Links tab of the Item Properties
+		 * @param LinkNumber Number of link to remove from the Item.
+		 * @returns Boolean Flag indicating if link deletion was sucessful or not.
+		 */
+		abstract DeleteLink(LinkNumber: number): boolean;
+
 		/**
 		 * Gets a string representing the location of a connectors X, Y and/or Z value.
 		 * @param ConnectorIndex This index number is associated with the connector number shown in the edit item dialog
@@ -2818,6 +3027,17 @@ export namespace FABRICATION {
 		 * @returns Boolean Flag indicating if saving of ITM file was sucessful.
 		 */
 		abstract Save(ItemFile: string): boolean;
+
+		/**
+		 * Set Flag on a development part indicating if it should not be cut.
+		 * @param DevNumber Number of development part to set the flag of.
+		 * @param DoNotCut Boolean flag toggling the 'Do Not Cut' property of the development.
+		 * @returns Boolean Flag indicating of toggling flag was sucessful or not.
+		 * @remarks
+		 * Use the 'Item.PartsCut' property first to determine the number of parts available
+		 * in the Item to help determine which development number(s) you may want to toggle.
+		 */
+		abstract SetDevNotCutFlag(DevNumber: number, DoNotCut: boolean): boolean;
 
 		/**
 		 * Set Flow Type and Value on an Item. 
