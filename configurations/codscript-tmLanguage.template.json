@@ -53,6 +53,11 @@
 			"match": "\\b((?i)%%%FUNCTIONS%%%)(?=\\()"
 		},
 		{
+			"comment": "Passive Functions",
+			"name": "markup.bold",
+			"match": "\\b((?i)DEBUG|OUTPUT)\\b"
+		},
+		{
 			"comment": "Objects",
 			"name": "markup.bold string.regexp",
 			"match": "(^|\\s|=)((?i)%%%OBJECTS%%%)\\b"
