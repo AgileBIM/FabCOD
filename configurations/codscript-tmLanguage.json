@@ -53,6 +53,11 @@
 			"match": "\\b((?i)ACOS|ASIN|ATAN|COS|SIN|TAN|EXP|LOG|NUMBER|POW|SIGN|SQRT|SQR|ROUND|ROUNDDOWN|ROUNDUP|ASC|ASCII|CHR|GETFILEEXT|GETFILENAME|INSTR|LEFT|LEN|LOWER|LTRIM|MID|RIGHT|RTRIM|SUBSTRING|TRIM|UPPER|WILDCARD|DEBUG|EXEC|INPUTBOX|QUERY|ERROR|OUTPUT)(?=\\()"
 		},
 		{
+			"comment": "Passive Functions",
+			"name": "markup.bold",
+			"match": "\\b((?i)DEBUG|OUTPUT)\\b"
+		},
+		{
 			"comment": "Objects",
 			"name": "markup.bold string.regexp",
 			"match": "(^|\\s|=)((?i)ARRAY|FILE|FILELOCATOR|ITEMSTRUCT|ITEM|TASK)\\b"
