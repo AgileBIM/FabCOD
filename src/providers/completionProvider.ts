@@ -4,6 +4,7 @@ import * as path from 'path';
 import { FabExt } from '../extension';
 import { COD, CODutil } from '../support/document';
 import { CODParser } from '../support/parser';
+import { lastSigContext, lastSigArgs } from '../providers/signatureProvider';
 
 
 export class CompletionProviderCOD implements vscode.CompletionItemProvider {
@@ -16,18 +17,22 @@ export class CompletionProviderCOD implements vscode.CompletionItemProvider {
 		const relPos = new vscode.Position(0, position.character);
 		const subidx = parts.findIndex(p => p.contains(relPos));
 		const last = parts[subidx];
-
+		let prefix = context.triggerCharacter === '.' ? '/' : '';
+		
 		if (last) {
 			// you can probably use the same logic with the RUN command?
 			if (last.isString && parts[subidx-1]?.value.toUpperCase() === 'INCLUDE' && position.character < last.getRange().end.character) {
-				// anylize the current state of the path and help the user fill in the blanks
+				// anylize the current state of the path and help the user fill in the blanks				
 				const subParts = last.value.replace(/\"/g, '').replace(/\\/g, '/').split('/').filter(p => p !== '');
 				let searchFor = '';
-				if (subParts.length > 1) {
+				if (subParts.length === 0) {
+					prefix = './';
+				}
+				if (subParts.length > 1 && subParts[subParts.length - 1] !== '..') {
 					searchFor = subParts.pop();
 				}
 				let allRefs: Array<fs.Dirent> = [];
-				if (subParts[0].endsWith(":")) {
+				if (subParts.length >= 1 && subParts[0].endsWith(":")) {
 					allRefs = this.getLocalFilesRooted(last.value.replace(/\"/g, '').replace(/\\/g, '/'));
 				} else {
 					allRefs = this.getLocalFilesRelative(cod, subParts);
@@ -40,30 +45,30 @@ export class CompletionProviderCOD implements vscode.CompletionItemProvider {
 					const folders = allRefs.filter(p => p.isDirectory());
 					const files = allRefs.filter(p => p.isFile());
 					folders.forEach(f => { 
-						const ci = new vscode.CompletionItem(f.name + '/', vscode.CompletionItemKind.Folder);
+						const ci = new vscode.CompletionItem(prefix + f.name, vscode.CompletionItemKind.Folder);
 						ci.sortText = '!';  // forces folders to be shown first
 						result.push(ci); });
-					files.forEach(f => { result.push(new vscode.CompletionItem(f.name, vscode.CompletionItemKind.Reference)); });
-				} else if (subParts[0].endsWith(":")) {
+					files.forEach(f => { result.push(new vscode.CompletionItem(prefix + f.name, vscode.CompletionItemKind.Reference)); });
+				} else if (subParts.length >= 1 && subParts[0].endsWith(":")) {
 					// Handles drive rooted paths
 					const folders = allRefs.filter(p => p.isDirectory());
 					const files = allRefs.filter(p => p.isFile());
 					folders.forEach(f => { 
-						const ci = new vscode.CompletionItem(f.name + '/', vscode.CompletionItemKind.Folder);
+						const ci = new vscode.CompletionItem(prefix + f.name, vscode.CompletionItemKind.Folder);
 						ci.sortText = '!'; // forces folders to be shown first
 						result.push(ci); 
 					});
-					files.forEach(f => { result.push(new vscode.CompletionItem(f.name, vscode.CompletionItemKind.Reference)); });
+					files.forEach(f => { result.push(new vscode.CompletionItem(prefix + f.name, vscode.CompletionItemKind.Reference)); });
 				} else {
 					// offer up paths, but use the non-precise last user value as the searchfor that filters the list
 					const folders = allRefs.filter(p => p.isDirectory() && (searchFor === '' || p.name.toUpperCase().startsWith(searchFor.toUpperCase())));
 					const files = allRefs.filter(p => p.isFile() && (searchFor === '' || p.name.toUpperCase().startsWith(searchFor.toUpperCase())));
 					folders.forEach(f => { 
-						const ci = new vscode.CompletionItem(f.name + '/', vscode.CompletionItemKind.Folder);
+						const ci = new vscode.CompletionItem(prefix + f.name, vscode.CompletionItemKind.Folder);
 						ci.sortText = '!';  // forces folders to be shown first
 						result.push(ci); 
 					});
-					files.forEach(f => { result.push(new vscode.CompletionItem(f.name, vscode.CompletionItemKind.Reference)); });
+					files.forEach(f => { result.push(new vscode.CompletionItem(prefix + f.name, vscode.CompletionItemKind.Reference)); });
 				}
 			} else if (last.value.toUpperCase() === 'INCLUDE') {
 				// suggests files and sub-folders relative to the current COD's location in a fully quoted string format
@@ -72,12 +77,43 @@ export class CompletionProviderCOD implements vscode.CompletionItemProvider {
 				const folders = allRefs.filter(p => p.isDirectory());
 				const files = allRefs.filter(p => p.isFile());
 				folders.forEach(f => {					
-					const ci = new vscode.CompletionItem(bump + '"' + f.name + '/"', vscode.CompletionItemKind.Folder);
+					const ci = new vscode.CompletionItem(bump + '"' + prefix + f.name + '"', vscode.CompletionItemKind.Folder);
 					ci.sortText = '!'; // forces folders to be shown first
 					result.push(ci);
 				});
-				files.forEach(f => { result.push(new vscode.CompletionItem(bump + '"' + f.name + '"', vscode.CompletionItemKind.Reference)); });
+				files.forEach(f => { result.push(new vscode.CompletionItem(bump + '"' + prefix + f.name + '"', vscode.CompletionItemKind.Reference)); });
 			} else {
+				const sig = lastSigContext?.activeSignatureHelp;
+				const sigArgs = lastSigArgs;
+				if (context.triggerCharacter === '/' || context.triggerCharacter === '\"') {
+					return;	
+				}
+				else if (sig && cod.entities[last.index - 1]?.value === '(') {
+					const typ = sigArgs[0]?.types[0];
+					if (typ && FabExt.Data.enumGroups[typ]) {
+						FabExt.Data.enumGroups[typ].values.forEach(p => {
+							result.push(FabExt.Data.getCompletionItem(p, vscode.CompletionItemKind.EnumMember, p, ""));
+						});
+					}
+					if (result && result.length >= 1) {
+						return new vscode.CompletionList(result);
+					}
+				} else if (sig && context.triggerCharacter === ',') {
+					const nIndex = sig.activeSignature + 1;
+					const typ = nIndex < sigArgs.length ? sigArgs[nIndex]?.types[0] : undefined;
+					if (typ && FabExt.Data.enumGroups[typ]) {
+						FabExt.Data.enumGroups[typ].values.forEach(p => {
+							result.push(FabExt.Data.getCompletionItem(" " + p, vscode.CompletionItemKind.EnumMember, p, ""));
+						});
+					}
+					if (result && result.length >= 1) {
+						return new vscode.CompletionList(result);
+					}
+				} else if (context.triggerCharacter === ',') {
+					return;
+				}
+
+				
 				// NOTE: when you switch over to using the CODutil.findNearest you'll have to account for it being -1, which would be like just snippets and other global keywords
 				const currIndex = CODutil.findNearestIndexAtPosition(cod, position);
 				const ender = cod.entities[currIndex];
@@ -105,7 +141,7 @@ export class CompletionProviderCOD implements vscode.CompletionItemProvider {
 						});
 					} else { // not a sequence
 						const aci = FabExt.Data.AllCompletionItems;
-						FabExt.Data.AllCompletionItems.concat(cod.keywords.allCompletionItems(cod)).forEach(item => {
+						FabExt.Data.AllCompletionItems.concat(cod.keywords.getAllCompletionItems(cod)).forEach(item => {
 							const upper = item.label.toUpperCase();
 							if (searchFor === '.' || searchFor === '' || upper.startsWith(searchFor)) {
 								if (item.kind === vscode.CompletionItemKind.Struct) {
@@ -121,19 +157,22 @@ export class CompletionProviderCOD implements vscode.CompletionItemProvider {
 					return new vscode.CompletionList(result);
 				} else {
 					if (line.trim() === '') {
-						return new vscode.CompletionList(FabExt.Data.AllCompletionItems.concat(cod.keywords.allCompletionItems(cod)));
+						return new vscode.CompletionList(FabExt.Data.AllCompletionItems.concat(cod.keywords.getAllCompletionItems(cod)));
 					} else {
-						const cmplst = FabExt.Data.AllCompletionItems.concat(cod.keywords.allCompletionItems(cod));
+						const cmplst = FabExt.Data.AllCompletionItems.concat(cod.keywords.getAllCompletionItems(cod));
 						return new vscode.CompletionList(cmplst.filter(p => p.kind !== vscode.CompletionItemKind.Struct));
 					}
 					
 				}
 			}
+			if (result && result.length >= 1) {
+				return new vscode.CompletionList(result);
+			}
 		} else {
 			if (line.trim() === '') {
-				return new vscode.CompletionList(FabExt.Data.AllCompletionItems.concat(cod.keywords.allCompletionItems(cod)));
+				return new vscode.CompletionList(FabExt.Data.AllCompletionItems.concat(cod.keywords.getAllCompletionItems(cod)));
 			} else {
-				const cmplst = FabExt.Data.AllCompletionItems.concat(cod.keywords.allCompletionItems(cod));
+				const cmplst = FabExt.Data.AllCompletionItems.concat(cod.keywords.getAllCompletionItems(cod));
 				return new vscode.CompletionList(cmplst.filter(p => p.kind !== vscode.CompletionItemKind.Struct));
 			}
 		}
@@ -141,6 +180,8 @@ export class CompletionProviderCOD implements vscode.CompletionItemProvider {
 	// resolveCompletionItem?(item: vscode.CompletionItem, token: vscode.CancellationToken): vscode.ProviderResult<vscode.CompletionItem> {
 	// 	return item;
 	// }
+
+
 
 	getLocalFilesRooted(root: string): Array<fs.Dirent> {
 		return fs.readdirSync(root, {withFileTypes: true});

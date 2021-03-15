@@ -50,9 +50,9 @@ export class FabDocumentManager{
 	private tryUpdateInternal(cod: COD, doc: vscode.TextDocument): void {		
 		if (cod?.text !== doc?.getText()) {
 			try {
-				CODParser.updateCOD(doc, cod);	
+				CODParser.createOrUpdateCOD(doc, cod);	
 			} catch (error) {
-				//debugger;
+				debugger;
 			}
 		}
 	}
@@ -63,17 +63,19 @@ export class FabDocumentManager{
 			if (this._cached.has(key) === false) {
 				try {
 					const text = fs.readFileSync(path).toString();
-					const cod = CODParser.createCOD(text);
-					this._cached.set(key, cod);	
+					const cod = CODParser.createOrUpdateCOD(text);
+					if (cod) {
+						this._cached.set(key, cod);	
+					}
 				} catch (error) {
-					//debugger;
+					debugger;
 				}
 			} else {
 				try {
 					const cod = this._cached.get(key);			
 					this.tryUpdateInternal(cod, cod.source);	
 				} catch (error) {
-					//debugger;
+					debugger;
 				}
 				
 			}
@@ -88,16 +90,18 @@ export class FabDocumentManager{
 			try {
 				key = this.normalizePath(doc.fileName);	
 			} catch (error) {
-				//debugger;
+				debugger;
 			}
 		}
 		if (this.isValidCOD(key)) {
 			if (this._cached.has(key) === false) {
 				try {
-					const sources = CODParser.createCOD(doc);
-					this._cached.set(key, sources);
+					const sources = CODParser.createOrUpdateCOD(doc);
+					if (sources) {
+						this._cached.set(key, sources);
+					}
 				} catch (error) {
-					//debugger;
+					debugger;
 				}
 			} else {
 				this.tryUpdateInternal(this._cached.get(key), doc);
@@ -108,18 +112,28 @@ export class FabDocumentManager{
 		}
 	}
 
-	getDocument(nDoc: vscode.TextDocument, tryUpdate: boolean = true): COD {
+	getDocument(nDoc: vscode.TextDocument|string, tryUpdate: boolean = true): COD {
+		return nDoc instanceof Object ? this.getTextDocument(nDoc, tryUpdate) : this.getDocumentFromPath(nDoc);
+	}	
+	private getTextDocument(nDoc: vscode.TextDocument, tryUpdate: boolean = true): COD {
 		let key: string = '';
 		try {
 			key = this.normalizePath(nDoc.fileName);	
 		} catch (error) {
-			//debugger;
+			debugger;
 		}
 		if (tryUpdate || !this._cached.has(key)) {
 			key = this.documentConsumeOrValidate(nDoc);
 		} 
 		return this._cached.get(key);
 	}	
+	private getDocumentFromPath(path: string, tryUpdate: boolean = true): COD {		
+		let key: string = this.normalizePath(path);
+		if (!this._cached.has(key)) {
+			key = this.pathConsumeOrValidate(path);
+		}
+		return this._cached.get(key);
+	}
 
 
 
@@ -139,10 +153,12 @@ export class FabDocumentManager{
 
 		vscode.workspace.findFiles("**").then((items: vscode.Uri[]) => {
 			items.forEach((fileUri: vscode.Uri) => {	
-				try {
-					this.pathConsumeOrValidate(fileUri.fsPath);	
-				} catch (error) { 
-					//debugger;
+				if (this.isValidCOD(fileUri.fsPath)) {
+					try {
+						this.pathConsumeOrValidate(fileUri.fsPath);	
+					} catch (error) { 
+						debugger;
+					}
 				}
 			});
 		});

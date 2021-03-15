@@ -1,6 +1,6 @@
 import { FabExt } from "../extension";
 import * as vscode from 'vscode';
-import { EntityCollection, DoEntity, ForNextEntity, FunctionDefinitionEntity, IfEntity, WhileEntity, Entity, EntityType } from '../support/entities';
+import { EntityCollection, Entity, EntityType } from '../support/entities';
 
 export class FoldingProviderCOD implements vscode.FoldingRangeProvider {
 	onDidChangeFoldingRanges?: vscode.Event<void>;
@@ -32,7 +32,16 @@ export class FoldingProviderCOD implements vscode.FoldingRangeProvider {
 	}
 
 	private isFoldable(col: EntityCollection): boolean {
-		return col instanceof DoEntity || col instanceof ForNextEntity || col instanceof FunctionDefinitionEntity || col instanceof IfEntity || col instanceof WhileEntity;
+		switch (col.entityType) {
+			case EntityType.DO:
+			case EntityType.FOR:
+			case EntityType.FUNCTIONDEF:
+			case EntityType.IF:
+			case EntityType.WHILE:
+				return true;
+			default:
+				return false;
+		}
 	}
 
 	private extractRanges(col: Array<Entity|EntityCollection>): Array<vscode.FoldingRange> {
