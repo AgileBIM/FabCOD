@@ -1,0 +1,275 @@
+REM --------------------------------
+REM #region Global Variables
+REM --------------------------------
+Dim constCR = ASCII(13)
+Dim constLF = ASCII(10)
+Dim constQT = ASCII(34)
+Dim constTAB = ASCII(9)
+Dim OptionList as Array()
+Dim targetOption = ""
+Dim targetNumber = 0
+Dim root = MAPPATH_ITEMS + "AgileBIM"
+Dim Skipped = ""
+REQUIRES task
+REM #endregion
+
+
+REM --------------------------------
+REM #region C# Excluded CID's
+REM --------------------------------
+REM BAD CID: 4522
+REM 				This needs an offline map of various options, but none of them effect the dimensional layout.
+
+REM BAD CID: 876 (Causing Fatal Error)
+REM					Only has 1 Yes/No option named "3 Parts"
+REM #endregion
+
+
+REM --------------------------------
+REM #region Helper Functions
+REM --------------------------------
+Function GetRevlative(path, relativeFrom)
+  Dim rLen = Len(relativeFrom)
+  Dim rel  = InStr(1, path "\" + relativeFrom + "\")
+  Dim rv
+  If Not rel Then
+    rel = InStr(1, path "/" + relativeFrom + "/")
+  EndIf
+  If rel Then
+    rv = SubString(path, rel + rLen + 2, 0)
+  Else
+    rv = path
+  EndIf
+  Return rv
+EndFunction
+
+Function LoadTextData(txtPath)
+  OptionList = new Array()
+  targetOption = ""
+  targetNumber = 0
+  object fileRef = new file(txtPath, FORINPUT + ISTEXT)
+  If (fileRef.IsOpen) Then
+    Dim line = fileRef.ReadLine()
+    Dim lineLength = Len(line)
+    fileRef.Close()
+    Dim i = 0, temp = "", charNext = ""
+    For i=1 To lineLength
+      charNext = SubString(line, i, i)
+      If (charNext = "|") Then
+        If (targetNumber = 0) Then
+          targetNumber = Number(temp)
+        Else
+          If (targetOption = "") Then
+            targetOption = temp
+          Else
+            OptionList.Add(temp)
+          EndIf
+        EndIf
+        temp = ""
+      ElseIf (i = lineLength) Then
+        temp = temp + charNext
+        OptionList.Add(temp)
+      Else
+        temp = temp + charNext
+      EndIf
+    Next i
+  EndIf
+EndFunction
+
+Function TABM(qty)
+  Dim tabs = ""
+  Dim tc
+  for tc = 1 to qty
+    tabs = tabs + constTAB
+  Next tc
+  return tabs
+End Function
+
+Function Unquote(value)
+  Dim k, cchar, resval = ""
+  For k = 1 To Len(value)
+    Dim cchar = Substring(value, k, k)
+    If (cchar <> constQT) Then
+      resval = resval + cchar
+    EndIf
+  Next k
+  return resval
+EndFunction
+
+Function JVAL(key, value)
+  Return constQT + key + constQT + ": "  + constQT + value + constQT
+End Function
+
+Function JKEY(key, tabcount)
+  Return TABM(tabcount) + constQT + key + constQT + ": "
+End Function
+
+Function JOBJ(key, tabcount)
+  Return TABM(tabcount) + constQT + key + constQT + ": "
+End Function
+
+Function JLINE(key, value, tabcount)
+  Return TABM(tabcount) + JVAL(key, value) + "," + CRLF()
+End Function
+
+Function QUOTE(key, suffix)
+  Return constQT + key + constQT + suffix
+End Function
+
+Function CRLF()
+  Return constLF
+End Function
+REM #endregion
+
+
+REM --------------------------------
+REM #region Actual work
+REM --------------------------------
+Dim scanner as FILELOCATOR
+scanner.Scan(root, "*.itm", True, False)
+Task.BeginProgress(scanner.filecount)
+
+Dim lp
+For lp = 1 to scanner.filecount
+  Dim ITM as ITEMSTRUCT
+  Dim filePath = scanner.file[lp]
+  Dim fileName = GetFileName(filePath)
+  Dim textPath = SubString(filePath, 1, -4)
+ 
+  Dim index, cc
+  task.message = fileName
+  LoadTextData(textPath + ".txt")
+ 
+  Dim result
+  If (OptionList.Count = 0) Then
+    REM Static, textPath must not have existed
+    IF ITM.load(filePath) Then
+      result = "{" + CRLF()
+      result = result + JLINE("cid", ITM.CID, 1)
+      If (targetOption = "") Then
+        result = result + JLINE("option", "none", 1)
+      Else
+        result = result + JLINE("option", targetOption, 1)
+      EndIf
+      result = result + JKEY("values", 1) + "[" + CRLF()
+
+      result = result + TABM(2) + "{" + CRLF()
+      result = result + JLINE("active", "*default*", 3)
+      result = result + JKEY("dims", 3) + "[ "
+      For index = 1 To ITM.Dims
+        If (index = ITM.Dims) Then
+          result = result + QUOTE(ITM.Dim[index].Name, " ]," + CRLF())
+        Else
+          result = result + QUOTE(ITM.Dim[index].Name, ", ")
+        EndIf
+      Next index
+      if (ITM.Dims = 0) Then
+        result = result + "]," + CRLF()
+      EndIf
+
+      result = result + JKEY("options", 3) + "[ "
+      For index = 1 To ITM.Options
+        If (index = ITM.Options) Then
+          result = result + QUOTE(ITM.Option[index].Name, " ]" + CRLF())
+        Else
+          result = result + QUOTE(ITM.Option[index].Name, ", ")
+        EndIf
+      Next index
+      if (ITM.Options = 0) Then
+        result = result + "]" + CRLF()
+      EndIf
+
+      result = result + TABM(2) + "}" + CRLF()
+      result = result + constTAB + "]" + CRLF()
+      result = result + "}"
+    EndIf
+  Else
+    result = "{" + CRLF()
+    Dim handled = False
+    For cc = 1 To OptionList.Count
+      IF ITM.load(filePath) Then
+        Dim actualTarget
+        dim tempName = ITM.Option[targetNumber].Name
+        If (ITM.Option[targetNumber].Name = targetOption) Then
+          actualTarget = targetNumber
+        Else
+          actualTarget = targetOption
+        EndIf
+
+        If (handled = False) Then
+          result = result + JLINE("cid", ITM.CID, 1)
+          If (targetOption = "") Then
+            result = result + JLINE("option", "none", 1)
+          Else
+            If (ITM.Option[actualTarget] = Null) Then
+              result = result + JLINE("option", "error", 1)
+            Else
+              result = result + JLINE("option", targetOption, 1)
+            EndIf
+          EndIf
+          result = result + JKEY("values", 1) + "[" + CRLF()
+          handled = True
+        EndIf
+
+        If (ITM.Option[actualTarget] = Null) Then
+					Skipped = Skipped + ITM.CID + "|"
+				Else
+          ITM.Option[actualTarget].Value = OptionList[cc]
+        EndIf
+        
+        ITM.Update()
+        result = result + TABM(2) + "{" + CRLF()
+        result = result + JLINE("active", Unquote(OptionList[cc]), 3)
+        result = result + JKEY("dims", 3) + "[ "
+
+        For index = 1 To ITM.Dims
+          If (index = ITM.Dims) Then
+            result = result + QUOTE(ITM.Dim[index].Name, " ]," + CRLF())
+          Else
+            result = result + QUOTE(ITM.Dim[index].Name, ", ")
+          EndIf
+        Next index
+        if (ITM.Dims = 0) Then
+          result = result + "]," + CRLF()
+        EndIf
+
+        result = result + JKEY("options", 3) + "[ "
+        For index = 1 To ITM.Options
+          If (index = ITM.Options) Then
+            result = result + QUOTE(ITM.Option[index].Name, " ]" + CRLF())
+          Else
+            result = result + QUOTE(ITM.Option[index].Name, ", ")
+          EndIf
+        Next index
+        if (ITM.Options = 0) Then
+          result = result + "]" + CRLF()
+        EndIf
+
+        If (cc < OptionList.Count) Then
+          result = result + TABM(2) + "}," + CRLF()
+        Else
+            result = result + TABM(2) + "}" + CRLF()
+        EndIf
+      EndIf
+    Next cc
+    result = result + constTAB + "]" + CRLF()
+    result = result + "}"
+  EndIf
+ 
+  object fileWrite = new file(textPath + ".json", FOROUTPUT + ISTEXT)
+  If (fileWrite.IsOpen) Then
+    fileWrite.WriteLine(result)
+    fileWrite.Close()
+  EndIf
+Next lp
+
+object skipWrite = new file(root + "/ERRORS.txt", FOROUTPUT + ISTEXT)
+If (skipWrite.IsOpen) Then
+	skipWrite.WriteLine(Skipped)
+	skipWrite.Close()
+EndIf
+
+
+
+Task.EndProgress()
+REM #endregion

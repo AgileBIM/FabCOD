@@ -8,7 +8,7 @@ import { SignatureHelpProviderCOD } from "./providers/signatureProvider";
 export function loadAllCommands() {
 	FabExt.Subscriptions.push(vscode.languages.registerHoverProvider(FabExt.selector, new HoverProviderCOD()));
 	FabExt.Subscriptions.push(vscode.languages.registerFoldingRangeProvider(FabExt.selector, new FoldingProviderCOD()));
-	FabExt.Subscriptions.push(vscode.languages.registerCompletionItemProvider(FabExt.selector, new CompletionProviderCOD(), '.', '('));
+	FabExt.Subscriptions.push(vscode.languages.registerCompletionItemProvider(FabExt.selector, new CompletionProviderCOD(), '.', ',', '/', '\"'));
 	FabExt.Subscriptions.push(vscode.languages.registerSignatureHelpProvider(FabExt.selector, new SignatureHelpProviderCOD(), '(', ',', ')' ));
 
 	FabExt.Subscriptions.push(vscode.commands.registerTextEditorCommand('fabext.dimpicker', () => {

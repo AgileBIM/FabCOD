@@ -3,9 +3,13 @@ import { FabExt } from '../extension';
 import { COD, CODutil } from '../support/document';
 import * as dataTypes from '../support/data';
 //import { Argument, Function } from "../support/data";
+//////////////////////////////////////////////////////////////////Need to get imported function arguments working
+export let lastSigContext: vscode.SignatureHelpContext = null;
+export let lastSigArgs: Array<dataTypes.Argument>;
 
-export class SignatureHelpProviderCOD implements vscode.SignatureHelpProvider {
+export class SignatureHelpProviderCOD implements vscode.SignatureHelpProvider {	
 	provideSignatureHelp(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.SignatureHelpContext): vscode.ProviderResult<vscode.SignatureHelp> {
+		lastSigContext = context;
 		if (context && context.triggerCharacter === ')') {
 			return;
 		} else if (context && context.activeSignatureHelp && context.triggerCharacter === ',') {
@@ -49,7 +53,8 @@ export class SignatureHelpProviderCOD implements vscode.SignatureHelpProvider {
 					if (funcprop && funcprop['args']) {
 						const meth: dataTypes.Function = funcprop as dataTypes.Function;
 						const sig = new vscode.SignatureHelp();		
-						const siginfo = new vscode.SignatureInformation(meth.id, FabExt.Data.getDottedMarkdown(cod, ender));						
+						const siginfo = new vscode.SignatureInformation(meth.id, FabExt.Data.getDottedMarkdown(cod, ender));	
+						lastSigArgs = meth.args;					
 						meth.args.forEach((arg: dataTypes.Argument, idx) => {
 							const parinfo = new vscode.ParameterInformation(arg.id, FabExt.Data.getArgumentMarkdown(arg));
 							siginfo.parameters.push(parinfo);
@@ -60,7 +65,8 @@ export class SignatureHelpProviderCOD implements vscode.SignatureHelpProvider {
 					} else if (FabExt.Data.functions[ender.value.toUpperCase()]) {
 						const sig = new vscode.SignatureHelp();		
 						const meth = FabExt.Data.functions[ender.value.toUpperCase()];
-						const siginfo = new vscode.SignatureInformation(meth.id, FabExt.Data.getNamedObjectMarkdown(ender.value.toUpperCase()));						
+						const siginfo = new vscode.SignatureInformation(meth.id, FabExt.Data.getNamedObjectMarkdown(ender.value.toUpperCase()));
+						lastSigArgs = meth.args;
 						meth.args.forEach((arg: dataTypes.Argument, idx) => {
 							const parinfo = new vscode.ParameterInformation(arg.id, FabExt.Data.getArgumentMarkdown(arg));
 							siginfo.parameters.push(parinfo);
@@ -68,6 +74,21 @@ export class SignatureHelpProviderCOD implements vscode.SignatureHelpProvider {
 						sig.activeParameter = qty;
 						sig.signatures.push(siginfo);
 						return sig;	
+					} else if (CODutil.hasImportedFunction_NotOverriden_ByActiveCOD(cod, ender.value.toUpperCase())) {
+						const deflist = cod.keywords.importedFunctions.get(ender.value.toUpperCase());
+						const refPath = deflist[0].filePath;
+						const parent = FabExt.Documents.getDocument(refPath);
+						if (!parent) {
+							return;
+						}
+						const defstart = deflist.find(p => parent.entities[p.index - 1]?.value.toUpperCase() === 'FUNCTION');
+						if (defstart) {
+							const sig = new vscode.SignatureHelp();
+							sig.signatures.push(new vscode.SignatureInformation(CODutil.lineAt(parent, defstart.line).trim()));
+							return sig;
+						} else {
+							return;
+						}
 					} else if (cod.keywords.functions.has(ender.value.toUpperCase())) {
 						const deflist = cod.keywords.functions.get(ender.value.toUpperCase());
 						const defstart = deflist.find(p => cod.entities[p.index - 1].value.toUpperCase() === 'FUNCTION');
