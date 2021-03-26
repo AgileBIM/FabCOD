@@ -37,6 +37,9 @@ export class FoldingProviderCOD implements vscode.FoldingRangeProvider {
 			case EntityType.FOR:
 			case EntityType.FUNCTIONDEF:
 			case EntityType.IF:
+			case EntityType.ELSEIF:
+			case EntityType.ELSE:
+			case EntityType.SELECT:
 			case EntityType.WHILE:
 				return true;
 			default:
