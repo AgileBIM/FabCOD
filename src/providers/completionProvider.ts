@@ -5,6 +5,7 @@ import { FabExt } from '../extension';
 import { COD, CODutil } from '../support/document';
 import { CODParser } from '../support/parser';
 import { lastSigContext, lastSigArgs } from '../providers/signatureProvider';
+import { Entity } from '../support/entities';
 
 
 export class CompletionProviderCOD implements vscode.CompletionItemProvider {
@@ -21,7 +22,7 @@ export class CompletionProviderCOD implements vscode.CompletionItemProvider {
 		
 		if (last) {
 			// you can probably use the same logic with the RUN command?
-			if (last.isString && parts[subidx-1]?.value.toUpperCase() === 'INCLUDE' && position.character < last.getRange().end.character) {
+			if (last.isString && this.canUsePath(parts) && position.character < last.getRange().end.character) {
 				// anylize the current state of the path and help the user fill in the blanks				
 				const subParts = last.value.replace(/\"/g, '').replace(/\\/g, '/').split('/').filter(p => p !== '');
 				let searchFor = '';
@@ -70,7 +71,7 @@ export class CompletionProviderCOD implements vscode.CompletionItemProvider {
 					});
 					files.forEach(f => { result.push(new vscode.CompletionItem(prefix + f.name, vscode.CompletionItemKind.Reference)); });
 				}
-			} else if (last.value.toUpperCase() === 'INCLUDE') {
+			} else if (this.canUsePath(parts)) {
 				// suggests files and sub-folders relative to the current COD's location in a fully quoted string format
 				const bump = last.column + last.value.length === position.character ? ' ' : '';
 				const allRefs = this.getLocalFilesRelative(cod);
@@ -82,7 +83,7 @@ export class CompletionProviderCOD implements vscode.CompletionItemProvider {
 					result.push(ci);
 				});
 				files.forEach(f => { result.push(new vscode.CompletionItem(bump + '"' + prefix + f.name + '"', vscode.CompletionItemKind.Reference)); });
-			} else {
+			} else if (!last.isString) {
 				const sig = lastSigContext?.activeSignatureHelp;
 				const sigArgs = lastSigArgs;
 				if (context.triggerCharacter === '/' || context.triggerCharacter === '\"') {
@@ -176,20 +177,32 @@ export class CompletionProviderCOD implements vscode.CompletionItemProvider {
 				return new vscode.CompletionList(cmplst.filter(p => p.kind !== vscode.CompletionItemKind.Struct));
 			}
 		}
+		return;
 	}
 	// resolveCompletionItem?(item: vscode.CompletionItem, token: vscode.CancellationToken): vscode.ProviderResult<vscode.CompletionItem> {
 	// 	return item;
 	// }
 
 
-
-	getLocalFilesRooted(root: string): Array<fs.Dirent> {
-		return fs.readdirSync(root, {withFileTypes: true});
+	private canUsePath(lineEntities: Array<Entity>) {
+		return lineEntities 
+			   && lineEntities.length >= 1 
+			   && (lineEntities[0].value.toUpperCase() === 'INCLUDE' || lineEntities[0].value.toUpperCase() === 'RUN');
 	}
 
-	getLocalFilesRelative(cod: COD, join?: Array<string>): Array<fs.Dirent> {
+	private getLocalFilesRooted(root: string): Array<fs.Dirent> {
+		return fs.readdirSync(root, {withFileTypes: true}).filter(source => {
+			return !source.isFile() 
+				   || (source.isFile() && source.name.toUpperCase().endsWith('.COD'));
+		});
+	}
+
+	private getLocalFilesRelative(cod: COD, join?: Array<string>): Array<fs.Dirent> {
 		let dir = path.join(path.dirname(cod.source.fileName), ...(join ? join : ['.']));
-		return fs.readdirSync(dir, {withFileTypes: true});
+		return fs.readdirSync(dir, {withFileTypes: true}).filter(source => {
+			return !source.isFile() 
+				   || (source.isFile() && source.name.toUpperCase().endsWith('.COD'));
+		});
 	}
 
 }

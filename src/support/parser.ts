@@ -151,27 +151,28 @@ export namespace CODParser {
 
     function createElseIfStatement(ents: Array<Entity>, tracker: IndexTracker): IContentCollection {
         let curr = ents[tracker.idx];        
+        let next = ents[tracker.idx+1];   
         let entrun = ents.filter(p => p.line === curr.line);
         const thenidx = entrun.findIndex(p => p.value.toUpperCase() === 'THEN');
         let header = processEntityRun(entrun, tracker.ids, true);
-        tracker.idx += entrun.length;        
+        let canStop = function(str1, str2) { return ['ENDIF', 'ELSE', 'ELSEIF'].includes(str1) || ['ENDIF', 'ELSE', 'ELSEIF'].includes(str1 + str2); };
+        tracker.idx += entrun.length; 
         let body: Array<IEntity> = [];
-        let ender: Array<IEntity> = [];
         if (thenidx === -1 || thenidx === entrun.length - 1) { // full ELSEIF
             for (; tracker.idx < ents.length;) {
                 curr = ents[tracker.idx];
+                next = ents[tracker.idx+1];
                 const upper = curr.value.toUpperCase();
-                if (foldStarters.includes(upper)) {
+                const nval = next && !next.isComment ? next.value.toUpperCase() : '';
+                if (canStop(upper, nval)) {
+                    break;
+                } else if (foldStarters.includes(upper)) {
                     body.push(createBlockType(ents, tracker));
                 } else if (curr.isComment) {
                     body.push(curr);
                     tracker.idx++;
                 } else {
-                    if (upper === 'ENDIF' || (upper === 'END' && ents[tracker.idx+1].value.toUpperCase() === 'IF')) {
-                        break;
-                    } else {
-                        body.push(createSequenceType(ents, tracker)); // this makes line collections when it wasn't a block starter
-                    }
+                    body.push(createSequenceType(ents, tracker)); // this makes line collections when it wasn't a block starter
                 }
             }
             return new EntityCollection(EntityType.ELSEIF, header, body);
@@ -248,7 +249,7 @@ export namespace CODParser {
         for (; tracker.idx < ents.length;) {
             curr = ents[tracker.idx];
             const upper = curr.value.toUpperCase();
-            if (foldStarters.includes(upper)) {
+            if (upper !== 'CASE' && foldStarters.includes(upper)) {
                 body.push(createBlockType(ents, tracker));
             } else if (curr.isComment) {
                 body.push(curr);
