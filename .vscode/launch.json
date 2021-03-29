@@ -24,6 +24,11 @@
 				"--extensionDevelopmentPath=${workspaceFolder}",
 				"--extensionTestsPath=${workspaceFolder}/out/test/suite/index"
 			],
+			"presentation": {
+				"hidden": false,
+				"group": "",
+				"order": 1,				
+			},
 			"outFiles": [
 				"${workspaceFolder}/out/test/**/*.js"
 			],

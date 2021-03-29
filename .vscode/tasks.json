@@ -39,7 +39,10 @@
 			"problemMatcher": "$tsc-watch",
 			"isBackground": true,
 			"presentation": {
-				"reveal": "never"
+				"reveal": "always",
+				"panel": "dedicated",
+				"focus": true,
+				"clear": true
 			},
 			"group": "build"
 		}

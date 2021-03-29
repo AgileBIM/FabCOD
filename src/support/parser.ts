@@ -1,23 +1,16 @@
+import * as fs from 'fs-extra';
+import * as nodepath from 'path';
 import * as vscode from 'vscode';
 import { 
     Entity, 
     EntityCollection, 
     ValueType, 
-    CaseEntity, 
-    ContentsEntity, 
-    DoEntity, 
-    ElseEntity, 
-    ElseIfEntity, 
     EntityType, 
-    ForNextEntity, 
-    FunctionDefinitionEntity, 
-    IfEntity, 
-    InlineIfEntity,
-    SelectEntity, 
-    SequenceEntity, 
-    WhileEntity, 
     stdSymbols,
-    blockStarters
+    foldStarters,
+    IEntity,
+    IContentCollection,
+    ImportedEntity
  } from "./entities";
 import { COD, NameTracker } from './document';
 import { FabExt } from '../extension';
@@ -29,41 +22,59 @@ export namespace CODParser {
     }
 
     // When this document is completely done, this will be the only exported function
-    export function createCOD(doc: string|vscode.TextDocument) : COD {
+    export function createOrUpdateCOD(doc: string|vscode.TextDocument, existing?: COD) : COD|void {
         // requester needs to be used to ensure that 2 COD's don't create an infinate loop by including each other as references.
         const text = doc instanceof Object ? doc.getText() : doc;
         const ids: NameTracker = new NameTracker(doc instanceof Object ? doc.fileName.toUpperCase() : '');
         const ents: Array<Entity> = segmentation(text) ?? [];
         const retn = formulation(ids, ents) ?? ents;
-        
-        return {
-            text: text,
-            keywords: ids,
-            contents: retn,
-            entities: ents,            
-            source: doc instanceof Object ? doc : null
-        };
+
+        // collect data from IMPORT references
+        if (ids.includes.length >= 1) {
+            ids.includes.forEach(fullPath => { 
+                if (fs.pathExistsSync(fullPath) === false) {
+                    const join = fullPath.split('/');
+                    fullPath = nodepath.join(nodepath.dirname(ids.creator), ...(join ? join : ['.']));
+                }            
+                const parent = FabExt.Documents?.getDocument(fullPath);
+                if (parent) {
+                    const pKeys = [...parent.keywords.functions.keys()];
+                    pKeys.forEach(key => {
+                        const imports = parent.keywords.functions.get(key);
+                        if (ids.importedFunctions.has(key) === false) {
+                            ids.importedFunctions.set(key, []);
+                        }
+                        imports.forEach(fEnt => {
+                            const impEntity = new ImportedEntity(fEnt, fullPath);
+                            ids.importedFunctions.get(key).push(impEntity);
+                        });
+                    });
+                }
+            });
+        }
+
+        // Update or return qualified COD
+        if (existing) {
+            existing.text = text;
+            existing.keywords = ids;
+            existing.contents = retn;
+            existing.entities = ents;
+            existing.source = doc instanceof Object ? doc : null;
+        } else {
+            return {
+                text: text,
+                keywords: ids,
+                contents: retn,
+                entities: ents,            
+                source: doc instanceof Object ? doc : null
+            };    
+        }
     }
 
-    export function updateCOD(doc: string|vscode.TextDocument, source: COD) {
-        const text = doc instanceof Object ? doc.getText() : doc;
-        const ids: NameTracker = new NameTracker(doc instanceof Object ? doc.fileName.toUpperCase() : '');
-        const ents = segmentation(text) ?? [];
-        const retn = formulation(ids, ents) ?? ents;
-        source.text = text;
-        source.keywords = ids;
-        source.contents = retn;
-        source.entities = ents;
-        source.source = doc instanceof Object ? doc : null;
-    }
 
-
-
-
-
-
+// kind of wondering if all the things previously building the SEQUENCE type should be going through processEntityRun()
 //#region Block Formulation EntityCollection Handlers
-    function processFUNCDEF(ents: Array<Entity>, tracker: IndexTracker): FunctionDefinitionEntity {
+    function createFuncDefinition(ents: Array<Entity>, tracker: IndexTracker): IContentCollection {
         let curr = ents[tracker.idx];        
         let entrun = ents.filter(p => p.line === curr.line);
         if (entrun[1]?.valueType === ValueType.UNKNOWN) {
@@ -71,12 +82,12 @@ export namespace CODParser {
         }
         let header = processEntityRun(entrun, tracker.ids, true);
         tracker.idx += entrun.length;        
-        let body: Array<Entity|EntityCollection> = [];
-        let ender: Array<Entity> = [];
+        let body: Array<IEntity> = [];
+        let ender: Array<IEntity> = [];
         for (; tracker.idx < ents.length;) {
             curr = ents[tracker.idx];
             const upper = curr.value.toUpperCase();
-            if (blockStarters.includes(upper)) {
+            if (foldStarters.includes(upper)) {
                 body.push(createBlockType(ents, tracker));
             } else if (curr.isComment) {
                 body.push(curr);
@@ -92,34 +103,27 @@ export namespace CODParser {
                     tracker.idx += 2;
                     break;
                 } else {
-                    body.push(createSequenceType(ents, tracker)); // this will make line collections if it isn't a block starter
+                    body.push(createSequenceType(ents, tracker)); // this makes line collections when it wasn't a block starter
                 }
             }            
         }
-        const closer = new SequenceEntity(EntityType.SEQUENCE, ender);
-        // const fstart = header.children.findIndex(p => p.value === 'FUNCTION');
-        // const fname = header.children[fstart - 1];
-        // if (fname) {
-        //     if (tracker.ids.functions.has(fname.value.toUpperCase())) {
-        //         tracker.ids.functions.get(fname.value.toUpperCase()).push(fname);
-        //     }
-        // }
-        return new FunctionDefinitionEntity(header, new ContentsEntity(body), closer);
+        return new EntityCollection(EntityType.FUNCTIONDEF, header, body, ender);
     }
 
-    function processIF(ents: Array<Entity>, tracker: IndexTracker): IfEntity|InlineIfEntity {
+
+    function createIfStatement(ents: Array<Entity>, tracker: IndexTracker): IContentCollection {
         let curr = ents[tracker.idx];        
         let entrun = ents.filter(p => p.line === curr.line);
         const thenidx = entrun.findIndex(p => p.value.toUpperCase() === 'THEN');
         let header = processEntityRun(entrun, tracker.ids, true);
         tracker.idx += entrun.length;        
-        let body: Array<Entity|EntityCollection> = [];
-        let ender: Array<Entity> = [];
+        let body: Array<IEntity> = [];
+        let ender: Array<IEntity> = [];
         if (thenidx === -1 || thenidx === entrun.length - 1) { // full IF
             for (; tracker.idx < ents.length;) {
                 curr = ents[tracker.idx];
                 const upper = curr.value.toUpperCase();
-                if (blockStarters.includes(upper)) {
+                if (foldStarters.includes(upper)) {
                     body.push(createBlockType(ents, tracker));
                 } else if (curr.isComment) {
                     body.push(curr);
@@ -139,80 +143,81 @@ export namespace CODParser {
                     }
                 }
             }
-            return new IfEntity(header, new ContentsEntity(body), new SequenceEntity(EntityType.SEQUENCE, ender));
+            return new EntityCollection(EntityType.IF, header, body, ender);
         } else { // 1-liner IF (tracker.idx updated above)
-            return new InlineIfEntity(header.children);
+            return new EntityCollection(EntityType.IFINLINE, header);
         }
     }
 
-    function processELSEIF(ents: Array<Entity>, tracker: IndexTracker): ElseIfEntity|InlineIfEntity {
+    function createElseIfStatement(ents: Array<Entity>, tracker: IndexTracker): IContentCollection {
         let curr = ents[tracker.idx];        
+        let next = ents[tracker.idx+1];   
         let entrun = ents.filter(p => p.line === curr.line);
         const thenidx = entrun.findIndex(p => p.value.toUpperCase() === 'THEN');
         let header = processEntityRun(entrun, tracker.ids, true);
-        tracker.idx += entrun.length;        
-        let body: Array<Entity|EntityCollection> = [];
-        let ender: Array<Entity> = [];
+        let canStop = function(str1, str2) { return ['ENDIF', 'ELSE', 'ELSEIF'].includes(str1) || ['ENDIF', 'ELSE', 'ELSEIF'].includes(str1 + str2); };
+        tracker.idx += entrun.length; 
+        let body: Array<IEntity> = [];
         if (thenidx === -1 || thenidx === entrun.length - 1) { // full ELSEIF
             for (; tracker.idx < ents.length;) {
                 curr = ents[tracker.idx];
+                next = ents[tracker.idx+1];
                 const upper = curr.value.toUpperCase();
-                if (blockStarters.includes(upper)) {
+                const nval = next && !next.isComment ? next.value.toUpperCase() : '';
+                if (canStop(upper, nval)) {
+                    break;
+                } else if (foldStarters.includes(upper)) {
                     body.push(createBlockType(ents, tracker));
                 } else if (curr.isComment) {
                     body.push(curr);
                     tracker.idx++;
                 } else {
-                    if (upper === 'ENDIF' || (upper === 'END' && ents[tracker.idx+1].value.toUpperCase() === 'IF')) {
-                        break;
-                    } else {
-                        body.push(createSequenceType(ents, tracker)); // this will make line collections if it isn't a block starter
-                    }
+                    body.push(createSequenceType(ents, tracker)); // this makes line collections when it wasn't a block starter
                 }
             }
-            return new ElseIfEntity(header, new ContentsEntity(body));
+            return new EntityCollection(EntityType.ELSEIF, header, body);
         } else { // 1-liner ELSEIF
-            return new InlineIfEntity(header.children);
+            return new EntityCollection(EntityType.IFINLINE, header);
         }
     }
 
-    function processELSE(ents: Array<Entity>, tracker: IndexTracker): ElseEntity {
+    function processElseStatement(ents: Array<Entity>, tracker: IndexTracker): IContentCollection {
         let curr = ents[tracker.idx];        
         let entrun = ents.filter(p => p.line === curr.line);
         let header = processEntityRun(entrun, tracker.ids, true);
         tracker.idx += entrun.length;        
-        let body: Array<Entity|EntityCollection> = [];
+        let body: Array<IEntity> = [];
         for (; tracker.idx < ents.length;) {
             curr = ents[tracker.idx];
             const upper = curr.value.toUpperCase();
-            if (blockStarters.includes(upper)) {
+            if (foldStarters.includes(upper)) {
                 body.push(createBlockType(ents, tracker));
             } else if (curr.isComment) {
                 body.push(curr);
                 tracker.idx++;
             } else {
                 if (upper === 'ENDIF' || (upper === 'END' && ents[tracker.idx+1].value.toUpperCase() === 'IF')) {                        
-                    return new ElseEntity(header, new ContentsEntity(body));
+                    return new EntityCollection(EntityType.ELSE, header, body);
                 } else {
-                    body.push(createSequenceType(ents, tracker)); // this will make line collections if it isn't a block starter
+                    body.push(createSequenceType(ents, tracker)); // this makes line collections when it wasn't a block starter
                 }
             } 
         }
         // should return before this, but this will likely cover incorrect EOF edge cases
-        return new ElseEntity(header, new ContentsEntity(body));
+        return new EntityCollection(EntityType.ELSE, header, body);
     }
 
-    function processSELECT(ents: Array<Entity>, tracker: IndexTracker): SelectEntity {
+    function processSelectStatement(ents: Array<Entity>, tracker: IndexTracker): IContentCollection {
         let curr = ents[tracker.idx];        
         let entrun = ents.filter(p => p.line === curr.line);
         let header = processEntityRun(entrun, tracker.ids, true);
         tracker.idx += entrun.length;        
-        let body: Array<Entity|EntityCollection> = [];
-        let ender: Array<Entity> = [];
+        let body: Array<IEntity> = [];
+        let ender: Array<IEntity> = [];
         for (; tracker.idx < ents.length;) {
             curr = ents[tracker.idx];
             const upper = curr.value.toUpperCase();
-            if (blockStarters.includes(upper)) {
+            if (foldStarters.includes(upper)) {
                 body.push(createBlockType(ents, tracker));
             } else if (curr.isComment) {
                 body.push(curr);
@@ -228,24 +233,23 @@ export namespace CODParser {
                     tracker.idx += 2;
                     break;                    
                 } else {
-                    body.push(createSequenceType(ents, tracker)); // this will make line collections if it isn't a block starter
+                    body.push(createSequenceType(ents, tracker)); // this makes line collections when it wasn't a block starter
                 }
             }
         }
-        const closer = new SequenceEntity(EntityType.SEQUENCE, ender);
-        return new SelectEntity(header, new ContentsEntity(body), closer);
+        return new EntityCollection(EntityType.SELECT, header, body, ender);
     }
 
-    function processCASE(ents: Array<Entity>, tracker: IndexTracker): CaseEntity {
+    function processCaseStatement(ents: Array<Entity>, tracker: IndexTracker): IContentCollection {
         let curr = ents[tracker.idx];        
         let entrun = ents.filter(p => p.line === curr.line);
         let header = processEntityRun(entrun, tracker.ids, true);
         tracker.idx += entrun.length;        
-        let body: Array<Entity|EntityCollection> = [];
+        let body: Array<IEntity> = [];
         for (; tracker.idx < ents.length;) {
             curr = ents[tracker.idx];
             const upper = curr.value.toUpperCase();
-            if (blockStarters.includes(upper)) {
+            if (upper !== 'CASE' && foldStarters.includes(upper)) {
                 body.push(createBlockType(ents, tracker));
             } else if (curr.isComment) {
                 body.push(curr);
@@ -254,24 +258,24 @@ export namespace CODParser {
                 if (upper === 'CASE' || upper === 'ENDSELECT' || (upper === 'END' && ents[tracker.idx+1].value.toUpperCase() === 'SELECT')) {
                     break;
                 } else {
-                    body.push(createSequenceType(ents, tracker)); // this will make line collections if it isn't a block starter
+                    body.push(createSequenceType(ents, tracker)); // this makes line collections when it wasn't a block starter
                 }
             }            
         }
-        return new CaseEntity(header, new ContentsEntity(body));
+        return new EntityCollection(EntityType.CASE, header, body);
     }
 
-    function processFOR(ents: Array<Entity>, tracker: IndexTracker): ForNextEntity {
+    function processForStatement(ents: Array<Entity>, tracker: IndexTracker): IContentCollection {
         let curr = ents[tracker.idx];        
         let entrun = ents.filter(p => p.line === curr.line);
         let header = processEntityRun(entrun, tracker.ids, true);
         tracker.idx += entrun.length;        
-        let body: Array<Entity|EntityCollection> = [];
-        let ender: Array<Entity> = [];
+        let body: Array<IEntity> = [];
+        let ender: Array<IEntity> = [];
         for (; tracker.idx < ents.length;) {
             curr = ents[tracker.idx];
             const upper = curr.value.toUpperCase();
-            if (blockStarters.includes(upper)) {
+            if (foldStarters.includes(upper)) {
                 body.push(createBlockType(ents, tracker));
             } else if (curr.isComment) {
                 body.push(curr);
@@ -282,24 +286,24 @@ export namespace CODParser {
                     tracker.idx += ender.length;
                     break;
                 } else {
-                    body.push(createSequenceType(ents, tracker)); // this will make line collections if it isn't a block starter
+                    body.push(createSequenceType(ents, tracker)); // this makes line collections when it wasn't a block starter
                 }
             }            
         }
-        return new ForNextEntity(header, new ContentsEntity(body), processEntityRun(ender, tracker.ids));
+        return new EntityCollection(EntityType.FOR, header, body, processEntityRun(ender, tracker.ids));
     }
 
-    function processWHILE(ents: Array<Entity>, tracker: IndexTracker): WhileEntity {
+    function processWhileStatement(ents: Array<Entity>, tracker: IndexTracker): IContentCollection {
         let curr = ents[tracker.idx];        
         let entrun = ents.filter(p => p.line === curr.line);
         let header = processEntityRun(entrun, tracker.ids, true);
         tracker.idx += entrun.length;        
-        let body: Array<Entity|EntityCollection> = [];
-        let ender: Array<Entity> = [];
+        let body: Array<IEntity> = [];
+        let ender: Array<IEntity> = [];
         for (; tracker.idx < ents.length;) {
             curr = ents[tracker.idx];
             const upper = curr.value.toUpperCase();
-            if (blockStarters.includes(upper)) {
+            if (foldStarters.includes(upper)) {
                 body.push(createBlockType(ents, tracker));
             } else if (curr.isComment) {
                 body.push(curr);
@@ -315,21 +319,19 @@ export namespace CODParser {
                     tracker.idx += 2;
                     break;
                 } else {
-                    body.push(createSequenceType(ents, tracker)); // this will make line collections if it isn't a block starter
+                    body.push(createSequenceType(ents, tracker)); // this makes line collections when it wasn't a block starter
                 }
             }            
         }
-        const closer = new SequenceEntity(EntityType.SEQUENCE, ender);
-        return new WhileEntity(header, new ContentsEntity(body), closer);
+        return new EntityCollection(EntityType.WHILE, header, body, ender);
     }
 
-    function processDO(ents: Array<Entity>, tracker: IndexTracker): DoEntity {
+    function processDoStatement(ents: Array<Entity>, tracker: IndexTracker): IContentCollection {
         let curr: Entity = ents[tracker.idx];        
         let entrun = ents.filter(p => p.line === curr.line);
         const header = processEntityRun(entrun, tracker.ids);
         tracker.idx += entrun.length;
-        const body: Array<Entity|EntityCollection> = [];
-        let footer: EntityCollection;
+        const body: Array<IEntity> = [];
         if (curr.value.toUpperCase() === 'WHILE') {
             body.push(curr);
             tracker.idx++;
@@ -337,7 +339,7 @@ export namespace CODParser {
         for (; tracker.idx < ents.length;) {
             curr = ents[tracker.idx];
             const upper = curr.value.toUpperCase();
-            if (blockStarters.includes(upper)) {
+            if (foldStarters.includes(upper)) {
                 body.push(createBlockType(ents, tracker));
             } else if (curr.isComment) {
                 body.push(curr);
@@ -345,15 +347,14 @@ export namespace CODParser {
             } else {
                 if (upper === 'LOOP') {
                     entrun = ents.filter(p => p.line === curr.line);
-                    footer = processEntityRun(entrun, tracker.ids);
                     tracker.idx += entrun.length;
                     break;
                 } else {
-                    body.push(createSequenceType(ents, tracker)); // this will make line collections if it isn't a block starter
+                    body.push(createSequenceType(ents, tracker)); // this makes line collections when it wasn't a block starter
                 }
             }            
         }
-        return new DoEntity(header, new ContentsEntity(body), footer);
+        return new EntityCollection(EntityType.DO, header, body, processEntityRun(entrun, tracker.ids));
     }
 //#endregion Block Formulation EntityCollection Handlers
 
@@ -366,13 +367,16 @@ export namespace CODParser {
     
     // the tracker idx increments are handled by the callers of this function. This is supposed to enhance a finite non-blocking scope that would appear on a single line.
     // This ents this function recieves could be an entire line, but it could also be the expression portion of an IF, the body portion of an InlineIf or various other "parts" of other things.
-    function processEntityRun(ents: Array<Entity>, ids: NameTracker, assumeVariables?: boolean) : EntityCollection { 
+    function processEntityRun(ents: Array<Entity>, ids: NameTracker, assumeVariables?: boolean) : Array<IEntity> { 
         const result: Array<Entity|EntityCollection> = [];
         for (let i = 0; i < ents.length; i++) {
             const prev = ents[i - 1];
             const curr = ents[i];
             const next = ents[i + 1];
-            const pUpper = prev ? prev.value.toUpperCase() : '';
+            // if (prev.value === undefined) debugger;
+            // if (curr.value === undefined) debugger;
+            // if (next.value === undefined) debugger;
+            const pUpper = prev?.value ? prev.value.toUpperCase() : '';
             const upper = curr.value.toUpperCase();
             if (curr.valueType === ValueType.UNKNOWN || upper === 'DIM' || pUpper === 'FUNCTION')
             {
@@ -380,17 +384,17 @@ export namespace CODParser {
                 const pAttach = !prev ? false : prev.column + prev.value.length === curr.column;
                 if (pAttach && pUpper === '.') {
                     // dotted
-                    if (nAttach && next.value === '[') {
+                    if (nAttach && next?.value === '[') {
                         curr.valueType = ValueType.KEYWORD;
                         curr.entityType = EntityType.INDEXED;
-                    } else if (nAttach && next.value === '(') {
+                    } else if (nAttach && next?.value === '(') {
                         curr.valueType = ValueType.KEYWORD;
                         curr.entityType = EntityType.METHOD;                        
                     } else {
                         curr.valueType = ValueType.KEYWORD;
                         curr.entityType = EntityType.PROPERTY;
                     }
-                } else if (nAttach && next.value === '.') {
+                } else if (nAttach && next?.value === '.') {
                     if (ids.variables.has(upper)) {
                         ids.variables.get(upper).push(curr);
                         curr.valueType = ValueType.VARIABLE;
@@ -399,7 +403,7 @@ export namespace CODParser {
                         curr.valueType = ValueType.OBJECT;
                         curr.entityType = EntityType.DOTTED;
                     }
-                } else if (nAttach && next.value === '[') {
+                } else if (nAttach && next?.value === '[') {
                     if (ids.variables.has(upper)) {
                         ids.variables.get(upper).push(curr);
                         curr.valueType = ValueType.VARIABLE;
@@ -408,7 +412,7 @@ export namespace CODParser {
                         curr.valueType = ValueType.OBJECT;
                         curr.entityType = EntityType.INDEXED;
                     }
-                } else if (pUpper === 'FUNCTION' && next.value === '(') {
+                } else if (pUpper === 'FUNCTION' && next?.value === '(') {
                     curr.valueType = ValueType.KEYWORD;
                     curr.entityType = EntityType.FUNCTION;
                     if (ids.functions.has(upper)) {
@@ -416,7 +420,7 @@ export namespace CODParser {
                     } else {
                         ids.functions.set(upper, [curr]);
                     }
-                } else if (nAttach && next.value === '(') {
+                } else if (nAttach && next?.value === '(') {
                     curr.valueType = ValueType.KEYWORD;
                     curr.entityType = EntityType.FUNCTION;
                     if (!FabExt.Data.functions[upper]) {
@@ -458,39 +462,7 @@ export namespace CODParser {
             // This COULD be enhanced to make EntityCollections of dotted pairs, functions with variables, varaible declarations and assignments, etcetera
             result.push(curr);
         }
-        return new SequenceEntity(EntityType.SEQUENCE, ents);
-    }
-
-
-    function createBlockType(ents: Array<Entity>, tracker: IndexTracker): EntityCollection {        
-        // determine what the starter type should be and return that unique collection type
-        const target = ents[tracker.idx].value.toUpperCase();
-        switch (target) {
-        case 'IF':
-            return processIF(ents, tracker);
-        case 'ELSEIF':
-            return processELSEIF(ents, tracker);
-        case 'ELSE':
-            if (ents[tracker.idx + 1].value.toUpperCase() === 'IF' && ents[tracker.idx].line === ents[tracker.idx + 1].line) {
-                return processELSEIF(ents, tracker);
-            } else {
-                return processELSE(ents, tracker);
-            }
-        case 'FOR':
-            return processFOR(ents, tracker);
-        case 'WHILE':
-            return processWHILE(ents, tracker);
-        case 'DO':
-            return processDO(ents, tracker);
-        case 'SELECT':
-            return processSELECT(ents, tracker);
-        case 'CASE':
-            return processCASE(ents, tracker);
-        case 'FUNCTION':
-            return processFUNCDEF(ents, tracker);
-        default:
-            return createSequenceType(ents, tracker); // should never fire, but good fallback
-        }
+        return ents;
     }
 
 
@@ -499,11 +471,44 @@ export namespace CODParser {
         const first = ents[tracker.idx];
         const content = ents.filter(p => p.line === first.line);
         tracker.idx += content.length;
-        return processEntityRun(content, tracker.ids);
+        return new EntityCollection(EntityType.SEQUENCE, processEntityRun(content, tracker.ids));
     }
 
 
-    export function formulation(idObj: NameTracker, ents: Array<Entity>): Array<Entity|EntityCollection> {
+    function createBlockType(ents: Array<Entity>, tracker: IndexTracker): IContentCollection {        
+        // determine what the starter type should be and return that unique collection type
+        const target = ents[tracker.idx].value.toUpperCase();
+        switch (target) {
+        case 'IF':
+            return createIfStatement(ents, tracker);
+        case 'ELSEIF':
+            return createElseIfStatement(ents, tracker);
+        case 'ELSE':
+            if (ents[tracker.idx + 1].value.toUpperCase() === 'IF' && ents[tracker.idx].line === ents[tracker.idx + 1].line) {
+                return createElseIfStatement(ents, tracker);
+            } else {
+                return processElseStatement(ents, tracker);
+            }
+        case 'FOR':
+            return processForStatement(ents, tracker);
+        case 'WHILE':
+            return processWhileStatement(ents, tracker);
+        case 'DO':
+            return processDoStatement(ents, tracker);
+        case 'SELECT':
+            return processSelectStatement(ents, tracker);
+        case 'CASE':
+            return processCaseStatement(ents, tracker);
+        case 'FUNCTION':
+            return createFuncDefinition(ents, tracker);
+        default:
+            return createSequenceType(ents, tracker); // should never fire, but good fallback
+        }
+    }
+    
+
+
+    export function formulation(idObj: NameTracker, ents: Array<Entity>): Array<IEntity> {
         const result: Array<Entity|EntityCollection> = [];
         //const np = path.resolve(path.relative("C:\\Users\\howar\\Music\\OtherApps\\ITMedit.Validation.Approvals\\whatever.cod", "..\\..\\Builds"));
         const tracker: IndexTracker = { 
@@ -516,7 +521,7 @@ export namespace CODParser {
             if (curr.isComment === true) { // Collect Comments
                 result.push(curr);
                 tracker.idx++;
-            } else if (blockStarters.includes(upper)) { // Process Block Types
+            } else if (foldStarters.includes(upper)) { // Process Block Types
                 result.push(createBlockType(ents, tracker));
             } else { // Process and store an insignificant Line as a single Collection
                 result.push(createSequenceType(ents, tracker));

@@ -1,6 +1,8 @@
 import * as vscode from 'vscode';
+import * as nodepath from 'path';
+import * as fs from 'fs-extra';
 import { FabExt } from '../extension';
-import { Entity, EntityCollection, ValueType, EntityType } from './entities';
+import { Entity, EntityCollection, ValueType, EntityType, ImportedEntity } from './entities';
 
  export interface COD {
     text: string;
@@ -15,40 +17,103 @@ export class NameTracker {
     variables: Map<string, Array<Entity>> = new Map();
     skipped: Array<Entity> = [];
     functions: Map<string, Array<Entity>> = new Map();
-    importedFunctions: Map<string, Array<Entity>> = new Map();
+    importedFunctions: Map<string, Array<ImportedEntity>> = new Map();
     includes: Array<string> = [];
 
     constructor(fspath: string) {
         this.creator = fspath;
     }
 
-    allCompletionItems(cod: COD): Array<vscode.CompletionItem> {
-        const result: Array<vscode.CompletionItem> = [];
-        const fkeys = [...this.functions.keys()];
-        fkeys.forEach(key => { 
+    getFunctionCompletionItems(cod: COD, excludes: Array<string>, context: string = 'User-Defined'): Array<vscode.CompletionItem> {
+        let result: Array<vscode.CompletionItem> = [];
+        const fKeys = [...this.functions.keys()];
+        fKeys.forEach(key => { 
             const demarc = this.functions.get(key).find(x => cod.entities[x.index - 1]?.value.toUpperCase() === 'FUNCTION');
-            if (demarc) {
-                const uci = FabExt.Data.getCompletionItem(demarc.value, vscode.CompletionItemKind.Function, '1', 'User Defined');
-                uci.detail = 'User-Defined';
+            if (demarc && !excludes.includes(key)) {
+                const uci = FabExt.Data.getCompletionItem(demarc.value, vscode.CompletionItemKind.Function, '1', context);
+                uci.detail = context;
                 result.push(uci);
             }
         });
-        const vkeys = [...this.variables.keys()];
-        vkeys.forEach(key => { 
-            const demarc = this.variables.get(key).find(x => cod.entities[x.index - 1]?.value.toUpperCase() === 'DIM' || cod.entities[x.index - 1]?.value.toUpperCase() === 'OBJECT');
-            if (demarc) {
-                const uci = FabExt.Data.getCompletionItem(demarc.value, vscode.CompletionItemKind.Variable, '1', 'User Defined');
-                uci.detail = 'User-Defined';
-                result.push(uci);
+        
+        cod.keywords.includes.forEach(fullPath => {
+            if (fs.pathExistsSync(fullPath) === false) {
+                const join = fullPath.split('/');
+                fullPath = nodepath.join(nodepath.dirname(cod.source.fileName), ...(join ? join : ['.']));
+            }            
+            const parent = FabExt.Documents.getDocument(fullPath);
+            if (parent) {
+                result = result.concat(parent.keywords.getFunctionCompletionItems(parent, fKeys, 'Imported Func'));
             }
         });
         return result;
+    }
+
+    getVariableCompletionItems(cod: COD, excludes: string[], context: string = 'User-Defined'): Array<vscode.CompletionItem> {
+        let result: Array<vscode.CompletionItem> = [];
+        let imported: Array<vscode.CompletionItem> = [];
+        let vkeys = [...this.variables.keys()].filter(p => !excludes.includes(p));
+        vkeys.forEach(key => { 
+            const demarc = this.variables.get(key).find(x => cod.entities[x.index - 1]?.value.toUpperCase() === 'DIM' || cod.entities[x.index - 1]?.value.toUpperCase() === 'OBJECT');            
+            if (demarc) {
+                // this makes a crude attempt to identify imported variables that are of global scope
+                const starter = cod.entities[demarc.index-1];
+                if (excludes.length === 0 || cod.contents.some(p => starter.column === 0 && p.line === demarc.line)) {
+                    const uci = FabExt.Data.getCompletionItem(demarc.value, vscode.CompletionItemKind.Variable, '1', context);
+                    uci.detail = context;
+                    result.push(uci);
+                }
+            }
+        });
+        cod.keywords.includes.forEach(fullPath => {
+            if (fs.pathExistsSync(fullPath) === false) {
+                const join = fullPath.split('/');
+                fullPath = nodepath.join(nodepath.dirname(cod.source.fileName), ...(join ? join : ['.']));
+            }            
+            const parent = FabExt.Documents.getDocument(fullPath);
+            if (parent) {
+                // I think there is a problem here because once a variable is used, then vKeys won't know it was declared in an import.
+                imported = imported.concat(parent.keywords.getVariableCompletionItems(parent, vkeys, 'Imported Var'));
+                vkeys = vkeys.concat(...parent.keywords.variables.keys());
+            }
+        });
+        return result.concat(imported);
+    }
+
+    getAllCompletionItems(cod: COD): Array<vscode.CompletionItem> {
+        const funcs = this.getFunctionCompletionItems(cod, []);
+        const vars = this.getVariableCompletionItems(cod, []);
+        return funcs.concat(vars);
     }
 }
 
 
 
 export namespace CODutil {
+    export function lineAt(cod: COD, lineIndex: number): string {
+        return cod.text.split('\n')[lineIndex];
+    }
+
+    // TODO: You should probably be making the variable version for use in the Completion provider
+    export function hasImportedFunction_NotOverriden_ByActiveCOD(cod: COD, key: string): boolean {
+        if (cod.keywords.importedFunctions.has(key)) {
+            let result = true;
+            const uses = cod.keywords.functions.get(key);
+            if (!uses) {
+                return result;
+            } 
+            uses.forEach(ucase => {                
+                const previous = cod.entities[ucase.index-1];
+                if (previous && previous.value.toUpperCase() === 'FUNCTION') {
+                    result = false;
+                }
+            });
+            return result;
+        } else {
+            return false;
+        }
+    }
+
     export function findNearestIndexAtPosition(cod: COD, pos: vscode.Position): number {
         let idx = cod.entities.findIndex(p => p.line === pos.line && (p.column === pos.character || p.column + p.value.length === pos.character));
         if (idx === -1) {

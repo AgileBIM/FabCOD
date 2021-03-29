@@ -4,6 +4,8 @@ Dim CR = ASCII(10)
 Dim CQ = ASCII(34)
 Dim TZ = ASCII(9)
 
+Include "./massive.cod"
+
 REQUIRES task
 
 FUNCTION GetRevlative(GRPath, RelativeFrom)
