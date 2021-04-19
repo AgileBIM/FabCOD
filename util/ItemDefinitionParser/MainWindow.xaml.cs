@@ -18,7 +18,7 @@ namespace ItemDefinitionParser
 
         public MainWindow()
         {   
-            if (_root == null || _root.Name.ToUpper() != "FABCOD")
+            if (_root == null || !_root.Name.Equals("FABCOD", StringComparison.OrdinalIgnoreCase))
             {
                 MessageBox.Show("This must be executed from the /FabCOD/util/Builds/ directory");
                 this.Close();
@@ -27,7 +27,7 @@ namespace ItemDefinitionParser
         }
         
         
-        private string confirmExists(string path, bool isFile = true)
+        private static string confirmExists(string path, bool isFile = true)
         {
             if (isFile)
                 return System.IO.File.Exists(path) ? path : "";

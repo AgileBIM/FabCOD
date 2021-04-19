@@ -25,10 +25,10 @@ namespace ItemDefinitionParser.Parsing.ParsedTypes
             var root = lines[i].Trim();
             var splitChars = new [] { ',', '(', ')', '{', '}', ';' }; 
             var parts = root.Replace(" |", "|").Replace("| ", "|").Split(splitChars, StringSplitOptions.RemoveEmptyEntries).ToList();
-            if (parts[0].ToUpper().Trim().StartsWith("ABSTRACT"))
+            if (parts[0].Trim().StartsWith("ABSTRACT", StringComparison.OrdinalIgnoreCase))
                 parts[0] = parts[0].Split(new [] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[1];
             Id = parts[0];
-            Returns = parts.Last().Trim(':').Trim().ToUpper().Split('|').Select(p => p.ToUpper()).ToArray();
+            Returns = parts.Last().Trim(':').Trim().ToUpper().Split('|').ToArray();
             for (int k = 1; k < parts.Count - 1; k++)
                 Args.Add(new ARGUMENT(parts[k], doc));
         }

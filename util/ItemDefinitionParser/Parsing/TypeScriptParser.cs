@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ItemDefinitionParser.Parsing.ParsedTypes;
 
@@ -20,35 +21,36 @@ namespace ItemDefinitionParser.Parsing
             var i = 0;
             for (; i < tsLines.Count; i++)
             {
-                var current = tsLines[i].Trim().ToUpper();
+                var current = tsLines[i].Trim();
                 if (current.StartsWith("/*"))
                     comments.Add(new DOCUMENTATION(ref i, tsLines));
-                else if (current.StartsWith("FUNCTION"))
+                else if (current.StartsWith("FUNCTION", StringComparison.OrdinalIgnoreCase))
                 {
                     var obj = new FUNCTION(ref i, tsLines, comments.Last());
                     output.FUNCTIONS.Add(obj.Id, obj);
                 }
-                else if (current.StartsWith("CONST ") || current.StartsWith("EXPORT CONST "))
+                else if (current.StartsWith("CONST ", StringComparison.OrdinalIgnoreCase) 
+                         || current.StartsWith("EXPORT CONST ", StringComparison.OrdinalIgnoreCase))
                 {
                     var obj = new KEYWORDS(ref i, tsLines);
                     output.KEYWORDS.Add(obj.Id, obj);
                 }
-                else if (current.StartsWith("LET "))
+                else if (current.StartsWith("LET ", StringComparison.OrdinalIgnoreCase))
                 {
                     var obj = new CONSTANT(ref i, tsLines, comments.Last());
                     output.CONSTANTS.Add(obj.Id, obj);
                 }
-                else if (current.StartsWith("ENUM"))
+                else if (current.StartsWith("ENUM", StringComparison.OrdinalIgnoreCase))
                 {
                     var obj = new ENUM(ref i, tsLines, comments.Last());
                     output.ENUMS.Add(obj.Id, obj);
                 }
-                else if (current.StartsWith("INTERFACE"))
+                else if (current.StartsWith("INTERFACE", StringComparison.OrdinalIgnoreCase))
                 {
                     var obj = new INTERFACE(ref i, tsLines);
                     output.INTERFACES.Add(obj.Id, obj);
                 }
-                else if (current.StartsWith("ABSTRACT CLASS"))
+                else if (current.StartsWith("ABSTRACT CLASS", StringComparison.OrdinalIgnoreCase))
                 {
                     var obj = new OBJECT(ref i, tsLines, output);
                     output.OBJECTS.Add(obj.Id, obj);

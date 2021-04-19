@@ -115,7 +115,7 @@ namespace ItemDefinitionParser.Parsing
             if (!(source is IMethodType methodType))
                 return $"#Error converting {source.Id} to markdown!";
             
-            if (source.Id.ToUpper() != "CONSTRUCTOR")
+            if (!source.Id.Equals("CONSTRUCTOR", StringComparison.OrdinalIgnoreCase))
                 return "";
             
             var separator = ", ";
@@ -141,8 +141,7 @@ namespace ItemDefinitionParser.Parsing
                 return $"#Error converting {source.Id} to markdown!";
             
             var separator = ", ";
-            var isConstructor = source.Id.ToUpper() == "CONSTRUCTOR";
-            var initHeader = source.Type == ParseType.METHOD && !isConstructor ? "###" : "##";
+            var initHeader = source.Type == ParseType.METHOD ? "###" : "##";
             return new StringBuilder()
                 .Append($"{initHeader} Function: {source.Id}")
                 .Append(Environment.NewLine)
@@ -183,7 +182,7 @@ namespace ItemDefinitionParser.Parsing
                         foreach (var constant in lib.ENUMS[typ].Values)
                             sb.Append($"  - {constant}").Append(Environment.NewLine);
 
-                if (item.Notes != "")
+                if (!string.IsNullOrWhiteSpace(item.Notes))
                     sb.Append($"  - Remarks: {item.Notes}").Append(Environment.NewLine);
             }
             return sb.ToString();

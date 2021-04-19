@@ -30,13 +30,16 @@ namespace ItemDefinitionParser.Parsing.ParsedTypes
                 if (lines[i].Trim().StartsWith("*/"))
                     break;
 
-                if (Remarks != "")
-                    Remarks += $"{Environment.NewLine}{lines[i].TrimStart(trimChars).Trim()}";
-                else if (Description != "")
+                var current = lines[i].TrimStart(trimChars).Trim();
+                if (!string.IsNullOrEmpty(Remarks))
+                    // This only works because we've standardized on remarks being the last part of our TSDoc
+                    // to do this properly we would have to first remove check to see if a new @ type started
+                    Remarks += $"{Environment.NewLine}{current}";
+                else if (!string.IsNullOrWhiteSpace(Description))
                 {
-                    string current = lines[i].TrimStart(trimChars).Trim();
-                    string upper = current.ToUpper();
-                    if (upper.StartsWith("@PARAM"))
+                    // Again, a process special rule makes this work because we standardized around implied
+                    // or non-tagged descriptions appearing as the first item and was restricted to 1 line
+                    if (current.StartsWith("@PARAM", StringComparison.OrdinalIgnoreCase))
                     {
                         var parts = current.Split(splitChars, 3, StringSplitOptions.RemoveEmptyEntries);
                         if (parts.Length == 3)
@@ -44,17 +47,18 @@ namespace ItemDefinitionParser.Parsing.ParsedTypes
                         else if (parts.Length == 2)
                             Args.Add(parts[1], "");
                     }
-                    else if (upper.StartsWith("@READONLY"))
+                    else if (current.StartsWith("@READONLY", StringComparison.OrdinalIgnoreCase))
                         ReadWrite = false;
-                    else if (upper.StartsWith("@REMARKS"))
+                    else if (current.StartsWith("@REMARKS", StringComparison.OrdinalIgnoreCase))
                         Remarks = current;
-                    else if (upper.StartsWith("@RETURNS"))
+                    else if (current.StartsWith("@RETURNS", StringComparison.OrdinalIgnoreCase))
                         Returns = current.Substring(8).Trim();
                 }
-                else if (lines[i].Trim(trimChars).Length >= 4)
-                    Description = lines[i].Trim(trimChars);
+                else if (current.Length >= 4)
+                    Description = current;
             }
-            if (Remarks != "")
+            
+            if (!string.IsNullOrWhiteSpace(Remarks))
                 Remarks = Remarks.Substring(8).Trim();
         }
 
@@ -64,15 +68,19 @@ namespace ItemDefinitionParser.Parsing.ParsedTypes
         public Dictionary<string, object> toDictionary()
         {
             Dictionary<string, object> result = new Dictionary<string, object>();
-            if (Description != "")
+            if (!string.IsNullOrWhiteSpace(Description))
                 result.Add("desc", Description);
+            
             if (Args.Count >= 1)
                 result.Add("args", Args);
-            if (Returns.Trim() != "")
+            
+            if (!string.IsNullOrWhiteSpace(Returns))
                 result.Add("returns", Returns.Trim());
+            
             if (ReadWrite == false)
                 result.Add("readonly", true);
-            if (Remarks.Trim() != "")
+            
+            if (!string.IsNullOrWhiteSpace(Remarks))
                 result.Add("remarks", Remarks.Trim());
             return result;
         }

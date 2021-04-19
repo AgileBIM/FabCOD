@@ -23,8 +23,8 @@ namespace ItemDefinitionParser.Parsing.ParsedTypes
             for (; i < lines.Count; i++)
             {
                 string current = lines[i].Trim();
-                if (current.ToUpper().StartsWith("ENUM"))
-                    Id = current.Split(splitChar1, StringSplitOptions.RemoveEmptyEntries).ToArray()[1];
+                if (current.StartsWith("ENUM", StringComparison.OrdinalIgnoreCase))
+                    Id = current.Split(splitChar1, StringSplitOptions.RemoveEmptyEntries)[1];
                 else if (current == "}")
                     break;
                 else

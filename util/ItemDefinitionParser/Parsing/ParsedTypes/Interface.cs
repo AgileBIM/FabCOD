@@ -38,15 +38,14 @@ namespace ItemDefinitionParser.Parsing.ParsedTypes
                 string current = lines[i].Trim().ToUpper();
                 if (current == "}")
                     break;
-                else if (current.StartsWith("INTERFACE"))
-                    Id = current.Split(splitChars, StringSplitOptions.RemoveEmptyEntries).ToList()[1];
+                
+                if (current.StartsWith("INTERFACE"))
+                    Id = current.Split(splitChars, StringSplitOptions.RemoveEmptyEntries)[1];
                 else if (current.StartsWith("/*"))
                     comments.Add(new DOCUMENTATION(ref i, lines));
-                else if (current.StartsWith("INTERFACE") && Id != "")
-                    System.Diagnostics.Debugger.Break();
                 else if (current.Contains("("))
                     Methods.Add(new METHOD(ref i, lines, comments.Last()));
-                else if (current != "" && current.StartsWith("/") == false)
+                else if (!string.IsNullOrWhiteSpace(current) && current.StartsWith("/") == false)
                     Properties.Add(new PROPERTY(ref i, lines, comments.Last()));
             }
         }
