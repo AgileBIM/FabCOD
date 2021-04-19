@@ -23,7 +23,7 @@ namespace ItemDefinitionParser.Parsing.ParsedTypes
             Info = doc.toDictionary();
             Id = parts[0];
             var suffix = isArray ? "[]" : "";
-            Returns = parts[1]?.Split("|".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Select(p => $"{p.ToUpper()}{suffix}").ToArray();             
+            Returns = parts[1].Split("|".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Select(p => $"{p.ToUpper()}{suffix}").ToArray();             
         }
 
     }

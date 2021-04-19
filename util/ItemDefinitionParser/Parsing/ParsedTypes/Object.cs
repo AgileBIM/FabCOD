@@ -35,27 +35,26 @@ namespace ItemDefinitionParser.Parsing.ParsedTypes
         public OBJECT(ref int i, IList<string> lines, LanguageLibrary lib)
         {
             List<DOCUMENTATION> comments = new List<DOCUMENTATION>();
-            var splitChars = new[] {' '};
+            var splitChars = new[] { ' ', '\t' };
             for (; i < lines.Count; i++)
             {
-                string current = lines[i].Trim().ToUpper();
+                var current = lines[i].Trim().ToUpper();
                 if (current == "}")
                     break;
-                else if (current.StartsWith("/*"))
+                
+                if (current.StartsWith("/*"))
                     comments.Add(new DOCUMENTATION(ref i, lines));
-                else if (current.StartsWith("ABSTRACT CLASS") && Id != "")
-                    System.Diagnostics.Debugger.Break();
                 else if (current.StartsWith("ABSTRACT CLASS"))
                 {
                     var parts = current.Split(splitChars, StringSplitOptions.RemoveEmptyEntries).ToList();
                     Id = parts[2];
                     if (parts.Contains("EXTENDS"))
                     {
-                        string extype = parts[parts.IndexOf("EXTENDS") + 1];
-                        if (lib.OBJECTS.ContainsKey(extype))
+                        var exType = parts[parts.IndexOf("EXTENDS") + 1];
+                        if (lib.OBJECTS.ContainsKey(exType))
                         {
-                            Methods.AddRange(lib.OBJECTS[extype].Methods.ToList());
-                            Properties.AddRange(lib.OBJECTS[extype].Properties.ToList());
+                            Methods.AddRange(lib.OBJECTS[exType].Methods);
+                            Properties.AddRange(lib.OBJECTS[exType].Properties);
                         }
                         if (current.EndsWith("}"))
                             break;
@@ -64,12 +63,12 @@ namespace ItemDefinitionParser.Parsing.ParsedTypes
                 else if (current.Contains("("))
                 {
                     var m = new METHOD(ref i, lines, comments.Last());
-                    if (m.Id.ToUpper() == "CONSTRUCTOR")
+                    if (m.Id.Equals("CONSTRUCTOR", StringComparison.OrdinalIgnoreCase))
                         Constructor = m;
                     else
                         Methods.Add(m);
-                }   
-                else if (current != "" && current.StartsWith("/") == false)
+                }
+                else if (!string.IsNullOrWhiteSpace(current) && current.StartsWith("/") == false)
                     Properties.Add(new PROPERTY(ref i, lines, comments.Last()));
             }
         }

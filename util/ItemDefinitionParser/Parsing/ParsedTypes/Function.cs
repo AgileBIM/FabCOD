@@ -24,12 +24,13 @@ namespace ItemDefinitionParser.Parsing.ParsedTypes
             Info = doc.toDictionary();
             var root = lines[i].Trim();
             for (; i < lines.Count; i++)
-                if (lines[i].Trim().EndsWith("}"))
+                if (lines[i].Contains("}"))
                     break;
-            var splitChars = new [] { ',', '(', ')', '{', '}', ';' }; 
+            var splitChars = new [] { ',', '(', ')', '{', '}', ';' };
+            var splitWhiteSpace = new[] {' ', '\t'};
             var parts = root.Replace(" |", "|").Replace("| ", "|").Split(splitChars, StringSplitOptions.RemoveEmptyEntries).ToList();
-            Id = parts[0].Split(new [] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToArray()[1];
-            Returns = parts.Last().Trim(':').Trim().ToUpper().Split('|').Select(p => p.ToUpper()).ToArray();
+            Id = parts[0].Split(splitWhiteSpace, StringSplitOptions.RemoveEmptyEntries)[1];
+            Returns = parts.Last().Trim(':').Trim().ToUpper().Split('|').ToArray();
             for (int k = 1; k < parts.Count - 1; k++)
                 Args.Add(new ARGUMENT(parts[k], doc));
         }

@@ -24,16 +24,16 @@ namespace ItemDefinitionParser.Parsing
         {
             string[] result;
             var current = line.Trim().Replace(" |", "|").Replace("| ", "|");
-            var separators = new [] { ' ', ':', ';' };
+            var splitChars = new [] { ' ', ':', ';' };
             if (current.Contains("Array<"))
             {
                 current = current.Replace("Array<", "").Replace(">", "");
-                result = current.Split(separators, StringSplitOptions.RemoveEmptyEntries).ToArray();
+                result = current.Split(splitChars, StringSplitOptions.RemoveEmptyEntries).ToArray();
                 isArray = true;
             }
             else
             {
-                result = current.Split(separators, StringSplitOptions.RemoveEmptyEntries).ToArray();
+                result = current.Split(splitChars, StringSplitOptions.RemoveEmptyEntries).ToArray();
                 isArray = false;
             }
 
@@ -41,7 +41,7 @@ namespace ItemDefinitionParser.Parsing
             // of various core COD language native keywords like AND, OR, IF, ELSE, TRUE, FALSE & VOID
             // In this instance, 'Let' was used in the root namespace to denote COD property constants.
             // This made them distinguishable from the core/fundemental COD language constants.
-            if (result[0].ToUpper() != "LET") return result;
+            if (!result[0].Equals("LET", StringComparison.OrdinalIgnoreCase)) return result;
             
             // Else this must be a root level property constant and should be ReadOnly 
             doc.ReadWrite = false;

@@ -31,7 +31,7 @@ namespace ItemDefinitionParser.Parsing.ParsedTypes
             var splitChar1 = new [] {':', '?'};
             var splitChar2 = new [] {' ', '|'};
             var parts = pair.Split(splitChar1, StringSplitOptions.RemoveEmptyEntries).Select(p=> p.Trim()).ToList();
-            Id = parts.Count == 2 ? parts[0].Trim() : "<ERROR>";
+            Id = parts.Count == 2 ? parts[0] : "<ERROR>";
             
             #if DEBUG
             if (Id == "<ERROR>")
@@ -43,7 +43,7 @@ namespace ItemDefinitionParser.Parsing.ParsedTypes
             Notes = "";
             foreach (var item in info.Args)
             {
-                if (item.Key.ToUpper() == Id.ToUpper())
+                if (item.Key.Equals(Id, StringComparison.OrdinalIgnoreCase))
                     Notes = item.Value;
             }
         }

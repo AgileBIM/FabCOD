@@ -24,10 +24,11 @@ namespace ItemDefinitionParser.Parsing.ParsedTypes
                     break;
                 
                 if (current.StartsWith("CONST "))
-                    Id = current.Split(splitChars, StringSplitOptions.RemoveEmptyEntries).ToArray()[1].Trim(':');
+                    Id = current.Split(splitChars, StringSplitOptions.RemoveEmptyEntries)[1].Trim(':');
                 else if (current.StartsWith("EXPORT CONST "))
-                    Id = current.Split(splitChars, StringSplitOptions.RemoveEmptyEntries).ToArray()[2].Trim(':');
+                    Id = current.Split(splitChars, StringSplitOptions.RemoveEmptyEntries)[2].Trim(':');
                 else if (current.StartsWith("'"))
+                    // we standardized around using single quotes for our values
                     Values.Add(current.Trim(trimChars));
             }
         }

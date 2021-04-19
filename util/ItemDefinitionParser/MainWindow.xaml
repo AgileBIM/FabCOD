@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ItemDefinitionParser"
         mc:Ignorable="d"
         x:Name="mw"
-        Title="Fab Item Definition Parser" Height="375" Width="650">
+        Title="Fab Item Definition Parser" Height="385" Width="650">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -26,11 +26,11 @@
             <TextBox x:Name="tbxWikiPath" Margin="0,0,0,0" IsReadOnly="True" Text="{Binding DocumentationDirPath, ElementName=mw, Mode=OneWay}"/>
         </StackPanel>
 
-        <TextBlock Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Bottom">
+        <TextBlock Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Bottom" Margin="5">
             If all the textboxes have their paths filled out, clicking start will regenerate all the resources related to the
             FabricationDefinition.ts source file.
         </TextBlock>
 
-        <Button Grid.Row="6" Content="Start" Margin="5" HorizontalAlignment="Right" Click="btnStart_Click" Padding="12,0"/>
+        <Button Grid.Row="2" Content="Start" Margin="5" HorizontalAlignment="Right" Click="btnStart_Click" Padding="12,0"/>
     </Grid>
 </Window>
