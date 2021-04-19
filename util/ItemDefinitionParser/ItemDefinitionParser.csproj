@@ -56,7 +56,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="tsParser.cs" />
+    <Compile Include="Parsing\LanguageConfiguration.cs" />
+    <Compile Include="Parsing\LanguageLibrary.cs" />
+    <Compile Include="Parsing\MarkdownGenerator.cs" />
+    <Compile Include="Parsing\ParsedTypes\Argument.cs" />
+    <Compile Include="Parsing\ParsedTypes\Constant.cs" />
+    <Compile Include="Parsing\ParsedTypes\Documentation.cs" />
+    <Compile Include="Parsing\ParsedTypes\Enum.cs" />
+    <Compile Include="Parsing\ParsedTypes\Function.cs" />
+    <Compile Include="Parsing\ParsedTypes\Interface.cs" />
+    <Compile Include="Parsing\ParsedTypes\Keyword.cs" />
+    <Compile Include="Parsing\ParsedTypes\Method.cs" />
+    <Compile Include="Parsing\ParsedTypes\Object.cs" />
+    <Compile Include="Parsing\ParsedTypes\Property.cs" />
+    <Compile Include="Parsing\ParsingConstants.cs" />
+    <Compile Include="Parsing\ParsingInterfaces.cs" />
+    <Compile Include="Parsing\TypeScriptParser.cs" />
+    <Compile Include="Serialization.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

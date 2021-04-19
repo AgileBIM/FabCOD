@@ -1,7 +1,7 @@
 # Object: TASK
 **NOTE:** This documentation was auto-generated from the FabricationDefinition.ts file and any errors within this text needs to be resolved within that source file
 ## Constructor
-This first-class object cannot be directly created, but is in fact Static and can be accessed at any time without constructing.
+This first-class object cannot be directly created, but is Static and can be used at any time without constructing.
 ## Properties
 The following items are accessed from the base object by a dot notation
 ### Property: Aborted

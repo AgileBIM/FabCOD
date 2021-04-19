@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ItemDefinitionParser"
         mc:Ignorable="d"
         x:Name="mw"
-        Title="Fab Item Definition Parser" Height="350" Width="600">
+        Title="Fab Item Definition Parser" Height="375" Width="650">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -15,15 +15,15 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Vertical" Margin="5" >
             <TextBlock Text="File Input:/src/support/FabricationDefinition.ts" FontWeight="Bold" FontSize="16"/>
-            <TextBox x:Name="tbxDefPath" Margin="0,0,0,10" IsReadOnly="True" Text="{Binding tsObject, ElementName=mw}"/>
+            <TextBox x:Name="tbxDefPath" Margin="0,0,0,10" IsReadOnly="True" Text="{Binding TypeScriptDefinitionFilePath, ElementName=mw, Mode=OneWay}"/>
             <TextBlock Text="File Output:/src/data/FabricationDefinition.json" FontWeight="Bold" FontSize="16"/>
-            <TextBox x:Name="tbxDefOutPath" Margin="0,0,0,10" IsReadOnly="True" Text="{Binding jsonObject, ElementName=mw}"/>            
+            <TextBox x:Name="tbxDefOutPath" Margin="0,0,0,10" IsReadOnly="True" Text="{Binding JsonObjectFilePath, ElementName=mw, Mode=OneWay}"/>            
             <TextBlock Text="File Input:/configurations/codscript-tmLanguage.template.json" FontWeight="Bold" FontSize="16"/>
-            <TextBox x:Name="tbxTmTemplatePath" Margin="0,0,0,10" IsReadOnly="True" Text="{Binding tmTemplate, ElementName=mw}"/>
+            <TextBox x:Name="tbxTmTemplatePath" Margin="0,0,0,10" IsReadOnly="True" Text="{Binding TmTemplateFilePath, ElementName=mw, Mode=OneWay}"/>
             <TextBlock Text="File Output:/configurations/codscript-tmLanguage.json" FontWeight="Bold" FontSize="16"/>
-            <TextBox x:Name="tbxTmTargetPath" Margin="0,0,0,10" IsReadOnly="True" Text="{Binding tmTarget, ElementName=mw}"/>
+            <TextBox x:Name="tbxTmTargetPath" Margin="0,0,0,10" IsReadOnly="True" Text="{Binding TmTargetFilePath, ElementName=mw, Mode=OneWay}"/>
             <TextBlock Text="Directory Output:/docs/wiki/" FontWeight="Bold" FontSize="16"/>
-            <TextBox x:Name="tbxWikiPath" Margin="0,0,0,0" IsReadOnly="True" Text="{Binding Documentation, ElementName=mw}"/>
+            <TextBox x:Name="tbxWikiPath" Margin="0,0,0,0" IsReadOnly="True" Text="{Binding DocumentationDirPath, ElementName=mw, Mode=OneWay}"/>
         </StackPanel>
 
         <TextBlock Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Bottom">
