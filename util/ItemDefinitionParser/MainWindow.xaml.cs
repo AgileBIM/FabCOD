@@ -1,101 +1,56 @@
-﻿using Microsoft.Win32;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using ItemDefinitionParser.Parsing;
 
 namespace ItemDefinitionParser
 {
 
     public partial class MainWindow : Window
     {
-        System.IO.DirectoryInfo root;    
-        public string Documentation { get { return confirmExists(root.FullName + "\\docs\\wiki\\", false); } set { } }
-        public string tmTemplate { get { return confirmExists(root.FullName + "\\configurations\\codscript-tmLanguage.template.json"); } set { } }
-        public string tmTarget { get { return confirmExists(root.FullName + "\\configurations\\codscript-tmLanguage.json"); } set { } }
-        public string jsonObject { get { return confirmExists(root.FullName + "\\src\\support\\FabricationDefinition.json"); } set { } }
-        public string tsObject { get { return confirmExists(root.FullName + "\\src\\support\\FabricationDefinition.ts"); } set { } }
+        private readonly System.IO.DirectoryInfo _root = new System.IO.DirectoryInfo(Environment.CurrentDirectory).Parent?.Parent;
+        public string DocumentationDirPath => confirmExists($"{_root.FullName}\\docs\\wiki\\", false);
+        public string TmTemplateFilePath => confirmExists($"{_root.FullName}\\configurations\\codscript-tmLanguage.template.json");
+        public string TmTargetFilePath => confirmExists($"{_root.FullName}\\configurations\\codscript-tmLanguage.json");
+        public string JsonObjectFilePath => confirmExists($"{_root.FullName}\\src\\support\\FabricationDefinition.json");
+        public string TypeScriptDefinitionFilePath => confirmExists($"{_root.FullName}\\src\\support\\FabricationDefinition.ts");
 
-        private string confirmExists(string path, bool isFile = true)
-        {
-            if (isFile)
-                return System.IO.File.Exists(path) ? path : "";
-            else
-                return System.IO.Directory.Exists(path) ? path : "";
-        }
 
         public MainWindow()
-        {
-            root = new System.IO.DirectoryInfo(Environment.CurrentDirectory).Parent.Parent;
-            if (root.Name.ToUpper() != "FABCOD")
+        {   
+            if (_root == null || !_root.Name.Equals("FABCOD", StringComparison.OrdinalIgnoreCase))
             {
                 MessageBox.Show("This must be executed from the /FabCOD/util/Builds/ directory");
                 this.Close();
             }
             InitializeComponent();
         }
+        
+        
+        private static string confirmExists(string path, bool isFile = true)
+        {
+            if (isFile)
+                return System.IO.File.Exists(path) ? path : "";
 
+            return System.IO.Directory.Exists(path) ? path : "";
+        }
+
+        
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
-            var blocks = tsParser.ExtractLibrary(System.IO.File.ReadAllLines(tbxDefPath.Text).ToList());
-            blocks.Pack(jsonObject);
-            blocks.ApplyData(tmTemplate, tmTarget);
-            blocks.createWikis(Documentation);
+            // Generate the LanguageLibrary that the FabCOD extension uses as its primary data source 
+            var lib = TypeScriptParser.BuildLanguageLibrary(System.IO.File.ReadAllLines(tbxDefPath.Text).ToList());
+            
+            // Create/Overwrite the LanguageLibrary to the pre-designated JSON object path
+            lib.Pack(JsonObjectFilePath);
+            
+            // Create/Overwrite the release version of the "codscript-tmLanguage.json" color highlighting definition.
+            LanguageConfiguration.GenerateTextMateColoringJson(lib, TmTemplateFilePath, TmTargetFilePath);
+            
+            // Create/Overwrite the non-tutorial based COD Language wiki documentation.
+            LanguageConfiguration.GenerateAllWikis(lib, DocumentationDirPath);
         }
     }
 
 
-
-
-
-
-
-
-
-    public static class Serializer
-    {
-        public static void Pack(this object obj, string path)
-        {
-            JsonSerializer ser = new JsonSerializer();
-            ser.NullValueHandling = NullValueHandling.Include;
-            ser.Formatting = Formatting.Indented;
-            using (System.IO.StreamWriter sw = new System.IO.StreamWriter(path))
-            {
-                using (JsonWriter jw = new JsonTextWriter(sw))
-                {
-                    ser.Serialize(jw, obj);
-                }
-            }
-        }
-        public static T UnPack<T>(this string path)
-        {
-            if (System.IO.File.Exists(path) == true)
-            {
-                JsonSerializer ser = new JsonSerializer();
-                ser.NullValueHandling = NullValueHandling.Include;
-                using (System.IO.StreamReader sw = new System.IO.StreamReader(path))
-                {
-                    using (JsonTextReader jw = new JsonTextReader(sw))
-                    {
-                        return ser.Deserialize<T>(jw);
-                    }
-                }
-            }
-            else
-            {
-                return JsonConvert.DeserializeObject<T>(path);
-            }
-
-        }
-    }
 }
