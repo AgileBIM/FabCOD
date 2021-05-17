@@ -1367,7 +1367,9 @@
         "FORINPUT",
         "FOROUTPUT",
         "ISTEXT",
-        "UNICODETEXT"
+        "UNICODETEXT",
+        "UTF8",
+        "UTF16"
       ],
       "id": "FILEMODE"
     },
@@ -2876,6 +2878,17 @@
             "remarks": "Alternate Code is used for enforcing Alternate Seam values using the Specifications."
           },
           "id": "Alt"
+        },
+        {
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get the Seam Group for the SEAM Object.",
+            "readonly": true,
+            "remarks": "Seam Group prpoerty available onlyt in 2022 and later versions of Autodesk Fabrication."
+          },
+          "id": "Group"
         },
         {
           "returns": [

@@ -251,7 +251,9 @@ export namespace FABRICATION {
 		FORINPUT = 'FORINPUT',
 		FOROUTPUT = 'FOROUTPUT',
 		ISTEXT = 'ISTEXT',
-		UNICODETEXT = 'UNICODETEXT'
+		UNICODETEXT = 'UNICODETEXT',
+		UTF8 = 'UTF8',
+		UTF16 = 'UTF16'
 	}
 
 	/**
@@ -1651,6 +1653,13 @@ export namespace FABRICATION {
 		 * @remarks Alternate Code is used for enforcing Alternate Seam values using the Specifications.
 		 */
 		Alt: string;
+
+		/**
+		 * Get the Seam Group for the SEAM Object.
+		 * @readonly
+		 * @remarks Seam Group prpoerty available onlyt in 2022 and later versions of Autodesk Fabrication.
+		 */
+		Group: String;
 
 		/**
 		 * Get/Set the Lock Status flag for the Seam Name property of the SEAM Object.
