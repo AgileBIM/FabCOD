@@ -86,6 +86,7 @@ BOOLEAN
 Get the HasSKey Flag of the PRODUCTINFO Object.
 
 Flag indicates if the Product List contains the SKey column as part of its data.
+Available in Fabrication 2018.2 versions and later.
 ##### Returns
 BOOLEAN
 ### Property: HasWeight

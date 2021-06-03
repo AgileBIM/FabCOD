@@ -2643,7 +2643,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the SKey property of the PRUDUCTENTRY Object."
+            "desc": "Get/Set the SKey property of the PRUDUCTENTRY Object.",
+            "remarks": "Available in Fabrication 2018.2 versions and later."
           },
           "id": "SKey"
         },
@@ -2810,7 +2811,7 @@
           "info": {
             "desc": "Get the HasSKey Flag of the PRODUCTINFO Object.",
             "readonly": true,
-            "remarks": "Flag indicates if the Product List contains the SKey column as part of its data."
+            "remarks": "Flag indicates if the Product List contains the SKey column as part of its data.\r\nAvailable in Fabrication 2018.2 versions and later."
           },
           "id": "HasSKey"
         },
@@ -4989,11 +4990,21 @@
             "NUMBER"
           ],
           "info": {
-            "desc": "Get the Pattern Number of rthe ITEM Object.",
+            "desc": "Get the Pattern Number of the ITEM Object.",
             "readonly": true,
             "remarks": "Unlike CID, Pattern Number is the true Pattern for the ITM and can not be changed.\r\nThis property is only available in Fabrication 2019.1 versions and later."
           },
           "id": "PatNo"
+        },
+        {
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the PCF SKey property of the ITEM Object.",
+            "remarks": "Available in Fabrication 2017 versions and later."
+          },
+          "id": "PCFSKey"
         },
         {
           "returns": [
@@ -6444,11 +6455,21 @@
             "NUMBER"
           ],
           "info": {
-            "desc": "Get the Pattern Number of rthe ITEM Object.",
+            "desc": "Get the Pattern Number of the ITEM Object.",
             "readonly": true,
             "remarks": "Unlike CID, Pattern Number is the true Pattern for the ITM and can not be changed.\r\nThis property is only available in Fabrication 2019.1 versions and later."
           },
           "id": "PatNo"
+        },
+        {
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get/Set the PCF SKey property of the ITEM Object.",
+            "remarks": "Available in Fabrication 2017 versions and later."
+          },
+          "id": "PCFSKey"
         },
         {
           "returns": [
