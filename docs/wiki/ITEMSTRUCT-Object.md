@@ -479,12 +479,18 @@ forward slashes (/) as opposed to backslashes (/) which are more commonly seen.
 ##### Returns
 STRING
 ### Property: PatNo
-Get the Pattern Number of rthe ITEM Object.
+Get the Pattern Number of the ITEM Object.
 
 Unlike CID, Pattern Number is the true Pattern for the ITM and can not be changed.
 This property is only available in Fabrication 2019.1 versions and later.
 ##### Returns
 NUMBER
+### Property: PCFSKey
+Get/Set the PCF SKey property of the ITEM Object.
+
+Available in Fabrication 2017 versions and later.
+##### Returns
+STRING
 ### Property: PriceList
 Get/Set the Price List Name & Group (e.g. 'Group: Name') of the ITEM Object.
 
