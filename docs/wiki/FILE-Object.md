@@ -14,6 +14,8 @@ New FILE([FileName: STRING], [AccessMode: FILEMODE])
   - FOROUTPUT
   - ISTEXT
   - UNICODETEXT
+  - UTF8
+  - UTF16
   - Remarks: Optional Mode(s) for file open.
 ## Properties
 The following items are accessed from the base object by a dot notation
@@ -102,6 +104,8 @@ Open(Filename: STRING, AccessMode: FILEMODE)
   - FOROUTPUT
   - ISTEXT
   - UNICODETEXT
+  - UTF8
+  - UTF16
   - Remarks: Mode(s) for file open.
 ##### Returns
 BOOLEAN

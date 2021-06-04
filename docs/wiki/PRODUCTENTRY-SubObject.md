@@ -85,7 +85,7 @@ STRING
 ### Property: SKey
 Get/Set the SKey property of the PRUDUCTENTRY Object.
 
-No additional remarks available
+Available in Fabrication 2018.2 versions and later.
 ##### Returns
 STRING
 ### Property: Weight

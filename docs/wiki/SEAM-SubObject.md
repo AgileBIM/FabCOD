@@ -10,6 +10,12 @@ Get/Set Alternatge Code of the SEAM Object.
 Alternate Code is used for enforcing Alternate Seam values using the Specifications.
 ##### Returns
 STRING
+### Property: Group
+Get the Seam Group for the SEAM Object.
+
+Seam Group prpoerty available onlyt in 2022 and later versions of Autodesk Fabrication.
+##### Returns
+STRING
 ### Property: Locked
 Get/Set the Lock Status flag for the Seam Name property of the SEAM Object.
 

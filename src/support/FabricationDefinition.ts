@@ -251,7 +251,9 @@ export namespace FABRICATION {
 		FORINPUT = 'FORINPUT',
 		FOROUTPUT = 'FOROUTPUT',
 		ISTEXT = 'ISTEXT',
-		UNICODETEXT = 'UNICODETEXT'
+		UNICODETEXT = 'UNICODETEXT',
+		UTF8 = 'UTF8',
+		UTF16 = 'UTF16'
 	}
 
 	/**
@@ -1328,6 +1330,8 @@ export namespace FABRICATION {
 
 		/**
 		 * Get/Set the SKey property of the PRUDUCTENTRY Object.
+		 * @remarks
+		 * Available in Fabrication 2018.2 versions and later.
 		 */
 		SKey: string;
 
@@ -1596,6 +1600,7 @@ export namespace FABRICATION {
 		 * Get the HasSKey Flag of the PRODUCTINFO Object.
 		 * @readonly
 		 * @remarks Flag indicates if the Product List contains the SKey column as part of its data.
+		 * Available in Fabrication 2018.2 versions and later.
 		 */	
 		HasSKey: boolean;
 
@@ -1651,6 +1656,13 @@ export namespace FABRICATION {
 		 * @remarks Alternate Code is used for enforcing Alternate Seam values using the Specifications.
 		 */
 		Alt: string;
+
+		/**
+		 * Get the Seam Group for the SEAM Object.
+		 * @readonly
+		 * @remarks Seam Group prpoerty available onlyt in 2022 and later versions of Autodesk Fabrication.
+		 */
+		Group: String;
 
 		/**
 		 * Get/Set the Lock Status flag for the Seam Name property of the SEAM Object.
@@ -2696,13 +2708,20 @@ export namespace FABRICATION {
 		Path: string;
 
 		/**
-		 * Get the Pattern Number of rthe ITEM Object.
+		 * Get the Pattern Number of the ITEM Object.
 		 * @readonly
 		 * @remarks
 		 * Unlike CID, Pattern Number is the true Pattern for the ITM and can not be changed.
 		 * This property is only available in Fabrication 2019.1 versions and later.
 		 */
 		PatNo: number;
+
+		/**
+		 * Get/Set the PCF SKey property of the ITEM Object.
+		 * @remarks
+		 * Available in Fabrication 2017 versions and later.
+		 */
+		PCFSKey: string;
 
 		/**
 		 * Get/Set the Price List Name & Group (e.g. 'Group: Name') of the ITEM Object.
