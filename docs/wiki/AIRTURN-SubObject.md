@@ -7,7 +7,7 @@ The following items are accessed from the base object by a dot notation
 ### Property: Group
 Get the Airturn Group for the AIRTURN Object.
 
-Airturn Group prpoerty available only in 2022 and later versions of Autodesk Fabrication.
+Airturn Group property available only in 2022 and later versions of Autodesk Fabrication.
 ##### Returns
 STRING
 ### Property: Locked

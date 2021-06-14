@@ -713,7 +713,7 @@ export namespace FABRICATION {
 		/**
 		 * Get the Airturn Group for the AIRTURN Object.
 		 * @readonly
-		 * @remarks Airturn Group prpoerty available only in 2022 and later versions of Autodesk Fabrication.
+		 * @remarks Airturn Group property available only in 2022 and later versions of Autodesk Fabrication.
 		 */
 		 Group: String;
 
