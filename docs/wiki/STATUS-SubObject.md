@@ -5,7 +5,7 @@ This second-class object cannot be directly created. These types of sub-objects 
 ## Properties
 The following items are accessed from the base object by a dot notation
 ### Property: DateTime
-Get the Date and Time Stamp of the STATUS Object
+Get the Date and Time Stamp of the STATUS Object.
 
 Date and Time Stamp reflect the Date and Time when the Status changed.
 A value of 'Default' is the first (unchanged) Status.

@@ -10,6 +10,12 @@ Get/Set the Facing Name of the INSULATION Object.
 Facing Name only is given. Facing Group is not given as part of the value.
 ##### Returns
 STRING
+### Property: FacingLock
+Get/Set the Lock Status of the Facing property of the INSULATION Object.
+
+No additional remarks available
+##### Returns
+BOOLEAN
 ### Property: Gauge
 Get/Set the Insulation Gauge of the INSULATION Object.
 
@@ -39,7 +45,7 @@ STRING
 ### Property: StatusLock
 Get/Set the Lock Status for the Status property of the INSULATION Object.
 
-No additional remarks available
+Appears to not be functional in many (newer) versions of Autodesk Fabrication.
 ##### Returns
 BOOLEAN
 ## Methods

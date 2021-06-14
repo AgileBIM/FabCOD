@@ -23,13 +23,13 @@ No additional remarks available
 ##### Returns
 STRING
 ### Property: Field1
-Get/Set generic utility field #1 of JOB Object.
+Get/Set the generic utility field #1 of JOB Object.
 
 Field can be used for any user defined purpose.
 ##### Returns
 STRING
 ### Property: Field2
-Get/Set generic utility field #2 of JOB Object.
+Get/Set the generic utility field #2 of JOB Object.
 
 Field can be used for any user defined purpose.
 ##### Returns

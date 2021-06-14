@@ -5,13 +5,13 @@ This first-class object cannot be directly created, but is Static and can be use
 ## Properties
 The following items are accessed from the base object by a dot notation
 ### Property: Aborted
-Get Task Status Flag indicating if Task was aborted for the TASK Object.
+Get the Task Status Flag indicating if Task was aborted for the TASK Object.
 
 No additional remarks available
 ##### Returns
 BOOLEAN
 ### Property: Message
-Get/Set the Message Text for the progress dialog for the TASK Object
+Get/Set the Message Text for the progress dialog for the TASK Object.
 
 No additional remarks available
 ##### Returns
@@ -32,11 +32,11 @@ using Task.Selection[index#]
 ## Methods
 The following items are invoked from the base object by a dot notation
 ### Function: BeginProgress
-Initialize and display progress bars setting maximum task length
+Initialize and display progress bars setting maximum task length.
 
-NumberofTasks should ideally specify the number of iterations you go through to that the progress bars
+NumberofTasks should ideally specify the number of iterations you go through so that the progress bars
 dialog shows a progress relative to the tasks you're performing. You must use the Task.Progress
-property to move the progress bars as your tasks process.
+property to move the progress bars as your tasks processes.
 ##### Signature
 BeginProgress(NumberOfTasks: NUMBER)
 ##### Arguments
@@ -45,12 +45,12 @@ BeginProgress(NumberOfTasks: NUMBER)
 ##### Returns
 VOID
 ### Function: EndProgress
-Terminate the display of the progress bars dialog
+Terminate the display of the progress bars dialog.
 
 Call to end the display of the progress bars dialog when tasks are finished processing.
-You mat use the Task.Aborted proeprty to determine if the user canceled the process. When the
+You may use the Task.Aborted proeprty to determine if the user canceled the process. When the
 user cancels the progress bars, this does not stop your tasks from processing, merely sets the
-Aborted property. You must monitor the Aborted flag and exit your task processing in your code
+Aborted property. You must monitor the Aborted flag and exit the task processing in your code
 to propertly terminate a task by a user.
 ##### Signature
 EndProgress()

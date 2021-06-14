@@ -53,6 +53,16 @@ Review Notes (DYoung = 2021.01.25)
 	Added 11 'Add____()' and 11 'Remove____()' Methods to 'PRODUCTENTRY' Object.
 	Added 'SEEKENTY()' and 'SEEKLINE()' Methods to 'FILE' Object.
 	Added 'ADDLINK()', 'DELETELINK()' and 'SETDONOTCUTFLAG()' Methods to 'ITEMSTRUCT' Object.
+Review Notes (DYoung = 2021.05.16)
+	Added 'UTF8' and 'UTF16' Enums to 'FILEMODE' Object.
+	Added 'Group' property to 'SEAM' Object. 
+	Edited various comments.
+Review Notes (DYoung = 2021.06.02)
+	Added 'PCFSSKEY' Property to 'ITEMSTRUCT' Object.
+Review Notes (DYoung = 2021.06.13)
+	Various comment edits/spelling corrections.
+	Added 'Group' property to 'AIRTURN', 'SPLITTER' and 'STIFFENER' Objects. 
+	Added 'FacingLock' property to 'INSULATION' Object.
 */
 
 // IMPORTANT: Anywhere (in code) you are representing an actual value of a string, please use single quotes. This does not apply to the /** documentation areas */
@@ -226,7 +236,7 @@ export namespace FABRICATION {
 	//		 must be wrapped in double quotes.
 
 	/**
-	 * Represents value options for various FILE functions
+	 * Represents value options for various FILE functions.
 	 */
 	enum DBLOCKCAN {
 		LOCK_USER = 'LOCK_USER',
@@ -234,7 +244,7 @@ export namespace FABRICATION {
 	}
 	
 	/**
-	 * Represents value options for the ShowFlags argument of EXEC()
+	 * Represents value options for the ShowFlags argument of EXEC().
 	 */
 	enum EXECFLAG {
 		EXEC_DEFAULT = 'EXEC_DEFAULT',
@@ -245,7 +255,7 @@ export namespace FABRICATION {
 	}
 
 	/**
-	 * Represents value options for various FILE functions
+	 * Represents value options for various FILE functions.
 	 */
 	enum FILEMODE {
 		FORINPUT = 'FORINPUT',
@@ -257,7 +267,7 @@ export namespace FABRICATION {
 	}
 
 	/**
-	 * Represents value options for the FILE.POSITION property
+	 * Represents value options for the FILE.POSITION property.
 	 */
 	enum FILEPOS {
 		FILE_END = 'FILE_END',
@@ -283,7 +293,7 @@ export namespace FABRICATION {
 	//#region Fabrication Global Functions
 
 	/**
-	 * Get the inverse Cosine angle of Adj/Hyp
+	 * Get the inverse Cosine angle of Adj/Hyp.
 	 * @param Adjacent 
 	 * @param Hypotenuse 
 	 * @returns number
@@ -293,7 +303,7 @@ export namespace FABRICATION {
 	}
 
 	/**
-	 * Get the inverse Sine angle of Opp/Hyp
+	 * Get the inverse Sine angle of Opp/Hyp.
 	 * @param Opposite 
 	 * @param Hypotenuse 
 	 * @returns number
@@ -303,7 +313,7 @@ export namespace FABRICATION {
 	}
 
 	/**
-	 * Get the inverse Tangent angle of Opp/Adj
+	 * Get the inverse Tangent angle of Opp/Adj.
 	 * @param Opposite 
 	 * @param Adjacent
 	 * @returns number
@@ -386,7 +396,7 @@ export namespace FABRICATION {
 	}
 
 	/**
-	 * Get the Square root of the number
+	 * Get the Square root of the number.
 	 * @param Value
 	 * @returns number
 	 */
@@ -414,7 +424,7 @@ export namespace FABRICATION {
 	}
 
 	/**
-	 * Get the number rounded down to number of decimalplaces.
+	 * Get the number rounded down to number of decimal places.
 	 * @param Value
 	 * @param DecimalPlaces Optional and defaults to zero (0).
 	 * @returns Number rounded down to the nearest number of decimal places.
@@ -424,7 +434,7 @@ export namespace FABRICATION {
 	}
 	
 	/**
-	 * Get the value rounded up to number of decimalplaces.
+	 * Get the value rounded up to number of decimal places.
 	 * @param Value
 	 * @param DecimalPlaces Optional and defaults to zero (0).
 	 * @returns Number rounded up to the nearest number of decimal places.
@@ -434,7 +444,7 @@ export namespace FABRICATION {
 	}
 
 	/**
-	 * Gets the ASCII numeric code from a string.
+	 * Gets the ASCII numeric code from a string character.
 	 * @param FirstChar Can be any length string,- but only the first character is evaluated.
 	 * @returns A number representing the ASCII code of the first character in the provided string.
 	 * @remarks
@@ -495,10 +505,10 @@ export namespace FABRICATION {
 
 	/**
 	 * Extracts the first index location of a string if completely found within another string.
-     * @param StartingFrom The numeric index of the character to begin the search at
-     * @param SearchIn The base string to be searched
-     * @param SearchFor The value string to be located
-     * @param IsCaseSensitive Optional and defaults to FALSE. If provided as TRUE, then "CaSe SeNsItIvE" would not match "Case Sensitive"
+     * @param StartingFrom The numeric index of the character to begin the search.
+     * @param SearchIn The base string to be searched.
+     * @param SearchFor The value string to be located.
+     * @param IsCaseSensitive Optional and defaults to FALSE. If provided as TRUE, then "CaSe SeNsItIvE" would not match "Case Sensitive".
      * @returns A Number representing the first occurrence the SearchFor value was found in the SearchIn string or 0 if not found.
      * @remarks
      * The StartingFrom argument and the subsequent return values are a 1-Based index: 1 = first character, 2 = second character, etc.
@@ -507,9 +517,8 @@ export namespace FABRICATION {
         return 0; 
     }
 
-
 	/**
-	 * Get a Sub String from the start of text String which is the specified number of characters in length.
+	 * Get a SubString from the start of text String which is the specified number of characters in length.
 	 * @param TextString The text String to extract a SubString from.
 	 * @param Length A number representing the length of the SubString desired.
 	 * @returns A String the specified length starting from the beginning of the original text String.
@@ -519,7 +528,7 @@ export namespace FABRICATION {
 	}
 
 	/**
-	 * Get length of String.
+	 * Get the length of String.
 	 * @param TextString A String to find the length of.
 	 * @returns A Number specifying the length of the String.
 	 */
@@ -528,7 +537,7 @@ export namespace FABRICATION {
 	}
 
 	/**
-	 * Convert text String to all lower case.
+	 * Convert a text String to all lower case.
 	 * @param TextString A String to convert to lower case.
 	 * @returns A String converted to all lower case.
 	 */
@@ -537,7 +546,7 @@ export namespace FABRICATION {
 	}
 
 	/**
-	 * Get text String with any leading spaces removed.
+	 * Get a text String with any leading spaces removed.
 	 * @param TextString A String to trim leading spaces from (if any).
 	 * @returns A String with any leading spaces removed.
 	 */
@@ -546,13 +555,13 @@ export namespace FABRICATION {
 	}
 
 	/**
-	 * Get Sub String from the middle of another string by specifying the start position and length.
+	 * Get a SubString from the middle of another string by specifying the start position and length.
 	 * @param SearchString The text String to extract a SubString from.
-	 * @param StartingFrom A Number (1-based index) for the starting character position to get the substring from.
+	 * @param StartingFrom A Number (1-based index) for the starting character position to get the SubString from.
 	 * @param Length A number representing the length of the SubString desired.
 	 * @returns A String the specified length starting from the specified character position.
 	 * @remarks
-	 * The StartingFrom argumentis a 1-Based index: 1 = first character, 2 = second character, etc.
+	 * The StartingFrom argument is a 1-Based index: 1 = first character, 2 = second character, etc.
 	 * Similar to SubString() except you specify a starting position and length.
 	 */
 	function Mid(SearchString: string, StartingIndex: number, Length: number): string { 
@@ -560,7 +569,7 @@ export namespace FABRICATION {
 	}
 
 	/**
-	 * Get a Sub String from the end of text String which is the specified number of characters in length.
+	 * Get a SubString from the end of a text String which is the specified number of characters in length.
 	 * @param TextString The text String to extract a SubString from.
 	 * @param Length A number representing the length of the SubString desired.
 	 * @returns A String the specified length starting from the end of the original text String.
@@ -570,7 +579,7 @@ export namespace FABRICATION {
 	}
 
 	/**
-	 * Get text String with and trailing spaces removed.
+	 * Get a text String with any trailing spaces removed.
 	 * @param TextString A String to trim trailing spaces from (if any).
 	 * @returns A String with any trailing spaces removed.
 	 */
@@ -579,9 +588,9 @@ export namespace FABRICATION {
 	}
 
 	/**
-	 * Get a Sub String, starting and ending at specified indexes.
+	 * Get a SubString, starting and ending at specified index positions.
 	 * @param TextString The text String to extract a SubString from.
-	 * @param StartingFrom A Number (1-based index) for the starting character position to get the substring from.
+	 * @param StartingFrom A Number (1-based index) for the starting character position to get the SubString from.
 	 * @param EndingAt A number (1-based index) for the ending character position to get the substrinbg from.
 	 * @returns A String the specified length starting from the specified character position.
 	 * @remarks
@@ -594,8 +603,8 @@ export namespace FABRICATION {
 	}
 
 	/**
-	 * Get text String with any leading and trailing spaces.
-	 * @param TextString A String to trim leadibng and trailing spaces from (if any).
+	 * Get a text String with any leading and trailing spaces.
+	 * @param TextString A String to trim leading and trailing spaces from (if any).
 	 * @returns A String with any leading and trailing spaces removed.
 	 */
 	function Trim(TextString: string): string { 
@@ -603,7 +612,7 @@ export namespace FABRICATION {
 	}
 
 	/**
-	 * Convert text String to all upper case.
+	 * Convert a text String to all upper case.
 	 * @param TextString A String to convert to upper case.
 	 * @returns A String converted to all upper case.
 	 */
@@ -612,7 +621,7 @@ export namespace FABRICATION {
 	}
 
 	/**
-	 * Test if text String contains wildcard string.
+	 * Test if text String matches a wildcard string.
 	 * @param SearchString A String to text against a wildcard match.
 	 * @param WildcardString A Wildcard String to match against.
 	 * @returns A Boolean flag if wildcard string was found.
@@ -626,16 +635,16 @@ export namespace FABRICATION {
 	 * @param MessageText A String Label to display in the dialog title bar.
 	 * @returns Nothing
 	 * @remarks
-	 * This can be called with and without parenthesis
+	 * This can be called with 'DEBUG()' and without 'DEBUG' parenthesis.
 	 */
 	function Debug(MessageTest: string): void {
 		return null;
 	}
 
 	/**
-	 * Execute an external Application, Document or Link
-	 * @param FullFilePath String represnting fill path and name of EXE, Document or Link.
-	 * @param ShowFlags Number (ENUM) to configure how to display external application.
+	 * Execute an external Application, Document or Link.
+	 * @param FullFilePath String represnting full path and name of EXE, Document or Link.
+	 * @param ShowFlags Number (ENUM) to configure how to display the external application.
 	 * @param AppParams  String paramaters to pass to the external application.
 	 * @param AppWorkingDir String full path to the working directory for the external application.
 	 */
@@ -650,15 +659,15 @@ export namespace FABRICATION {
 	 * @param DefaultText A String to use as default Text in the Editbox.
 	 * @returns Text String as entered by the user.
 	 * @remarks
-	 * Message box provides an OK and CANCEL button for the user to accept or dismiss the dialog and
-	 * user entered data. Clicking CANCEL will return an empty string.
+	 * Message box provides an 'OK' and 'CANCEL' button for the user to accept or dismiss the dialog and
+	 * user entered data. Clicking 'CANCEL' will return an empty string.
 	 */
 	function InputBox(TitleText: string, PromptText: string, DefaultText: string): string {
 		return "";
 	}
 
 	/**
-	 * Display a simple dialog for the user to select "YES" or "NO".
+	 * Display a simple dialog for the user to select 'YES' or 'NO'.
 	 * @param PromptText A String message instructing the user what to enter.
 	 * @returns Text String as entered by the user.
 	 */
@@ -667,8 +676,8 @@ export namespace FABRICATION {
 	}
 
 	/**
-	 * Dispalys to the User, a customer error message as desired by your code.
-	 * @param Input Accepts just about any 1 item
+	 * Dispalys to the User, a custom error message as desired by your code.
+	 * @param Input Accepts just about any 1 item.
 	 * @returns Nothing
 	 */
 	function Error(Input: any): void {
@@ -702,13 +711,22 @@ export namespace FABRICATION {
 		//#region AIRTURN Properties Group
 
 		/**
-		 * Get/Set Lock Status of the AIRTURN Object.
+		 * Get the Airturn Group for the AIRTURN Object.
+		 * @readonly
+		 * @remarks Airturn Group prpoerty available only in 2022 and later versions of Autodesk Fabrication.
+		 */
+		 Group: String;
+
+		/**
+		 * Get/Set the Lock Status of the AIRTURN Object.
 		 */
 		Locked: boolean;
 
 		/**
 		 * Get/Set the Name of the AIRTURN Object. 
-		 * @remarks Group of the Airturn is not given and can not be specified.
+ 		 * @remarks
+		 * Only Airturn Name is given. Airturn Group is not given as part of the value.
+		 * Airturn can be set using either an Index or Name.
 		 */
 		Value: string;
 	
@@ -725,7 +743,7 @@ export namespace FABRICATION {
 		//#region CONNECTOR Properties Group
 
 		/**
-		 * Get/Set Alternatge Code of the CONNECTOR Object.
+		 * Get/Set the Alternate Code of the CONNECTOR Object.
 		 * @remarks Alternate Code is used for enforcing Alternate Connector values using the Specifications.
 		 */
 		Alt: string;
@@ -748,7 +766,7 @@ export namespace FABRICATION {
 		 * the value can be set to "None" using Item.Connector[index].Material = "None".
 		 * If duct coupling pattern 522 is Doublewall, an Error will also result for the Skin Connector Material.
 		 * Skin Connector Material property can not be set via UI but can be reset via code using
-		 * Item.SkinConnector[index].Material = "None"
+		 * Item.SkinConnector[index].Material = "None".
 		 */
 		Material: string;
 
@@ -800,7 +818,7 @@ export namespace FABRICATION {
 		//#region DAMPER Properties Group
 
 		/**
-		 * Get/Set Lock Status of the DAMPER Object.
+		 * Get/Set the Lock Status of the DAMPER Object.
 		 */
 		Locked: boolean;
 
@@ -849,7 +867,7 @@ export namespace FABRICATION {
 		Owner: string;
 
 		/**
-		 * Get the Previous Version of the DBLOCKHISTORY Object
+		 * Get the Previous Version of the DBLOCKHISTORY Object.
 		 * @readonly
 		 */
 		Version: number;
@@ -876,7 +894,7 @@ export namespace FABRICATION {
 		History: DBLOCKHISTORY;
 
 		/**
-		 * Get the Previous Owner of DBLOCKINFO Object.
+		 * Get the Previous Owner of the DBLOCKINFO Object.
 		 * @readonly
 		 */
 		Owner: string;
@@ -892,14 +910,14 @@ export namespace FABRICATION {
 		//#region DBLOCKINFO Methods Group
 
 		/**
-		 * Indicates if the Items's current Owner allows access to History/Versioning.
+		 * Indicates if the Item's current Owner allows access to History/Versioning.
 		 * @param LockType Enum/Number for access type to check. 
 		 */
 		Can(LockType: DBLOCKCAN): boolean;
 
 		/**
 		 * Changes the current owner.
-		 * @param NewOwner String representing new owner.
+		 * @param NewOwner String representing the new owner.
 		 * @param Reason String description of the reason for the change.
 		 * @returns Boolean Flag is successful or not.
 		 * @remarks
@@ -909,7 +927,7 @@ export namespace FABRICATION {
 
 		/**
 		 * Changes the current version.
-		 * @param NewVersion Number representing new version.
+		 * @param NewVersion Number representing the new version.
 		 * @param Reason String description of the reason for the change.
 		 * @remarks
 		 * Only returns TRUE if allowed to change an change is different than current version.
@@ -998,7 +1016,7 @@ export namespace FABRICATION {
 		/**
 		 * Get the Status of the Dimension of the DIM Object.
 		 * @readonly
-		 * @remarks Status values are "Input", "Display", "Not Used" or "Fixed"
+		 * @remarks Status values are "Input", "Display", "Not Used" or "Fixed".
 		 */
 		Status: string;
 
@@ -1024,6 +1042,11 @@ export namespace FABRICATION {
 		 * @remarks Facing Name only is given. Facing Group is not given as part of the value.
 		 */
 		Facing: string;
+
+		/**
+		 * Get/Set the Lock Status of the Facing property of the INSULATION Object.
+		 */
+		 FacingLock: boolean;
 
 		/**
 		 * Get/Set the Insulation Gauge of the INSULATION Object.
@@ -1052,6 +1075,7 @@ export namespace FABRICATION {
 
 		/**
 		 * Get/Set the Lock Status for the Status property of the INSULATION Object.
+		 * @remarks Appears to not be functional in many (newer) versions of Autodesk Fabrication.
 		 */
 		StatusLock: boolean;
 
@@ -1088,14 +1112,14 @@ export namespace FABRICATION {
 		Date: string;
 		
 		/**
-		 * Get/Set generic utility field #1 of JOB Object.
+		 * Get/Set the generic utility field #1 of JOB Object.
 		 * @remarks
 		 * Field can be used for any user defined purpose.
 		 */
 		Field1: string;
 	
 		/**
-		 * Get/Set generic utility field #2 of JOB Object.
+		 * Get/Set the generic utility field #2 of JOB Object.
 		 * @remarks
 		 * Field can be used for any user defined purpose.
 		 */
@@ -1170,13 +1194,13 @@ export namespace FABRICATION {
 		//#region JOBSTATUS Properties Group
 	
 		/**
-		 * Get Status Active flag of the JOBSTATUS Object.
+		 * Get the Status Active flag of the JOBSTATUS Object.
 		 * @readonly
 		 */
 		Active: boolean;
 	
 		/**
-		 * Get Date status was last activated in short-date string format of the JOBSTATUS Object.
+		 * Get the Date status was last activated in short-date string format of the JOBSTATUS Object.
 		 * @readonly
 		 */
 		LastActivated: string;
@@ -1329,7 +1353,7 @@ export namespace FABRICATION {
 		Order: string;
 
 		/**
-		 * Get/Set the SKey property of the PRUDUCTENTRY Object.
+		 * Get/Set the SKey property of the PRODUCTENTRY Object.
 		 * @remarks
 		 * Available in Fabrication 2018.2 versions and later.
 		 */
@@ -1345,46 +1369,46 @@ export namespace FABRICATION {
 		//#region PRODUCTENTRY Methods Group
 
 		/**
-		 * Adds 'ALIAS' Column to Product List
-		 * @returns Boolean flag indicating if adding column was sucessful or not.
+		 * Adds the 'ALIAS' Column to Product List.
+		 * @returns Boolean flag indicating if adding column was successful or not.
 		*/
 	    AddAlias(): boolean;
 
 		/**
-		 * Adds 'AREA' Column to Product List
-		 * @returns Boolean flag indicating if adding column was sucessful or not.
+		 * Adds the 'AREA' Column to Product List.
+		 * @returns Boolean flag indicating if adding column was successful or not.
 		 */
 		AddArea(): boolean;
 
 		/**
-		 * Adds 'BOUGHTOUT' Column to Product List
-		 * @returns Boolean flag indicating if adding column was sucessful or not.
+		 * Adds the 'BOUGHTOUT' Column to Product List.
+		 * @returns Boolean flag indicating if adding column was successful or not.
 		 */
 		AddBoughtOut(): boolean;
 
 		/**
-		 * Adds 'CADBLOCK' Column to Product List
-		 * @returns Boolean flag indicating if adding column was sucessful or not.
+		 * Adds the 'CADBLOCK' Column to Product List.
+		 * @returns Boolean flag indicating if adding column was successful or not.
 		 */
 		AddCADBlock(): boolean;
 		
 		/**
-		 * Adds 'CUSTOMDATA[<dataname>]' Column to Product List
+		 * Adds the 'CUSTOMDATA[<dataname>]' Column to Product List.
 		 * @param CustomDataName Text Name of Custom Data field to add.
-		 * @returns Boolean flag indicating if adding column was sucessful or not.
+		 * @returns Boolean flag indicating if adding column was successful or not.
 		 */
 		AddCustomData(CustomDataName: string): boolean;
 		
 		/**
-		 * Adds 'ID' Column to Product List
-		 * @returns Boolean flag indicating if adding column was sucessful or not.
+		 * Adds the 'ID' Column to Product List.
+		 * @returns Boolean flag indicating if adding column was successful or not.
 		 */
 		AddDatabaseID(): boolean;
 		
 		/**
-		 * Adds 'DIM' Column(s) to Product List
+		 * Adds the 'DIM' Column(s) to Product List.
 		 * @param DimName Optional Upper Case Name of Dimension to add.
-		 * @returns Boolean flag indicating if adding column was sucessful or not.
+		 * @returns Boolean flag indicating if adding column was successful or not.
 		 * @remarks
 		 * Function is very buggy. Repeated calls with improper syntax will cause
 		 * predictability of this function to be sporatic at best. Repeated calls without
@@ -1394,15 +1418,15 @@ export namespace FABRICATION {
 		AddDim(DimName?: string): boolean;
 		
 		/**
-		 * Adds 'FLOWMIN' and 'FLOWMAX' Columns to Product List
-		 * @returns Boolean flag indicating if adding columns was sucessful or not.
+		 * Adds the 'FLOWMIN' and 'FLOWMAX' Columns to Product List.
+		 * @returns Boolean flag indicating if adding columns was successful or not.
 		 */
 		AddFlow(): boolean;
 		
 		/**
-		 * Adds 'OPTION' Column(s) to Product List
+		 * Adds the 'OPTION' Column(s) to Product List.
 		 * @param OptionName Optional Upper Case Name of Option to add.
-		 * @returns Boolean flag indicating if adding column was sucessful or not.
+		 * @returns Boolean flag indicating if adding column was successful or not.
 		 * @remarks
 		 * Function is very buggy. Repeated calls with improper syntax will cause
 		 * predictability of this function to be sporatic at best. Repeated calls without
@@ -1412,58 +1436,58 @@ export namespace FABRICATION {
 		AddOption(OptionNmae?: string): boolean;
 		
 		/**
-		 * Adds 'ORDER' Column to Product List
-		 * @returns Boolean flag indicating if adding columns was sucessful or not.
+		 * Adds the 'ORDER' Column to Product List.
+		 * @returns Boolean flag indicating if adding columns was successful or not.
 		 */
 		AddOrder(): boolean;
 		
 		/**
-		 * Adds 'WEIGHT' Column to Product List
-		 * @returns Boolean flag indicating if adding columns was sucessful or not.
+		 * Adds the 'WEIGHT' Column to Product List.
+		 * @returns Boolean flag indicating if adding columns was successful or not.
 		 */
 		AddWeight(): boolean;
 
 		/**
-		 * Removes 'ALIAS' Column from Product List
-		 * @returns Boolean flag indicating if removing column was sucessful or not.
+		 * Removes the 'ALIAS' Column from the Product List.
+		 * @returns Boolean flag indicating if removing column was successful or not.
 		 */
 	    RemoveAlias(): boolean;
 
 		/**
-		 * Removes 'AREA' Column from Product List
-		 * @returns Boolean flag indicating if removing column was sucessful or not.
+		 * Removes the 'AREA' Column from the Product List.
+		 * @returns Boolean flag indicating if removing column was successful or not.
 		 */
 		RemoveArea(): boolean;
 
 		/**
-		 * Removes 'BOUGHTOUT' Column from Product List
-		 * @returns Boolean flag indicating if removing column was sucessful or not.
+		 * Removes the 'BOUGHTOUT' Column from the Product List.
+		 * @returns Boolean flag indicating if removing column was successful or not.
 		 */
 		RemoveBoughtOut(): boolean;
 		
 		/**
-		 * Removes 'CADBLOCK' Column from Product List
-		 * @returns Boolean flag indicating if removing column was sucessful or not.
+		 * Removes the 'CADBLOCK' Column from the Product List.
+		 * @returns Boolean flag indicating if removing column was successful or not.
 		 */
 		RemoveCADBlock(): boolean;
 		
 		/**
-		 * Removes 'CUSTOMDATA[<dataname>]' Column from Product List
+		 * Removes the 'CUSTOMDATA[<dataname>]' Column from the Product List.
 		 * @param CustomDataName Text Name of Custom Data field to remove.
-		 * @returns Boolean flag indicating if removing column was sucessful or not.
+		 * @returns Boolean flag indicating if removing column was successful or not.
 		 */
 		RemoveCustomData(Name: string): boolean;
 		
 		/**
-		 * Removes 'ID' Column from Product List
-		 * @returns Boolean flag indicating if removing column was sucessful or not.
+		 * Removes the 'ID' Column from the Product List.
+		 * @returns Boolean flag indicating if removing column was successful or not.
 		 */
 		RemoveDatabaseID(): boolean;
 		
 		/**
-		 * Removes 'DIM' Column(s) from Product List
+		 * Removes the 'DIM' Column(s) from the Product List.
 		 * @param DimIndex Zero based index of Dimension column to remove.
-		 * @returns Boolean flag indicating if removing column was sucessful or not.
+		 * @returns Boolean flag indicating if removing column was successful or not.
 		 * @remarks
 		 * Function is very buggy. Repeated calls with improper syntax will cause
 		 * predictability of this function to be sporatic at best. Calls without
@@ -1472,15 +1496,15 @@ export namespace FABRICATION {
 	    RemoveDim(DimIndex: number): boolean;
 		
 		/**
-		 * Removes 'FLOWMIN' and 'FLOWMAX' Columns from Product List
-		 * @returns Boolean flag indicating if removing columns was sucessful or not.
+		 * Removes the 'FLOWMIN' and 'FLOWMAX' Columns from the Product List.
+		 * @returns Boolean flag indicating if removing columns was successful or not.
 		 */
 		RemoveFlow(): boolean;
 
 		/**
-		 * Removes 'OPTION' Column(s) from Product List
+		 * Removes the 'OPTION' Column(s) from the Product List.
 		 * @param OptionIndex Zero based index of Option column to remove.
-		 * @returns Boolean flag indicating if removing column was sucessful or not.
+		 * @returns Boolean flag indicating if removing column was successful or not.
 		 * @remarks
 		 * Function is very buggy. Repeated calls with improper syntax will cause
 		 * predictability of this function to be sporatic at best. Calls without
@@ -1489,14 +1513,14 @@ export namespace FABRICATION {
 		RemoveOption(OptionIndex: number): boolean;
 		
 		/**
-		 * Removes 'ORDER' Column from Product List
-		 * @returns Boolean flag indicating if removing column was sucessful or not.
+		 * Removes the 'ORDER' Column from the Product List.
+		 * @returns Boolean flag indicating if removing column was successful or not.
 		 */
 		RemoveOrder(): boolean;
 		
 		/**
-		 * REmoves 'WEIGHT' Column from Product List
-		 * @returns Boolean flag indicating if removing column was sucessful or not.
+		 * REmoves the 'WEIGHT' Column from the Product List.
+		 * @returns Boolean flag indicating if removing column was successful or not.
 		 */
 	    RemoveWeight(): boolean;
 
@@ -1509,7 +1533,7 @@ export namespace FABRICATION {
 		//#region PRODUCTINFO Properties Group
 		
 		/**
-		 * Get the Number of Product List Entries of the PRODUCTINFO Object.
+		 * Gets the Number of Product List Entries of the PRODUCTINFO Object.
 		 * @readonly
 		 */
 		Entries: number;
@@ -1520,84 +1544,84 @@ export namespace FABRICATION {
 		Entry: Array<PRODUCTENTRY>;
 
 		/**
-		 * Get the HasAlias flag of the PRODUCTINFO Object.
+		 * Gets the HasAlias flag of the PRODUCTINFO Object.
 		 * @readonly
 		 * @remarks Flag indicates if the Product List contains an Alias column as part of its data.
 		 */
 		HasAlias: boolean;
 
 		/**
-		 * Get the HasArea Flag of the PRODUCTINFO Object.
+		 * Gets the HasArea Flag of the PRODUCTINFO Object.
 		 * @readonly
 		 * @remarks Flag indicates if the Product List contains an Area column as part of its data.
 		 */
 		HasArea: boolean;
 
 		/**
-		 * Get the HasBoughtOut Flag of the PRODUCTINFO Object.
+		 * Gets the HasBoughtOut Flag of the PRODUCTINFO Object.
 		 * @readonly
 		 * @remarks Flag indicates if the Product List contains a BoughtOut column as part of its data.
 		 */
 		HasBoughtOut: boolean;
 
 		/**
-		 * Get the HasCadBlock Flag of the PRODUCTINFO Object.
+		 * Gets the HasCadBlock Flag of the PRODUCTINFO Object.
 		 * @readonly
 		 * @remarks Flag indicates if the Product List contains a CAD Block column as part of its data.
 		 */
 		HasCADBlock: boolean;
 
 		/**
-		 * Get the HasCustomData Flag of the PRODUCTINFO Object.
+		 * Gets the HasCustomData Flag of the PRODUCTINFO Object.
 		 * @readonly
 		 * @remarks Flag indicates if the Product List contains any Custom Data columns as part of its data.
 		 */
 		HasCustomData: boolean;
 
 		/**
-		 * Get the number of Custom Data columns of the PRODUCTINFO Object.
+		 * Gets the number of Custom Data columns of the PRODUCTINFO Object.
 		 * @readonly
 		 * @remarks Number indicates the number of custom data columns in the Product List.
 		 */
 		HasCustomDatas: number;
 
 		/**
-		 * Get the HasDatabaseID Flag of the PRODUCTINFO Object.
+		 * Gets the HasDatabaseID Flag of the PRODUCTINFO Object.
 		 * @readonly
 		 * @remarks Flag indicates if the Product List contains a Database ID column as part of its data.
 		 */
 		HasDatabaseID: boolean;
 
 		/**
-		 * Get the number of DIM columns of the PRODUCTINFO Object.
+		 * Gets the number of DIM columns of the PRODUCTINFO Object.
 		 * @readonly
 		 * @remarks Number indicates the number of Dimension columns in the Product List.
 		 */
 		HasDims: number;
 
 		/**
-		 * Get the HasFlow Flag of the PRODUCTINFO Object.
+		 * Gets the HasFlow Flag of the PRODUCTINFO Object.
 		 * @readonly
 		 * @remarks Flag indicates if the Product List contains the Min & Max Flow columns as part of its data.
 		 */
 		HasFlow: boolean;
 
 		/**
-		 * Get the number of OPTION columns of the PRODUCTINFO Object.
+		 * Gets the number of OPTION columns of the PRODUCTINFO Object.
 		 * @readonly
 		 * @remarks Number indicates the number of Option columns in the Product List.
 		 */
 		HasOptions: number;
 
 		/**
-		 * Get the HasOrder Flag of the PRODUCTINFO Object.
+		 * Gets the HasOrder Flag of the PRODUCTINFO Object.
 		 * @readonly
 		 * @remarks Flag indicates if the Product List contains the Order column as part of its data.
 		 */
 		HasOrder: boolean;
 
 		/**
-		 * Get the HasSKey Flag of the PRODUCTINFO Object.
+		 * Gets the HasSKey Flag of the PRODUCTINFO Object.
 		 * @readonly
 		 * @remarks Flag indicates if the Product List contains the SKey column as part of its data.
 		 * Available in Fabrication 2018.2 versions and later.
@@ -1605,14 +1629,14 @@ export namespace FABRICATION {
 		HasSKey: boolean;
 
 		/**
-		 * Get the HasWeight Flag of the PRODUCTINFO Object.
+		 * Gets the HasWeight Flag of the PRODUCTINFO Object.
 		 * @readonly
 		 * @remarks Flag indicates if the Product List contains the Weight column as part of its data.
 		 */
 		HasWeight: boolean;
 
 		/**
-		 * Get the Revision property of the PRODUCTINFO Object.
+		 * Gets the Revision property of the PRODUCTINFO Object.
 		 * @readonly
 		 */
 		Revision: string;
@@ -1636,6 +1660,8 @@ export namespace FABRICATION {
 
 		/**
 		 * Get/Set the Sealent Name of the SEALENT Object.
+		 * @renaarks Only Sealent name is returned, not the group. No way to retrieve the Sealent Group
+		 * at this time.
 		 */
 		Value: string;
 
@@ -1652,7 +1678,7 @@ export namespace FABRICATION {
 		//#region SEAM Properties Group
 
 		/**
-		 * Get/Set Alternatge Code of the SEAM Object.
+		 * Get/Set the Alternatge Code of the SEAM Object.
 		 * @remarks Alternate Code is used for enforcing Alternate Seam values using the Specifications.
 		 */
 		Alt: string;
@@ -1660,7 +1686,7 @@ export namespace FABRICATION {
 		/**
 		 * Get the Seam Group for the SEAM Object.
 		 * @readonly
-		 * @remarks Seam Group prpoerty available onlyt in 2022 and later versions of Autodesk Fabrication.
+		 * @remarks Seam Group propoerty is available only in 2022 and later versions of Autodesk Fabrication.
 		 */
 		Group: String;
 
@@ -1671,7 +1697,8 @@ export namespace FABRICATION {
 
 		/**
 		 * Get/Set the Seam Name value of the SEAM Object.
-		 * @remarks Seam Group is not returned. There is no known way to retrieve the Group of the Seam.
+		 * @remarks
+		 * Only Seam Name is given. Seam Group is not given as part of the value.
 		 * Seam can be set using either an Index or Name.
 		 */
 		Value: string;
@@ -1689,9 +1716,16 @@ export namespace FABRICATION {
 		//#region SPLITTER Properties Group
 
 		/**
+		 * Get the Splitter Group for the SPLITTER Object.
+		 * @readonly
+		 * @remarks Splitter Group propoerty is available only in 2022 and later versions of Autodesk Fabrication.
+		 */
+		 Group: String;
+
+		/**
 		 * Get/Set the Splitter Name of the ITEM Object.
 		 * @remarks
-		 * Splitter Name only is given. Splitter Group is not given as part of the value.
+		 * Only Splitter Name is given. Splitter Group is not given as part of the value.
 		 * Splitter can be set using the 'Name' or 'Index'.
 		 */
 		Value: string;
@@ -1714,7 +1748,7 @@ export namespace FABRICATION {
 		//#region STATUS Properties Group
 
 		/**
-		 * Get the Date and Time Stamp of the STATUS Object
+		 * Get the Date and Time Stamp of the STATUS Object.
 		 * @readonly
 		 * @remarks Date and Time Stamp reflect the Date and Time when the Status changed.
 		 * A value of 'Default' is the first (unchanged) Status.
@@ -1751,6 +1785,13 @@ export namespace FABRICATION {
 	interface STIFFENER {
 	
 		//#region STIFFENER Properties Group
+
+		/**
+		 * Get the Stiffener Group for the STIFFENER Object.
+		 * @readonly
+		 * @remarks Stiffener Group propoerty is available only in 2022 and later versions of Autodesk Fabrication.
+		 */
+		 Group: String;
 
 		/**
 		 * Get/Set the Lock Status flag for the Stiffener property of the STIFFENER Object.
@@ -1849,8 +1890,8 @@ export namespace FABRICATION {
 	abstract class ARRAY {
 
 		/**
-		 * Constructs an Array Object
-		 * @param NumberOfItems Optional Number of items to initialize Array Object to hold.
+		 * Constructs an Array Object.
+		 * @param NumberOfItems Optional Number of items to initialize the Array Object to hold.
 		 * @returns Nothing.
 		 * @remarks
 		 * Constructs an Array object with the number of inital elements as specified. Each element's
@@ -1865,7 +1906,7 @@ export namespace FABRICATION {
 		/**
 		 * Get/Set the Number of elements in the array of the ARRAY Object.
 		 * @remarks
-		 * If changed, new elements are set to NULL/False
+		 * If changed, new elements are set to NULL/False.
 		 */
 		Count: number;
 
@@ -1893,9 +1934,9 @@ export namespace FABRICATION {
 		abstract Delete(ArrayIndex?: number): boolean;
 
 		/**
-		 * Inserts a piece of data into an Array at specified index.
+		 * Inserts a piece of data into an Array at the specified index.
 		 * @param ArrayData Any type of data to insert into an array.
-		 * @param ArrayIndex? Optional Index position to insert data into.
+		 * @param ArrayIndex Optional Index position to insert data into.
 		 * @return Boolead Flag indicating if data insertion was successful of not.
 		 * @remarks
 		 * When inserting data into an Array at a sepecific index, the previous data and all other
@@ -1910,9 +1951,9 @@ export namespace FABRICATION {
 	abstract class FILE {
 
 		/**
-		 * Constructs a File Object
-		 * @param FileName Optional String Name of file to open.
-		 * @param AccessMode Optional Mode(s) for file open.
+		 * Constructs a File Object.
+		 * @param FileName Optional String Name of the file to open.
+		 * @param AccessMode Optional Mode(s) for the file open.
 		 * @returns Nothing
 		 * @remarks
 		 * If optional parameters are not specified when constructing the FILE Object,
@@ -1946,7 +1987,7 @@ export namespace FABRICATION {
 		IsOpen: boolean;
 
 		/**
-		 * Get the Flag indicating if the file Unicode for the FILE Object.
+		 * Get the Flag indicating if the file is Unicode for the FILE Object.
 		 * @readonly
 		 * @remarks
 		 * File is ANSI encoded if not Unicode.
@@ -1975,7 +2016,7 @@ export namespace FABRICATION {
 
 		/**
 		 * Closes an open File.
-		 * @returns Boolean Flag indicating if file closure was sucessful or not.
+		 * @returns Boolean Flag indicating if file closure was successful or not.
 		 * @remarks
 		 * Any open file needs to be closed before any other application can access it in Read/Write mode.
 		 */
@@ -2029,7 +2070,7 @@ export namespace FABRICATION {
 		 * Read a line of text (minsus CR/LF) from a text file.
 		 * @returns String read from file.
 		 * @remarks
-		 * File must be opened as text (Unicode or ANSI)
+		 * File must be opened as text (Unicode or ANSI).
 		 * Each call reads up into the next CR (Carriage Return), LF (Line Feed) or EOF (End of File) marker.
 		 * Returned String does not contain CR/LR or EOF characters. 
 		 */
@@ -2121,7 +2162,7 @@ export namespace FABRICATION {
 		 * @param AppendCR Optional Boolean Flag to automatically append a CR+LF to and of line.
 		 * @returns Boolead Flag indicating if write was successful or not.
 		 * @remarks
-		 * Of optional AppendCR paramater missing, True is default and will automatically append
+		 * If optional AppendCR paramater missing, True is default and will automatically append
 		 * a Carrage Return (CR) and Line Feed (LR) character to the end of the specified string.
 		 */
 		abstract WriteLine(StringToWrite: string, AppendCR?: boolean): boolean;
@@ -2198,7 +2239,7 @@ export namespace FABRICATION {
 		FolderCount: number;
 
 		/**
-		 * Get/Set full Path of Folder being scanned for the FILELOCATOR Object.
+		 * Get/Set the full Path of Folder being scanned for the FILELOCATOR Object.
 		 */
 		Path: string;
 
@@ -2226,7 +2267,7 @@ export namespace FABRICATION {
 	abstract class ITEMSTRUCT {
 
 		/**
-		 * Constructs an ItemStruct Object
+		 * Constructs an ItemStruct Object.
 		 * @returns ITEMSTRUCT
 		 * @remarks
 		 * Represents a dynamically loaded ITM file and acts nearly identical to a native ITEM reference
@@ -2329,7 +2370,7 @@ export namespace FABRICATION {
 		/**
 		 * Get/Set the CostByLength (Cost Units) Flag of the ITEM Object.
 		 * @remarks
-		 * Cost Units are set by the CostByLength flag. 0 = Cost by Qty, 1 Cost by Ft.
+		 * Cost Units are set by the CostByLength flag. 0 = Cost by Qty, 1 = Cost by Ft.
 		 */
 		CostByLength: boolean;
 
@@ -2627,7 +2668,7 @@ export namespace FABRICATION {
 		ManyOldStatus: number;
 
 		/**
-		 * Get Material Abreviation of the ITEM Object.
+		 * Get the Material Abreviation of the ITEM Object.
 		 * @readonly
 		 */
 		MatAbrv: string;
@@ -2640,7 +2681,7 @@ export namespace FABRICATION {
 		/**
 		 * Get/Set the Nest Priority of the ITEM Object.
 		 * @remarks
-		 * Items with a higher number nest first giving preference to those itesm in the nesting process.
+		 * Items with a higher number nest first giving preference to those items in the nesting process.
 		 */
 		NestPriority: number;
 
@@ -2703,7 +2744,7 @@ export namespace FABRICATION {
 		 * Get/Set the Path property of the ITEM Object.
 		 * @remarks
 		 * Path includes the terminating slash (/). Note that folder seperators are
-		 * forward slashes (/) as opposed to backslashes (/) which are more commonly seen.
+		 * forward slashes (/) as opposed to backslashes (\) which are more commonly seen.
 		 */
 		Path: string;
 
@@ -2888,11 +2929,11 @@ export namespace FABRICATION {
 		Stiffener: Array<STIFFENER>;
 
 		/**
-		 * Set Structure Type of ITEM Object.
-		 * @writeonly
+		 * Get/Set the Structure Type of ITEM Object.
 		 * @remarks
 		 * StructureType can be set using the 'Name' or 'Index' however this property is not able to be
-		 * read. It can only be set.
+		 * read. It can only be set in Autodesk Fabrication versions 2022 and later. Earlier versions
+		 * the property is 'Write-Only'.
 		 */
 		StructureType: string;
 
@@ -2962,10 +3003,10 @@ export namespace FABRICATION {
 		abstract AddCustomData(NameOrIndex: string|number): void;
 
 		/**
-		 * Adds Hyperlink to the Links tab of the Item Properties.
-		 * @param Link String of the URL to use for the Link
-		 * @param Description String description of the Link
-		 * @param Page String page on the link to go to. e.g. '#Page=2'
+		 * Adds a Hyperlink to the Links tab of the Item Properties.
+		 * @param Link String of the URL to use for the Link.
+		 * @param Description String description of the Link.
+		 * @param Page String page on the link to go to. e.g. '#Page=2'.
 		 * @returns Number representing the number of the link added.
 		 */
 		abstract AddLink(Link: string, Description: string, Page: string): number;
@@ -2974,38 +3015,39 @@ export namespace FABRICATION {
 		 * Gets the file name of the Image used for a ITM.
 		 * @param ItmFilePath 
 		 * @returns String representing path and name of the image file.
+		 * Despite the function name, a PNG file (not BMP) may be returned.
 		 */
 		abstract BitmapFile(ItmFilePath: string): string;
 
 		/**
-		 * Indicates if Item supports DoubleWall entry or not.
+		 * Indicates if the Item supports DoubleWall entry or not.
 		 * @returns Boolean
 		 */
 		abstract CanDoubleWall(): boolean;
 
 		/**
-		 * Indicates if Item supports Rotary Nesting or not.
+		 * Indicates if the Item supports Rotary Nesting or not.
 		 * @returns Boolean
 		 */
 		abstract CanRotary(): boolean;
 	
 		/**
-		 * Removes Link from the Links tab of the Item Properties
+		 * Removes a Link from the Links tab of the Item Properties.
 		 * @param LinkNumber Number of link to remove from the Item.
-		 * @returns Boolean Flag indicating if link deletion was sucessful or not.
+		 * @returns Boolean Flag indicating if link deletion was successful or not.
 		 */
 		abstract DeleteLink(LinkNumber: number): boolean;
 
 		/**
 		 * Gets a string representing the location of a connectors X, Y and/or Z value.
-		 * @param ConnectorIndex This index number is associated with the connector number shown in the edit item dialog
+		 * @param ConnectorIndex This index number is associated with the connector number shown in the edit item dialog.
 		 * @param XYZ Optional string representing an X, Y or Z portion of the connector centerline coordinate.
 		 * @returns String representing the X, Y, Z or all 3 if XYZ was not provided.
 		 * @remarks
 		 * Supported values are...'XYZ', 'X', 'Y', 'Z', 'TOP' and 'BTM'.
 		 * The string 'XYZ', missing parameters, empty strings or any other non supported value returns
 		 * a string representing the X, Y & Z coordinates seperated by spaces (e.g. '1.25 4.54 0.00').
-		 * If the string 'X', 'Y' or 'Z' is speified, a string representing just tha compoentent of the
+		 * If the string 'X', 'Y' or 'Z' is speified, a string representing just that compoentent of the
 		 * endpoint is returned.
 		 * If the string 'TOP' or 'BTM' is specified, a string representing the Z coordinate of the connector's
 		 * Top or Bottom is returned.
@@ -3014,7 +3056,7 @@ export namespace FABRICATION {
 
 		/**
 		 * Get the Level value of the specified Item based on it's section.
-		 * @param LevelName Allowed values are "Soffit" and "Floor"
+		 * @param LevelName Allowed values are "Soffit" and "Floor".
 		 * @returns Number representing the Soffit/Floor level of the Item's Section.
 		 */
 		abstract Level(LevelName: string): number;
@@ -3022,12 +3064,12 @@ export namespace FABRICATION {
 		/**
 		 * Loads an ITM file from disk
 		 * @param ItemFile String of full path and file name including '.ITM' extension.
-		 * @returns Boolean Flag indicating if loading of ITM file was sucessful.
+		 * @returns Boolean Flag indicating if loading of ITM file was successful.
 		 */
 		abstract Load(ItemFile: string): boolean;
 
 		/**
-		 * Refreshes all costs to Item
+		 * Refreshes all costs of the Item.
 		 * @returns Nothing
 		 * @remarks
 		 * Call after making any change to the Item that may affect cost.
@@ -3036,14 +3078,14 @@ export namespace FABRICATION {
 
 		/**
 		 * Remove all holes added to Item.
-		 * @returns Boolean Flag indicating if hole removal was sucessful.
+		 * @returns Boolean Flag indicating if hole removal was successful.
 		 */
 		abstract RemoveHoles(): boolean;
 
 		/**
-		 * Save an ITM file to disk
+		 * Save an ITM file to disk.
 		 * @param ItemFile 
-		 * @returns Boolean Flag indicating if saving of ITM file was sucessful.
+		 * @returns Boolean Flag indicating if saving of the ITM file was successful.
 		 */
 		abstract Save(ItemFile: string): boolean;
 
@@ -3051,7 +3093,7 @@ export namespace FABRICATION {
 		 * Set Flag on a development part indicating if it should not be cut.
 		 * @param DevNumber Number of development part to set the flag of.
 		 * @param DoNotCut Boolean flag toggling the 'Do Not Cut' property of the development.
-		 * @returns Boolean Flag indicating of toggling flag was sucessful or not.
+		 * @returns Boolean Flag indicating of toggling flag was successful or not.
 		 * @remarks
 		 * Use the 'Item.PartsCut' property first to determine the number of parts available
 		 * in the Item to help determine which development number(s) you may want to toggle.
@@ -3062,7 +3104,7 @@ export namespace FABRICATION {
 		 * Set Flow Type and Value on an Item. 
 		 * @param FlowType Number between 0 and 3. 0='Not Set', 1='Supply', 2='Return', 3='None' 
 		 * @param FlowValue Number representing flow value in standard flow units.
-		 * @returns Boolean Flag indicating sucess or failure. Failure implies an invalid type.
+		 * @returns Boolean Flag indicating success or failure. Failure implies an invalid type.
 		 */
 		abstract SetFlow(FlowType: number, FlowValue: number): boolean;
 
@@ -3070,14 +3112,14 @@ export namespace FABRICATION {
 		 * Refreshes Item's developments.
 		 * @returns Nothing
 		 * @remarks
-		 * Call after making any change to the Item that may developments, specifiction or model
+		 * Call after making any change to the Item that may developments, specifiction or model.
 		 */
 		abstract Update(): void;
 
 		/**
 		 * Save Item's Developments as DXF File(s).
-		 * @param DXFFile String of full path and file name to export
-		 * @param IncludeLeads Optional Boolead Flag indicating if Lead Ins/Outs should be written to DXF.
+		 * @param DXFFile String of full path and file name to export.
+		 * @param IncludeLeads Optional Boolean Flag indicating if Lead Ins/Outs should be written to DXF.
 		 * @remarks
 		 * File to save should exclude the '.DXF' file extension.
 		 * Flag for writing Lead Ins/Outs defaults to TRUE if ommited.
@@ -3095,13 +3137,13 @@ export namespace FABRICATION {
 		//#region TASK Properties Group
 		
 		/**
-		 * Get Task Status Flag indicating if Task was aborted for the TASK Object.
+		 * Get the Task Status Flag indicating if Task was aborted for the TASK Object.
 		 * @readonly
 		 */
 		Aborted: boolean;
 
 		/**
-		 * Get/Set the Message Text for the progress dialog for the TASK Object
+		 * Get/Set the Message Text for the progress dialog for the TASK Object.
 		 */
 		Message: string;
 
@@ -3123,24 +3165,24 @@ export namespace FABRICATION {
 		//#region TASK Methods Group
 
 		/**
-		 * Initialize and display progress bars setting maximum task length
+		 * Initialize and display progress bars setting maximum task length.
 		 * @param NumberOfTasks Number indicating the number of tasks to perform.
 		 * @returns Nothing
 		 * @remarks
-		 * NumberofTasks should ideally specify the number of iterations you go through to that the progress bars
+		 * NumberofTasks should ideally specify the number of iterations you go through so that the progress bars
 		 * dialog shows a progress relative to the tasks you're performing. You must use the Task.Progress
-		 * property to move the progress bars as your tasks process.
+		 * property to move the progress bars as your tasks processes.
 		 */
 		abstract BeginProgress(NumberOfTasks: number): void;
 
 		/**
-		 * Terminate the display of the progress bars dialog
+		 * Terminate the display of the progress bars dialog.
 		 * @returns Nothing
 		 * @remarks
 		 * Call to end the display of the progress bars dialog when tasks are finished processing.
-		 * You mat use the Task.Aborted proeprty to determine if the user canceled the process. When the
+		 * You may use the Task.Aborted proeprty to determine if the user canceled the process. When the
 		 * user cancels the progress bars, this does not stop your tasks from processing, merely sets the
-		 * Aborted property. You must monitor the Aborted flag and exit your task processing in your code
+		 * Aborted property. You must monitor the Aborted flag and exit the task processing in your code
 		 * to propertly terminate a task by a user.
 		 */
 		abstract EndProgress(): void;

@@ -5,7 +5,7 @@ This second-class object cannot be directly created. These types of sub-objects 
 ## Properties
 The following items are accessed from the base object by a dot notation
 ### Property: Locked
-Get/Set Lock Status of the DAMPER Object.
+Get/Set the Lock Status of the DAMPER Object.
 
 No additional remarks available
 ##### Returns

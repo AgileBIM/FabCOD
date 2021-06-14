@@ -1,7 +1,7 @@
 # Object: ARRAY
 **NOTE:** This documentation was auto-generated from the FabricationDefinition.ts file and any errors within this text needs to be resolved within that source file
 ## Constructor
-Constructs an Array Object
+Constructs an Array Object.
 Constructs an Array object with the number of inital elements as specified. Each element's
 value will be NULL/False.
 If optional NumberOfItems is not specifcied, a default value of 0 (zero) is used.
@@ -9,13 +9,13 @@ If optional NumberOfItems is not specifcied, a default value of 0 (zero) is used
 New ARRAY([NumberOfItems: NUMBER])
 #### Arguments
 - **NumberOfItems** as Optional: NUMBER
-  - Remarks: Optional Number of items to initialize Array Object to hold.
+  - Remarks: Optional Number of items to initialize the Array Object to hold.
 ## Properties
 The following items are accessed from the base object by a dot notation
 ### Property: Count
 Get/Set the Number of elements in the array of the ARRAY Object.
 
-If changed, new elements are set to NULL/False
+If changed, new elements are set to NULL/False.
 ##### Returns
 NUMBER
 ## Methods
@@ -45,7 +45,7 @@ Delete([ArrayIndex: NUMBER])
 ##### Returns
 BOOLEAN
 ### Function: Insert
-Inserts a piece of data into an Array at specified index.
+Inserts a piece of data into an Array at the specified index.
 
 When inserting data into an Array at a sepecific index, the previous data and all other
 downstream data are shifed down in the index chain.
@@ -56,5 +56,6 @@ Insert(ArrayData: ANY, [ArrayIndex: NUMBER])
 - **ArrayData** as: ANY
   - Remarks: Any type of data to insert into an array.
 - **ArrayIndex** as Optional: NUMBER
+  - Remarks: Optional Index position to insert data into.
 ##### Returns
 BOOLEAN

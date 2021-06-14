@@ -81,7 +81,7 @@
         }
       ],
       "info": {
-        "desc": "Get the inverse Cosine angle of Adj/Hyp",
+        "desc": "Get the inverse Cosine angle of Adj/Hyp.",
         "args": {
           "Adjacent": "",
           "Hypotenuse": ""
@@ -113,7 +113,7 @@
         }
       ],
       "info": {
-        "desc": "Get the inverse Sine angle of Opp/Hyp",
+        "desc": "Get the inverse Sine angle of Opp/Hyp.",
         "args": {
           "Opposite": "",
           "Hypotenuse": ""
@@ -145,7 +145,7 @@
         }
       ],
       "info": {
-        "desc": "Get the inverse Tangent angle of Opp/Adj",
+        "desc": "Get the inverse Tangent angle of Opp/Adj.",
         "args": {
           "Opposite": "",
           "Adjacent": ""
@@ -362,7 +362,7 @@
         }
       ],
       "info": {
-        "desc": "Get the Square root of the number",
+        "desc": "Get the Square root of the number.",
         "args": {
           "Value": ""
         },
@@ -448,7 +448,7 @@
         }
       ],
       "info": {
-        "desc": "Get the number rounded down to number of decimalplaces.",
+        "desc": "Get the number rounded down to number of decimal places.",
         "args": {
           "Value": "",
           "DecimalPlaces": "Optional and defaults to zero (0)."
@@ -480,7 +480,7 @@
         }
       ],
       "info": {
-        "desc": "Get the value rounded up to number of decimalplaces.",
+        "desc": "Get the value rounded up to number of decimal places.",
         "args": {
           "Value": "",
           "DecimalPlaces": "Optional and defaults to zero (0)."
@@ -504,7 +504,7 @@
         }
       ],
       "info": {
-        "desc": "Gets the ASCII numeric code from a string.",
+        "desc": "Gets the ASCII numeric code from a string character.",
         "args": {
           "FirstChar": "Can be any length string,- but only the first character is evaluated."
         },
@@ -628,7 +628,7 @@
             "NUMBER"
           ],
           "optional": false,
-          "notes": "The numeric index of the character to begin the search at",
+          "notes": "The numeric index of the character to begin the search.",
           "id": "StartingFrom"
         },
         {
@@ -636,7 +636,7 @@
             "STRING"
           ],
           "optional": false,
-          "notes": "The base string to be searched",
+          "notes": "The base string to be searched.",
           "id": "SearchIn"
         },
         {
@@ -644,7 +644,7 @@
             "STRING"
           ],
           "optional": false,
-          "notes": "The value string to be located",
+          "notes": "The value string to be located.",
           "id": "SearchFor"
         },
         {
@@ -652,17 +652,17 @@
             "BOOLEAN"
           ],
           "optional": true,
-          "notes": "Optional and defaults to FALSE. If provided as TRUE, then \"CaSe SeNsItIvE\" would not match \"Case Sensitive\"",
+          "notes": "Optional and defaults to FALSE. If provided as TRUE, then \"CaSe SeNsItIvE\" would not match \"Case Sensitive\".",
           "id": "IsCaseSensitive"
         }
       ],
       "info": {
         "desc": "Extracts the first index location of a string if completely found within another string.",
         "args": {
-          "StartingFrom": "The numeric index of the character to begin the search at",
-          "SearchIn": "The base string to be searched",
-          "SearchFor": "The value string to be located",
-          "IsCaseSensitive": "Optional and defaults to FALSE. If provided as TRUE, then \"CaSe SeNsItIvE\" would not match \"Case Sensitive\""
+          "StartingFrom": "The numeric index of the character to begin the search.",
+          "SearchIn": "The base string to be searched.",
+          "SearchFor": "The value string to be located.",
+          "IsCaseSensitive": "Optional and defaults to FALSE. If provided as TRUE, then \"CaSe SeNsItIvE\" would not match \"Case Sensitive\"."
         },
         "returns": "A Number representing the first occurrence the SearchFor value was found in the SearchIn string or 0 if not found.",
         "remarks": "The StartingFrom argument and the subsequent return values are a 1-Based index: 1 = first character, 2 = second character, etc."
@@ -692,7 +692,7 @@
         }
       ],
       "info": {
-        "desc": "Get a Sub String from the start of text String which is the specified number of characters in length.",
+        "desc": "Get a SubString from the start of text String which is the specified number of characters in length.",
         "args": {
           "TextString": "The text String to extract a SubString from.",
           "Length": "A number representing the length of the SubString desired."
@@ -716,7 +716,7 @@
         }
       ],
       "info": {
-        "desc": "Get length of String.",
+        "desc": "Get the length of String.",
         "args": {
           "TextString": "A String to find the length of."
         },
@@ -739,7 +739,7 @@
         }
       ],
       "info": {
-        "desc": "Convert text String to all lower case.",
+        "desc": "Convert a text String to all lower case.",
         "args": {
           "TextString": "A String to convert to lower case."
         },
@@ -762,7 +762,7 @@
         }
       ],
       "info": {
-        "desc": "Get text String with any leading spaces removed.",
+        "desc": "Get a text String with any leading spaces removed.",
         "args": {
           "TextString": "A String to trim leading spaces from (if any)."
         },
@@ -801,14 +801,14 @@
         }
       ],
       "info": {
-        "desc": "Get Sub String from the middle of another string by specifying the start position and length.",
+        "desc": "Get a SubString from the middle of another string by specifying the start position and length.",
         "args": {
           "SearchString": "The text String to extract a SubString from.",
-          "StartingFrom": "A Number (1-based index) for the starting character position to get the substring from.",
+          "StartingFrom": "A Number (1-based index) for the starting character position to get the SubString from.",
           "Length": "A number representing the length of the SubString desired."
         },
         "returns": "A String the specified length starting from the specified character position.",
-        "remarks": "The StartingFrom argumentis a 1-Based index: 1 = first character, 2 = second character, etc.\r\nSimilar to SubString() except you specify a starting position and length."
+        "remarks": "The StartingFrom argument is a 1-Based index: 1 = first character, 2 = second character, etc.\r\nSimilar to SubString() except you specify a starting position and length."
       },
       "id": "Mid"
     },
@@ -835,7 +835,7 @@
         }
       ],
       "info": {
-        "desc": "Get a Sub String from the end of text String which is the specified number of characters in length.",
+        "desc": "Get a SubString from the end of a text String which is the specified number of characters in length.",
         "args": {
           "TextString": "The text String to extract a SubString from.",
           "Length": "A number representing the length of the SubString desired."
@@ -859,7 +859,7 @@
         }
       ],
       "info": {
-        "desc": "Get text String with and trailing spaces removed.",
+        "desc": "Get a text String with any trailing spaces removed.",
         "args": {
           "TextString": "A String to trim trailing spaces from (if any)."
         },
@@ -885,7 +885,7 @@
             "NUMBER"
           ],
           "optional": false,
-          "notes": "A Number (1-based index) for the starting character position to get the substring from.",
+          "notes": "A Number (1-based index) for the starting character position to get the SubString from.",
           "id": "StartingFrom"
         },
         {
@@ -898,10 +898,10 @@
         }
       ],
       "info": {
-        "desc": "Get a Sub String, starting and ending at specified indexes.",
+        "desc": "Get a SubString, starting and ending at specified index positions.",
         "args": {
           "TextString": "The text String to extract a SubString from.",
-          "StartingFrom": "A Number (1-based index) for the starting character position to get the substring from.",
+          "StartingFrom": "A Number (1-based index) for the starting character position to get the SubString from.",
           "EndingAt": "A number (1-based index) for the ending character position to get the substrinbg from."
         },
         "returns": "A String the specified length starting from the specified character position.",
@@ -919,14 +919,14 @@
             "STRING"
           ],
           "optional": false,
-          "notes": "A String to trim leadibng and trailing spaces from (if any).",
+          "notes": "A String to trim leading and trailing spaces from (if any).",
           "id": "TextString"
         }
       ],
       "info": {
-        "desc": "Get text String with any leading and trailing spaces.",
+        "desc": "Get a text String with any leading and trailing spaces.",
         "args": {
-          "TextString": "A String to trim leadibng and trailing spaces from (if any)."
+          "TextString": "A String to trim leading and trailing spaces from (if any)."
         },
         "returns": "A String with any leading and trailing spaces removed."
       },
@@ -947,7 +947,7 @@
         }
       ],
       "info": {
-        "desc": "Convert text String to all upper case.",
+        "desc": "Convert a text String to all upper case.",
         "args": {
           "TextString": "A String to convert to upper case."
         },
@@ -978,7 +978,7 @@
         }
       ],
       "info": {
-        "desc": "Test if text String contains wildcard string.",
+        "desc": "Test if text String matches a wildcard string.",
         "args": {
           "SearchString": "A String to text against a wildcard match.",
           "WildcardString": "A Wildcard String to match against."
@@ -1007,7 +1007,7 @@
           "MessageText": "A String Label to display in the dialog title bar."
         },
         "returns": "Nothing",
-        "remarks": "This can be called with and without parenthesis"
+        "remarks": "This can be called with 'DEBUG()' and without 'DEBUG' parenthesis."
       },
       "id": "Debug"
     },
@@ -1021,7 +1021,7 @@
             "STRING"
           ],
           "optional": false,
-          "notes": "String represnting fill path and name of EXE, Document or Link.",
+          "notes": "String represnting full path and name of EXE, Document or Link.",
           "id": "FullFilePath"
         },
         {
@@ -1029,7 +1029,7 @@
             "EXECFLAG"
           ],
           "optional": false,
-          "notes": "Number (ENUM) to configure how to display external application.",
+          "notes": "Number (ENUM) to configure how to display the external application.",
           "id": "ShowFlags"
         },
         {
@@ -1050,10 +1050,10 @@
         }
       ],
       "info": {
-        "desc": "Execute an external Application, Document or Link",
+        "desc": "Execute an external Application, Document or Link.",
         "args": {
-          "FullFilePath": "String represnting fill path and name of EXE, Document or Link.",
-          "ShowFlags": "Number (ENUM) to configure how to display external application.",
+          "FullFilePath": "String represnting full path and name of EXE, Document or Link.",
+          "ShowFlags": "Number (ENUM) to configure how to display the external application.",
           "AppParams": "String paramaters to pass to the external application.",
           "AppWorkingDir": "String full path to the working directory for the external application."
         }
@@ -1098,7 +1098,7 @@
           "DefaultText": "A String to use as default Text in the Editbox."
         },
         "returns": "Text String as entered by the user.",
-        "remarks": "Message box provides an OK and CANCEL button for the user to accept or dismiss the dialog and\r\nuser entered data. Clicking CANCEL will return an empty string."
+        "remarks": "Message box provides an 'OK' and 'CANCEL' button for the user to accept or dismiss the dialog and\r\nuser entered data. Clicking 'CANCEL' will return an empty string."
       },
       "id": "InputBox"
     },
@@ -1117,7 +1117,7 @@
         }
       ],
       "info": {
-        "desc": "Display a simple dialog for the user to select \"YES\" or \"NO\".",
+        "desc": "Display a simple dialog for the user to select 'YES' or 'NO'.",
         "args": {
           "PromptText": "A String message instructing the user what to enter."
         },
@@ -1135,14 +1135,14 @@
             "ANY"
           ],
           "optional": false,
-          "notes": "Accepts just about any 1 item",
+          "notes": "Accepts just about any 1 item.",
           "id": "Input"
         }
       ],
       "info": {
-        "desc": "Dispalys to the User, a customer error message as desired by your code.",
+        "desc": "Dispalys to the User, a custom error message as desired by your code.",
         "args": {
-          "Input": "Accepts just about any 1 item"
+          "Input": "Accepts just about any 1 item."
         },
         "returns": "Nothing"
       },
@@ -1395,10 +1395,21 @@
       "properties": [
         {
           "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get the Airturn Group for the AIRTURN Object.",
+            "readonly": true,
+            "remarks": "Airturn Group prpoerty available only in 2022 and later versions of Autodesk Fabrication."
+          },
+          "id": "Group"
+        },
+        {
+          "returns": [
             "BOOLEAN"
           ],
           "info": {
-            "desc": "Get/Set Lock Status of the AIRTURN Object."
+            "desc": "Get/Set the Lock Status of the AIRTURN Object."
           },
           "id": "Locked"
         },
@@ -1408,7 +1419,7 @@
           ],
           "info": {
             "desc": "Get/Set the Name of the AIRTURN Object.",
-            "remarks": "Group of the Airturn is not given and can not be specified."
+            "remarks": "Only Airturn Name is given. Airturn Group is not given as part of the value.\r\nAirturn can be set using either an Index or Name."
           },
           "id": "Value"
         }
@@ -1424,7 +1435,7 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set Alternatge Code of the CONNECTOR Object.",
+            "desc": "Get/Set the Alternate Code of the CONNECTOR Object.",
             "remarks": "Alternate Code is used for enforcing Alternate Connector values using the Specifications."
           },
           "id": "Alt"
@@ -1454,7 +1465,7 @@
           ],
           "info": {
             "desc": "Get/Set the Connector Material of the CONNECTOR Object.",
-            "remarks": "Property only exists on Pattern Numbers 522, 1522 and 2522 (coupling patterns) to allow for\r\ntransitions to alternate material types. When set to \"None\", scripts return the value of \"Error\" however\r\nthe value can be set to \"None\" using Item.Connector[index].Material = \"None\".\r\nIf duct coupling pattern 522 is Doublewall, an Error will also result for the Skin Connector Material.\r\nSkin Connector Material property can not be set via UI but can be reset via code using\r\nItem.SkinConnector[index].Material = \"None\""
+            "remarks": "Property only exists on Pattern Numbers 522, 1522 and 2522 (coupling patterns) to allow for\r\ntransitions to alternate material types. When set to \"None\", scripts return the value of \"Error\" however\r\nthe value can be set to \"None\" using Item.Connector[index].Material = \"None\".\r\nIf duct coupling pattern 522 is Doublewall, an Error will also result for the Skin Connector Material.\r\nSkin Connector Material property can not be set via UI but can be reset via code using\r\nItem.SkinConnector[index].Material = \"None\"."
           },
           "id": "Material"
         },
@@ -1518,7 +1529,7 @@
             "BOOLEAN"
           ],
           "info": {
-            "desc": "Get/Set Lock Status of the DAMPER Object."
+            "desc": "Get/Set the Lock Status of the DAMPER Object."
           },
           "id": "Locked"
         },
@@ -1583,7 +1594,7 @@
             "NUMBER"
           ],
           "info": {
-            "desc": "Get the Previous Version of the DBLOCKHISTORY Object",
+            "desc": "Get the Previous Version of the DBLOCKHISTORY Object.",
             "readonly": true
           },
           "id": "Version"
@@ -1609,7 +1620,7 @@
             }
           ],
           "info": {
-            "desc": "Indicates if the Items's current Owner allows access to History/Versioning.",
+            "desc": "Indicates if the Item's current Owner allows access to History/Versioning.",
             "args": {
               "LockType": "Enum/Number for access type to check."
             }
@@ -1626,7 +1637,7 @@
                 "STRING"
               ],
               "optional": false,
-              "notes": "String representing new owner.",
+              "notes": "String representing the new owner.",
               "id": "NewOwner"
             },
             {
@@ -1641,7 +1652,7 @@
           "info": {
             "desc": "Changes the current owner.",
             "args": {
-              "NewOwner": "String representing new owner.",
+              "NewOwner": "String representing the new owner.",
               "Reason": "String description of the reason for the change."
             },
             "returns": "Boolean Flag is successful or not.",
@@ -1659,7 +1670,7 @@
                 "NUMBER"
               ],
               "optional": false,
-              "notes": "Number representing new version.",
+              "notes": "Number representing the new version.",
               "id": "NewVersion"
             },
             {
@@ -1674,7 +1685,7 @@
           "info": {
             "desc": "Changes the current version.",
             "args": {
-              "NewVersion": "Number representing new version.",
+              "NewVersion": "Number representing the new version.",
               "Reason": "String description of the reason for the change."
             },
             "remarks": "Only returns TRUE if allowed to change an change is different than current version."
@@ -1698,7 +1709,7 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get the Previous Owner of DBLOCKINFO Object.",
+            "desc": "Get the Previous Owner of the DBLOCKINFO Object.",
             "readonly": true
           },
           "id": "Owner"
@@ -1826,7 +1837,7 @@
           "info": {
             "desc": "Get the Status of the Dimension of the DIM Object.",
             "readonly": true,
-            "remarks": "Status values are \"Input\", \"Display\", \"Not Used\" or \"Fixed\""
+            "remarks": "Status values are \"Input\", \"Display\", \"Not Used\" or \"Fixed\"."
           },
           "id": "Status"
         },
@@ -1856,6 +1867,15 @@
             "remarks": "Facing Name only is given. Facing Group is not given as part of the value."
           },
           "id": "Facing"
+        },
+        {
+          "returns": [
+            "BOOLEAN"
+          ],
+          "info": {
+            "desc": "Get/Set the Lock Status of the Facing property of the INSULATION Object."
+          },
+          "id": "FacingLock"
         },
         {
           "returns": [
@@ -1901,7 +1921,8 @@
             "BOOLEAN"
           ],
           "info": {
-            "desc": "Get/Set the Lock Status for the Status property of the INSULATION Object."
+            "desc": "Get/Set the Lock Status for the Status property of the INSULATION Object.",
+            "remarks": "Appears to not be functional in many (newer) versions of Autodesk Fabrication."
           },
           "id": "StatusLock"
         }
@@ -1982,7 +2003,7 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set generic utility field #1 of JOB Object.",
+            "desc": "Get/Set the generic utility field #1 of JOB Object.",
             "remarks": "Field can be used for any user defined purpose."
           },
           "id": "Field1"
@@ -1992,7 +2013,7 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set generic utility field #2 of JOB Object.",
+            "desc": "Get/Set the generic utility field #2 of JOB Object.",
             "remarks": "Field can be used for any user defined purpose."
           },
           "id": "Field2"
@@ -2087,7 +2108,7 @@
             "BOOLEAN"
           ],
           "info": {
-            "desc": "Get Status Active flag of the JOBSTATUS Object.",
+            "desc": "Get the Status Active flag of the JOBSTATUS Object.",
             "readonly": true
           },
           "id": "Active"
@@ -2097,7 +2118,7 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get Date status was last activated in short-date string format of the JOBSTATUS Object.",
+            "desc": "Get the Date status was last activated in short-date string format of the JOBSTATUS Object.",
             "readonly": true
           },
           "id": "LastActivated"
@@ -2205,8 +2226,8 @@
           ],
           "args": [],
           "info": {
-            "desc": "Adds 'ALIAS' Column to Product List",
-            "returns": "Boolean flag indicating if adding column was sucessful or not."
+            "desc": "Adds the 'ALIAS' Column to Product List.",
+            "returns": "Boolean flag indicating if adding column was successful or not."
           },
           "id": "AddAlias"
         },
@@ -2216,8 +2237,8 @@
           ],
           "args": [],
           "info": {
-            "desc": "Adds 'AREA' Column to Product List",
-            "returns": "Boolean flag indicating if adding column was sucessful or not."
+            "desc": "Adds the 'AREA' Column to Product List.",
+            "returns": "Boolean flag indicating if adding column was successful or not."
           },
           "id": "AddArea"
         },
@@ -2227,8 +2248,8 @@
           ],
           "args": [],
           "info": {
-            "desc": "Adds 'BOUGHTOUT' Column to Product List",
-            "returns": "Boolean flag indicating if adding column was sucessful or not."
+            "desc": "Adds the 'BOUGHTOUT' Column to Product List.",
+            "returns": "Boolean flag indicating if adding column was successful or not."
           },
           "id": "AddBoughtOut"
         },
@@ -2238,8 +2259,8 @@
           ],
           "args": [],
           "info": {
-            "desc": "Adds 'CADBLOCK' Column to Product List",
-            "returns": "Boolean flag indicating if adding column was sucessful or not."
+            "desc": "Adds the 'CADBLOCK' Column to Product List.",
+            "returns": "Boolean flag indicating if adding column was successful or not."
           },
           "id": "AddCADBlock"
         },
@@ -2258,11 +2279,11 @@
             }
           ],
           "info": {
-            "desc": "Adds 'CUSTOMDATA[<dataname>]' Column to Product List",
+            "desc": "Adds the 'CUSTOMDATA[<dataname>]' Column to Product List.",
             "args": {
               "CustomDataName": "Text Name of Custom Data field to add."
             },
-            "returns": "Boolean flag indicating if adding column was sucessful or not."
+            "returns": "Boolean flag indicating if adding column was successful or not."
           },
           "id": "AddCustomData"
         },
@@ -2272,8 +2293,8 @@
           ],
           "args": [],
           "info": {
-            "desc": "Adds 'ID' Column to Product List",
-            "returns": "Boolean flag indicating if adding column was sucessful or not."
+            "desc": "Adds the 'ID' Column to Product List.",
+            "returns": "Boolean flag indicating if adding column was successful or not."
           },
           "id": "AddDatabaseID"
         },
@@ -2292,11 +2313,11 @@
             }
           ],
           "info": {
-            "desc": "Adds 'DIM' Column(s) to Product List",
+            "desc": "Adds the 'DIM' Column(s) to Product List.",
             "args": {
               "DimName": "Optional Upper Case Name of Dimension to add."
             },
-            "returns": "Boolean flag indicating if adding column was sucessful or not.",
+            "returns": "Boolean flag indicating if adding column was successful or not.",
             "remarks": "Function is very buggy. Repeated calls with improper syntax will cause\r\npredictability of this function to be sporatic at best. Repeated calls without\r\nspecifying the dimension name to add sequentially adds the next dimension\r\nas they are listed in the pattern."
           },
           "id": "AddDim"
@@ -2307,8 +2328,8 @@
           ],
           "args": [],
           "info": {
-            "desc": "Adds 'FLOWMIN' and 'FLOWMAX' Columns to Product List",
-            "returns": "Boolean flag indicating if adding columns was sucessful or not."
+            "desc": "Adds the 'FLOWMIN' and 'FLOWMAX' Columns to Product List.",
+            "returns": "Boolean flag indicating if adding columns was successful or not."
           },
           "id": "AddFlow"
         },
@@ -2327,11 +2348,11 @@
             }
           ],
           "info": {
-            "desc": "Adds 'OPTION' Column(s) to Product List",
+            "desc": "Adds the 'OPTION' Column(s) to Product List.",
             "args": {
               "OptionName": "Optional Upper Case Name of Option to add."
             },
-            "returns": "Boolean flag indicating if adding column was sucessful or not.",
+            "returns": "Boolean flag indicating if adding column was successful or not.",
             "remarks": "Function is very buggy. Repeated calls with improper syntax will cause\r\npredictability of this function to be sporatic at best. Repeated calls without\r\nspecifying the dimension name to add sequentially adds the next dimension\r\nas they are listed in the pattern."
           },
           "id": "AddOption"
@@ -2342,8 +2363,8 @@
           ],
           "args": [],
           "info": {
-            "desc": "Adds 'ORDER' Column to Product List",
-            "returns": "Boolean flag indicating if adding columns was sucessful or not."
+            "desc": "Adds the 'ORDER' Column to Product List.",
+            "returns": "Boolean flag indicating if adding columns was successful or not."
           },
           "id": "AddOrder"
         },
@@ -2353,8 +2374,8 @@
           ],
           "args": [],
           "info": {
-            "desc": "Adds 'WEIGHT' Column to Product List",
-            "returns": "Boolean flag indicating if adding columns was sucessful or not."
+            "desc": "Adds the 'WEIGHT' Column to Product List.",
+            "returns": "Boolean flag indicating if adding columns was successful or not."
           },
           "id": "AddWeight"
         },
@@ -2364,8 +2385,8 @@
           ],
           "args": [],
           "info": {
-            "desc": "Removes 'ALIAS' Column from Product List",
-            "returns": "Boolean flag indicating if removing column was sucessful or not."
+            "desc": "Removes the 'ALIAS' Column from the Product List.",
+            "returns": "Boolean flag indicating if removing column was successful or not."
           },
           "id": "RemoveAlias"
         },
@@ -2375,8 +2396,8 @@
           ],
           "args": [],
           "info": {
-            "desc": "Removes 'AREA' Column from Product List",
-            "returns": "Boolean flag indicating if removing column was sucessful or not."
+            "desc": "Removes the 'AREA' Column from the Product List.",
+            "returns": "Boolean flag indicating if removing column was successful or not."
           },
           "id": "RemoveArea"
         },
@@ -2386,8 +2407,8 @@
           ],
           "args": [],
           "info": {
-            "desc": "Removes 'BOUGHTOUT' Column from Product List",
-            "returns": "Boolean flag indicating if removing column was sucessful or not."
+            "desc": "Removes the 'BOUGHTOUT' Column from the Product List.",
+            "returns": "Boolean flag indicating if removing column was successful or not."
           },
           "id": "RemoveBoughtOut"
         },
@@ -2397,8 +2418,8 @@
           ],
           "args": [],
           "info": {
-            "desc": "Removes 'CADBLOCK' Column from Product List",
-            "returns": "Boolean flag indicating if removing column was sucessful or not."
+            "desc": "Removes the 'CADBLOCK' Column from the Product List.",
+            "returns": "Boolean flag indicating if removing column was successful or not."
           },
           "id": "RemoveCADBlock"
         },
@@ -2417,11 +2438,11 @@
             }
           ],
           "info": {
-            "desc": "Removes 'CUSTOMDATA[<dataname>]' Column from Product List",
+            "desc": "Removes the 'CUSTOMDATA[<dataname>]' Column from the Product List.",
             "args": {
               "CustomDataName": "Text Name of Custom Data field to remove."
             },
-            "returns": "Boolean flag indicating if removing column was sucessful or not."
+            "returns": "Boolean flag indicating if removing column was successful or not."
           },
           "id": "RemoveCustomData"
         },
@@ -2431,8 +2452,8 @@
           ],
           "args": [],
           "info": {
-            "desc": "Removes 'ID' Column from Product List",
-            "returns": "Boolean flag indicating if removing column was sucessful or not."
+            "desc": "Removes the 'ID' Column from the Product List.",
+            "returns": "Boolean flag indicating if removing column was successful or not."
           },
           "id": "RemoveDatabaseID"
         },
@@ -2451,11 +2472,11 @@
             }
           ],
           "info": {
-            "desc": "Removes 'DIM' Column(s) from Product List",
+            "desc": "Removes the 'DIM' Column(s) from the Product List.",
             "args": {
               "DimIndex": "Zero based index of Dimension column to remove."
             },
-            "returns": "Boolean flag indicating if removing column was sucessful or not.",
+            "returns": "Boolean flag indicating if removing column was successful or not.",
             "remarks": "Function is very buggy. Repeated calls with improper syntax will cause\r\npredictability of this function to be sporatic at best. Calls without\r\nspecifying the Dimension index appear to do nothing."
           },
           "id": "RemoveDim"
@@ -2466,8 +2487,8 @@
           ],
           "args": [],
           "info": {
-            "desc": "Removes 'FLOWMIN' and 'FLOWMAX' Columns from Product List",
-            "returns": "Boolean flag indicating if removing columns was sucessful or not."
+            "desc": "Removes the 'FLOWMIN' and 'FLOWMAX' Columns from the Product List.",
+            "returns": "Boolean flag indicating if removing columns was successful or not."
           },
           "id": "RemoveFlow"
         },
@@ -2486,11 +2507,11 @@
             }
           ],
           "info": {
-            "desc": "Removes 'OPTION' Column(s) from Product List",
+            "desc": "Removes the 'OPTION' Column(s) from the Product List.",
             "args": {
               "OptionIndex": "Zero based index of Option column to remove."
             },
-            "returns": "Boolean flag indicating if removing column was sucessful or not.",
+            "returns": "Boolean flag indicating if removing column was successful or not.",
             "remarks": "Function is very buggy. Repeated calls with improper syntax will cause\r\npredictability of this function to be sporatic at best. Calls without\r\nspecifying the Option index appear to do nothing."
           },
           "id": "RemoveOption"
@@ -2501,8 +2522,8 @@
           ],
           "args": [],
           "info": {
-            "desc": "Removes 'ORDER' Column from Product List",
-            "returns": "Boolean flag indicating if removing column was sucessful or not."
+            "desc": "Removes the 'ORDER' Column from the Product List.",
+            "returns": "Boolean flag indicating if removing column was successful or not."
           },
           "id": "RemoveOrder"
         },
@@ -2512,8 +2533,8 @@
           ],
           "args": [],
           "info": {
-            "desc": "REmoves 'WEIGHT' Column from Product List",
-            "returns": "Boolean flag indicating if removing column was sucessful or not."
+            "desc": "REmoves the 'WEIGHT' Column from the Product List.",
+            "returns": "Boolean flag indicating if removing column was successful or not."
           },
           "id": "RemoveWeight"
         }
@@ -2645,7 +2666,7 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the SKey property of the PRUDUCTENTRY Object.",
+            "desc": "Get/Set the SKey property of the PRODUCTENTRY Object.",
             "remarks": "Available in Fabrication 2018.2 versions and later."
           },
           "id": "SKey"
@@ -2671,7 +2692,7 @@
             "NUMBER"
           ],
           "info": {
-            "desc": "Get the Number of Product List Entries of the PRODUCTINFO Object.",
+            "desc": "Gets the Number of Product List Entries of the PRODUCTINFO Object.",
             "readonly": true
           },
           "id": "Entries"
@@ -2690,7 +2711,7 @@
             "BOOLEAN"
           ],
           "info": {
-            "desc": "Get the HasAlias flag of the PRODUCTINFO Object.",
+            "desc": "Gets the HasAlias flag of the PRODUCTINFO Object.",
             "readonly": true,
             "remarks": "Flag indicates if the Product List contains an Alias column as part of its data."
           },
@@ -2701,7 +2722,7 @@
             "BOOLEAN"
           ],
           "info": {
-            "desc": "Get the HasArea Flag of the PRODUCTINFO Object.",
+            "desc": "Gets the HasArea Flag of the PRODUCTINFO Object.",
             "readonly": true,
             "remarks": "Flag indicates if the Product List contains an Area column as part of its data."
           },
@@ -2712,7 +2733,7 @@
             "BOOLEAN"
           ],
           "info": {
-            "desc": "Get the HasBoughtOut Flag of the PRODUCTINFO Object.",
+            "desc": "Gets the HasBoughtOut Flag of the PRODUCTINFO Object.",
             "readonly": true,
             "remarks": "Flag indicates if the Product List contains a BoughtOut column as part of its data."
           },
@@ -2723,7 +2744,7 @@
             "BOOLEAN"
           ],
           "info": {
-            "desc": "Get the HasCadBlock Flag of the PRODUCTINFO Object.",
+            "desc": "Gets the HasCadBlock Flag of the PRODUCTINFO Object.",
             "readonly": true,
             "remarks": "Flag indicates if the Product List contains a CAD Block column as part of its data."
           },
@@ -2734,7 +2755,7 @@
             "BOOLEAN"
           ],
           "info": {
-            "desc": "Get the HasCustomData Flag of the PRODUCTINFO Object.",
+            "desc": "Gets the HasCustomData Flag of the PRODUCTINFO Object.",
             "readonly": true,
             "remarks": "Flag indicates if the Product List contains any Custom Data columns as part of its data."
           },
@@ -2745,7 +2766,7 @@
             "NUMBER"
           ],
           "info": {
-            "desc": "Get the number of Custom Data columns of the PRODUCTINFO Object.",
+            "desc": "Gets the number of Custom Data columns of the PRODUCTINFO Object.",
             "readonly": true,
             "remarks": "Number indicates the number of custom data columns in the Product List."
           },
@@ -2756,7 +2777,7 @@
             "BOOLEAN"
           ],
           "info": {
-            "desc": "Get the HasDatabaseID Flag of the PRODUCTINFO Object.",
+            "desc": "Gets the HasDatabaseID Flag of the PRODUCTINFO Object.",
             "readonly": true,
             "remarks": "Flag indicates if the Product List contains a Database ID column as part of its data."
           },
@@ -2767,7 +2788,7 @@
             "NUMBER"
           ],
           "info": {
-            "desc": "Get the number of DIM columns of the PRODUCTINFO Object.",
+            "desc": "Gets the number of DIM columns of the PRODUCTINFO Object.",
             "readonly": true,
             "remarks": "Number indicates the number of Dimension columns in the Product List."
           },
@@ -2778,7 +2799,7 @@
             "BOOLEAN"
           ],
           "info": {
-            "desc": "Get the HasFlow Flag of the PRODUCTINFO Object.",
+            "desc": "Gets the HasFlow Flag of the PRODUCTINFO Object.",
             "readonly": true,
             "remarks": "Flag indicates if the Product List contains the Min & Max Flow columns as part of its data."
           },
@@ -2789,7 +2810,7 @@
             "NUMBER"
           ],
           "info": {
-            "desc": "Get the number of OPTION columns of the PRODUCTINFO Object.",
+            "desc": "Gets the number of OPTION columns of the PRODUCTINFO Object.",
             "readonly": true,
             "remarks": "Number indicates the number of Option columns in the Product List."
           },
@@ -2800,7 +2821,7 @@
             "BOOLEAN"
           ],
           "info": {
-            "desc": "Get the HasOrder Flag of the PRODUCTINFO Object.",
+            "desc": "Gets the HasOrder Flag of the PRODUCTINFO Object.",
             "readonly": true,
             "remarks": "Flag indicates if the Product List contains the Order column as part of its data."
           },
@@ -2811,7 +2832,7 @@
             "BOOLEAN"
           ],
           "info": {
-            "desc": "Get the HasSKey Flag of the PRODUCTINFO Object.",
+            "desc": "Gets the HasSKey Flag of the PRODUCTINFO Object.",
             "readonly": true,
             "remarks": "Flag indicates if the Product List contains the SKey column as part of its data.\r\nAvailable in Fabrication 2018.2 versions and later."
           },
@@ -2822,7 +2843,7 @@
             "BOOLEAN"
           ],
           "info": {
-            "desc": "Get the HasWeight Flag of the PRODUCTINFO Object.",
+            "desc": "Gets the HasWeight Flag of the PRODUCTINFO Object.",
             "readonly": true,
             "remarks": "Flag indicates if the Product List contains the Weight column as part of its data."
           },
@@ -2833,7 +2854,7 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get the Revision property of the PRODUCTINFO Object.",
+            "desc": "Gets the Revision property of the PRODUCTINFO Object.",
             "readonly": true
           },
           "id": "Revision"
@@ -2875,7 +2896,7 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set Alternatge Code of the SEAM Object.",
+            "desc": "Get/Set the Alternatge Code of the SEAM Object.",
             "remarks": "Alternate Code is used for enforcing Alternate Seam values using the Specifications."
           },
           "id": "Alt"
@@ -2887,7 +2908,7 @@
           "info": {
             "desc": "Get the Seam Group for the SEAM Object.",
             "readonly": true,
-            "remarks": "Seam Group prpoerty available onlyt in 2022 and later versions of Autodesk Fabrication."
+            "remarks": "Seam Group propoerty is available only in 2022 and later versions of Autodesk Fabrication."
           },
           "id": "Group"
         },
@@ -2906,7 +2927,7 @@
           ],
           "info": {
             "desc": "Get/Set the Seam Name value of the SEAM Object.",
-            "remarks": "Seam Group is not returned. There is no known way to retrieve the Group of the Seam.\r\nSeam can be set using either an Index or Name."
+            "remarks": "Only Seam Name is given. Seam Group is not given as part of the value.\r\nSeam can be set using either an Index or Name."
           },
           "id": "Value"
         }
@@ -2922,8 +2943,19 @@
             "STRING"
           ],
           "info": {
+            "desc": "Get the Splitter Group for the SPLITTER Object.",
+            "readonly": true,
+            "remarks": "Splitter Group propoerty is available only in 2022 and later versions of Autodesk Fabrication."
+          },
+          "id": "Group"
+        },
+        {
+          "returns": [
+            "STRING"
+          ],
+          "info": {
             "desc": "Get/Set the Splitter Name of the ITEM Object.",
-            "remarks": "Splitter Name only is given. Splitter Group is not given as part of the value.\r\nSplitter can be set using the 'Name' or 'Index'."
+            "remarks": "Only Splitter Name is given. Splitter Group is not given as part of the value.\r\nSplitter can be set using the 'Name' or 'Index'."
           },
           "id": "Value"
         },
@@ -2948,7 +2980,7 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get the Date and Time Stamp of the STATUS Object",
+            "desc": "Get the Date and Time Stamp of the STATUS Object.",
             "readonly": true,
             "remarks": "Date and Time Stamp reflect the Date and Time when the Status changed.\r\nA value of 'Default' is the first (unchanged) Status."
           },
@@ -2992,6 +3024,17 @@
     "STIFFENER": {
       "methods": [],
       "properties": [
+        {
+          "returns": [
+            "STRING"
+          ],
+          "info": {
+            "desc": "Get the Stiffener Group for the STIFFENER Object.",
+            "readonly": true,
+            "remarks": "Stiffener Group propoerty is available only in 2022 and later versions of Autodesk Fabrication."
+          },
+          "id": "Group"
+        },
         {
           "returns": [
             "BOOLEAN"
@@ -3108,14 +3151,14 @@
               "NUMBER"
             ],
             "optional": true,
-            "notes": "Optional Number of items to initialize Array Object to hold.",
+            "notes": "Optional Number of items to initialize the Array Object to hold.",
             "id": "NumberOfItems"
           }
         ],
         "info": {
-          "desc": "Constructs an Array Object",
+          "desc": "Constructs an Array Object.",
           "args": {
-            "NumberOfItems": "Optional Number of items to initialize Array Object to hold."
+            "NumberOfItems": "Optional Number of items to initialize the Array Object to hold."
           },
           "returns": "Nothing.",
           "remarks": "Constructs an Array object with the number of inital elements as specified. Each element's\r\nvalue will be NULL/False.\r\nIf optional NumberOfItems is not specifcied, a default value of 0 (zero) is used."
@@ -3188,15 +3231,15 @@
                 "NUMBER"
               ],
               "optional": true,
-              "notes": "",
+              "notes": "Optional Index position to insert data into.",
               "id": "ArrayIndex"
             }
           ],
           "info": {
-            "desc": "Inserts a piece of data into an Array at specified index.",
+            "desc": "Inserts a piece of data into an Array at the specified index.",
             "args": {
               "ArrayData": "Any type of data to insert into an array.",
-              "ArrayIndex?": "Optional Index position to insert data into."
+              "ArrayIndex": "Optional Index position to insert data into."
             },
             "remarks": "When inserting data into an Array at a sepecific index, the previous data and all other\r\ndownstream data are shifed down in the index chain.\r\nDefault when ArrayIndex is missing is to insert at the end of the array."
           },
@@ -3210,7 +3253,7 @@
           ],
           "info": {
             "desc": "Get/Set the Number of elements in the array of the ARRAY Object.",
-            "remarks": "If changed, new elements are set to NULL/False"
+            "remarks": "If changed, new elements are set to NULL/False."
           },
           "id": "Count"
         }
@@ -3229,7 +3272,7 @@
               "STRING"
             ],
             "optional": true,
-            "notes": "Optional String Name of file to open.",
+            "notes": "Optional String Name of the file to open.",
             "id": "FileName"
           },
           {
@@ -3237,15 +3280,15 @@
               "FILEMODE"
             ],
             "optional": true,
-            "notes": "Optional Mode(s) for file open.",
+            "notes": "Optional Mode(s) for the file open.",
             "id": "AccessMode"
           }
         ],
         "info": {
-          "desc": "Constructs a File Object",
+          "desc": "Constructs a File Object.",
           "args": {
-            "FileName": "Optional String Name of file to open.",
-            "AccessMode": "Optional Mode(s) for file open."
+            "FileName": "Optional String Name of the file to open.",
+            "AccessMode": "Optional Mode(s) for the file open."
           },
           "returns": "Nothing",
           "remarks": "If optional parameters are not specified when constructing the FILE Object,\r\nuse the FILE.Open method to specify them."
@@ -3260,7 +3303,7 @@
           "args": [],
           "info": {
             "desc": "Closes an open File.",
-            "returns": "Boolean Flag indicating if file closure was sucessful or not.",
+            "returns": "Boolean Flag indicating if file closure was successful or not.",
             "remarks": "Any open file needs to be closed before any other application can access it in Read/Write mode."
           },
           "id": "Close"
@@ -3364,7 +3407,7 @@
           "info": {
             "desc": "Read a line of text (minsus CR/LF) from a text file.",
             "returns": "String read from file.",
-            "remarks": "File must be opened as text (Unicode or ANSI)\r\nEach call reads up into the next CR (Carriage Return), LF (Line Feed) or EOF (End of File) marker.\r\nReturned String does not contain CR/LR or EOF characters."
+            "remarks": "File must be opened as text (Unicode or ANSI).\r\nEach call reads up into the next CR (Carriage Return), LF (Line Feed) or EOF (End of File) marker.\r\nReturned String does not contain CR/LR or EOF characters."
           },
           "id": "ReadLine"
         },
@@ -3575,7 +3618,7 @@
               "AppendCR": "Optional Boolean Flag to automatically append a CR+LF to and of line."
             },
             "returns": "Boolead Flag indicating if write was successful or not.",
-            "remarks": "Of optional AppendCR paramater missing, True is default and will automatically append\r\na Carrage Return (CR) and Line Feed (LR) character to the end of the specified string."
+            "remarks": "If optional AppendCR paramater missing, True is default and will automatically append\r\na Carrage Return (CR) and Line Feed (LR) character to the end of the specified string."
           },
           "id": "WriteLine"
         },
@@ -3697,7 +3740,7 @@
             "BOOLEAN"
           ],
           "info": {
-            "desc": "Get the Flag indicating if the file Unicode for the FILE Object.",
+            "desc": "Get the Flag indicating if the file is Unicode for the FILE Object.",
             "readonly": true,
             "remarks": "File is ANSI encoded if not Unicode."
           },
@@ -3884,7 +3927,7 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set full Path of Folder being scanned for the FILELOCATOR Object."
+            "desc": "Get/Set the full Path of Folder being scanned for the FILELOCATOR Object."
           },
           "id": "Path"
         }
@@ -3899,7 +3942,7 @@
         ],
         "args": [],
         "info": {
-          "desc": "Constructs an ItemStruct Object",
+          "desc": "Constructs an ItemStruct Object.",
           "returns": "ITEMSTRUCT",
           "remarks": "Represents a dynamically loaded ITM file and acts nearly identical to a native ITEM reference"
         },
@@ -3941,7 +3984,7 @@
                 "STRING"
               ],
               "optional": false,
-              "notes": "String of the URL to use for the Link",
+              "notes": "String of the URL to use for the Link.",
               "id": "Link"
             },
             {
@@ -3949,7 +3992,7 @@
                 "STRING"
               ],
               "optional": false,
-              "notes": "String description of the Link",
+              "notes": "String description of the Link.",
               "id": "Description"
             },
             {
@@ -3957,16 +4000,16 @@
                 "STRING"
               ],
               "optional": false,
-              "notes": "String page on the link to go to. e.g. '#Page=2'",
+              "notes": "String page on the link to go to. e.g. '#Page=2'.",
               "id": "Page"
             }
           ],
           "info": {
-            "desc": "Adds Hyperlink to the Links tab of the Item Properties.",
+            "desc": "Adds a Hyperlink to the Links tab of the Item Properties.",
             "args": {
-              "Link": "String of the URL to use for the Link",
-              "Description": "String description of the Link",
-              "Page": "String page on the link to go to. e.g. '#Page=2'"
+              "Link": "String of the URL to use for the Link.",
+              "Description": "String description of the Link.",
+              "Page": "String page on the link to go to. e.g. '#Page=2'."
             },
             "returns": "Number representing the number of the link added."
           },
@@ -4001,7 +4044,7 @@
           ],
           "args": [],
           "info": {
-            "desc": "Indicates if Item supports DoubleWall entry or not.",
+            "desc": "Indicates if the Item supports DoubleWall entry or not.",
             "returns": "Boolean"
           },
           "id": "CanDoubleWall"
@@ -4012,7 +4055,7 @@
           ],
           "args": [],
           "info": {
-            "desc": "Indicates if Item supports Rotary Nesting or not.",
+            "desc": "Indicates if the Item supports Rotary Nesting or not.",
             "returns": "Boolean"
           },
           "id": "CanRotary"
@@ -4032,11 +4075,11 @@
             }
           ],
           "info": {
-            "desc": "Removes Link from the Links tab of the Item Properties",
+            "desc": "Removes a Link from the Links tab of the Item Properties.",
             "args": {
               "LinkNumber": "Number of link to remove from the Item."
             },
-            "returns": "Boolean Flag indicating if link deletion was sucessful or not."
+            "returns": "Boolean Flag indicating if link deletion was successful or not."
           },
           "id": "DeleteLink"
         },
@@ -4050,7 +4093,7 @@
                 "NUMBER"
               ],
               "optional": false,
-              "notes": "This index number is associated with the connector number shown in the edit item dialog",
+              "notes": "This index number is associated with the connector number shown in the edit item dialog.",
               "id": "ConnectorIndex"
             },
             {
@@ -4065,11 +4108,11 @@
           "info": {
             "desc": "Gets a string representing the location of a connectors X, Y and/or Z value.",
             "args": {
-              "ConnectorIndex": "This index number is associated with the connector number shown in the edit item dialog",
+              "ConnectorIndex": "This index number is associated with the connector number shown in the edit item dialog.",
               "XYZ": "Optional string representing an X, Y or Z portion of the connector centerline coordinate."
             },
             "returns": "String representing the X, Y, Z or all 3 if XYZ was not provided.",
-            "remarks": "Supported values are...'XYZ', 'X', 'Y', 'Z', 'TOP' and 'BTM'.\r\nThe string 'XYZ', missing parameters, empty strings or any other non supported value returns\r\na string representing the X, Y & Z coordinates seperated by spaces (e.g. '1.25 4.54 0.00').\r\nIf the string 'X', 'Y' or 'Z' is speified, a string representing just tha compoentent of the\r\nendpoint is returned.\r\nIf the string 'TOP' or 'BTM' is specified, a string representing the Z coordinate of the connector's\r\nTop or Bottom is returned."
+            "remarks": "Supported values are...'XYZ', 'X', 'Y', 'Z', 'TOP' and 'BTM'.\r\nThe string 'XYZ', missing parameters, empty strings or any other non supported value returns\r\na string representing the X, Y & Z coordinates seperated by spaces (e.g. '1.25 4.54 0.00').\r\nIf the string 'X', 'Y' or 'Z' is speified, a string representing just that compoentent of the\r\nendpoint is returned.\r\nIf the string 'TOP' or 'BTM' is specified, a string representing the Z coordinate of the connector's\r\nTop or Bottom is returned."
           },
           "id": "EndLocation"
         },
@@ -4083,14 +4126,14 @@
                 "STRING"
               ],
               "optional": false,
-              "notes": "Allowed values are \"Soffit\" and \"Floor\"",
+              "notes": "Allowed values are \"Soffit\" and \"Floor\".",
               "id": "LevelName"
             }
           ],
           "info": {
             "desc": "Get the Level value of the specified Item based on it's section.",
             "args": {
-              "LevelName": "Allowed values are \"Soffit\" and \"Floor\""
+              "LevelName": "Allowed values are \"Soffit\" and \"Floor\"."
             },
             "returns": "Number representing the Soffit/Floor level of the Item's Section."
           },
@@ -4115,7 +4158,7 @@
             "args": {
               "ItemFile": "String of full path and file name including '.ITM' extension."
             },
-            "returns": "Boolean Flag indicating if loading of ITM file was sucessful."
+            "returns": "Boolean Flag indicating if loading of ITM file was successful."
           },
           "id": "Load"
         },
@@ -4125,7 +4168,7 @@
           ],
           "args": [],
           "info": {
-            "desc": "Refreshes all costs to Item",
+            "desc": "Refreshes all costs of the Item.",
             "returns": "Nothing",
             "remarks": "Call after making any change to the Item that may affect cost."
           },
@@ -4138,7 +4181,7 @@
           "args": [],
           "info": {
             "desc": "Remove all holes added to Item.",
-            "returns": "Boolean Flag indicating if hole removal was sucessful."
+            "returns": "Boolean Flag indicating if hole removal was successful."
           },
           "id": "RemoveHoles"
         },
@@ -4157,11 +4200,11 @@
             }
           ],
           "info": {
-            "desc": "Save an ITM file to disk",
+            "desc": "Save an ITM file to disk.",
             "args": {
               "ItemFile": ""
             },
-            "returns": "Boolean Flag indicating if saving of ITM file was sucessful."
+            "returns": "Boolean Flag indicating if saving of the ITM file was successful."
           },
           "id": "Save"
         },
@@ -4193,7 +4236,7 @@
               "DevNumber": "Number of development part to set the flag of.",
               "DoNotCut": "Boolean flag toggling the 'Do Not Cut' property of the development."
             },
-            "returns": "Boolean Flag indicating of toggling flag was sucessful or not.",
+            "returns": "Boolean Flag indicating of toggling flag was successful or not.",
             "remarks": "Use the 'Item.PartsCut' property first to determine the number of parts available\r\nin the Item to help determine which development number(s) you may want to toggle."
           },
           "id": "SetDevNotCutFlag"
@@ -4226,7 +4269,7 @@
               "FlowType": "Number between 0 and 3. 0='Not Set', 1='Supply', 2='Return', 3='None'",
               "FlowValue": "Number representing flow value in standard flow units."
             },
-            "returns": "Boolean Flag indicating sucess or failure. Failure implies an invalid type."
+            "returns": "Boolean Flag indicating success or failure. Failure implies an invalid type."
           },
           "id": "SetFlow"
         },
@@ -4238,7 +4281,7 @@
           "info": {
             "desc": "Refreshes Item's developments.",
             "returns": "Nothing",
-            "remarks": "Call after making any change to the Item that may developments, specifiction or model"
+            "remarks": "Call after making any change to the Item that may developments, specifiction or model."
           },
           "id": "Update"
         },
@@ -4252,7 +4295,7 @@
                 "STRING"
               ],
               "optional": false,
-              "notes": "String of full path and file name to export",
+              "notes": "String of full path and file name to export.",
               "id": "DXFFile"
             },
             {
@@ -4260,15 +4303,15 @@
                 "BOOLEAN"
               ],
               "optional": true,
-              "notes": "Optional Boolead Flag indicating if Lead Ins/Outs should be written to DXF.",
+              "notes": "Optional Boolean Flag indicating if Lead Ins/Outs should be written to DXF.",
               "id": "IncludeLeads"
             }
           ],
           "info": {
             "desc": "Save Item's Developments as DXF File(s).",
             "args": {
-              "DXFFile": "String of full path and file name to export",
-              "IncludeLeads": "Optional Boolead Flag indicating if Lead Ins/Outs should be written to DXF."
+              "DXFFile": "String of full path and file name to export.",
+              "IncludeLeads": "Optional Boolean Flag indicating if Lead Ins/Outs should be written to DXF."
             },
             "remarks": "File to save should exclude the '.DXF' file extension.\r\nFlag for writing Lead Ins/Outs defaults to TRUE if ommited.\r\nEach development is appended with a '-1', '-2', '-3', etc. suffix to the specified file name."
           },
@@ -4425,7 +4468,7 @@
           ],
           "info": {
             "desc": "Get/Set the CostByLength (Cost Units) Flag of the ITEM Object.",
-            "remarks": "Cost Units are set by the CostByLength flag. 0 = Cost by Qty, 1 Cost by Ft."
+            "remarks": "Cost Units are set by the CostByLength flag. 0 = Cost by Qty, 1 = Cost by Ft."
           },
           "id": "CostByLength"
         },
@@ -4870,7 +4913,7 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get Material Abreviation of the ITEM Object.",
+            "desc": "Get the Material Abreviation of the ITEM Object.",
             "readonly": true
           },
           "id": "MatAbrv"
@@ -4890,7 +4933,7 @@
           ],
           "info": {
             "desc": "Get/Set the Nest Priority of the ITEM Object.",
-            "remarks": "Items with a higher number nest first giving preference to those itesm in the nesting process."
+            "remarks": "Items with a higher number nest first giving preference to those items in the nesting process."
           },
           "id": "NestPriority"
         },
@@ -4994,7 +5037,7 @@
           ],
           "info": {
             "desc": "Get/Set the Path property of the ITEM Object.",
-            "remarks": "Path includes the terminating slash (/). Note that folder seperators are\r\nforward slashes (/) as opposed to backslashes (/) which are more commonly seen."
+            "remarks": "Path includes the terminating slash (/). Note that folder seperators are\r\nforward slashes (/) as opposed to backslashes (\\) which are more commonly seen."
           },
           "id": "Path"
         },
@@ -5282,8 +5325,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Set Structure Type of ITEM Object.",
-            "remarks": "StructureType can be set using the 'Name' or 'Index' however this property is not able to be\r\nread. It can only be set."
+            "desc": "Get/Set the Structure Type of ITEM Object.",
+            "remarks": "StructureType can be set using the 'Name' or 'Index' however this property is not able to be\r\nread. It can only be set in Autodesk Fabrication versions 2022 and later. Earlier versions\r\nthe property is 'Write-Only'."
           },
           "id": "StructureType"
         },
@@ -5406,7 +5449,7 @@
                 "STRING"
               ],
               "optional": false,
-              "notes": "String of the URL to use for the Link",
+              "notes": "String of the URL to use for the Link.",
               "id": "Link"
             },
             {
@@ -5414,7 +5457,7 @@
                 "STRING"
               ],
               "optional": false,
-              "notes": "String description of the Link",
+              "notes": "String description of the Link.",
               "id": "Description"
             },
             {
@@ -5422,16 +5465,16 @@
                 "STRING"
               ],
               "optional": false,
-              "notes": "String page on the link to go to. e.g. '#Page=2'",
+              "notes": "String page on the link to go to. e.g. '#Page=2'.",
               "id": "Page"
             }
           ],
           "info": {
-            "desc": "Adds Hyperlink to the Links tab of the Item Properties.",
+            "desc": "Adds a Hyperlink to the Links tab of the Item Properties.",
             "args": {
-              "Link": "String of the URL to use for the Link",
-              "Description": "String description of the Link",
-              "Page": "String page on the link to go to. e.g. '#Page=2'"
+              "Link": "String of the URL to use for the Link.",
+              "Description": "String description of the Link.",
+              "Page": "String page on the link to go to. e.g. '#Page=2'."
             },
             "returns": "Number representing the number of the link added."
           },
@@ -5466,7 +5509,7 @@
           ],
           "args": [],
           "info": {
-            "desc": "Indicates if Item supports DoubleWall entry or not.",
+            "desc": "Indicates if the Item supports DoubleWall entry or not.",
             "returns": "Boolean"
           },
           "id": "CanDoubleWall"
@@ -5477,7 +5520,7 @@
           ],
           "args": [],
           "info": {
-            "desc": "Indicates if Item supports Rotary Nesting or not.",
+            "desc": "Indicates if the Item supports Rotary Nesting or not.",
             "returns": "Boolean"
           },
           "id": "CanRotary"
@@ -5497,11 +5540,11 @@
             }
           ],
           "info": {
-            "desc": "Removes Link from the Links tab of the Item Properties",
+            "desc": "Removes a Link from the Links tab of the Item Properties.",
             "args": {
               "LinkNumber": "Number of link to remove from the Item."
             },
-            "returns": "Boolean Flag indicating if link deletion was sucessful or not."
+            "returns": "Boolean Flag indicating if link deletion was successful or not."
           },
           "id": "DeleteLink"
         },
@@ -5515,7 +5558,7 @@
                 "NUMBER"
               ],
               "optional": false,
-              "notes": "This index number is associated with the connector number shown in the edit item dialog",
+              "notes": "This index number is associated with the connector number shown in the edit item dialog.",
               "id": "ConnectorIndex"
             },
             {
@@ -5530,11 +5573,11 @@
           "info": {
             "desc": "Gets a string representing the location of a connectors X, Y and/or Z value.",
             "args": {
-              "ConnectorIndex": "This index number is associated with the connector number shown in the edit item dialog",
+              "ConnectorIndex": "This index number is associated with the connector number shown in the edit item dialog.",
               "XYZ": "Optional string representing an X, Y or Z portion of the connector centerline coordinate."
             },
             "returns": "String representing the X, Y, Z or all 3 if XYZ was not provided.",
-            "remarks": "Supported values are...'XYZ', 'X', 'Y', 'Z', 'TOP' and 'BTM'.\r\nThe string 'XYZ', missing parameters, empty strings or any other non supported value returns\r\na string representing the X, Y & Z coordinates seperated by spaces (e.g. '1.25 4.54 0.00').\r\nIf the string 'X', 'Y' or 'Z' is speified, a string representing just tha compoentent of the\r\nendpoint is returned.\r\nIf the string 'TOP' or 'BTM' is specified, a string representing the Z coordinate of the connector's\r\nTop or Bottom is returned."
+            "remarks": "Supported values are...'XYZ', 'X', 'Y', 'Z', 'TOP' and 'BTM'.\r\nThe string 'XYZ', missing parameters, empty strings or any other non supported value returns\r\na string representing the X, Y & Z coordinates seperated by spaces (e.g. '1.25 4.54 0.00').\r\nIf the string 'X', 'Y' or 'Z' is speified, a string representing just that compoentent of the\r\nendpoint is returned.\r\nIf the string 'TOP' or 'BTM' is specified, a string representing the Z coordinate of the connector's\r\nTop or Bottom is returned."
           },
           "id": "EndLocation"
         },
@@ -5548,14 +5591,14 @@
                 "STRING"
               ],
               "optional": false,
-              "notes": "Allowed values are \"Soffit\" and \"Floor\"",
+              "notes": "Allowed values are \"Soffit\" and \"Floor\".",
               "id": "LevelName"
             }
           ],
           "info": {
             "desc": "Get the Level value of the specified Item based on it's section.",
             "args": {
-              "LevelName": "Allowed values are \"Soffit\" and \"Floor\""
+              "LevelName": "Allowed values are \"Soffit\" and \"Floor\"."
             },
             "returns": "Number representing the Soffit/Floor level of the Item's Section."
           },
@@ -5580,7 +5623,7 @@
             "args": {
               "ItemFile": "String of full path and file name including '.ITM' extension."
             },
-            "returns": "Boolean Flag indicating if loading of ITM file was sucessful."
+            "returns": "Boolean Flag indicating if loading of ITM file was successful."
           },
           "id": "Load"
         },
@@ -5590,7 +5633,7 @@
           ],
           "args": [],
           "info": {
-            "desc": "Refreshes all costs to Item",
+            "desc": "Refreshes all costs of the Item.",
             "returns": "Nothing",
             "remarks": "Call after making any change to the Item that may affect cost."
           },
@@ -5603,7 +5646,7 @@
           "args": [],
           "info": {
             "desc": "Remove all holes added to Item.",
-            "returns": "Boolean Flag indicating if hole removal was sucessful."
+            "returns": "Boolean Flag indicating if hole removal was successful."
           },
           "id": "RemoveHoles"
         },
@@ -5622,11 +5665,11 @@
             }
           ],
           "info": {
-            "desc": "Save an ITM file to disk",
+            "desc": "Save an ITM file to disk.",
             "args": {
               "ItemFile": ""
             },
-            "returns": "Boolean Flag indicating if saving of ITM file was sucessful."
+            "returns": "Boolean Flag indicating if saving of the ITM file was successful."
           },
           "id": "Save"
         },
@@ -5658,7 +5701,7 @@
               "DevNumber": "Number of development part to set the flag of.",
               "DoNotCut": "Boolean flag toggling the 'Do Not Cut' property of the development."
             },
-            "returns": "Boolean Flag indicating of toggling flag was sucessful or not.",
+            "returns": "Boolean Flag indicating of toggling flag was successful or not.",
             "remarks": "Use the 'Item.PartsCut' property first to determine the number of parts available\r\nin the Item to help determine which development number(s) you may want to toggle."
           },
           "id": "SetDevNotCutFlag"
@@ -5691,7 +5734,7 @@
               "FlowType": "Number between 0 and 3. 0='Not Set', 1='Supply', 2='Return', 3='None'",
               "FlowValue": "Number representing flow value in standard flow units."
             },
-            "returns": "Boolean Flag indicating sucess or failure. Failure implies an invalid type."
+            "returns": "Boolean Flag indicating success or failure. Failure implies an invalid type."
           },
           "id": "SetFlow"
         },
@@ -5703,7 +5746,7 @@
           "info": {
             "desc": "Refreshes Item's developments.",
             "returns": "Nothing",
-            "remarks": "Call after making any change to the Item that may developments, specifiction or model"
+            "remarks": "Call after making any change to the Item that may developments, specifiction or model."
           },
           "id": "Update"
         },
@@ -5717,7 +5760,7 @@
                 "STRING"
               ],
               "optional": false,
-              "notes": "String of full path and file name to export",
+              "notes": "String of full path and file name to export.",
               "id": "DXFFile"
             },
             {
@@ -5725,15 +5768,15 @@
                 "BOOLEAN"
               ],
               "optional": true,
-              "notes": "Optional Boolead Flag indicating if Lead Ins/Outs should be written to DXF.",
+              "notes": "Optional Boolean Flag indicating if Lead Ins/Outs should be written to DXF.",
               "id": "IncludeLeads"
             }
           ],
           "info": {
             "desc": "Save Item's Developments as DXF File(s).",
             "args": {
-              "DXFFile": "String of full path and file name to export",
-              "IncludeLeads": "Optional Boolead Flag indicating if Lead Ins/Outs should be written to DXF."
+              "DXFFile": "String of full path and file name to export.",
+              "IncludeLeads": "Optional Boolean Flag indicating if Lead Ins/Outs should be written to DXF."
             },
             "remarks": "File to save should exclude the '.DXF' file extension.\r\nFlag for writing Lead Ins/Outs defaults to TRUE if ommited.\r\nEach development is appended with a '-1', '-2', '-3', etc. suffix to the specified file name."
           },
@@ -5890,7 +5933,7 @@
           ],
           "info": {
             "desc": "Get/Set the CostByLength (Cost Units) Flag of the ITEM Object.",
-            "remarks": "Cost Units are set by the CostByLength flag. 0 = Cost by Qty, 1 Cost by Ft."
+            "remarks": "Cost Units are set by the CostByLength flag. 0 = Cost by Qty, 1 = Cost by Ft."
           },
           "id": "CostByLength"
         },
@@ -6335,7 +6378,7 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get Material Abreviation of the ITEM Object.",
+            "desc": "Get the Material Abreviation of the ITEM Object.",
             "readonly": true
           },
           "id": "MatAbrv"
@@ -6355,7 +6398,7 @@
           ],
           "info": {
             "desc": "Get/Set the Nest Priority of the ITEM Object.",
-            "remarks": "Items with a higher number nest first giving preference to those itesm in the nesting process."
+            "remarks": "Items with a higher number nest first giving preference to those items in the nesting process."
           },
           "id": "NestPriority"
         },
@@ -6459,7 +6502,7 @@
           ],
           "info": {
             "desc": "Get/Set the Path property of the ITEM Object.",
-            "remarks": "Path includes the terminating slash (/). Note that folder seperators are\r\nforward slashes (/) as opposed to backslashes (/) which are more commonly seen."
+            "remarks": "Path includes the terminating slash (/). Note that folder seperators are\r\nforward slashes (/) as opposed to backslashes (\\) which are more commonly seen."
           },
           "id": "Path"
         },
@@ -6747,8 +6790,8 @@
             "STRING"
           ],
           "info": {
-            "desc": "Set Structure Type of ITEM Object.",
-            "remarks": "StructureType can be set using the 'Name' or 'Index' however this property is not able to be\r\nread. It can only be set."
+            "desc": "Get/Set the Structure Type of ITEM Object.",
+            "remarks": "StructureType can be set using the 'Name' or 'Index' however this property is not able to be\r\nread. It can only be set in Autodesk Fabrication versions 2022 and later. Earlier versions\r\nthe property is 'Write-Only'."
           },
           "id": "StructureType"
         },
@@ -6851,12 +6894,12 @@
             }
           ],
           "info": {
-            "desc": "Initialize and display progress bars setting maximum task length",
+            "desc": "Initialize and display progress bars setting maximum task length.",
             "args": {
               "NumberOfTasks": "Number indicating the number of tasks to perform."
             },
             "returns": "Nothing",
-            "remarks": "NumberofTasks should ideally specify the number of iterations you go through to that the progress bars\r\ndialog shows a progress relative to the tasks you're performing. You must use the Task.Progress\r\nproperty to move the progress bars as your tasks process."
+            "remarks": "NumberofTasks should ideally specify the number of iterations you go through so that the progress bars\r\ndialog shows a progress relative to the tasks you're performing. You must use the Task.Progress\r\nproperty to move the progress bars as your tasks processes."
           },
           "id": "BeginProgress"
         },
@@ -6866,9 +6909,9 @@
           ],
           "args": [],
           "info": {
-            "desc": "Terminate the display of the progress bars dialog",
+            "desc": "Terminate the display of the progress bars dialog.",
             "returns": "Nothing",
-            "remarks": "Call to end the display of the progress bars dialog when tasks are finished processing.\r\nYou mat use the Task.Aborted proeprty to determine if the user canceled the process. When the\r\nuser cancels the progress bars, this does not stop your tasks from processing, merely sets the\r\nAborted property. You must monitor the Aborted flag and exit your task processing in your code\r\nto propertly terminate a task by a user."
+            "remarks": "Call to end the display of the progress bars dialog when tasks are finished processing.\r\nYou may use the Task.Aborted proeprty to determine if the user canceled the process. When the\r\nuser cancels the progress bars, this does not stop your tasks from processing, merely sets the\r\nAborted property. You must monitor the Aborted flag and exit the task processing in your code\r\nto propertly terminate a task by a user."
           },
           "id": "EndProgress"
         }
@@ -6879,7 +6922,7 @@
             "BOOLEAN"
           ],
           "info": {
-            "desc": "Get Task Status Flag indicating if Task was aborted for the TASK Object.",
+            "desc": "Get the Task Status Flag indicating if Task was aborted for the TASK Object.",
             "readonly": true
           },
           "id": "Aborted"
@@ -6889,7 +6932,7 @@
             "STRING"
           ],
           "info": {
-            "desc": "Get/Set the Message Text for the progress dialog for the TASK Object"
+            "desc": "Get/Set the Message Text for the progress dialog for the TASK Object."
           },
           "id": "Message"
         },

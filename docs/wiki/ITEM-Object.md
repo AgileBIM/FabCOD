@@ -100,7 +100,7 @@ Always check to see if the 'Connectors' property returns a value >= 1 before usi
 ### Property: CostByLength
 Get/Set the CostByLength (Cost Units) Flag of the ITEM Object.
 
-Cost Units are set by the CostByLength flag. 0 = Cost by Qty, 1 Cost by Ft.
+Cost Units are set by the CostByLength flag. 0 = Cost by Qty, 1 = Cost by Ft.
 ##### Returns
 BOOLEAN
 ### Property: CostType
@@ -390,7 +390,7 @@ No additional remarks available
 ##### Returns
 NUMBER
 ### Property: MatAbrv
-Get Material Abreviation of the ITEM Object.
+Get the Material Abreviation of the ITEM Object.
 
 No additional remarks available
 ##### Returns
@@ -404,7 +404,7 @@ STRING
 ### Property: NestPriority
 Get/Set the Nest Priority of the ITEM Object.
 
-Items with a higher number nest first giving preference to those itesm in the nesting process.
+Items with a higher number nest first giving preference to those items in the nesting process.
 ##### Returns
 NUMBER
 ### Property: Notes
@@ -471,7 +471,7 @@ BOOLEAN[]
 Get/Set the Path property of the ITEM Object.
 
 Path includes the terminating slash (/). Note that folder seperators are
-forward slashes (/) as opposed to backslashes (/) which are more commonly seen.
+forward slashes (/) as opposed to backslashes (\) which are more commonly seen.
 ##### Returns
 STRING
 ### Property: PatNo
@@ -652,10 +652,11 @@ Always check to see if the 'Stiffeners' property returns a value >= 1 before usi
 ##### Returns
 [STIFFENER](https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/STIFFENER-SubObject.md)[]
 ### Property: StructureType
-Set Structure Type of ITEM Object.
+Get/Set the Structure Type of ITEM Object.
 
 StructureType can be set using the 'Name' or 'Index' however this property is not able to be
-read. It can only be set.
+read. It can only be set in Autodesk Fabrication versions 2022 and later. Earlier versions
+the property is 'Write-Only'.
 ##### Returns
 STRING
 ### Property: SubItems
@@ -722,18 +723,18 @@ AddCustomData(NameOrIndex: STRING|NUMBER)
 ##### Returns
 VOID
 ### Function: AddLink
-Adds Hyperlink to the Links tab of the Item Properties.
+Adds a Hyperlink to the Links tab of the Item Properties.
 
 No additional remarks available
 ##### Signature
 AddLink(Link: STRING, Description: STRING, Page: STRING)
 ##### Arguments
 - **Link** as: STRING
-  - Remarks: String of the URL to use for the Link
+  - Remarks: String of the URL to use for the Link.
 - **Description** as: STRING
-  - Remarks: String description of the Link
+  - Remarks: String description of the Link.
 - **Page** as: STRING
-  - Remarks: String page on the link to go to. e.g. '#Page=2'
+  - Remarks: String page on the link to go to. e.g. '#Page=2'.
 ##### Returns
 NUMBER
 ### Function: BitmapFile
@@ -747,7 +748,7 @@ BitmapFile(ItmFilePath: STRING)
 ##### Returns
 STRING
 ### Function: CanDoubleWall
-Indicates if Item supports DoubleWall entry or not.
+Indicates if the Item supports DoubleWall entry or not.
 
 No additional remarks available
 ##### Signature
@@ -756,7 +757,7 @@ CanDoubleWall()
 ##### Returns
 BOOLEAN
 ### Function: CanRotary
-Indicates if Item supports Rotary Nesting or not.
+Indicates if the Item supports Rotary Nesting or not.
 
 No additional remarks available
 ##### Signature
@@ -765,7 +766,7 @@ CanRotary()
 ##### Returns
 BOOLEAN
 ### Function: DeleteLink
-Removes Link from the Links tab of the Item Properties
+Removes a Link from the Links tab of the Item Properties.
 
 No additional remarks available
 ##### Signature
@@ -781,7 +782,7 @@ Gets a string representing the location of a connectors X, Y and/or Z value.
 Supported values are...'XYZ', 'X', 'Y', 'Z', 'TOP' and 'BTM'.
 The string 'XYZ', missing parameters, empty strings or any other non supported value returns
 a string representing the X, Y & Z coordinates seperated by spaces (e.g. '1.25 4.54 0.00').
-If the string 'X', 'Y' or 'Z' is speified, a string representing just tha compoentent of the
+If the string 'X', 'Y' or 'Z' is speified, a string representing just that compoentent of the
 endpoint is returned.
 If the string 'TOP' or 'BTM' is specified, a string representing the Z coordinate of the connector's
 Top or Bottom is returned.
@@ -789,7 +790,7 @@ Top or Bottom is returned.
 EndLocation(ConnectorIndex: NUMBER, [XYZ: STRING])
 ##### Arguments
 - **ConnectorIndex** as: NUMBER
-  - Remarks: This index number is associated with the connector number shown in the edit item dialog
+  - Remarks: This index number is associated with the connector number shown in the edit item dialog.
 - **XYZ** as Optional: STRING
   - Remarks: Optional string representing an X, Y or Z portion of the connector centerline coordinate.
 ##### Returns
@@ -802,7 +803,7 @@ No additional remarks available
 Level(LevelName: STRING)
 ##### Arguments
 - **LevelName** as: STRING
-  - Remarks: Allowed values are "Soffit" and "Floor"
+  - Remarks: Allowed values are "Soffit" and "Floor".
 ##### Returns
 NUMBER
 ### Function: Load
@@ -817,7 +818,7 @@ Load(ItemFile: STRING)
 ##### Returns
 BOOLEAN
 ### Function: RefreshCosts
-Refreshes all costs to Item
+Refreshes all costs of the Item.
 
 Call after making any change to the Item that may affect cost.
 ##### Signature
@@ -835,7 +836,7 @@ RemoveHoles()
 ##### Returns
 BOOLEAN
 ### Function: Save
-Save an ITM file to disk
+Save an ITM file to disk.
 
 No additional remarks available
 ##### Signature
@@ -874,7 +875,7 @@ BOOLEAN
 ### Function: Update
 Refreshes Item's developments.
 
-Call after making any change to the Item that may developments, specifiction or model
+Call after making any change to the Item that may developments, specifiction or model.
 ##### Signature
 Update()
 ##### Arguments
@@ -890,8 +891,8 @@ Each development is appended with a '-1', '-2', '-3', etc. suffix to the specifi
 WriteDXF(DXFFile: STRING, [IncludeLeads: BOOLEAN])
 ##### Arguments
 - **DXFFile** as: STRING
-  - Remarks: String of full path and file name to export
+  - Remarks: String of full path and file name to export.
 - **IncludeLeads** as Optional: BOOLEAN
-  - Remarks: Optional Boolead Flag indicating if Lead Ins/Outs should be written to DXF.
+  - Remarks: Optional Boolean Flag indicating if Lead Ins/Outs should be written to DXF.
 ##### Returns
 BOOLEAN

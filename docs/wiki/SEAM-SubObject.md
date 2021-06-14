@@ -5,7 +5,7 @@ This second-class object cannot be directly created. These types of sub-objects 
 ## Properties
 The following items are accessed from the base object by a dot notation
 ### Property: Alt
-Get/Set Alternatge Code of the SEAM Object.
+Get/Set the Alternatge Code of the SEAM Object.
 
 Alternate Code is used for enforcing Alternate Seam values using the Specifications.
 ##### Returns
@@ -13,7 +13,7 @@ STRING
 ### Property: Group
 Get the Seam Group for the SEAM Object.
 
-Seam Group prpoerty available onlyt in 2022 and later versions of Autodesk Fabrication.
+Seam Group propoerty is available only in 2022 and later versions of Autodesk Fabrication.
 ##### Returns
 STRING
 ### Property: Locked
@@ -25,7 +25,7 @@ BOOLEAN
 ### Property: Value
 Get/Set the Seam Name value of the SEAM Object.
 
-Seam Group is not returned. There is no known way to retrieve the Group of the Seam.
+Only Seam Name is given. Seam Group is not given as part of the value.
 Seam can be set using either an Index or Name.
 ##### Returns
 STRING

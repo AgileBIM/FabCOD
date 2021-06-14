@@ -1,14 +1,14 @@
 # Object: FILE
 **NOTE:** This documentation was auto-generated from the FabricationDefinition.ts file and any errors within this text needs to be resolved within that source file
 ## Constructor
-Constructs a File Object
+Constructs a File Object.
 If optional parameters are not specified when constructing the FILE Object,
 use the FILE.Open method to specify them.
 #### Signature
 New FILE([FileName: STRING], [AccessMode: FILEMODE])
 #### Arguments
 - **FileName** as Optional: STRING
-  - Remarks: Optional String Name of file to open.
+  - Remarks: Optional String Name of the file to open.
 - **AccessMode** as Optional: FILEMODE
   - FORINPUT
   - FOROUTPUT
@@ -16,7 +16,7 @@ New FILE([FileName: STRING], [AccessMode: FILEMODE])
   - UNICODETEXT
   - UTF8
   - UTF16
-  - Remarks: Optional Mode(s) for file open.
+  - Remarks: Optional Mode(s) for the file open.
 ## Properties
 The following items are accessed from the base object by a dot notation
 ### Property: EOF
@@ -44,7 +44,7 @@ No additional remarks available
 ##### Returns
 BOOLEAN
 ### Property: IsUnicode
-Get the Flag indicating if the file Unicode for the FILE Object.
+Get the Flag indicating if the file is Unicode for the FILE Object.
 
 File is ANSI encoded if not Unicode.
 ##### Returns
@@ -140,7 +140,7 @@ NUMBER
 ### Function: ReadLine
 Read a line of text (minsus CR/LF) from a text file.
 
-File must be opened as text (Unicode or ANSI)
+File must be opened as text (Unicode or ANSI).
 Each call reads up into the next CR (Carriage Return), LF (Line Feed) or EOF (End of File) marker.
 Returned String does not contain CR/LR or EOF characters.
 ##### Signature
@@ -247,7 +247,7 @@ BOOLEAN
 ### Function: WriteLine
 Write a line of text to a text file.
 
-Of optional AppendCR paramater missing, True is default and will automatically append
+If optional AppendCR paramater missing, True is default and will automatically append
 a Carrage Return (CR) and Line Feed (LR) character to the end of the specified string.
 ##### Signature
 WriteLine(StringToWrite: STRING, [AppendCR: BOOLEAN])

@@ -83,7 +83,7 @@ No additional remarks available
 ##### Returns
 STRING
 ### Property: SKey
-Get/Set the SKey property of the PRUDUCTENTRY Object.
+Get/Set the SKey property of the PRODUCTENTRY Object.
 
 Available in Fabrication 2018.2 versions and later.
 ##### Returns
@@ -97,7 +97,7 @@ NUMBER
 ## Methods
 The following items are invoked from the base object by a dot notation
 ### Function: AddAlias
-Adds 'ALIAS' Column to Product List
+Adds the 'ALIAS' Column to Product List.
 
 No additional remarks available
 ##### Signature
@@ -106,7 +106,7 @@ AddAlias()
 ##### Returns
 BOOLEAN
 ### Function: AddArea
-Adds 'AREA' Column to Product List
+Adds the 'AREA' Column to Product List.
 
 No additional remarks available
 ##### Signature
@@ -115,7 +115,7 @@ AddArea()
 ##### Returns
 BOOLEAN
 ### Function: AddBoughtOut
-Adds 'BOUGHTOUT' Column to Product List
+Adds the 'BOUGHTOUT' Column to Product List.
 
 No additional remarks available
 ##### Signature
@@ -124,7 +124,7 @@ AddBoughtOut()
 ##### Returns
 BOOLEAN
 ### Function: AddCADBlock
-Adds 'CADBLOCK' Column to Product List
+Adds the 'CADBLOCK' Column to Product List.
 
 No additional remarks available
 ##### Signature
@@ -133,7 +133,7 @@ AddCADBlock()
 ##### Returns
 BOOLEAN
 ### Function: AddCustomData
-Adds 'CUSTOMDATA[<dataname>]' Column to Product List
+Adds the 'CUSTOMDATA[<dataname>]' Column to Product List.
 
 No additional remarks available
 ##### Signature
@@ -144,7 +144,7 @@ AddCustomData(CustomDataName: STRING)
 ##### Returns
 BOOLEAN
 ### Function: AddDatabaseID
-Adds 'ID' Column to Product List
+Adds the 'ID' Column to Product List.
 
 No additional remarks available
 ##### Signature
@@ -153,7 +153,7 @@ AddDatabaseID()
 ##### Returns
 BOOLEAN
 ### Function: AddDim
-Adds 'DIM' Column(s) to Product List
+Adds the 'DIM' Column(s) to Product List.
 
 Function is very buggy. Repeated calls with improper syntax will cause
 predictability of this function to be sporatic at best. Repeated calls without
@@ -167,7 +167,7 @@ AddDim([DimName: STRING])
 ##### Returns
 BOOLEAN
 ### Function: AddFlow
-Adds 'FLOWMIN' and 'FLOWMAX' Columns to Product List
+Adds the 'FLOWMIN' and 'FLOWMAX' Columns to Product List.
 
 No additional remarks available
 ##### Signature
@@ -176,7 +176,7 @@ AddFlow()
 ##### Returns
 BOOLEAN
 ### Function: AddOption
-Adds 'OPTION' Column(s) to Product List
+Adds the 'OPTION' Column(s) to Product List.
 
 Function is very buggy. Repeated calls with improper syntax will cause
 predictability of this function to be sporatic at best. Repeated calls without
@@ -189,7 +189,7 @@ AddOption([OptionNmae: STRING])
 ##### Returns
 BOOLEAN
 ### Function: AddOrder
-Adds 'ORDER' Column to Product List
+Adds the 'ORDER' Column to Product List.
 
 No additional remarks available
 ##### Signature
@@ -198,7 +198,7 @@ AddOrder()
 ##### Returns
 BOOLEAN
 ### Function: AddWeight
-Adds 'WEIGHT' Column to Product List
+Adds the 'WEIGHT' Column to Product List.
 
 No additional remarks available
 ##### Signature
@@ -207,7 +207,7 @@ AddWeight()
 ##### Returns
 BOOLEAN
 ### Function: RemoveAlias
-Removes 'ALIAS' Column from Product List
+Removes the 'ALIAS' Column from the Product List.
 
 No additional remarks available
 ##### Signature
@@ -216,7 +216,7 @@ RemoveAlias()
 ##### Returns
 BOOLEAN
 ### Function: RemoveArea
-Removes 'AREA' Column from Product List
+Removes the 'AREA' Column from the Product List.
 
 No additional remarks available
 ##### Signature
@@ -225,7 +225,7 @@ RemoveArea()
 ##### Returns
 BOOLEAN
 ### Function: RemoveBoughtOut
-Removes 'BOUGHTOUT' Column from Product List
+Removes the 'BOUGHTOUT' Column from the Product List.
 
 No additional remarks available
 ##### Signature
@@ -234,7 +234,7 @@ RemoveBoughtOut()
 ##### Returns
 BOOLEAN
 ### Function: RemoveCADBlock
-Removes 'CADBLOCK' Column from Product List
+Removes the 'CADBLOCK' Column from the Product List.
 
 No additional remarks available
 ##### Signature
@@ -243,7 +243,7 @@ RemoveCADBlock()
 ##### Returns
 BOOLEAN
 ### Function: RemoveCustomData
-Removes 'CUSTOMDATA[<dataname>]' Column from Product List
+Removes the 'CUSTOMDATA[<dataname>]' Column from the Product List.
 
 No additional remarks available
 ##### Signature
@@ -253,7 +253,7 @@ RemoveCustomData(Name: STRING)
 ##### Returns
 BOOLEAN
 ### Function: RemoveDatabaseID
-Removes 'ID' Column from Product List
+Removes the 'ID' Column from the Product List.
 
 No additional remarks available
 ##### Signature
@@ -262,7 +262,7 @@ RemoveDatabaseID()
 ##### Returns
 BOOLEAN
 ### Function: RemoveDim
-Removes 'DIM' Column(s) from Product List
+Removes the 'DIM' Column(s) from the Product List.
 
 Function is very buggy. Repeated calls with improper syntax will cause
 predictability of this function to be sporatic at best. Calls without
@@ -275,7 +275,7 @@ RemoveDim(DimIndex: NUMBER)
 ##### Returns
 BOOLEAN
 ### Function: RemoveFlow
-Removes 'FLOWMIN' and 'FLOWMAX' Columns from Product List
+Removes the 'FLOWMIN' and 'FLOWMAX' Columns from the Product List.
 
 No additional remarks available
 ##### Signature
@@ -284,7 +284,7 @@ RemoveFlow()
 ##### Returns
 BOOLEAN
 ### Function: RemoveOption
-Removes 'OPTION' Column(s) from Product List
+Removes the 'OPTION' Column(s) from the Product List.
 
 Function is very buggy. Repeated calls with improper syntax will cause
 predictability of this function to be sporatic at best. Calls without
@@ -297,7 +297,7 @@ RemoveOption(OptionIndex: NUMBER)
 ##### Returns
 BOOLEAN
 ### Function: RemoveOrder
-Removes 'ORDER' Column from Product List
+Removes the 'ORDER' Column from the Product List.
 
 No additional remarks available
 ##### Signature
@@ -306,7 +306,7 @@ RemoveOrder()
 ##### Returns
 BOOLEAN
 ### Function: RemoveWeight
-REmoves 'WEIGHT' Column from Product List
+REmoves the 'WEIGHT' Column from the Product List.
 
 No additional remarks available
 ##### Signature
