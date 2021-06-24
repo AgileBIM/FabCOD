@@ -1535,6 +1535,16 @@
         },
         {
           "returns": [
+            "NUMBER"
+          ],
+          "info": {
+            "desc": "Get/Set the Rotation Adjuect of the DAMPER Object.",
+            "remarks": "Property is only available in Autodesk Fabrication 2017 and later. It acts upon a damper as an 'Adjust' not an\r\n'Override'. It was added to support Dynamic Damper Rotation from within in Revit. The value of  the rotation\r\noverride will be added to the damper 'Angle' on the Damper database object.\r\ne.g. If a Damper database definition has an angle of 90 degrees, and the Damper Rotation property is 90 degrees,\r\nthe Damper will be rotated 180 degrees on the ITM."
+          },
+          "id": "Rotation"
+        },
+        {
+          "returns": [
             "STRING"
           ],
           "info": {

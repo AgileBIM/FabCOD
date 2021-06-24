@@ -63,6 +63,8 @@ Review Notes (DYoung = 2021.06.13)
 	Various comment edits/spelling corrections.
 	Added 'Group' property to 'AIRTURN', 'SPLITTER' and 'STIFFENER' Objects. 
 	Added 'FacingLock' property to 'INSULATION' Object.
+Review Notes (DYoung = 2021.06.24)
+	Added 'Rotation' property to 'DAMPER' Object.
 */
 
 // IMPORTANT: Anywhere (in code) you are representing an actual value of a string, please use single quotes. This does not apply to the /** documentation areas */
@@ -821,6 +823,17 @@ export namespace FABRICATION {
 		 * Get/Set the Lock Status of the DAMPER Object.
 		 */
 		Locked: boolean;
+
+		/**
+		 * Get/Set the Rotation Adjuect of the DAMPER Object. 
+		 * @remarks
+		 * Property is only available in Autodesk Fabrication 2017 and later. It acts upon a damper as an 'Adjust' not an
+		 * 'Override'. It was added to support Dynamic Damper Rotation from within in Revit. The value of  the rotation
+		 *  override will be added to the damper 'Angle' on the Damper database object.
+		 * e.g. If a Damper database definition has an angle of 90 degrees, and the Damper Rotation property is 90 degrees, 
+		 * the Damper will be rotated 180 degrees on the ITM.
+		 */
+		Rotation: number;
 
 		/**
 		 * Get/Set the name of the DAMPER Object. 
