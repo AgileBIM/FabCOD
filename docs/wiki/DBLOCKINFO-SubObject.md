@@ -13,7 +13,7 @@ property as that property can be rolled back/forward and many not indicate the n
 ##### Returns
 [DBLOCKHISTORY](https://github.com/AgileBIM/FabCOD/blob/main/docs/wiki/DBLOCKHISTORY-SubObject.md)
 ### Property: Owner
-Get the Previous Owner of DBLOCKINFO Object.
+Get the Previous Owner of the DBLOCKINFO Object.
 
 No additional remarks available
 ##### Returns
@@ -27,7 +27,7 @@ NUMBER
 ## Methods
 The following items are invoked from the base object by a dot notation
 ### Function: Can
-Indicates if the Items's current Owner allows access to History/Versioning.
+Indicates if the Item's current Owner allows access to History/Versioning.
 
 No additional remarks available
 ##### Signature
@@ -47,7 +47,7 @@ Only returns TRUE if allowed to change and change is different than current owne
 SetOwner(NewOwner: STRING, Reason: STRING)
 ##### Arguments
 - **NewOwner** as: STRING
-  - Remarks: String representing new owner.
+  - Remarks: String representing the new owner.
 - **Reason** as: STRING
   - Remarks: String description of the reason for the change.
 ##### Returns
@@ -60,7 +60,7 @@ Only returns TRUE if allowed to change an change is different than current versi
 SetVersion(NewVersion: NUMBER, Reason: STRING)
 ##### Arguments
 - **NewVersion** as: NUMBER
-  - Remarks: Number representing new version.
+  - Remarks: Number representing the new version.
 - **Reason** as: STRING
   - Remarks: String description of the reason for the change.
 ##### Returns

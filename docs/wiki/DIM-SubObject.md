@@ -32,7 +32,7 @@ NUMBER
 ### Property: Status
 Get the Status of the Dimension of the DIM Object.
 
-Status values are "Input", "Display", "Not Used" or "Fixed"
+Status values are "Input", "Display", "Not Used" or "Fixed".
 ##### Returns
 STRING
 ### Property: Value

@@ -5,7 +5,7 @@ This second-class object cannot be directly created. These types of sub-objects 
 ## Properties
 The following items are accessed from the base object by a dot notation
 ### Property: Alt
-Get/Set Alternatge Code of the CONNECTOR Object.
+Get/Set the Alternate Code of the CONNECTOR Object.
 
 Alternate Code is used for enforcing Alternate Connector values using the Specifications.
 ##### Returns
@@ -30,7 +30,7 @@ transitions to alternate material types. When set to "None", scripts return the 
 the value can be set to "None" using Item.Connector[index].Material = "None".
 If duct coupling pattern 522 is Doublewall, an Error will also result for the Skin Connector Material.
 Skin Connector Material property can not be set via UI but can be reset via code using
-Item.SkinConnector[index].Material = "None"
+Item.SkinConnector[index].Material = "None".
 ##### Returns
 STRING
 ### Property: Type

@@ -42,7 +42,7 @@ No additional remarks available
 ##### Returns
 NUMBER
 ### Property: Path
-Get/Set full Path of Folder being scanned for the FILELOCATOR Object.
+Get/Set the full Path of Folder being scanned for the FILELOCATOR Object.
 
 No additional remarks available
 ##### Returns

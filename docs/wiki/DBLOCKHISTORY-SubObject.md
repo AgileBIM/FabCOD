@@ -31,7 +31,7 @@ No additional remarks available
 ##### Returns
 STRING
 ### Property: Version
-Get the Previous Version of the DBLOCKHISTORY Object
+Get the Previous Version of the DBLOCKHISTORY Object.
 
 No additional remarks available
 ##### Returns

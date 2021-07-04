@@ -1,7 +1,7 @@
 # Global Functions
 **NOTE:** This documentation was auto-generated from the FabricationDefinition.ts file and any errors within this text needs to be resolved within that source file
 ## Function: ACos
-Get the inverse Cosine angle of Adj/Hyp
+Get the inverse Cosine angle of Adj/Hyp.
 
 No additional remarks available
 #### Signature
@@ -12,7 +12,7 @@ ACos(Adjacent: NUMBER, Hypotenuse: NUMBER)
 #### Returns
 NUMBER
 ## Function: Asc
-Gets the ASCII numeric code from a string.
+Gets the ASCII numeric code from a string character.
 
 This does not work with unicode characters. If you want an ASCII code from an index other than the first character
 then you will have to use the MID() function to carve it out.
@@ -36,7 +36,7 @@ Ascii(CharacterCode: NUMBER)
 #### Returns
 STRING
 ## Function: ASin
-Get the inverse Sine angle of Opp/Hyp
+Get the inverse Sine angle of Opp/Hyp.
 
 No additional remarks available
 #### Signature
@@ -47,7 +47,7 @@ ASin(Opposite: NUMBER, Hypotenuse: NUMBER)
 #### Returns
 NUMBER
 ## Function: ATan
-Get the inverse Tangent angle of Opp/Adj
+Get the inverse Tangent angle of Opp/Adj.
 
 No additional remarks available
 #### Signature
@@ -83,7 +83,7 @@ NUMBER
 ## Function: Debug
 Display an Alert message box with a single OK button used to dismiss the message.
 
-This can be called with and without parenthesis
+This can be called with 'DEBUG()' and without 'DEBUG' parenthesis.
 #### Signature
 Debug(MessageTest: STRING)
 #### Arguments
@@ -91,32 +91,32 @@ Debug(MessageTest: STRING)
 #### Returns
 VOID
 ## Function: Error
-Dispalys to the User, a customer error message as desired by your code.
+Dispalys to the User, a custom error message as desired by your code.
 
 No additional remarks available
 #### Signature
 Error(Input: ANY)
 #### Arguments
 - **Input** as: ANY
-  - Remarks: Accepts just about any 1 item
+  - Remarks: Accepts just about any 1 item.
 #### Returns
 VOID
 ## Function: Exec
-Execute an external Application, Document or Link
+Execute an external Application, Document or Link.
 
 No additional remarks available
 #### Signature
 Exec(FullFilePath: STRING, ShowFlags: EXECFLAG, AppParams: STRING, AppWorkingDir: STRING)
 #### Arguments
 - **FullFilePath** as: STRING
-  - Remarks: String represnting fill path and name of EXE, Document or Link.
+  - Remarks: String represnting full path and name of EXE, Document or Link.
 - **ShowFlags** as: EXECFLAG
   - EXEC_DEFAULT
   - EXEC_WAIT
   - EXEC_SHOW_NORMAL
   - EXEC_SHOW_MAX
   - EXEC_SHOW_MIN
-  - Remarks: Number (ENUM) to configure how to display external application.
+  - Remarks: Number (ENUM) to configure how to display the external application.
 - **AppParams** as: STRING
   - Remarks: String paramaters to pass to the external application.
 - **AppWorkingDir** as: STRING
@@ -160,8 +160,8 @@ STRING
 ## Function: InputBox
 Display a Dialog with an Editbox for the user to enter data.
 
-Message box provides an OK and CANCEL button for the user to accept or dismiss the dialog and
-user entered data. Clicking CANCEL will return an empty string.
+Message box provides an 'OK' and 'CANCEL' button for the user to accept or dismiss the dialog and
+user entered data. Clicking 'CANCEL' will return an empty string.
 #### Signature
 InputBox(TitleText: STRING, PromptText: STRING, DefaultText: STRING)
 #### Arguments
@@ -181,17 +181,17 @@ The StartingFrom argument and the subsequent return values are a 1-Based index: 
 InStr(StartingFrom: NUMBER, SearchIn: STRING, SearchFor: STRING, [IsCaseSensitive: BOOLEAN])
 #### Arguments
 - **StartingFrom** as: NUMBER
-  - Remarks: The numeric index of the character to begin the search at
+  - Remarks: The numeric index of the character to begin the search.
 - **SearchIn** as: STRING
-  - Remarks: The base string to be searched
+  - Remarks: The base string to be searched.
 - **SearchFor** as: STRING
-  - Remarks: The value string to be located
+  - Remarks: The value string to be located.
 - **IsCaseSensitive** as Optional: BOOLEAN
-  - Remarks: Optional and defaults to FALSE. If provided as TRUE, then "CaSe SeNsItIvE" would not match "Case Sensitive"
+  - Remarks: Optional and defaults to FALSE. If provided as TRUE, then "CaSe SeNsItIvE" would not match "Case Sensitive".
 #### Returns
 NUMBER
 ## Function: Left
-Get a Sub String from the start of text String which is the specified number of characters in length.
+Get a SubString from the start of text String which is the specified number of characters in length.
 
 No additional remarks available
 #### Signature
@@ -204,7 +204,7 @@ Left(TextString: STRING, Length: NUMBER)
 #### Returns
 STRING
 ## Function: Len
-Get length of String.
+Get the length of String.
 
 No additional remarks available
 #### Signature
@@ -225,7 +225,7 @@ Log(Value: NUMBER)
 #### Returns
 NUMBER
 ## Function: Lower
-Convert text String to all lower case.
+Convert a text String to all lower case.
 
 No additional remarks available
 #### Signature
@@ -236,7 +236,7 @@ Lower(TextString: STRING)
 #### Returns
 STRING
 ## Function: LTrim
-Get text String with any leading spaces removed.
+Get a text String with any leading spaces removed.
 
 No additional remarks available
 #### Signature
@@ -247,9 +247,9 @@ LTrim(TextString: STRING)
 #### Returns
 STRING
 ## Function: Mid
-Get Sub String from the middle of another string by specifying the start position and length.
+Get a SubString from the middle of another string by specifying the start position and length.
 
-The StartingFrom argumentis a 1-Based index: 1 = first character, 2 = second character, etc.
+The StartingFrom argument is a 1-Based index: 1 = first character, 2 = second character, etc.
 Similar to SubString() except you specify a starting position and length.
 #### Signature
 Mid(SearchString: STRING, StartingIndex: NUMBER, Length: NUMBER)
@@ -297,7 +297,7 @@ Pow(Value: NUMBER, N: NUMBER)
 #### Returns
 NUMBER
 ## Function: Query
-Display a simple dialog for the user to select "YES" or "NO".
+Display a simple dialog for the user to select 'YES' or 'NO'.
 
 No additional remarks available
 #### Signature
@@ -308,7 +308,7 @@ Query(PromptText: STRING)
 #### Returns
 BOOLEAN
 ## Function: Right
-Get a Sub String from the end of text String which is the specified number of characters in length.
+Get a SubString from the end of a text String which is the specified number of characters in length.
 
 No additional remarks available
 #### Signature
@@ -333,7 +333,7 @@ Round(Value: NUMBER, [DecimalPlaces: NUMBER])
 #### Returns
 NUMBER
 ## Function: RoundDown
-Get the number rounded down to number of decimalplaces.
+Get the number rounded down to number of decimal places.
 
 No additional remarks available
 #### Signature
@@ -345,7 +345,7 @@ RoundDown(Value: NUMBER, [DecimalPlaces: NUMBER])
 #### Returns
 NUMBER
 ## Function: RoundUp
-Get the value rounded up to number of decimalplaces.
+Get the value rounded up to number of decimal places.
 
 No additional remarks available
 #### Signature
@@ -357,7 +357,7 @@ RoundUp(Value: NUMBER, [DecimalPlaces: NUMBER])
 #### Returns
 NUMBER
 ## Function: RTrim
-Get text String with and trailing spaces removed.
+Get a text String with any trailing spaces removed.
 
 No additional remarks available
 #### Signature
@@ -398,7 +398,7 @@ Sqr(Value: NUMBER)
 #### Returns
 NUMBER
 ## Function: Sqrt
-Get the Square root of the number
+Get the Square root of the number.
 
 No additional remarks available
 #### Signature
@@ -408,7 +408,7 @@ Sqrt(Value: NUMBER)
 #### Returns
 NUMBER
 ## Function: SubString
-Get a Sub String, starting and ending at specified indexes.
+Get a SubString, starting and ending at specified index positions.
 
 The StartingFrom and EndingAt arguments are a 1-Based index: 1 = first character, 2 = second character, etc.
 Similar to Mid() except you specify a starting position and length.
@@ -419,7 +419,7 @@ SubString(TextString: STRING, StartingFrom: NUMBER, EndingAt: NUMBER)
 - **TextString** as: STRING
   - Remarks: The text String to extract a SubString from.
 - **StartingFrom** as: NUMBER
-  - Remarks: A Number (1-based index) for the starting character position to get the substring from.
+  - Remarks: A Number (1-based index) for the starting character position to get the SubString from.
 - **EndingAt** as: NUMBER
   - Remarks: A number (1-based index) for the ending character position to get the substrinbg from.
 #### Returns
@@ -435,18 +435,18 @@ Tan(Angle: NUMBER)
 #### Returns
 NUMBER
 ## Function: Trim
-Get text String with any leading and trailing spaces.
+Get a text String with any leading and trailing spaces.
 
 No additional remarks available
 #### Signature
 Trim(TextString: STRING)
 #### Arguments
 - **TextString** as: STRING
-  - Remarks: A String to trim leadibng and trailing spaces from (if any).
+  - Remarks: A String to trim leading and trailing spaces from (if any).
 #### Returns
 STRING
 ## Function: Upper
-Convert text String to all upper case.
+Convert a text String to all upper case.
 
 No additional remarks available
 #### Signature
@@ -457,7 +457,7 @@ Upper(TextString: STRING)
 #### Returns
 STRING
 ## Function: WildCard
-Test if text String contains wildcard string.
+Test if text String matches a wildcard string.
 
 No additional remarks available
 #### Signature
