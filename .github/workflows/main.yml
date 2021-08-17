@@ -7,8 +7,8 @@ name: CI
 on:
   push:
     branches: [ main ]
-  # pull_request:
-  #   branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -35,6 +35,7 @@ jobs:
         shell: pwsh
 
       - run: npm install
+      - run: npm run compile
       - run: python ./configurations/pack.py
 
       - run: npm test
