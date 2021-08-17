@@ -35,6 +35,7 @@ jobs:
         shell: pwsh
 
       - run: npm install
+      - run: npm run compile
       - run: python ./configurations/pack.py
 
       - run: npm test
