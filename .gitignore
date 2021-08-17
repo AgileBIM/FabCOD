@@ -6,6 +6,7 @@ configurations/__pycache__
 src/temp
 *.zip
 *.pyc
+*.vsix
 /util/ExtractFabItemOptions/.vs
 /util/ExtractFabItemOptions/obj
 /util/ExtractFabItemOptions/packages
