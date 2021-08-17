@@ -51,7 +51,7 @@ That video is very dry, slow moving and mildly out of date with the current GitH
 
 ## Step 3: Clone the Repo :heavy_check_mark:
 
-Cloning your repository locally can be done in many different ways, but I prefer to accomplish this using the [GitHub Desktop](https://desktop.github.com/) application. The instructions below make the assumption you will be contributing to the main project, if you are only tinkering with the code, then just use the Web UI to download a zip/extract it wherever you want.
+Cloning your repository locally can be done in many different ways, but I prefer to accomplish this using the [GitHub Desktop](https://desktop.github.com/) (GHD) application. The instructions below make the assumption you will be contributing to the main project, if you are only tinkering with the code, then just use the Web UI to download a zip/extract it wherever you want.
 
 From GHD, goto `File` -> `Clone Repository` or use the `Ctrl+Shift+O` shortcut. Which will bring up this dialog:
 
