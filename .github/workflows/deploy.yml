@@ -22,3 +22,4 @@ jobs:
           pat: ${{ secrets.FABCODEXT_TOKEN }}
           registryUrl: https://marketplace.visualstudio.com
           extensionFile: ${{ github.event.inputs.releaseURL }}
+          packagePath: ''
