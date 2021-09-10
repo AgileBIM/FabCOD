@@ -51,20 +51,25 @@ Review Notes (DYoung = 2021.01.25)
 	Added 'OUTPUT()' to Global Functions
 	Edited Description for 'ERROR' Global Function
 	Added 11 'Add____()' and 11 'Remove____()' Methods to 'PRODUCTENTRY' Object.
-	Added 'SEEKENTY()' and 'SEEKLINE()' Methods to 'FILE' Object.
+	Added 'SEEKENTRY()' and 'SEEKLINE()' Methods to 'FILE' Object.
 	Added 'ADDLINK()', 'DELETELINK()' and 'SETDONOTCUTFLAG()' Methods to 'ITEMSTRUCT' Object.
 Review Notes (DYoung = 2021.05.16)
 	Added 'UTF8' and 'UTF16' Enums to 'FILEMODE' Object.
 	Added 'Group' property to 'SEAM' Object. 
 	Edited various comments.
 Review Notes (DYoung = 2021.06.02)
-	Added 'PCFSSKEY' Property to 'ITEMSTRUCT' Object.
+	Added 'PCFSKEY' Property to 'ITEMSTRUCT' Object.
 Review Notes (DYoung = 2021.06.13)
 	Various comment edits/spelling corrections.
 	Added 'Group' property to 'AIRTURN', 'SPLITTER' and 'STIFFENER' Objects. 
 	Added 'FacingLock' property to 'INSULATION' Object.
 Review Notes (DYoung = 2021.06.24)
 	Added 'Rotation' property to 'DAMPER' Object.
+Review Notes (DYoung = 2021.09.07)
+	Added 'ABS()' to Global Functions.
+	Added 'GETFILEPATH()' to Global Functions
+	Edited notes/context help for 'GETFILENAME()' in Global Functions
+	Edited notes/context help for 'GETFILEEXT()' in Global Functions
 */
 
 // IMPORTANT: Anywhere (in code) you are representing an actual value of a string, please use single quotes. This does not apply to the /** documentation areas */
@@ -370,6 +375,15 @@ export namespace FABRICATION {
 	}
 
 	/**
+	 * Get the absolute value of value.
+	 * @param Value
+	 * @returns number
+	 */
+	 function Abs(Value: number): number	{
+		return 0; 
+	}
+
+	/**
 	 * Forces extraction of Number from variable data types.
 	 * @param Value
 	 * @returns number
@@ -494,7 +508,7 @@ export namespace FABRICATION {
 	}
 
 	/**
-	 * Extract filename path (including extension) full path + filename.
+	 * Extract file name (including extension) from filename / full path + filename.
 	 * @param FilePathAndName A String representing a file full path and name.
 	 * @returns A String of the file name including extension.
 	 * @remarks
@@ -502,6 +516,17 @@ export namespace FABRICATION {
 	 * Path may use either backslash [\] or forwardslash [/] seperators between directories.
 	 */
 	function GetFileName(FilePathAndName: string): string { 
+		return ''; 
+	}
+
+	/**
+	 * Extract file path from full path + filename,
+	 * @param FilePathAndName A String representing a file full path and name.
+	 * @returns A String of the file path including extension.
+	 * @remarks
+	 * Path may use either backslash [\] or forwardslash [/] seperators between directories.
+	 */
+	 function GetFilePath(FilePathAndName: string): string { 
 		return ''; 
 	}
 

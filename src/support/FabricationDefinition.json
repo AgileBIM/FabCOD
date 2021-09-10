@@ -269,6 +269,29 @@
       },
       "id": "Log"
     },
+    "Abs": {
+      "returns": [
+        "NUMBER"
+      ],
+      "args": [
+        {
+          "types": [
+            "NUMBER"
+          ],
+          "optional": false,
+          "notes": "",
+          "id": "Value"
+        }
+      ],
+      "info": {
+        "desc": "Get the absolute value of value.",
+        "args": {
+          "Value": ""
+        },
+        "returns": "number"
+      },
+      "id": "Abs"
+    },
     "Number": {
       "returns": [
         "NUMBER"
@@ -609,7 +632,7 @@
         }
       ],
       "info": {
-        "desc": "Extract filename path (including extension) full path + filename.",
+        "desc": "Extract file name (including extension) from filename / full path + filename.",
         "args": {
           "FilePathAndName": "A String representing a file full path and name."
         },
@@ -617,6 +640,30 @@
         "remarks": "File name is returned including the extension.\r\nPath may use either backslash [\\] or forwardslash [/] seperators between directories."
       },
       "id": "GetFileName"
+    },
+    "GetFilePath": {
+      "returns": [
+        "STRING"
+      ],
+      "args": [
+        {
+          "types": [
+            "STRING"
+          ],
+          "optional": false,
+          "notes": "A String representing a file full path and name.",
+          "id": "FilePathAndName"
+        }
+      ],
+      "info": {
+        "desc": "Extract file path from full path + filename,",
+        "args": {
+          "FilePathAndName": "A String representing a file full path and name."
+        },
+        "returns": "A String of the file path including extension.",
+        "remarks": "Path may use either backslash [\\] or forwardslash [/] seperators between directories."
+      },
+      "id": "GetFilePath"
     },
     "InStr": {
       "returns": [
