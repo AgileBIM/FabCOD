@@ -2,7 +2,7 @@
 	"name": "fabcod",
 	"displayName": "FabCOD",
 	"description": "Fabrication COD Scripting Language Support",
-	"version": "0.1.1",
+	"version": "0.2.0",
 	"license": "MIT",
 	"publisher": "agilebim",
 	"bugs": {

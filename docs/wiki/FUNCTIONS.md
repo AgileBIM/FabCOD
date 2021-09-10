@@ -1,5 +1,15 @@
 # Global Functions
 **NOTE:** This documentation was auto-generated from the FabricationDefinition.ts file and any errors within this text needs to be resolved within that source file
+## Function: Abs
+Get the absolute value of value.
+
+No additional remarks available
+#### Signature
+Abs(Value: NUMBER)
+#### Arguments
+- **Value** as: NUMBER
+#### Returns
+NUMBER
 ## Function: ACos
 Get the inverse Cosine angle of Adj/Hyp.
 
@@ -146,12 +156,23 @@ GetFileExt(FileName: STRING)
 #### Returns
 STRING
 ## Function: GetFileName
-Extract filename path (including extension) full path + filename.
+Extract file name (including extension) from filename / full path + filename.
 
 File name is returned including the extension.
 Path may use either backslash [\] or forwardslash [/] seperators between directories.
 #### Signature
 GetFileName(FilePathAndName: STRING)
+#### Arguments
+- **FilePathAndName** as: STRING
+  - Remarks: A String representing a file full path and name.
+#### Returns
+STRING
+## Function: GetFilePath
+Extract file path from full path + filename,
+
+Path may use either backslash [\] or forwardslash [/] seperators between directories.
+#### Signature
+GetFilePath(FilePathAndName: STRING)
 #### Arguments
 - **FilePathAndName** as: STRING
   - Remarks: A String representing a file full path and name.
